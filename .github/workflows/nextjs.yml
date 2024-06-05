@@ -41,7 +41,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.https://saajiidi.github.io/example-app-nextjs/ }}
+      url: ${{ steps.deployment.outputs.https://github.com/saajiidi/example-app-nextjs }}
 
     runs-on: ubuntu-latest
     needs: build
