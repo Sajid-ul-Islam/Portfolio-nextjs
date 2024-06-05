@@ -1,8 +1,6 @@
-import { defineConfig } from "next";
-
 /** @type {import('next').NextConfig} */
-const nextConfig = defineConfig({
-  output: "export",
-});
+const nextConfig = {};
 
 export default nextConfig;
+
+
