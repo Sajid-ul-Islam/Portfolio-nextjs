@@ -2,7 +2,7 @@
   "name": "example-app-nextjs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "saajiidi.github.io/example-app-nextjs",
+  "homepage": "https://saajiidi.github.io/example-app-nextjs/",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
