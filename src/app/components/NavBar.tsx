@@ -12,17 +12,16 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full lg:w-64 bg-black text-white flex flex-col items-center z-50 p-4">
+    <nav className="fixed top-0 left-0 w-full lg:w-64 bg-black text-white flex flex-col items-center z-50 p-2 lg:p-4">
       <div className="flex items-center justify-between w-full lg:flex-col">
         <a href="#page-top" className="flex items-center lg:flex-col lg:mb-4">
           <Image
             src={profilePic}
             alt="Sajid Islam"
-            className="rounded-full border-4 border-white mr-3 lg:mr-0 lg:mb-2"
+            className="hidden lg:block rounded-full border-4 border-white mr-3 lg:mr-0 lg:mb-2"
             width={120}
             height={120}
           />
-          
         </a>
         <button
           className="lg:hidden block text-white"
