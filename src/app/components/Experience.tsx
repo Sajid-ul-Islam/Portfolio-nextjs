@@ -1,4 +1,3 @@
-// components/Experience.js
 import React from "react";
 
 const Experience = () => {
@@ -56,33 +55,41 @@ const Experience = () => {
       date: "April 2024 - Present",
       companyLink: "https://www.facebook.com/profile.php?id=61558077623189",
     },
-    // Add other experiences similarly
   ];
 
   return (
     <section
-      className="p-3 lg:p-5 flex flex-col justify-center"
+      className="p-3 lg:p-5 flex flex-col items-center text-white"
       id="experience"
     >
-      <div className="w-full">
-        <h2 className="mb-5 text-3xl font-bold">Experience</h2>
+      <div className="w-full max-w-4xl">
+        <h2 className="mb-5 text-4xl font-bold text-left">Experience</h2>
         {experiences.map((exp, index) => (
           <div
             key={index}
-            className="resume-item flex flex-col md:flex-row justify-between mb-5"
+            className="resume-item flex flex-col md:flex-row justify-between mb-5 p-5 rounded-lg shadow-lg bg-black"
           >
             <div className="resume-content">
-              <h3 className="mb-0 text-xl font-semibold">{exp.title}</h3>
+              <h3 className="mb-1 text-xl font-semibold">{exp.title}</h3>
               <div className="subheading mb-3">
-                <a href={exp.companyLink} className="text-primary">
+                <a
+                  href={exp.companyLink}
+                  className="text-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {exp.company}
                 </a>
               </div>
-              <ul className="list-disc ml-5">
+              <div className="md:ml-5">
+                {" "}
+                {/* Added margin for mobile view */}
                 {exp.tasks.map((task, i) => (
-                  <li key={i}>{task}</li>
+                  <div key={i} className="mb-2">
+                    • {task}
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
             <div className="resume-date text-md-right text-primary">
               <span>{exp.date}</span>

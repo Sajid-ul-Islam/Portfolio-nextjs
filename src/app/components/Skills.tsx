@@ -1,56 +1,81 @@
-// components/Skills.js
 import React from "react";
+import {
+  FaCheck,
+  FaCode,
+  FaDatabase,
+  FaChartLine,
+  FaTools,
+  FaProjectDiagram,
+} from "react-icons/fa";
 
 const Skills = () => {
   const skills = [
-    "Digital Sales & Marketing",
-    "Data Analysis & Reporting",
-    "Market Analysis & Research",
-    "Product Development & Management",
+    { name: "Digital Sales & Marketing", icon: FaChartLine },
+    { name: "Data Analysis & Reporting", icon: FaDatabase },
+    { name: "Market Analysis & Research", icon: FaChartLine },
+    { name: "Product Development & Management", icon: FaProjectDiagram },
   ];
 
   const tools = [
-    "React & NEXT JS",
-    "Bootstrap & Tailwind CSS",
-    "SQL, PANDAS & Matplotlib with Python",
-    "Excel & Power BI",
+    { name: "React & NEXT JS", icon: FaCode },
+    { name: "Bootstrap & Tailwind CSS", icon: FaTools },
+    { name: "SQL, PANDAS & Matplotlib with Python", icon: FaDatabase },
+    { name: "Excel & Power BI", icon: FaChartLine },
   ];
 
-  const workflows = ["Cross Functional Teams", "Agile Development & Scrum"];
+  const workflows = [
+    { name: "Cross Functional Teams", icon: FaCheck },
+    { name: "Agile Development & Scrum", icon: FaCheck },
+  ];
 
   return (
-    <section className="p-3 lg:p-5 flex items-center" id="skills">
-      <div className="w-full">
-        <h2 className="mb-5 text-3xl font-bold">Skills</h2>
-        <ul className="fa-ul mb-5 list-disc ml-5">
-          {skills.map((skill, index) => (
-            <li key={index}>
-              <i className="fa-li fa fa-check"></i>
-              {skill}
-            </li>
-          ))}
-        </ul>
-        <div className="subheading mb-3">
-          Tools & Frameworks I have been learning & working on...
-        </div>
-        <ul className="fa-ul mb-5 list-disc ml-5">
-          {tools.map((tools, index) => (
-            <li key={index}>
-              <i className="fa-li fa fa-check"></i>
-              {tools}
-            </li>
-          ))}
-        </ul>
+    <section
+      className="p-3 lg:p-5 flex flex-col items-center text-white"
+      id="skills"
+    >
+      <div className="w-full max-w-4xl">
         
-        <div className="subheading mb-3">Workflow</div>
-        <ul className="fa-ul mb-0 list-disc ml-5">
-          {workflows.map((workflow, index) => (
-            <li key={index}>
-              <i className="fa-li fa fa-check"></i>
-              {workflow}
-            </li>
-          ))}
-        </ul>
+        <div className="mb-5 w-full p-5 rounded-lg shadow-lg bg-black">
+          <h3 className="text-3xl font-semibold mb-3 text-primary text-left">
+            Core Skills
+          </h3>
+          <ul className="space-y-2">
+            {skills.map((skill, index) => (
+              <li key={index} className="flex items-center">
+                <skill.icon className="text-primary mr-3" />
+                {skill.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mb-5 w-full p-5 rounded-lg shadow-lg bg-black">
+          <h3 className="text-3xl font-semibold mb-3 text-primary text-left">
+            Tools & Frameworks
+          </h3>
+          <ul className="space-y-2">
+            {tools.map((tool, index) => (
+              <li key={index} className="flex items-center">
+                <tool.icon className="text-primary mr-3" />
+                {tool.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="mb-5 w-full p-5 rounded-lg shadow-lg bg-black">
+          <h3 className="text-3xl font-semibold mb-3 text-primary text-left">
+            Workflow
+          </h3>
+          <ul className="space-y-2">
+            {workflows.map((workflow, index) => (
+              <li key={index} className="flex items-center">
+                <workflow.icon className="text-primary mr-3" />
+                {workflow.name}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );

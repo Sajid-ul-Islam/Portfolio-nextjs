@@ -1,36 +1,45 @@
-// components/Projects.js
 import React from "react";
+import { FaProjectDiagram } from "react-icons/fa";
+
+const projects = [
+  {
+    title: "My Portfolio with Bootstrap",
+    link: "https://saajiidi.github.io/",
+  },
+  {
+    title: "My Portfolio with React App & TypeScript",
+    link: "https://saajiidi.github.io/portfolio/",
+  },
+  {
+    title: "My Portfolio with Next JS & Tailwind CSS",
+    link: "https://sajid-islam-portfolio.vercel.app/",
+  },
+];
 
 const Projects = () => {
-  const projects = [
-    {
-      title: "LMS - System Analysis, Design, & Implementation",
-      description:
-        "This project is aimed at creating a user-friendly Learning Management System to assist students and educators.",
-      link: "#",
-    },
-    {
-      title: "General Store Database System",
-      description:
-        "Developed a comprehensive database system for managing a general store’s inventory and sales.",
-      link: "#",
-    },
-    // Add other projects similarly
-  ];
-
   return (
-    <section className="p-3 lg:p-5 flex items-center" id="projects">
-      <div className="w-full">
-        <h2 className="mb-5 text-3xl font-bold">Projects</h2>
+    <section
+      className="p-3 lg:p-5 flex flex-col items-center text-white"
+      id="projects"
+    >
+      <div className="w-full max-w-4xl">
+        <h2 className="mb-5 text-4xl font-bold text-left">Projects</h2>
         {projects.map((project, index) => (
-          <div key={index} className="resume-item flex flex-col mb-5">
-            <div className="resume-content">
-              <h3 className="mb-0 text-xl font-semibold">
-                <a href={project.link} className="text-primary">
+          <div
+            key={index}
+            className="mb-5 p-5 rounded-lg shadow-lg bg-black"
+          >
+            <div className="flex items-center mb-3">
+              <FaProjectDiagram className="text-warning mr-3" />
+              <h3 className="text-xl font-semibold text-primary">
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {project.title}
                 </a>
               </h3>
-              <p className="mb-0">{project.description}</p>
             </div>
           </div>
         ))}
