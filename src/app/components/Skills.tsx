@@ -10,13 +10,10 @@ const Skills = () => {
   ];
 
   const tools = [
-    { name: "React", icon: "fab fa-react" },
-    { name: "SQL", icon: "fas fa-database" },
-    { name: "Power BI", icon: "fas fa-chart-line" },
-    { name: "Excel", icon: "fas fa-file-excel" },
-    { name: "NumPy", icon: "fas fa-square-root-alt" },
-    { name: "Matplotlib", icon: "fas fa-chart-bar" },
-    { name: "Ubuntu", icon: "fab fa-ubuntu" },
+    "React & NEXT JS",
+    "Bootstrap & Tailwind CSS",
+    "SQL, PANDAS & Matplotlib with Python",
+    "Excel & Power BI",
   ];
 
   const workflows = ["Cross Functional Teams", "Agile Development & Scrum"];
@@ -36,17 +33,15 @@ const Skills = () => {
         <div className="subheading mb-3">
           Tools & Frameworks I have been learning & working on...
         </div>
-        <ul className="list-inline mb-5 flex flex-wrap">
-          {tools.map((tool, index) => (
-            <li
-              key={index}
-              className="list-inline-item m-2 text-2xl"
-              title={tool.name}
-            >
-              <i className={tool.icon}></i>
+        <ul className="fa-ul mb-5 list-disc ml-5">
+          {tools.map((tools, index) => (
+            <li key={index}>
+              <i className="fa-li fa fa-check"></i>
+              {tools}
             </li>
           ))}
         </ul>
+        
         <div className="subheading mb-3">Workflow</div>
         <ul className="fa-ul mb-0 list-disc ml-5">
           {workflows.map((workflow, index) => (

@@ -14,6 +14,48 @@ const Experience = () => {
       date: "January 2020 - January 2022",
       companyLink: "https://www.daraz.com.bd",
     },
+    {
+      title: "Associate - Home Kitchen & Street Food",
+      company: "HungryNaki - Alibaba Group",
+      tasks: [
+        "Business & Marketplace Analysis",
+        "Brand & Partner Acquisition",
+        "Partner Development Project",
+      ],
+      date: "July 2021 - January 2022",
+      companyLink: "https://hungrynaki.com",
+      companyLink2: "https://www.alibaba.com",
+    },
+    {
+      title: "IT Executive - Quality Control",
+      company: "NZ Fabrics - NZ TEXTILE GROUP",
+      tasks: [
+        "Info & Tech Support to the Quality Control Team",
+        "Associating with the Research & Development Team",
+        "Presentation & Reporting to the Authorities & Buyers",
+      ],
+      date: "April 2023 - May 2023",
+      companyLink: "https://nztexgroup.com",
+      companyLink2: "https://www.linkedin.com/company/nztexgroup/",
+    },
+    {
+      title: "Associate - Online Sales & Customer Supports",
+      company: "Thriving Skill",
+      tasks: [
+        "Business & Marketplace Analysis",
+        "Sales Growth Strategies",
+        "Customer Relationship Management",
+      ],
+      date: "June 2023 - June 2024",
+      companyLink: "https://thrivingskill.com",
+    },
+    {
+      title: "Co-Founder",
+      company: "Gear Master",
+      tasks: ["Bike Accessories Retail Shop"],
+      date: "April 2024 - Present",
+      companyLink: "https://www.facebook.com/profile.php?id=61558077623189",
+    },
     // Add other experiences similarly
   ];
 

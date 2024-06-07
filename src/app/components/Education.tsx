@@ -12,6 +12,30 @@ const Education = () => {
       fieldLink: "http://www.mis.du.ac.bd",
     },
     // Add other educations similarly
+    {
+      degree: "Bachelor of Science",
+      field: "Computer Science & Engineering",
+      institution: "North South University",
+      year: "2019",
+      institutionLink: "http://ece.northsouth.edu",
+      fieldLink: "http://ece.northsouth.edu",
+    },
+    {
+      degree: "Higher Secondary School",
+      field: "Science Division",
+      institution: "Bangladesh Air Force Shaheen College Dhaka",
+      year: "2013",
+      institutionLink: "https://bafsd.edu.bd",
+      fieldLink: "",
+    },
+    {
+      degree: "Secondary School",
+      field: "Science Division",
+      institution: "Uttara High School & College",
+      year: "2011",
+      institutionLink: "https://uhscdhaka.edu.bd",
+      fieldLink: "",
+    },
   ];
 
   return (
