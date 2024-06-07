@@ -34,18 +34,19 @@ const Skills = () => {
       id="skills"
     >
       <div className="w-full max-w-4xl">
-        
         <div className="mb-5 w-full p-5 rounded-lg shadow-lg bg-black">
           <h3 className="text-3xl font-semibold mb-3 text-primary text-left">
             Core Skills
           </h3>
           <ul className="space-y-2">
-            {skills.map((skill, index) => (
-              <li key={index} className="flex items-center">
-                <skill.icon className="text-primary mr-3" />
-                {skill.name}
-              </li>
-            ))}
+            <p>
+              {skills.map((skill, index) => (
+                <li key={index} className="flex items-center">
+                  <skill.icon className="text-primary mr-3" />
+                  {skill.name}
+                </li>
+              ))}
+            </p>
           </ul>
         </div>
 
@@ -54,12 +55,15 @@ const Skills = () => {
             Tools & Frameworks
           </h3>
           <ul className="space-y-2">
-            {tools.map((tool, index) => (
-              <li key={index} className="flex items-center">
-                <tool.icon className="text-primary mr-3" />
-                {tool.name}
-              </li>
-            ))}
+            {" "}
+            <p>
+              {tools.map((tool, index) => (
+                <li key={index} className="flex items-center">
+                  <tool.icon className="text-primary mr-3" />
+                  {tool.name}
+                </li>
+              ))}{" "}
+            </p>
           </ul>
         </div>
 
@@ -68,12 +72,14 @@ const Skills = () => {
             Workflow
           </h3>
           <ul className="space-y-2">
-            {workflows.map((workflow, index) => (
-              <li key={index} className="flex items-center">
-                <workflow.icon className="text-primary mr-3" />
-                {workflow.name}
-              </li>
-            ))}
+            <p>
+              {workflows.map((workflow, index) => (
+                <li key={index} className="flex items-center">
+                  <workflow.icon className="text-primary mr-3" />
+                  {workflow.name}
+                </li>
+              ))}
+            </p>
           </ul>
         </div>
       </div>
