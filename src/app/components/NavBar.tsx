@@ -12,51 +12,51 @@ export default function NavBar() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 h-full w-full lg:w-64 bg-primary text-white flex flex-col items-center">
-      <a className="mt-8 mb-4" href="#page-top">
-        <span className="block lg:hidden text-center">Sajid Islam</span>
-        <span className="hidden lg:block">
+    <nav className="fixed top-0 left-0 w-full lg:w-64 bg-black text-white flex flex-col items-center z-50 p-4">
+      <div className="flex items-center justify-between w-full lg:flex-col">
+        <a href="#page-top" className="flex items-center lg:flex-col lg:mb-4">
           <Image
             src={profilePic}
             alt="Sajid Islam"
-            className="rounded-full mx-auto"
-            width={128}
-            height={128}
+            className="rounded-full border-4 border-white mr-3 lg:mr-0 lg:mb-2"
+            width={120}
+            height={120}
           />
-        </span>
-      </a>
-      <button
-        className="lg:hidden block text-white"
-        onClick={() => setIsOpen(!isOpen)}
-        aria-controls="navbarSupportedContent"
-        aria-expanded={isOpen ? "true" : "false"}
-        aria-label="Toggle navigation"
-      >
-        <svg
-          className="w-8 h-8"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
+          
+        </a>
+        <button
+          className="lg:hidden block text-white"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-controls="navbarSupportedContent"
+          aria-expanded={isOpen ? "true" : "false"}
+          aria-label="Toggle navigation"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M4 6h16M4 12h16m-7 6h7"
-          ></path>
-        </svg>
-      </button>
+          <svg
+            className="w-8 h-8"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h16m-7 6h7"
+            ></path>
+          </svg>
+        </button>
+      </div>
       <div
         className={`lg:flex ${
-          isOpen ? "block" : "hidden"
-        } flex-col items-center w-full`}
+          isOpen ? "flex" : "hidden"
+        } flex-col lg:flex-col items-center w-full`}
         id="navbarSupportedContent"
       >
-        <ul className="flex flex-col items-center lg:items-start lg:space-y-4 w-full lg:w-auto">
+        <ul className="flex flex-col lg:flex-col items-center w-full lg:w-auto lg:space-y-4">
           <li className="nav-item">
             <a
-              className="nav-link hover:text-gray-400"
+              className="nav-link hover:text-gray-400 p-2"
               href="#about"
               onClick={handleLinkClick}
             >
@@ -65,7 +65,7 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <a
-              className="nav-link hover:text-gray-400"
+              className="nav-link hover:text-gray-400 p-2"
               href="#experience"
               onClick={handleLinkClick}
             >
@@ -74,7 +74,7 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <a
-              className="nav-link hover:text-gray-400"
+              className="nav-link hover:text-gray-400 p-2"
               href="#education"
               onClick={handleLinkClick}
             >
@@ -83,7 +83,7 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <a
-              className="nav-link hover:text-gray-400"
+              className="nav-link hover:text-gray-400 p-2"
               href="#skills"
               onClick={handleLinkClick}
             >
@@ -92,7 +92,7 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <a
-              className="nav-link hover:text-gray-400"
+              className="nav-link hover:text-gray-400 p-2"
               href="#interests"
               onClick={handleLinkClick}
             >
@@ -101,7 +101,7 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <a
-              className="nav-link hover:text-gray-400"
+              className="nav-link hover:text-gray-400 p-2"
               href="#awards"
               onClick={handleLinkClick}
             >
@@ -110,7 +110,7 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <a
-              className="nav-link hover:text-gray-400"
+              className="nav-link hover:text-gray-400 p-2"
               href="#projects"
               onClick={handleLinkClick}
             >
@@ -119,7 +119,7 @@ export default function NavBar() {
           </li>
           <li className="nav-item">
             <a
-              className="nav-link hover:text-gray-400"
+              className="nav-link hover:text-gray-400 p-2"
               href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
               target="_blank"
               onClick={handleLinkClick}

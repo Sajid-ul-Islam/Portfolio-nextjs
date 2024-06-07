@@ -1,3 +1,4 @@
+// pages/index.tsx
 import "./styles.css";
 import NavBar from "./components/NavBar";
 import About from "./components/About";
@@ -10,10 +11,10 @@ import Projects from "./components/Projects";
 
 export default function Home() {
   return (
-    <div>
+    <div className="flex flex-col lg:flex-row">
       <NavBar />
-      <main className="container mx-auto p-4">
-        <div className="content-wrapper">
+      <main className="container">
+        <div className="">
           <About />
           <Experience />
           <Education />

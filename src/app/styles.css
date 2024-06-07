@@ -1,4 +1,67 @@
+/* styles.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #121212; /* Dark background for body */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
 .content-wrapper {
-  margin-top: 4rem; /* Adjust this value as needed */
-  margin-left: 16rem;
+  padding: 2rem 0;
+}
+
+nav {
+  background-color: #000; /* Black background for navbar */
+  color: white;
+}
+
+.nav-item a {
+  display: block;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-item a:hover {
+  background-color: #444;
+}
+
+.bg-navbar-bg {
+  background-color: #1f1f1f; /* Slightly different dark background for navbar */
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-left: 16rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .container {
+    padding-left: 0;
+  }
+
+  .nav-item {
+    flex: 1 0 auto;
+    text-align: center;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  ul::-webkit-scrollbar {
+    display: none;
+  }
 }
