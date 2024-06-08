@@ -28,16 +28,13 @@ const Interests = () => {
       <div className="w-full p-5 rounded-lg shadow-lg bg-black bg-opacity-75">
         <h2 className="mb-5 text-3xl font-bold text-left">Interests</h2>
 
-        <ul className="fa-ul space-y-2 px-5">
-          {" "}
-          <p>
-            {interests.map((interest, index) => (
-              <li key={index} className="flex items-center">
-                <interest.icon className="text-primary mr-3" />
-                {interest.name}
-              </li>
-            ))}{" "}
-          </p>
+        <ul className="grid grid-cols-1 px-5">
+          {interests.map((interest, index) => (
+            <li key={index} className="flex items-center space-x-3">
+              <interest.icon className="text-primary" />
+              <span>{interest.name}</span>
+            </li>
+          ))}
         </ul>
       </div>
     </section>

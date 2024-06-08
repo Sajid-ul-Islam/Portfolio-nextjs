@@ -38,15 +38,13 @@ const Skills = () => {
           <h3 className="text-3xl font-semibold mb-3 text-primary text-left">
             Core Skills
           </h3>
-          <ul className="space-y-2">
-            <p>
-              {skills.map((skill, index) => (
-                <li key={index} className="flex items-center">
-                  <skill.icon className="text-primary mr-3" />
-                  {skill.name}
-                </li>
-              ))}
-            </p>
+          <ul className="grid grid-cols-1 px-5">
+            {skills.map((skill, index) => (
+              <li key={index} className="flex items-center">
+                <skill.icon className="text-primary mr-3" />
+                {skill.name}
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -54,16 +52,13 @@ const Skills = () => {
           <h3 className="text-3xl font-semibold mb-3 text-primary text-left">
             Tools & Frameworks
           </h3>
-          <ul className="space-y-2">
-            {" "}
-            <p>
-              {tools.map((tool, index) => (
-                <li key={index} className="flex items-center">
-                  <tool.icon className="text-primary mr-3" />
-                  {tool.name}
-                </li>
-              ))}{" "}
-            </p>
+          <ul className="grid grid-cols-1 px-5">
+            {tools.map((tool, index) => (
+              <li key={index} className="flex items-center">
+                <tool.icon className="text-primary mr-3" />
+                {tool.name}
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -71,15 +66,13 @@ const Skills = () => {
           <h3 className="text-3xl font-semibold mb-3 text-primary text-left">
             Workflow
           </h3>
-          <ul className="space-y-2">
-            <p>
-              {workflows.map((workflow, index) => (
-                <li key={index} className="flex items-center">
-                  <workflow.icon className="text-primary mr-3" />
-                  {workflow.name}
-                </li>
-              ))}
-            </p>
+          <ul className="grid grid-cols-1 px-5">
+            {workflows.map((workflow, index) => (
+              <li key={index} className="flex items-center">
+                <workflow.icon className="text-primary mr-3" />
+                {workflow.name}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
