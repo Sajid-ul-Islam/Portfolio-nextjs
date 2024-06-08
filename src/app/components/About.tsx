@@ -131,6 +131,7 @@ const About = () => {
             <div key={index} className="p-4 bg-black rounded-lg shadow-md">
               <h3 className="mb-1 text-xl font-semibold">{member.relation}</h3>
               <p className="mb-1">{member.name}</p>
+              <p>
                 {member.occupation}
                 {member.link && (
                   <Link href={member.link} legacyBehavior>
