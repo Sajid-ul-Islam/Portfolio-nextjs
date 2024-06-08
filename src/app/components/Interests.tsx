@@ -17,7 +17,7 @@ const Interests = () => {
     { name: "Business", icon: FaBriefcase },
     { name: "History", icon: FaBook },
     { name: "Politics", icon: FaGlobe },
-    { name: "War", icon: FaBalanceScale },
+    
   ];
 
   return (
