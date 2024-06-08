@@ -11,6 +11,21 @@ export default function NavBar() {
     setIsOpen(false);
   };
 
+  const navItems = [
+    { href: "#about", label: "About" },
+    { href: "#experience", label: "Experience" },
+    { href: "#education", label: "Education" },
+    { href: "#skills", label: "Skills" },
+    { href: "#interests", label: "Interests" },
+    { href: "#awards", label: "Awards" },
+    { href: "#projects", label: "Projects" },
+    {
+      href: "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
+      label: "Resume",
+      external: true,
+    },
+  ];
+
   return (
     <nav className="fixed top-0 left-0 w-full lg:w-64 bg-black text-white flex flex-col items-center z-50 p-2 lg:p-4">
       <div className="flex items-center justify-between w-full lg:flex-col">
@@ -53,79 +68,19 @@ export default function NavBar() {
         id="navbarSupportedContent"
       >
         <ul className="flex flex-col lg:flex-col items-center w-full lg:w-auto lg:space-y-4">
-          <li className="nav-item">
-            <a
-              className="nav-link hover:text-gray-400 p-2"
-              href="#about"
-              onClick={handleLinkClick}
-            >
-              About
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link hover:text-gray-400 p-2"
-              href="#experience"
-              onClick={handleLinkClick}
-            >
-              Experience
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link hover:text-gray-400 p-2"
-              href="#education"
-              onClick={handleLinkClick}
-            >
-              Education
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link hover:text-gray-400 p-2"
-              href="#skills"
-              onClick={handleLinkClick}
-            >
-              Skills
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link hover:text-gray-400 p-2"
-              href="#interests"
-              onClick={handleLinkClick}
-            >
-              Interests
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link hover:text-gray-400 p-2"
-              href="#awards"
-              onClick={handleLinkClick}
-            >
-              Awards
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link hover:text-gray-400 p-2"
-              href="#projects"
-              onClick={handleLinkClick}
-            >
-              Projects
-            </a>
-          </li>
-          <li className="nav-item">
-            <a
-              className="nav-link hover:text-gray-400 p-2"
-              href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
-              target="_blank"
-              onClick={handleLinkClick}
-            >
-              Resume
-            </a>
-          </li>
+          {navItems.map((item, index) => (
+            <li className="nav-item" key={index}>
+              <a
+                className="nav-link hover:text-gray-400 p-2"
+                href={item.href}
+                onClick={handleLinkClick}
+                target={item.external ? "_blank" : "_self"}
+                rel={item.external ? "noopener noreferrer" : ""}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
