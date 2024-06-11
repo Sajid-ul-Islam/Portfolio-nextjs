@@ -14,6 +14,11 @@ const projects = [
     title: "My Portfolio with Next JS & Tailwind CSS",
     link: "https://sajid-islam-portfolio.vercel.app/",
   },
+
+  {
+    title: "E-Commerce Interface with React JS",
+    link: "https://gear-master.vercel.app/",
+  },
 ];
 
 const Projects = () => {
