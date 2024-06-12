@@ -19,6 +19,11 @@ const projects = [
     title: "E-Commerce Interface with React JS",
     link: "https://gear-master.vercel.app/",
   },
+
+  {
+    title: "LMS Interface with React JS",
+    link: "https://altenaitve-school.vercel.app/",
+  },
 ];
 
 const Projects = () => {
