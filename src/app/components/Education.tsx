@@ -14,10 +14,10 @@ const Education = () => {
     
     
     {
-      degree: "Executive Masters of Business Administration",
+      degree: "EMBA (Drop Out)",
       field: "Management Information System",
       institution: "University of Dhaka",
-      year: "2021 (Drop Out)",
+      year: "2021",
       institutionLink: "https://www.du.ac.bd",
       fieldLink: "http://www.mis.du.ac.bd",
     },
