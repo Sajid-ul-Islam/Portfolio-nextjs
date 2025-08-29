@@ -1,8 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
-import { FaProjectDiagram, FaExternalLinkAlt, FaGithub, FaReact, FaJs, FaCss3Alt } from "react-icons/fa";
-import { SiNextdotjs, SiTailwindcss, SiTypescript, SiBootstrap } from "react-icons/si";
+import {
+  FaProjectDiagram,
+  FaExternalLinkAlt,
+  FaGithub,
+  FaReact,
+  FaJs,
+  FaCss3Alt,
+} from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiTailwindcss,
+  SiTypescript,
+  SiBootstrap,
+} from "react-icons/si";
 
 interface Project {
   title: string;
@@ -20,7 +32,8 @@ const ProjectsEnhanced = () => {
   const projects: Project[] = [
     {
       title: "My Portfolio with Bootstrap",
-      description: "A responsive portfolio website built with HTML, CSS, and Bootstrap framework featuring modern design and smooth animations.",
+      description:
+        "A responsive portfolio website built with HTML, CSS, and Bootstrap framework featuring modern design and smooth animations.",
       link: "https://saajiidi.github.io/",
       technologies: ["HTML", "CSS", "Bootstrap", "JavaScript"],
       category: "Portfolio",
@@ -28,7 +41,8 @@ const ProjectsEnhanced = () => {
     },
     {
       title: "My Portfolio with React App & TypeScript",
-      description: "Advanced portfolio application built with React and TypeScript, featuring component-based architecture and type safety.",
+      description:
+        "Advanced portfolio application built with React and TypeScript, featuring component-based architecture and type safety.",
       link: "https://saajiidi.github.io/portfolio/",
       technologies: ["React", "TypeScript", "CSS"],
       category: "Portfolio",
@@ -36,7 +50,8 @@ const ProjectsEnhanced = () => {
     },
     {
       title: "My Portfolio with Next.js & Tailwind CSS",
-      description: "Modern portfolio website built with Next.js and Tailwind CSS, optimized for performance and SEO.",
+      description:
+        "Modern portfolio website built with Next.js and Tailwind CSS, optimized for performance and SEO.",
       link: "https://sajid-islam-portfolio.vercel.app/",
       technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
       category: "Portfolio",
@@ -44,7 +59,8 @@ const ProjectsEnhanced = () => {
     },
     {
       title: "E-Commerce Interface with React.js",
-      description: "Full-featured e-commerce interface with product catalog, shopping cart, and responsive design for bike accessories.",
+      description:
+        "Full-featured e-commerce interface with product catalog, shopping cart, and responsive design for bike accessories.",
       link: "https://gear-master.vercel.app/",
       technologies: ["React", "JavaScript", "CSS"],
       category: "E-Commerce",
@@ -52,7 +68,8 @@ const ProjectsEnhanced = () => {
     },
     {
       title: "LMS Interface with React.js",
-      description: "Learning Management System interface with course management, user authentication, and interactive learning modules.",
+      description:
+        "Learning Management System interface with course management, user authentication, and interactive learning modules.",
       link: "https://altenaitve-school.vercel.app/",
       technologies: ["React", "JavaScript", "CSS"],
       category: "Education",
@@ -62,24 +79,28 @@ const ProjectsEnhanced = () => {
 
   const getTechIcon = (tech: string) => {
     const icons: { [key: string]: React.ComponentType } = {
-      "React": FaReact,
+      React: FaReact,
       "Next.js": SiNextdotjs,
-      "TypeScript": SiTypescript,
-      "JavaScript": FaJs,
+      TypeScript: SiTypescript,
+      JavaScript: FaJs,
       "Tailwind CSS": SiTailwindcss,
-      "Bootstrap": SiBootstrap,
-      "CSS": FaCss3Alt,
-      "HTML": FaCss3Alt,
+      Bootstrap: SiBootstrap,
+      CSS: FaCss3Alt,
+      HTML: FaCss3Alt,
     };
     return icons[tech] || FaProjectDiagram;
   };
 
-  const categories = ["All", ...new Set(projects.map(project => project.category))];
-  const filteredProjects = selectedCategory === "All" 
-    ? projects 
-    : projects.filter(project => project.category === selectedCategory);
+  const categories = [
+    "All",
+    ...new Set(projects.map((project) => project.category)),
+  ];
+  const filteredProjects =
+    selectedCategory === "All"
+      ? projects
+      : projects.filter((project) => project.category === selectedCategory);
 
-  const featuredProjects = projects.filter(project => project.featured);
+  const featuredProjects = projects.filter((project) => project.featured);
 
   return (
     <section
@@ -111,10 +132,16 @@ const ProjectsEnhanced = () => {
         {/* Featured Projects Section */}
         {selectedCategory === "All" && (
           <div className="mb-12">
-            <h3 className="text-2xl font-semibold mb-6 text-amber-400">🌟 Featured Projects</h3>
+            <h3 className="text-2xl font-semibold mb-6 text-amber-400">
+              🌟 Featured Projects
+            </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredProjects.map((project, index) => (
-                <ProjectCard key={`featured-${index}`} project={project} featured />
+                <ProjectCard
+                  key={`featured-${index}`}
+                  project={project}
+                  featured
+                />
               ))}
             </div>
           </div>
@@ -131,13 +158,27 @@ const ProjectsEnhanced = () => {
   );
 };
 
-const ProjectCard = ({ project, featured = false }: { project: Project; featured?: boolean }) => {
+const ProjectCard = ({
+  project,
+  featured = false,
+}: {
+  project: Project;
+  featured?: boolean;
+}) => {
   return (
-    <div className={`bg-slate-800/50 backdrop-blur-sm border border-slate-700/30 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ${featured ? 'ring-2 ring-amber-400/50' : ''}`}>
+    <div
+      className={`bg-slate-800/50 backdrop-blur-sm border border-slate-700/30 rounded-lg p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 ${
+        featured ? "ring-2 ring-amber-400/50" : ""
+      }`}
+    >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-2">
           <FaProjectDiagram className="text-blue-400 text-xl" />
-          {featured && <span className="text-xs bg-amber-400 text-black px-2 py-1 rounded-full font-semibold">FEATURED</span>}
+          {featured && (
+            <span className="text-xs bg-amber-400 text-black px-2 py-1 rounded-full font-semibold">
+              FEATURED
+            </span>
+          )}
         </div>
         <div className="flex space-x-2">
           <a
