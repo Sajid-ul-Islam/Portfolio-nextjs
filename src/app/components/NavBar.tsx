@@ -1,15 +1,19 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Image from "next/image";
 import profilePic from "/public/img/profile.jpg";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = useCallback(() => {
     setIsOpen(false);
-  };
+  }, []);
+
+  const toggleMenu = useCallback(() => {
+    setIsOpen((prev: boolean) => !prev);
+  }, []);
 
   const navItems = [
     { href: "#about", label: "About" },
@@ -27,7 +31,7 @@ export default function NavBar() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full lg:w-64 bg-black text-white flex flex-col items-center z-50 p-2 lg:p-4">
+    <nav className="fixed top-0 left-0 w-full lg:w-64 bg-slate-900/95 backdrop-blur-sm text-white flex flex-col items-center z-50 p-2 lg:p-4 border-r border-slate-700/50">
       <div className="flex items-center justify-between w-full lg:flex-col">
         <a href="#page-top" className="flex items-center lg:flex-col lg:mb-4">
           <Image
@@ -39,8 +43,8 @@ export default function NavBar() {
           />
         </a>
         <button
-          className="lg:hidden block text-white"
-          onClick={() => setIsOpen(!isOpen)}
+          className="lg:hidden block text-white hover:text-blue-400 transition-colors duration-200"
+          onClick={toggleMenu}
           aria-controls="navbarSupportedContent"
           aria-expanded={isOpen ? "true" : "false"}
           aria-label="Toggle navigation"

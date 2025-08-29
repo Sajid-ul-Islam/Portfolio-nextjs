@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import {
@@ -71,14 +73,14 @@ const familyAndRelatives = [
 const About = () => {
   return (
     <section
-      className="p-3 lg:p-5 flex flex-col items-center text-white"
+      className="p-3 lg:p-5 flex flex-col items-center text-white animate-fade-in"
       id="about"
     >
-      <div className="w-full p-5 rounded-lg shadow-lg">
+      <div className="w-full p-5 rounded-lg shadow-lg bg-slate-800/50 backdrop-blur-sm border border-slate-700/30">
         <div className="flex flex-col lg:flex-row justify-between items-center mb-5">
           <div className="lg:w-1/2">
-            <h1 className="mb-5 text-5xl font-bold text-left">
-              Sajid <span className="text-primary">Islam</span>
+            <h1 className="mb-5 text-5xl font-bold text-left bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Sajid <span className="text-amber-400">Islam</span>
             </h1>
           </div>
 
@@ -126,9 +128,9 @@ const About = () => {
         <h2 className="mb-5 text-4xl font-bold text-left">
           Family & Relatives
         </h2>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {familyAndRelatives.map((member, index) => (
-            <div key={index} className="p-4 bg-black rounded-lg shadow-md">
+            <div key={index} className="p-4 bg-slate-800/70 rounded-lg shadow-md border border-slate-600/30 hover:bg-slate-700/70 transition-colors duration-200">
               <h3 className="mb-1 text-xl font-semibold">{member.relation}</h3>
               <p className="mb-1">{member.name}</p>
               <p>
