@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   FaCheck,
   FaCode,
@@ -20,7 +20,7 @@ interface Skill {
 const SkillsEnhanced = () => {
   const [animatedLevels, setAnimatedLevels] = useState<{ [key: string]: number }>({});
 
-  const skills: Skill[] = [
+  const skills: Skill[] = useMemo(() => [
     { name: "Digital Sales & Marketing", level: 85, icon: FaChartLine, category: "Business" },
     { name: "Data Analysis & Reporting", level: 90, icon: FaDatabase, category: "Analytics" },
     { name: "Market Analysis & Research", level: 80, icon: FaChartLine, category: "Business" },
@@ -29,14 +29,14 @@ const SkillsEnhanced = () => {
     { name: "Python & Data Science", level: 80, icon: FaDatabase, category: "Programming" },
     { name: "SQL & Database Management", level: 85, icon: FaDatabase, category: "Database" },
     { name: "Tailwind CSS & Bootstrap", level: 90, icon: FaTools, category: "Frontend" },
-  ];
+  ], []);
 
-  const workflows = [
+  const workflows = useMemo(() => [
     { name: "Cross Functional Teams", icon: FaCheck },
     { name: "Agile Development & Scrum", icon: FaCheck },
     { name: "Data-Driven Decision Making", icon: FaCheck },
     { name: "Strategic Planning", icon: FaCheck },
-  ];
+  ], []);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -48,7 +48,7 @@ const SkillsEnhanced = () => {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [skills]);
 
   const getSkillsByCategory = (category: string) => {
     return skills.filter(skill => skill.category === category);
