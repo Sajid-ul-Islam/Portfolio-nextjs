@@ -1,101 +1,59 @@
-import React from "react";
+"use client";
+import React from 'react';
+import { experience } from '../data';
+import { FaBriefcase } from 'react-icons/fa';
 
 const Experience = () => {
-  const experiences = [
-    {
-      title: "Jr. Executive - Marketplace",
-      company: "Daraz - Alibaba Group",
-      tasks: [
-        "Business & Marketplace Analysis",
-        "Brand & Partner Acquisition",
-        "Partner Development Project",
-      ],
-      date: "January 2020 - January 2022",
-      companyLink: "https://www.daraz.com.bd",
-    },
-    {
-      title: "Associate - Home Kitchen & Street Food",
-      company: "HungryNaki - Alibaba Group",
-      tasks: [
-        "Business & Marketplace Analysis",
-        "Brand & Partner Acquisition",
-        "Partner Development Project",
-      ],
-      date: "July 2021 - January 2022",
-      companyLink: "https://hungrynaki.com",
-      companyLink2: "https://www.alibaba.com",
-    },
-    {
-      title: "IT Executive - Quality Control",
-      company: "NZ Fabrics - NZ TEXTILE GROUP",
-      tasks: [
-        "Info & Tech Support to the Quality Control Team",
-        "Associating with the Research & Development Team",
-        "Presentation & Reporting to the Authorities & Buyers",
-      ],
-      date: "April 2024 - May 2024",
-      companyLink: "https://nztexgroup.com",
-      companyLink2: "https://www.linkedin.com/company/nztexgroup/",
-    },
-    {
-      title: "Associate - Online Sales & Customer Supports",
-      company: "Thriving Skill",
-      tasks: [
-        "Business & Marketplace Analysis",
-        "Sales Growth Strategies",
-        "Customer Relationship Management",
-      ],
-      date: "July 2023 - March 2024",
-      companyLink: "https://thrivingskill.com",
-    },
-    {
-      title: "Co-Founder",
-      company: "Gear Master",
-      tasks: ["Bike Accessories Retail Shop"],
-      date: "May 2024 - Present",
-      companyLink: "https://www.facebook.com/profile.php?id=61558077623189",
-    },
-  ];
-
   return (
-    <section
-      className="p-3 lg:p-5 flex flex-col items-center text-white"
-      id="experience"
-    >
-      <div className="w-full max-w-4xl">
-        <h2 className="mb-5 text-4xl font-bold text-left">Experience</h2>
-        {experiences.map((exp, index) => (
-          <div
-            key={index}
-            className="resume-item flex flex-col md:flex-row justify-between mb-5 p-5 rounded-lg shadow-lg bg-black"
-          >
-            <div className="resume-content">
-              <h3 className="mb-1 text-xl font-semibold">{exp.title}</h3>
-              <div className="subheading mb-3">
-                <a
-                  href={exp.companyLink}
-                  className="text-primary"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {exp.company}
-                </a>
-              </div>
-              <div className="md:ml-5">
-                {" "}
-                {/* Added margin for mobile view */}
-                {exp.tasks.map((task, i) => (
-                  <div key={i} className="mb-2">
-                    • {task}
+    <section id="experience" className="py-20 bg-dark-lighter">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <span className="border-b-4 border-primary pb-2">Experience</span>
+          </h2>
+          <p className="text-gray-400">My professional journey</p>
+        </div>
+
+        <div className="relative max-w-4xl mx-auto">
+          {/* Vertical Line */}
+          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 h-full w-1 bg-gradient-to-b from-primary to-accent opacity-30"></div>
+
+          {experience.map((exp, index) => (
+            <div key={index} className={`relative flex flex-col md:flex-row gap-8 mb-12 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+
+              {/* Dot on Line */}
+              <div className="absolute left-[-5px] md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full bg-accent z-10 mt-6 shadow-lg shadow-accent/50 border-2 border-dark"></div>
+
+              {/* Content Card */}
+              <div className="md:w-1/2 pl-8 md:pl-0 md:pr-12 md:text-right group">
+                <div className={`p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 backdrop-blur-sm ${index % 2 === 0 && 'md:text-left md:ml-12 md:pr-0'}`}>
+                  <div className="flex items-center gap-3 mb-2 text-primary md:justify-end">
+                    {/* Note: Logic for icon alignment needs to swap for left side content */}
+                    <div className={`flex items-center gap-2 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} w-full`}>
+                      <FaBriefcase className="text-lg" />
+                      <span className="text-sm font-semibold tracking-wider text-accent">{exp.company}</span>
+                    </div>
                   </div>
-                ))}
+
+                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-primary transition-colors">{exp.role}</h3>
+                  {exp.group && <p className="text-sm text-gray-500 mb-3">{exp.group}</p>}
+
+                  <ul className="space-y-2">
+                    {exp.tasks.map((task, i) => (
+                      <li key={i} className="text-gray-400 text-sm flex items-start gap-2">
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-600 flex-shrink-0"></span>
+                        <span className={index % 2 === 0 ? 'text-left' : 'text-left md:text-right'}>{task}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
+
+              {/* Spacer for other side */}
+              <div className="md:w-1/2 hidden md:block"></div>
             </div>
-            <div className="resume-date text-md-right text-primary">
-              <span>{exp.date}</span>
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

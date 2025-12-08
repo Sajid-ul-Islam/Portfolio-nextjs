@@ -1,92 +1,96 @@
 "use client";
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { FaBars, FaTimes } from "react-icons/fa";
 
-import { useState, useCallback } from "react";
-import Image from "next/image";
-import profilePic from "/public/img/profile.jpg";
-
-export default function NavBar() {
+const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleLinkClick = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
-  const toggleMenu = useCallback(() => {
-    setIsOpen((prev: boolean) => !prev);
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-    { href: "#about", label: "About" },
-    { href: "#experience", label: "Experience" },
-    { href: "#education", label: "Education" },
-    { href: "#skills", label: "Skills" },
-    { href: "#interests", label: "Interests" },
-    { href: "#awards", label: "Awards" },
-    { href: "#projects", label: "Projects" },
-    {
-      href: "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
-      label: "Resume",
-      external: true,
-    },
+    { label: "Home", href: "#hero" },
+    { label: "Experience", href: "#experience" },
+    { label: "Education", href: "#education" },
+    { label: "Skills", href: "#skills" },
+    { label: "Projects", href: "#projects" },
+    { label: "Interests", href: "#interests" },
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full lg:w-64 bg-slate-900/95 backdrop-blur-sm text-white flex flex-col items-center z-50 p-2 lg:p-4 border-r border-slate-700/50">
-      <div className="flex items-center justify-between w-full lg:flex-col">
-        <a href="#page-top" className="flex items-center lg:flex-col lg:mb-4">
-          <Image
-            src={profilePic}
-            alt="Sajid Islam"
-            className="hidden lg:block rounded-full border-4 border-white mr-3 lg:mr-0 lg:mb-2"
-            width={120}
-            height={120}
-          />
-        </a>
-        <button
-          className="lg:hidden block text-white hover:text-blue-400 transition-colors duration-200"
-          onClick={toggleMenu}
-          aria-controls="navbarSupportedContent"
-          aria-expanded={isOpen ? "true" : "false"}
-          aria-label="Toggle navigation"
-        >
-          <svg
-            className="w-8 h-8"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
-        </button>
-      </div>
-      <div
-        className={`lg:flex ${
-          isOpen ? "flex" : "hidden"
-        } flex-col lg:flex-col items-center w-full`}
-        id="navbarSupportedContent"
-      >
-        <ul className="flex flex-col lg:flex-col items-center w-full lg:w-auto lg:space-y-4">
+    <nav
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? "bg-dark/80 backdrop-blur-md py-4 shadow-lg" : "bg-transparent py-6"
+        }`}
+    >
+      <div className="container mx-auto px-6 flex justify-between items-center">
+        <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          Sajid<span className="text-white">.</span>
+        </Link>
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center space-x-8">
           {navItems.map((item, index) => (
-            <li className="nav-item" key={index}>
+            <a
+              key={index}
+              href={item.href}
+              className="text-gray-300 hover:text-accent font-medium transition-colors relative group"
+            >
+              {item.label}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all group-hover:w-full"></span>
+            </a>
+          ))}
+          <a
+            href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            Resume
+          </a>
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden text-white text-2xl"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="absolute top-full left-0 w-full bg-dark/95 backdrop-blur-xl border-t border-white/10 p-6 md:hidden flex flex-col space-y-4 shadow-2xl animate-fade-in">
+            {navItems.map((item, index) => (
               <a
-                className="nav-link hover:text-gray-400 p-2"
+                key={index}
                 href={item.href}
-                onClick={handleLinkClick}
-                target={item.external ? "_blank" : "_self"}
-                rel={item.external ? "noopener noreferrer" : ""}
+                className="text-white text-lg font-medium hover:text-accent"
+                onClick={() => setIsOpen(false)}
               >
                 {item.label}
               </a>
-            </li>
-          ))}
-        </ul>
+            ))}
+            <a
+              href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary font-bold"
+              onClick={() => setIsOpen(false)}
+            >
+              Download Resume
+            </a>
+          </div>
+        )}
       </div>
     </nav>
   );
-}
+};
+
+export default NavBar;

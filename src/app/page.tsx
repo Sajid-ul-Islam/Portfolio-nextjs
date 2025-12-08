@@ -1,34 +1,23 @@
-import "./styles.css";
 import NavBar from "./components/NavBar";
-import About from "./components/About";
+import Hero from "./components/Hero";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
-import SkillsEnhanced from "./components/SkillsEnhanced";
-import Interests from "./components/Interests";
-import Awards from "./components/Awards";
-import ProjectsEnhanced from "./components/ProjectsEnhanced";
-import ContactForm from "./components/ContactForm";
-import ScrollToTop from "./components/ScrollToTop";
-import ThemeToggle from "./components/ThemeToggle";
+import Skills from "./components/Skills";
+import Projects from "./components/Projects";
+import Interests from "./components/Interests";  // Combined Interests & Awards
+import Footer from "./components/Footer";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <main className="bg-dark min-h-screen text-white">
       <NavBar />
-      <main className="container mx-auto p-4">
-        <div className="content-wrapper space-y-16">
-          <About />
-          <Experience />
-          <Education />
-          <SkillsEnhanced />
-          <Interests />
-          <Awards />
-          <ProjectsEnhanced />
-          <ContactForm />
-        </div>
-      </main>
-      <ScrollToTop />
-      <ThemeToggle />
-    </div>
+      <Hero />
+      <Experience />
+      <Education />
+      <Skills />
+      <Projects />
+      <Interests />
+      <Footer />
+    </main>
   );
 }
