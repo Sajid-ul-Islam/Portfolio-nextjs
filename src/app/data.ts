@@ -3,7 +3,7 @@ import { SiTableau, SiPowerbi, SiPandas, SiNumpy, SiScikitlearn, SiPlotly, SiTen
 
 export const personalInfo = {
     name: "Sajid Islam",
-    title: "Business Analyst & Data Analyst",
+    title: "Business & Data Analyst",
     email: "sajid.islam.chowdhury@gmail.com",
     whatsapp: "https://wa.me/+8801824526054?text=",
     bio: "Business Analyst and Data Analyst with 2+ years of experience in marketplace analysis, business intelligence, and data-driven decision making. Specialized in Python, SQL, and Advanced Analytics with a proven track record of delivering actionable insights for e-commerce platforms like Daraz (Alibaba Group). Currently advancing expertise in machine learning and statistical modeling through postgraduate studies in Data Science & Business Analytics.",
@@ -230,7 +230,7 @@ export const family = [
     },
     {
         relation: "Paternal Uncle",
-        name: "Nurul Alam Chowdhury",
+        name: "Late. Nurul Alam Chowdhury",
         occupation: "Lieutenant Colonel (Rtd), Bangladesh Army",
     },
     {
