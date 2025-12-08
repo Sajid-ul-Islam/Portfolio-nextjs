@@ -5,6 +5,7 @@ import Education from "./components/Education";
 import Skills from "./components/Skills";
 import Projects from "./components/Projects";
 import Interests from "./components/Interests";  // Combined Interests & Awards
+import Family from "./components/Family";
 import Footer from "./components/Footer";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <Skills />
       <Projects />
       <Interests />
+      <Family />
       <Footer />
     </main>
   );

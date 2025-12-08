@@ -200,3 +200,47 @@ export const awards = [
         link: "https://drive.google.com/file/d/1O7O6jJRN58WGiyJu8hYrGhv-DtP89bEI/view?usp=drive_link"
     }
 ]
+
+export const family = [
+    {
+        relation: "Father",
+        name: "Shahed Chowdhury",
+        occupation: "Merchandiser, Stocklot Business",
+    },
+    {
+        relation: "Mother",
+        name: "Suraiya Haque",
+        occupation: "Former KG School Teacher, House Wife",
+    },
+    {
+        relation: "Paternal Grandfather",
+        name: "Late. Mazharul Islam Chowdhury",
+        occupation: "Former Head Master, PG Govt. High School",
+    },
+    {
+        relation: "Maternal Grandfather",
+        name: "Late. Shamsul Haque",
+        occupation: "Former Govt. Officer, Land Acquisition",
+    },
+    {
+        relation: "Paternal Uncle",
+        name: "Nurul Alam Chowdhury",
+        occupation: "Lieutenant Colonel (Rtd), Bangladesh Army",
+    },
+    {
+        relation: "Maternal Uncle",
+        name: "Moazzem Hossain",
+        occupation: "Principal Officer (Rtd), Shonali Bank Ltd.",
+    },
+    {
+        relation: "Paternal Uncle",
+        name: "Farid Ahmed Chowdhury",
+        occupation: "Head of Philosophy Dept. Chittagong College",
+    },
+    {
+        relation: "Sibling (Younger)",
+        name: "Sakib Islam",
+        occupation: "Owner - Gear Master",
+        link: "https://www.facebook.com/profile.php?id=61558077623189",
+    },
+];
