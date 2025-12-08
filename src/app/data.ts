@@ -77,11 +77,7 @@ export const education = [
         degree: "Data Science & Business Analytics",
         link: "https://abpbd.org/",
     },
-    {
-        institution: "University of Dhaka",
-        degree: "Management Information System",
-        link: "https://www.du.ac.bd",
-    },
+
     {
         institution: "North South University",
         degree: "Computer Science & Engineering",
@@ -168,12 +164,7 @@ export const projects = [
         link: "https://gear-master.vercel.app/",
         tags: ["React", "E-commerce", "Frontend"]
     },
-    {
-        title: "ML Portfolio Project",
-        desc: "A comprehensive portfolio showcasing various machine learning projects, including data analysis, model building.",
-        link: "https://github.com/saajiidi/ml-portfolio-project",
-        tags: ["Machine Learning", "Portfolio"]
-    },
+
     {
         title: "Pinterest Image Scraper",
         desc: "Versatile Python tool for downloading images from Pinterest with multiple interfaces including web UI and command line.",
