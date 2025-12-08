@@ -203,6 +203,12 @@ export const awards = [
 
 export const family = [
     {
+        relation: "Wife",
+        name: "Infida Yesmin",
+        occupation: "Bangla and Econmics Instructor of Protishruti Poribar",
+        link: "https://www.facebook.com/ProtishrutiPoribar",
+    },
+    {
         relation: "Father",
         name: "Shahed Chowdhury",
         occupation: "Merchandiser, Stocklot Business",
