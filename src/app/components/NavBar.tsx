@@ -16,12 +16,12 @@ const NavBar = () => {
   }, []);
 
   const navItems = [
-    { label: "Home", href: "#hero" },
-    { label: "Experience", href: "#experience" },
-    { label: "Education", href: "#education" },
-    { label: "Skills", href: "#skills" },
-    { label: "Projects", href: "#projects" },
-    { label: "Interests", href: "#interests" },
+    { label: "Home", href: "/#hero" },
+    { label: "Experience", href: "/#experience" },
+    { label: "Education", href: "/#education" },
+    { label: "Skills", href: "/#skills" },
+    { label: "Projects", href: "/#projects" },
+    { label: "Interests", href: "/#interests" },
   ];
 
   return (
