@@ -140,6 +140,12 @@ export const interests = [
 
 export const projects = [
     {
+        title: "Day Progress Plus",
+        desc: "A productivity focused application featuring day progress tracking, focus task management, and customizable settings.",
+        link: "https://saajiidi.github.io/TimeTracker/",
+        tags: ["Productivity", "React", "Utility"]
+    },
+    {
         title: "ECommerce Analytics Dashboard",
         desc: "Comprehensive analytics platform tracking 12K+ orders and BDT 4.2M+ revenue. Features customer segmentation, sales forecasting.",
         link: "https://saajiidi.github.io/-ECommerce-Analytics-Dashboard/",
