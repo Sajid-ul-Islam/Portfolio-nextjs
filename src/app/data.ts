@@ -140,6 +140,12 @@ export const interests = [
 
 export const projects = [
     {
+        title: "DEEN Dashboard",
+        desc: "A real-time e-commerce dashboard displaying data from 2021-2025. It provides key metrics such as Total Revenue, Total Orders, Total Customers, and Average Order Value, along with Revenue Trends, Customer Segments, and Top Performing Cities.",
+        link: "https://e-com-dashborad.vercel.app/",
+        tags: ["Dashboard", "React", "Analytics", "E-commerce"]
+    },
+    {
         title: "Day Progress Plus",
         desc: "A productivity focused application featuring day progress tracking, focus task management, and customizable settings.",
         link: "https://saajiidi.github.io/TimeTracker/",
