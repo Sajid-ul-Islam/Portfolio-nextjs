@@ -187,6 +187,30 @@ export const projects = [
         desc: "Versatile Python tool for downloading images from Pinterest with multiple interfaces including web UI and command line.",
         link: "https://saajiidi.github.io/Reusable-Pinterest-Image-Scraper/",
         tags: ["Python", "Scraping", "Automation"]
+    },
+    {
+        title: "WAConnect Pro",
+        desc: "Automates WhatsApp link generation from Excel/CSV files.",
+        link: "https://github.com/saajiidi/WAConnect-Pro",
+        tags: ["Flask", "Python", "Pandas", "Vercel"]
+    },
+    {
+        title: "ML Portfolio Project",
+        desc: "Showcasing ML projects including data analysis and deployment.",
+        link: "https://github.com/saajiidi/ml-portfolio-project",
+        tags: ["Machine Learning", "Python"]
+    },
+    {
+        title: "B2B StockLot E-Commerce",
+        desc: "Web development project for B2B e-commerce.",
+        link: "https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD",
+        tags: ["HTML/CSS", "JavaScript", "Web Dev"]
+    },
+    {
+        title: "Tableau Portfolio",
+        desc: "Demographics, Economic Analysis, and Security Incident Maps.",
+        link: "https://public.tableau.com/views/MuslimPopulationbyEthinicity/Sheet2",
+        tags: ["Tableau", "Data Visualization"]
     }
 ];
 
