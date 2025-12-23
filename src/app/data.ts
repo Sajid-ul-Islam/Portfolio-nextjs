@@ -140,8 +140,8 @@ export const interests = [
 
 export const projects = [
     {
-        title: "DEEN Dashboard",
-        desc: "A real-time e-commerce dashboard displaying data from 2021-2025. It provides key metrics such as Total Revenue, Total Orders, Total Customers, and Average Order Value, along with Revenue Trends, Customer Segments, and Top Performing Cities.",
+        title: "ECommerce Dashboard",
+        desc: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value, along with revenue trends and customer segmentation.",
         link: "https://e-com-dashborad.vercel.app/",
         tags: ["Dashboard", "React", "Analytics", "E-commerce"]
     },
