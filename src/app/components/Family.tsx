@@ -22,7 +22,20 @@ const Family = () => {
                                 </div>
                                 <div>
                                     <h3 className="text-sm font-semibold text-accent uppercase tracking-wider mb-1">{member.relation}</h3>
-                                    <h4 className="text-xl font-bold text-white mb-2">{member.name}</h4>
+                                    <h4 className="text-xl font-bold text-white mb-2">
+                                        {member.nameLink ? (
+                                            <a
+                                                href={member.nameLink}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="hover:text-primary transition-colors"
+                                            >
+                                                {member.name}
+                                            </a>
+                                        ) : (
+                                            member.name
+                                        )}
+                                    </h4>
                                     <p className="text-gray-400 text-sm">
                                         {member.occupation}
                                     </p>

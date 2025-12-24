@@ -237,6 +237,7 @@ export const family = [
     {
         relation: "Wife",
         name: "Infida Yesmin",
+        nameLink: "https://saajiidi.github.io/Infida-Yesmin-Meem/",
         occupation: "Bangla and Econmics Instructor of Protishruti Poribar",
         link: "https://www.facebook.com/ProtishrutiPoribar",
     },
