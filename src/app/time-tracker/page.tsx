@@ -28,7 +28,7 @@ export default function TimeTrackerPage() {
                         <div className="bg-orange-500/10 border border-orange-500/20 p-6 rounded-2xl">
                             <h3 className="font-bold text-orange-600 dark:text-orange-400 mb-2">Tip of the day</h3>
                             <p className="text-sm text-zinc-600 dark:text-zinc-300 italic">
-                                &quot;Productivity is being able to do things that you were never able to do before.&quot;
+                                Productivity is being able to do things that you were never able to do before.
                             </p>
                         </div>
                     </div>
