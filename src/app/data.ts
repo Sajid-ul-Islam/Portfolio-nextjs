@@ -140,6 +140,12 @@ export const interests = [
 
 export const projects = [
     {
+        title: "Order Process Automation",
+        desc: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
+        link: "https://order-process-automation.streamlit.app/",
+        tags: ["Streamlit", "Python", "Automation", "Data Processing"]
+    },
+    {
         title: "ECommerce Dashboard",
         desc: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value, along with revenue trends and customer segmentation.",
         link: "https://e-com-dashborad.vercel.app/",
