@@ -191,7 +191,7 @@ export const projects = [
     {
         title: "Pinterest Image Scraper",
         desc: "Versatile Python tool for downloading images from Pinterest with multiple interfaces including web UI and command line.",
-        link: "https://saajiidi.github.io/Reusable-Pinterest-Image-Scraper/",
+        link: "https://pinterest-scraper.streamlit.app/",
         tags: ["Python", "Scraping", "Automation"]
     },
     {
