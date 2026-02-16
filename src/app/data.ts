@@ -195,10 +195,10 @@ export const projects = [
         tags: ["Python", "Scraping", "Automation"]
     },
     {
-        title: "WAConnect Pro",
+        title: "Sheet2WhatsApp",
         desc: "Automates WhatsApp link generation from Excel/CSV files.",
-        link: "https://github.com/saajiidi/WAConnect-Pro",
-        tags: ["Flask", "Python", "Pandas", "Vercel"]
+        link: "https://sheet2whatsapp.streamlit.app/",
+        tags: ["Streamlit", "Python", "Pandas", "Vercel"]
     },
     {
         title: "ML Portfolio Project",
