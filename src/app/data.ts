@@ -79,11 +79,6 @@ export const education = [
     },
 
     {
-        institution: "University of Dhaka",
-        degree: "Master of Business Administration - MBA",
-        link: "https://www.du.ac.bd",
-    },
-    {
         institution: "North South University",
         degree: "Computer Science & Engineering",
         link: "https://www.northsouth.edu",
