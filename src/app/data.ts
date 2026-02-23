@@ -135,6 +135,12 @@ export const interests = [
 
 export const projects = [
     {
+        title: "Ramadan Compass",
+        desc: "A beautiful Islamic companion app featuring prayer times, Ramadan countdown, and spiritual tracking with a premium glassmorphic design.",
+        link: "https://ramadancompass.vercel.app/",
+        tags: ["Ramadan", "Prayer Times", "React", "PWA"]
+    },
+    {
         title: "Order Process Automation",
         desc: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
         link: "https://order-process-automation.streamlit.app/",
