@@ -135,6 +135,12 @@ export const interests = [
 
 export const projects = [
     {
+        title: "Sentinel Bangladesh",
+        desc: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking using Streamlit.",
+        link: "https://sentinelbangladesh.streamlit.app/",
+        tags: ["Streamlit", "Python", "Data Visualization", "Security Analysis"]
+    },
+    {
         title: "Ramadan Compass",
         desc: "A beautiful Islamic companion app featuring prayer times, Ramadan countdown, and spiritual tracking with a premium glassmorphic design.",
         link: "https://ramadancompass.vercel.app/",
