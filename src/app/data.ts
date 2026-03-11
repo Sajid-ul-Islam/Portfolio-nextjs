@@ -179,22 +179,10 @@ export const interests = [
 
 export const projects = [
     {
-        title: "Sentinel Bangladesh",
-        desc: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking using Streamlit.",
-        link: "https://sentinelbangladesh.streamlit.app/",
-        tags: ["Streamlit", "Python", "Data Visualization", "Security Analysis"]
-    },
-    {
-        title: "Ramadan Compass",
-        desc: "A beautiful Islamic companion app featuring prayer times, Ramadan countdown, and spiritual tracking with a premium glassmorphic design.",
-        link: "https://ramadancompass.vercel.app/",
-        tags: ["Ramadan", "Prayer Times", "React", "PWA"]
-    },
-    {
-        title: "Order Process Automation",
-        desc: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
-        link: "https://order-process-automation.streamlit.app/",
-        tags: ["Streamlit", "Python", "Automation", "Data Processing"]
+        title: "ECommerce Analytics Dashboard",
+        desc: "Comprehensive analytics platform tracking 12K+ orders and BDT 4.2M+ revenue. Features customer segmentation, sales forecasting.",
+        link: "https://saajiidi.github.io/-ECommerce-Analytics-Dashboard/",
+        tags: ["Data Analysis", "Dashboard", "Business Intelligence"]
     },
     {
         title: "ECommerce Dashboard",
@@ -203,16 +191,40 @@ export const projects = [
         tags: ["Dashboard", "React", "Analytics", "E-commerce"]
     },
     {
+        title: "E-Commerce Platform",
+        desc: "Modern e-commerce interface built with React.js featuring responsive design, product catalog, shopping cart functionality.",
+        link: "https://gear-master.vercel.app/",
+        tags: ["React", "E-commerce", "Frontend"]
+    },
+    {
+        title: "Sheet2WhatsApp",
+        desc: "Automates WhatsApp link generation from Excel/CSV files.",
+        link: "https://sheet2whatsapp.streamlit.app/",
+        tags: ["Streamlit", "Python", "Pandas", "Vercel"]
+    },
+    {
+        title: "Sentinel Bangladesh",
+        desc: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking using Streamlit.",
+        link: "https://sentinelbangladesh.streamlit.app/",
+        tags: ["Streamlit", "Python", "Data Visualization", "Security Analysis"]
+    },
+    {
+        title: "Order Process Automation",
+        desc: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
+        link: "https://order-process-automation.streamlit.app/",
+        tags: ["Streamlit", "Python", "Automation", "Data Processing"]
+    },
+    {
+        title: "ML Portfolio Project",
+        desc: "Showcasing ML projects including data analysis and deployment.",
+        link: "https://github.com/saajiidi/ml-portfolio-project",
+        tags: ["Machine Learning", "Python"]
+    },
+    {
         title: "Day Progress Plus",
         desc: "A productivity focused application featuring day progress tracking, focus task management, and customizable settings.",
         link: "https://saajiidi.github.io/TimeTracker/",
         tags: ["Productivity", "React", "Utility"]
-    },
-    {
-        title: "ECommerce Analytics Dashboard",
-        desc: "Comprehensive analytics platform tracking 12K+ orders and BDT 4.2M+ revenue. Features customer segmentation, sales forecasting.",
-        link: "https://saajiidi.github.io/-ECommerce-Analytics-Dashboard/",
-        tags: ["Data Analysis", "Dashboard", "Business Intelligence"]
     },
     {
         title: "Growth Analysis Dashboard",
@@ -233,41 +245,28 @@ export const projects = [
         tags: ["Machine Learning", "Time Series", "Python"]
     },
     {
-        title: "E-Commerce Platform",
-        desc: "Modern e-commerce interface built with React.js featuring responsive design, product catalog, shopping cart functionality.",
-        link: "https://gear-master.vercel.app/",
-        tags: ["React", "E-commerce", "Frontend"]
-    },
-
-    {
         title: "Image Scraper",
         desc: "Versatile Python tool for downloading images from Pinterest with multiple interfaces including web UI and command line.",
         link: "https://img-scraper.streamlit.app/",
         tags: ["Python", "Scraping", "Automation"]
     },
     {
-        title: "Sheet2WhatsApp",
-        desc: "Automates WhatsApp link generation from Excel/CSV files.",
-        link: "https://sheet2whatsapp.streamlit.app/",
-        tags: ["Streamlit", "Python", "Pandas", "Vercel"]
-    },
-    {
-        title: "ML Portfolio Project",
-        desc: "Showcasing ML projects including data analysis and deployment.",
-        link: "https://github.com/saajiidi/ml-portfolio-project",
-        tags: ["Machine Learning", "Python"]
-    },
-    {
-        title: "B2B StockLot E-Commerce",
-        desc: "Web development project for B2B e-commerce.",
-        link: "https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD",
-        tags: ["HTML/CSS", "JavaScript", "Web Dev"]
+        title: "Ramadan Compass",
+        desc: "A beautiful Islamic companion app featuring prayer times, Ramadan countdown, and spiritual tracking with a premium glassmorphic design.",
+        link: "https://ramadancompass.vercel.app/",
+        tags: ["Ramadan", "Prayer Times", "React", "PWA"]
     },
     {
         title: "Tableau Portfolio",
         desc: "Demographics, Economic Analysis, and Security Incident Maps.",
         link: "https://public.tableau.com/views/MuslimPopulationbyEthinicity/Sheet2",
         tags: ["Tableau", "Data Visualization"]
+    },
+    {
+        title: "B2B StockLot E-Commerce",
+        desc: "Web development project for B2B e-commerce.",
+        link: "https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD",
+        tags: ["HTML/CSS", "JavaScript", "Web Dev"]
     }
 ];
 
