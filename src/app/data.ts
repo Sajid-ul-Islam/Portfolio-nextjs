@@ -179,12 +179,6 @@ export const interests = [
 
 export const projects = [
     {
-        title: "ECommerce Analytics Dashboard",
-        desc: "Comprehensive analytics platform tracking 12K+ orders and BDT 4.2M+ revenue. Features customer segmentation, sales forecasting.",
-        link: "https://saajiidi.github.io/-ECommerce-Analytics-Dashboard/",
-        tags: ["Data Analysis", "Dashboard", "Business Intelligence"]
-    },
-    {
         title: "ECommerce Dashboard",
         desc: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value, along with revenue trends and customer segmentation.",
         link: "https://e-com-dashborad.vercel.app/",
