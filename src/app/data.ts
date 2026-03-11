@@ -35,6 +35,24 @@ export const testimonials = [
     },
 ];
 
+export const posts = [
+    {
+        title: "Building reliable data dashboards",
+        category: "Analytics",
+        link: "#",
+    },
+    {
+        title: "From messy data to actionable insight",
+        category: "Strategy",
+        link: "#",
+    },
+    {
+        title: "Designing reporting that drives decisions",
+        category: "BI",
+        link: "#",
+    },
+];
+
 export const experience = [
     {
         role: "Jr. Executive - Marketplace",

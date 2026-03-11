@@ -10,12 +10,9 @@ const NavBar = () => {
 
   const navItems = [
     { id: "hero", label: "Home", href: "/#hero" },
-    { id: "experience", label: "Experience", href: "/#experience" },
-    { id: "education", label: "Education", href: "/#education" },
-    { id: "skills", label: "Skills", href: "/#skills" },
-    { id: "projects", label: "Projects", href: "/#projects" },
-    { id: "interests", label: "Interests", href: "/#interests" },
-    { id: "family", label: "Family", href: "/#family" },
+    { id: "about", label: "About", href: "/#about" },
+    { id: "portfolio", label: "Portfolio", href: "/#portfolio" },
+    { id: "blog", label: "Insights", href: "/#blog" },
     { id: "contact", label: "Contact", href: "/#contact" },
   ];
 
@@ -49,15 +46,15 @@ const NavBar = () => {
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-dark/80 backdrop-blur-md py-4 shadow-lg" : "bg-transparent py-6"
+        scrolled ? "bg-paper/90 backdrop-blur-md py-4 shadow-sm" : "bg-transparent py-6"
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         <Link
           href="/"
-          className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"
+          className="text-2xl font-bold text-ink"
         >
-          Sajid<span className="text-white">.</span>
+          Sajid<span className="text-ink/40">.</span>
         </Link>
 
         {/* Desktop Menu */}
@@ -67,13 +64,13 @@ const NavBar = () => {
               key={index}
               href={item.href}
               className={`font-medium transition-colors relative group ${
-                activeSection === item.id ? "text-accent" : "text-gray-300 hover:text-accent"
+                activeSection === item.id ? "text-ink" : "text-ink/70 hover:text-ink"
               }`}
               aria-current={activeSection === item.id ? "page" : undefined}
             >
               {item.label}
               <span
-                className={`absolute -bottom-1 left-0 h-0.5 bg-accent transition-all ${
+                className={`absolute -bottom-1 left-0 h-0.5 bg-ink transition-all ${
                   activeSection === item.id ? "w-full" : "w-0 group-hover:w-full"
                 }`}
               ></span>
@@ -81,7 +78,7 @@ const NavBar = () => {
           ))}
           <a
             href="/#contact"
-            className="px-4 py-2 rounded-full border border-primary text-primary hover:bg-primary hover:text-white transition-all duration-300"
+            className="px-4 py-2 rounded-full border border-ink/20 text-ink hover:bg-ink hover:text-paper transition-all duration-300"
           >
             Let&apos;s Talk
           </a>
@@ -89,7 +86,7 @@ const NavBar = () => {
             href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 rounded-full border border-white/10 text-white hover:bg-white/10 transition-all duration-300"
+            className="px-4 py-2 rounded-full border border-ink/10 text-ink hover:bg-ink hover:text-paper transition-all duration-300"
           >
             Resume
           </a>
@@ -97,7 +94,7 @@ const NavBar = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden text-white text-2xl"
+          className="md:hidden text-ink text-2xl"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? <FaTimes /> : <FaBars />}
@@ -105,12 +102,12 @@ const NavBar = () => {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="absolute top-full left-0 w-full bg-dark/95 backdrop-blur-xl border-t border-white/10 p-6 md:hidden flex flex-col space-y-4 shadow-2xl animate-fade-in">
+          <div className="absolute top-full left-0 w-full bg-paper/95 backdrop-blur-xl border-t border-ink/10 p-6 md:hidden flex flex-col space-y-4 shadow-2xl animate-fade-in">
             {navItems.map((item, index) => (
               <a
                 key={index}
                 href={item.href}
-                className="text-white text-lg font-medium hover:text-accent"
+                className="text-ink text-lg font-medium hover:text-ink/60"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
@@ -118,7 +115,7 @@ const NavBar = () => {
             ))}
             <a
               href="/#contact"
-              className="text-primary font-bold"
+              className="text-ink font-bold"
               onClick={() => setIsOpen(false)}
             >
               Let&apos;s Talk
@@ -127,7 +124,7 @@ const NavBar = () => {
               href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white font-bold"
+              className="text-ink font-bold"
               onClick={() => setIsOpen(false)}
             >
               Download Resume

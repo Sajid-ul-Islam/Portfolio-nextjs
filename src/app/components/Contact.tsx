@@ -18,85 +18,85 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-20 bg-dark">
+    <section id="contact" className="py-20 bg-paper">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="border-b-4 border-primary pb-2">Contact</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-ink">
+            Contact
           </h2>
-          <p className="text-gray-400">Let’s work together on your next project</p>
+          <p className="text-ink/70">Let’s work together on your next project</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <div className="space-y-6">
-            <div className="p-6 rounded-2xl bg-dark-lighter border border-white/5">
-              <div className="flex items-center gap-3 mb-3 text-white">
-                <FaEnvelope className="text-accent" />
+            <div className="p-6 rounded-2xl bg-white border border-ink/10">
+              <div className="flex items-center gap-3 mb-3 text-ink">
+                <FaEnvelope className="text-ink" />
                 <span className="font-semibold">Email</span>
               </div>
               <a
                 href={`mailto:${personalInfo.email}`}
-                className="text-gray-300 hover:text-white transition-colors"
+                className="text-ink/70 hover:text-ink transition-colors"
               >
                 {personalInfo.email}
               </a>
             </div>
 
-            <div className="p-6 rounded-2xl bg-dark-lighter border border-white/5">
-              <div className="flex items-center gap-3 mb-3 text-white">
-                <FaWhatsapp className="text-primary" />
+            <div className="p-6 rounded-2xl bg-white border border-ink/10">
+              <div className="flex items-center gap-3 mb-3 text-ink">
+                <FaWhatsapp className="text-ink" />
                 <span className="font-semibold">WhatsApp</span>
               </div>
               <a
                 href={personalInfo.whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors"
+                className="text-ink/70 hover:text-ink transition-colors"
               >
                 Message on WhatsApp
               </a>
             </div>
 
-            <div className="p-6 rounded-2xl bg-dark-lighter border border-white/5">
-              <div className="flex items-center gap-3 mb-3 text-white">
-                <FaFilePdf className="text-accent" />
+            <div className="p-6 rounded-2xl bg-white border border-ink/10">
+              <div className="flex items-center gap-3 mb-3 text-ink">
+                <FaFilePdf className="text-ink" />
                 <span className="font-semibold">Resume</span>
               </div>
               <a
                 href={personalInfo.resumeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-300 hover:text-white transition-colors"
+                className="text-ink/70 hover:text-ink transition-colors"
               >
                 View or download resume
               </a>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-8 rounded-2xl bg-dark-lighter border border-white/5">
+          <form onSubmit={handleSubmit} className="p-8 rounded-2xl bg-white border border-ink/10">
             <div className="grid grid-cols-1 gap-4">
               <input
-                className="w-full px-4 py-3 rounded-lg bg-dark border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary"
+                className="w-full px-4 py-3 rounded-lg bg-paper border border-ink/20 text-ink placeholder-ink/40 focus:outline-none focus:border-ink"
                 placeholder="Your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
               <input
                 type="email"
-                className="w-full px-4 py-3 rounded-lg bg-dark border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary"
+                className="w-full px-4 py-3 rounded-lg bg-paper border border-ink/20 text-ink placeholder-ink/40 focus:outline-none focus:border-ink"
                 placeholder="Your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
               <textarea
-                className="w-full px-4 py-3 rounded-lg bg-dark border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary min-h-[140px]"
+                className="w-full px-4 py-3 rounded-lg bg-paper border border-ink/20 text-ink placeholder-ink/40 focus:outline-none focus:border-ink min-h-[140px]"
                 placeholder="Project details"
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
               />
               <button
                 type="submit"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold hover:shadow-lg hover:shadow-primary/40 transition-all"
+                className="px-6 py-3 rounded-full bg-ink text-paper font-semibold hover:bg-ink/90 transition-all"
               >
                 Send Message
               </button>

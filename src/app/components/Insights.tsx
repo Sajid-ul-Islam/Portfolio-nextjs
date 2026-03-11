@@ -1,19 +1,17 @@
 "use client";
 import React from "react";
-import { projects } from "../data";
+import { posts } from "../data";
 
-const Projects = () => {
-  const latest = projects.slice(0, 6);
-
+const Insights = () => {
   return (
-    <section id="portfolio" className="py-20 bg-paper">
+    <section id="blog" className="py-20 bg-paper">
       <div className="container mx-auto px-6">
         <div className="flex items-end justify-between mb-10">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-ink mb-2">
-              Latest Work
+              Insights
             </h2>
-            <p className="text-ink/70">Selected projects and products</p>
+            <p className="text-ink/70">Thoughts on analytics, BI, and growth</p>
           </div>
           <a
             href="#"
@@ -23,24 +21,19 @@ const Projects = () => {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {latest.map((project, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {posts.map((post, idx) => (
             <a
-              key={index}
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
+              key={idx}
+              href={post.link}
               className="p-6 rounded-2xl bg-white border border-ink/10 hover:border-ink/40 transition-all"
             >
               <div className="text-xs uppercase tracking-wider text-ink/60 mb-3">
-                {project.tags?.[0] || "Project"}
+                {post.category}
               </div>
-              <h3 className="text-xl font-semibold text-ink mb-2">
-                {project.title}
+              <h3 className="text-lg font-semibold text-ink">
+                {post.title}
               </h3>
-              <p className="text-ink/70 text-sm leading-relaxed">
-                {project.desc}
-              </p>
             </a>
           ))}
         </div>
@@ -49,4 +42,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default Insights;
