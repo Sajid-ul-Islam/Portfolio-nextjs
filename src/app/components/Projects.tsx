@@ -1,9 +1,20 @@
 "use client";
-import React from 'react';
-import { projects } from '../data';
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
+import React, { useMemo, useState } from "react";
+import { projects } from "../data";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const Projects = () => {
+  const tags = useMemo(() => {
+    const all = new Set<string>();
+    projects.forEach((p) => p.tags?.forEach((t) => all.add(t)));
+    return ["All", ...Array.from(all)];
+  }, []);
+  const [activeTag, setActiveTag] = useState("All");
+
+  const filtered = activeTag === "All"
+    ? projects
+    : projects.filter((p) => p.tags?.includes(activeTag));
+
   return (
     <section id="projects" className="py-20 bg-dark">
       <div className="container mx-auto px-6">
@@ -14,8 +25,24 @@ const Projects = () => {
           <p className="text-gray-400">Showcase of my work</p>
         </div>
 
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          {tags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setActiveTag(tag)}
+              className={`px-4 py-2 rounded-full text-sm border transition-all ${
+                activeTag === tag
+                  ? "bg-accent text-black border-accent"
+                  : "bg-white/5 text-gray-300 border-white/10 hover:border-accent/50"
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
+          {filtered.map((project, index) => (
             <div key={index} className="group flex flex-col h-full bg-dark-lighter rounded-2xl overflow-hidden border border-white/5 hover:border-primary/50 transition-all duration-300 hover:shadow-2xl hover:shadow-primary/10">
               {/* Card Content */}
               <div className="p-6 flex-grow flex flex-col">

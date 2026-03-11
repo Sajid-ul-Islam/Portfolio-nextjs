@@ -54,7 +54,7 @@ const Skills = () => {
         {/* Core Competencies */}
         <div className="mt-16">
           <h3 className="text-2xl font-semibold text-white mb-8 text-center">Core Competencies</h3>
-          <div className="flex flex-wrapjustify-center gap-4 justify-center">
+          <div className="flex flex-wrap justify-center gap-4">
             {skills.core.map((skill, idx) => (
               <span key={idx} className="px-6 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:text-white transition-all cursor-default">
                 {skill}

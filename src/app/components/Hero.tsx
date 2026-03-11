@@ -5,7 +5,7 @@ import { FaGithub, FaLinkedin, FaEnvelope, FaWhatsapp } from 'react-icons/fa';
 
 const Hero = () => {
     return (
-        <section className="min-h-screen flex items-center justify-center bg-dark relative overflow-hidden pt-20">
+        <section id="hero" className="min-h-screen flex items-center justify-center bg-dark relative overflow-hidden pt-20">
             {/* Background Gradients */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
@@ -32,16 +32,16 @@ const Hero = () => {
 
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 animate-slide-up" style={{ animationDelay: '0.6s' }}>
                     <a
-                        href={`mailto:${personalInfo.email}`}
+                        href="#projects"
                         className="px-8 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-semibold hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 transform hover:-translate-y-1"
                     >
-                        Contact Me
+                        View Projects
                     </a>
                     <a
-                        href="#projects"
+                        href="#contact"
                         className="px-8 py-3 rounded-full bg-white/5 border border-white/10 text-white font-semibold hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
                     >
-                        View Work
+                        Contact Me
                     </a>
                 </div>
 

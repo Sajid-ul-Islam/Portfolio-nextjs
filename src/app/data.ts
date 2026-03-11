@@ -6,8 +6,34 @@ export const personalInfo = {
     title: "Business & Data Analyst",
     email: "sajid.islam.chowdhury@gmail.com",
     whatsapp: "https://wa.me/+8801824526054?text=",
+    resumeUrl: "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
     bio: "Business Analyst and Data Analyst with 2+ years of experience in marketplace analysis, business intelligence, and data-driven decision making. Specialized in Python, SQL, and Advanced Analytics with a proven track record of delivering actionable insights for e-commerce platforms like Daraz (Alibaba Group). Currently advancing expertise in machine learning and statistical modeling through postgraduate studies in Data Science & Business Analytics.",
 };
+
+export const metrics = [
+    { label: "Years Experience", value: "2+", sub: "Analytics & BI" },
+    { label: "Projects Delivered", value: "15+", sub: "Data & Web" },
+    { label: "Dashboards Built", value: "10+", sub: "Decision Support" },
+    { label: "Domains", value: "5+", sub: "E-commerce, BI, Security" },
+];
+
+export const testimonials = [
+    {
+        name: "Project Partner",
+        role: "Data & BI",
+        quote: "Clear thinking and fast execution. The dashboards made decision-making noticeably faster.",
+    },
+    {
+        name: "Team Lead",
+        role: "Marketplace Ops",
+        quote: "Strong stakeholder alignment and a practical approach to analytics delivery.",
+    },
+    {
+        name: "Colleague",
+        role: "Engineering",
+        quote: "Reliable, detail-oriented, and great at turning messy data into useful insights.",
+    },
+];
 
 export const experience = [
     {
