@@ -209,12 +209,6 @@ export const projects = [
         tags: ["Streamlit", "Python", "Automation", "Data Processing"]
     },
     {
-        title: "ML Portfolio Project",
-        desc: "Showcasing ML projects including data analysis and deployment.",
-        link: "https://github.com/saajiidi/ml-portfolio-project",
-        tags: ["Machine Learning", "Python"]
-    },
-    {
         title: "Day Progress Plus",
         desc: "A productivity focused application featuring day progress tracking, focus task management, and customizable settings.",
         link: "https://saajiidi.github.io/TimeTracker/",
@@ -252,8 +246,8 @@ export const projects = [
     },
     {
         title: "Tableau Portfolio",
-        desc: "Demographics, Economic Analysis, and Security Incident Maps.",
-        link: "https://public.tableau.com/views/MuslimPopulationbyEthinicity/Sheet2",
+        desc: "Demographics, economic analysis, and security incident maps.",
+        link: "https://public.tableau.com/app/profile/sajid.islam4721/viz/MuslimPopulationbyEthinicity/Dashboard1",
         tags: ["Tableau", "Data Visualization"]
     },
     {
