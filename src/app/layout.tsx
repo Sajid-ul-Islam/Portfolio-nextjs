@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
-
-const space = Space_Grotesk({ subsets: ["latin"] });
+import VSCodeShell from "./components/vscode/VSCodeShell";
+import { siteMeta } from "./data/portfolio";
 
 export const metadata: Metadata = {
-  title: "Sajid Islam - Portfolio | Data Analyst & Full Stack Developer",
-  description: "Portfolio of Sajid Islam - Experienced Data Analyst and Full Stack Developer specializing in React, Next.js, Python, and Business Intelligence. View my projects, experience, and skills.",
-  keywords: "Sajid Islam, Data Analyst, Full Stack Developer, React, Next.js, Python, Portfolio, Business Intelligence",
-  authors: [{ name: "Sajid Islam" }],
-  creator: "Sajid Islam",
+  title: {
+    default: siteMeta.title,
+    template: `%s | ${siteMeta.name}`,
+  },
+  description: siteMeta.description,
+  metadataBase: new URL(siteMeta.url),
   openGraph: {
-    title: "Sajid Islam - Portfolio",
-    description: "Data Analyst & Full Stack Developer Portfolio",
+    title: siteMeta.title,
+    description: siteMeta.description,
     type: "website",
     locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteMeta.title,
+    description: siteMeta.description,
   },
 };
 
@@ -25,7 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={space.className}>{children}</body>
+      <body>
+        <VSCodeShell>{children}</VSCodeShell>
+      </body>
     </html>
   );
 }
