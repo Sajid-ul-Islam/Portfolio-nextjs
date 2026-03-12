@@ -41,10 +41,10 @@ export default function HomeClient() {
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
       <div>
         <h1 className="text-4xl font-semibold text-[var(--vscode-text-primary)] mb-2">
-          Raj Savaliya
+          Sajid Islam
         </h1>
         <h2 className="text-xl text-[var(--vscode-text-secondary)] mb-8">
-          Software Development Engineer
+          Business & Data Analyst
         </h2>
         <section className="mb-8">
           <h3 className="text-lg text-[var(--vscode-text-primary)] mb-4">
