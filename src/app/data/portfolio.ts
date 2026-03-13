@@ -138,6 +138,69 @@ export const projects: Project[] = [
     liveUrl: "https://ramadancompass.vercel.app/",
     featured: true,
     technologies: ["Ramadan", "Prayer Times", "React", "PWA"],
+  },
+  {
+    id: "7",
+    title: "E-Commerce Platform",
+    description: "Modern e-commerce interface built with React.js featuring responsive design, product catalog, shopping cart functionality.",
+    image: "",
+    liveUrl: "https://gear-master.vercel.app/",
+    featured: true,
+    technologies: ["React", "E-commerce", "Frontend"],
+  },
+  {
+    id: "8",
+    title: "Day Progress Plus",
+    description: "A productivity focused application featuring day progress tracking, focus task management, and customizable settings.",
+    image: "",
+    liveUrl: "https://saajiidi.github.io/TimeTracker/",
+    featured: true,
+    technologies: ["Productivity", "React", "Utility"],
+  },
+  {
+    id: "9",
+    title: "Growth Analysis Dashboard",
+    description: "A comprehensive web development project showcasing modern web technologies and best practices.",
+    image: "",
+    liveUrl: "https://saajiidi.github.io/Growth-Analysis-Dashboard/",
+    featured: true,
+    technologies: ["Web Dev", "React", "Analytics"],
+  },
+  {
+    id: "10",
+    title: "Border Security Analysis",
+    description: "Data visualization project analyzing border incident trends in Bangladesh using statistical methods.",
+    image: "",
+    liveUrl: "https://saajiidi.github.io/Border-Killing-Trend-in-Bangladesh/",
+    featured: true,
+    technologies: ["Data Viz", "Statistics", "Social Impact"],
+  },
+  {
+    id: "11",
+    title: "Image Scraper",
+    description: "Versatile Python tool for downloading images from Pinterest with multiple interfaces including web UI and command line.",
+    image: "",
+    liveUrl: "https://img-scraper.streamlit.app/",
+    featured: true,
+    technologies: ["Python", "Scraping", "Automation"],
+  },
+  {
+    id: "12",
+    title: "Tableau Portfolio",
+    description: "Demographics, economic analysis, and security incident maps.",
+    image: "",
+    liveUrl: "https://public.tableau.com/app/profile/sajid.islam4721/viz/MuslimPopulationbyEthinicity/Dashboard1",
+    featured: true,
+    technologies: ["Tableau", "Data Visualization"],
+  },
+  {
+    id: "13",
+    title: "B2B StockLot E-Commerce",
+    description: "Web development project for B2B e-commerce.",
+    image: "",
+    liveUrl: "https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD",
+    featured: true,
+    technologies: ["HTML/CSS", "JavaScript", "Web Dev"],
   }
 ];
 
@@ -285,7 +348,8 @@ export const skillGroups: SkillGroup[] = [
       { name: "Excel", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png" },
       { name: "Google Analytics", category: "Data", icon: "https://img.icons8.com/color/48/000000/google-analytics.png" },
       { name: "Pandas", category: "Data", icon: "https://img.icons8.com/color/48/000000/pandas.png" },
-      { name: "NumPy", category: "Data", icon: "https://img.icons8.com/color/48/000000/numpy.png" }
+      { name: "NumPy", category: "Data", icon: "https://img.icons8.com/color/48/000000/numpy.png" },
+      { name: "Scikit-learn", category: "Data", icon: "https://img.icons8.com/color/48/000000/python.png" }
     ]
   },
   {
@@ -304,7 +368,9 @@ export const skillGroups: SkillGroup[] = [
       { name: "Business Intelligence", category: "Core" },
       { name: "Data Analysis", category: "Core" },
       { name: "Marketplace Analysis", category: "Core" },
-      { name: "Strategic Planning", category: "Core" }
+      { name: "Strategic Planning", category: "Core" },
+      { name: "Cross Functional Teams", category: "Core" },
+      { name: "Agile Development & Scrum", category: "Core" }
     ]
   }
 ];
@@ -348,6 +414,24 @@ export const experiences: Experience[] = [
     endDate: "2020",
     description: "Business & Marketplace Analysis, Sales Growth Strategies, CRM",
     technologies: ["CRM", "Sales Strategies"],
+  },
+  {
+    id: "deencommerce",
+    title: "Executive - Business",
+    company: "DEEN Commerce",
+    startDate: "2018",
+    endDate: "2019",
+    description: "CRM & Sales Growth, Business Analysis, Strategy & Development",
+    technologies: ["CRM", "Business Analysis", "Strategy"],
+  },
+  {
+    id: "gearmaster",
+    title: "Co-Founder",
+    company: "Gear Master",
+    startDate: "2024",
+    current: true,
+    description: "Bike Accessories Retail Store",
+    technologies: ["Retail", "Business Management"],
   }
 ];
 
@@ -452,6 +536,14 @@ export const blogPosts: BlogPost[] = [
     date: "2024-02-01",
     url: "#",
     tags: ["Strategy", "Data"]
+  },
+  {
+    id: "3",
+    title: "Designing reporting that drives decisions",
+    excerpt: "Best practices to design reports that offer actionable insights.",
+    date: "2024-03-01",
+    url: "#",
+    tags: ["BI", "Reporting"]
   }
 ];
 
