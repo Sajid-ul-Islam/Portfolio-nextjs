@@ -84,6 +84,63 @@ export const siteMeta = {
   ogImage: "/img/profile.jpg",
 };
 
+export const projects: Project[] = [
+  {
+    id: "1",
+    title: "ECommerce Dashboard",
+    description: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value.",
+    image: "",
+    liveUrl: "https://e-com-dashborad.vercel.app/",
+    featured: true,
+    technologies: ["Dashboard", "React", "Analytics", "E-commerce"],
+  },
+  {
+    id: "2",
+    title: "Sheet2WhatsApp",
+    description: "Automates WhatsApp link generation from Excel/CSV files.",
+    image: "",
+    liveUrl: "https://sheet2whatsapp.streamlit.app/",
+    featured: true,
+    technologies: ["Streamlit", "Python", "Pandas", "Vercel"],
+  },
+  {
+    id: "3",
+    title: "Sentinel Bangladesh",
+    description: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking.",
+    image: "",
+    liveUrl: "https://sentinelbangladesh.streamlit.app/",
+    featured: true,
+    technologies: ["Streamlit", "Python", "Data Visualization", "Security Analysis"],
+  },
+  {
+    id: "4",
+    title: "Order Process Automation",
+    description: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
+    image: "",
+    liveUrl: "https://order-process-automation.streamlit.app/",
+    featured: true,
+    technologies: ["Streamlit", "Python", "Automation", "Data Processing"],
+  },
+  {
+    id: "5",
+    title: "Air Passenger Forecasting",
+    description: "Time series analysis comparing multiple forecasting models (ARIMA, Exponential Smoothing) for airline passenger prediction.",
+    image: "",
+    liveUrl: "https://saajiidi.github.io/Air_Passengers_Forecasting_Models/",
+    featured: true,
+    technologies: ["Machine Learning", "Time Series", "Python"],
+  },
+  {
+    id: "6",
+    title: "Ramadan Compass",
+    description: "A beautiful Islamic companion app featuring prayer times, Ramadan countdown, and spiritual tracking.",
+    image: "",
+    liveUrl: "https://ramadancompass.vercel.app/",
+    featured: true,
+    technologies: ["Ramadan", "Prayer Times", "React", "PWA"],
+  }
+];
+
 export const fileTree: FileTreeSection[] = [
   {
     id: "portfolio",
@@ -120,6 +177,18 @@ export const fileTree: FileTreeSection[] = [
         extension: "tsx",
       },
     ],
+  },
+  {
+    id: "my-projects",
+    label: "MY PROJECTS",
+    isOpen: true,
+    items: projects.map((p) => ({
+      id: `project-${p.id}`,
+      label: p.title.replace(/\s+/g, ""),
+      href: `/projects/${p.id}`,
+      icon: "code",
+      extension: "ts",
+    })),
   },
   {
     id: "hobbies",
@@ -240,62 +309,6 @@ export const skillGroups: SkillGroup[] = [
   }
 ];
 
-export const projects: Project[] = [
-  {
-    id: "1",
-    title: "ECommerce Dashboard",
-    description: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value.",
-    image: "",
-    liveUrl: "https://e-com-dashborad.vercel.app/",
-    featured: true,
-    technologies: ["Dashboard", "React", "Analytics", "E-commerce"],
-  },
-  {
-    id: "2",
-    title: "Sheet2WhatsApp",
-    description: "Automates WhatsApp link generation from Excel/CSV files.",
-    image: "",
-    liveUrl: "https://sheet2whatsapp.streamlit.app/",
-    featured: true,
-    technologies: ["Streamlit", "Python", "Pandas", "Vercel"],
-  },
-  {
-    id: "3",
-    title: "Sentinel Bangladesh",
-    description: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking.",
-    image: "",
-    liveUrl: "https://sentinelbangladesh.streamlit.app/",
-    featured: true,
-    technologies: ["Streamlit", "Python", "Data Visualization", "Security Analysis"],
-  },
-  {
-    id: "4",
-    title: "Order Process Automation",
-    description: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
-    image: "",
-    liveUrl: "https://order-process-automation.streamlit.app/",
-    featured: true,
-    technologies: ["Streamlit", "Python", "Automation", "Data Processing"],
-  },
-  {
-    id: "5",
-    title: "Air Passenger Forecasting",
-    description: "Time series analysis comparing multiple forecasting models (ARIMA, Exponential Smoothing) for airline passenger prediction.",
-    image: "",
-    liveUrl: "https://saajiidi.github.io/Air_Passengers_Forecasting_Models/",
-    featured: true,
-    technologies: ["Machine Learning", "Time Series", "Python"],
-  },
-  {
-    id: "6",
-    title: "Ramadan Compass",
-    description: "A beautiful Islamic companion app featuring prayer times, Ramadan countdown, and spiritual tracking.",
-    image: "",
-    liveUrl: "https://ramadancompass.vercel.app/",
-    featured: true,
-    technologies: ["Ramadan", "Prayer Times", "React", "PWA"],
-  }
-];
 
 export const experiences: Experience[] = [
   {
