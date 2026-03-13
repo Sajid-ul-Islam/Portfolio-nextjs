@@ -148,11 +148,38 @@ export const projects: Project[] = [
   {
     id: "6",
     title: "Ramadan Compass",
-    description: "A beautiful Islamic companion app featuring prayer times, Ramadan countdown, and spiritual tracking.",
+    description: "A comprehensive Ramadan companion app featuring prayer times, Qibla compass, and daily goals tracking. Built with Next.js.",
     image: "",
     liveUrl: "https://ramadancompass.vercel.app/",
     featured: true,
-    technologies: ["Ramadan", "Prayer Times", "React", "PWA"],
+    technologies: ["Next.js", "Ramadan", "Prayer Times", "React", "PWA"],
+  },
+  {
+    id: "churn-analysis",
+    title: "Customer Churn Analysis",
+    description: "Predictive modeling using Python to identify at-risk customers. Implementation of Random Forest and XGBoost with 85%+ accuracy.",
+    image: "",
+    githubUrl: "https://github.com/saajiidi/Customer-Churn-Prediction/",
+    featured: true,
+    technologies: ["Python", "Machine Learning", "XGBoost", "Random Forest"],
+  },
+  {
+    id: "security-map",
+    title: "Security Map Visualization",
+    description: "Interactive map-based visualization of security events developed using R, Folium, and Leaflet with temporal sliders.",
+    image: "",
+    liveUrl: "https://trr-bd.vercel.app",
+    featured: true,
+    technologies: ["R", "Folium", "Leaflet", "Data Viz"],
+  },
+  {
+    id: "gdp-debt",
+    title: "Economic Analysis",
+    description: "Analysis of GDP vs Debt Correlation across global economies.",
+    image: "",
+    liveUrl: "https://saajiidi.github.io/Economic-Analysis-GDP-vs-Debt-Correlation/",
+    featured: true,
+    technologies: ["Data Analysis", "Economics", "Python"],
   },
   {
     id: "7",
@@ -371,10 +398,10 @@ export const skillGroups: SkillGroup[] = [
     name: "Data Analytics & BI",
     skills: [
       { name: "Python", category: "Data", icon: "https://img.icons8.com/color/48/null/python--v1.png" },
-      { name: "SQL", category: "Data", icon: "https://img.icons8.com/ios-filled/100/000000/sql.png" },
-      { name: "Power BI", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png" },
+      { name: "SQL (MySQL, PostgreSQL, BigQuery)", category: "Data", icon: "https://img.icons8.com/ios-filled/100/000000/sql.png" },
+      { name: "Power BI (DAX, Modeling)", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png" },
       { name: "Tableau", category: "BI", icon: "https://img.icons8.com/color/48/000000/tableau-software.png" },
-      { name: "Excel", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png" },
+      { name: "Analytics (R, Excel)", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png" },
       { name: "Google Analytics", category: "Data", icon: "https://img.icons8.com/color/48/000000/google-analytics.png" },
       { name: "Pandas", category: "Data", icon: "https://img.icons8.com/color/48/000000/pandas.png" },
       { name: "NumPy", category: "Data", icon: "https://img.icons8.com/color/48/000000/numpy.png" },
@@ -399,7 +426,9 @@ export const skillGroups: SkillGroup[] = [
       { name: "Marketplace Analysis", category: "Core" },
       { name: "Strategic Planning", category: "Core" },
       { name: "Cross Functional Teams", category: "Core" },
-      { name: "Agile Development & Scrum", category: "Core" }
+      { name: "Agile Development & Scrum", category: "Core" },
+      { name: "Data-Driven Decision Making", category: "Core" },
+      { name: "End-to-End Analytics Pipelines", category: "Core" }
     ]
   }
 ];
@@ -408,22 +437,30 @@ export const skillGroups: SkillGroup[] = [
 export const experiences: Experience[] = [
   {
     id: "daraz",
-    title: "Jr. Executive - Marketplace",
+    title: "Marketplace Analyst",
     company: "Daraz (Alibaba Group)",
     location: "Bangladesh",
     startDate: "2022",
     current: true,
-    description: "Business & Marketplace Analysis, Brand & Partner Acquisition, Partner Development Project",
-    technologies: ["Data Analysis", "Marketplace"],
+    description: "Optimized Marketplace Health through vendor performance tracking and catalog expansion. Leveraged BI tools to identify hyper-local food trends and demand spikes.",
+    technologies: ["Data Analysis", "Marketplace", "BI Tools"],
+    highlights: [
+      "Optimized Marketplace Health through vendor performance tracking and catalog expansion",
+      "Leveraged BI tools to identify hyper-local food trends and demand spikes in street food categories"
+    ],
     logo: "",
   },
   {
     id: "hungrynaki",
-    title: "Associate - Home Kitchen & Street Food",
+    title: "Associate - Marketplace Analyst",
     company: "HungryNaki (Alibaba Group)",
     startDate: "2021",
     endDate: "2022",
     description: "Business & Marketplace Analysis, Brand & Partner Acquisition",
+    highlights: [
+      "Optimized Marketplace Health through vendor performance tracking and catalog expansion",
+      "Leveraged BI tools to identify hyper-local food trends and demand spikes"
+    ],
     technologies: ["Business Analysis", "Partner Development"],
   },
   {
@@ -432,17 +469,25 @@ export const experiences: Experience[] = [
     company: "NZ Fabrics (NZ TEXTILE GROUP)",
     startDate: "2020",
     endDate: "2021",
-    description: "Info & Tech Support, Presentation & Reporting to Authorities & Buyers",
-    technologies: ["Tech Support", "Quality Control"],
+    description: "Provided Technical Support to the Quality Control team, digitizing inspection workflows. Collaborated with R&D for process optimization.",
+    highlights: [
+      "Provided Technical Support to the Quality Control team, digitizing inspection workflows",
+      "Collaborated with R&D for process optimization and automated performance reporting"
+    ],
+    technologies: ["Tech Support", "Quality Control", "Automation"],
   },
   {
     id: "thrivingskill",
-    title: "Associate - Online Sales & Customer Supports",
+    title: "Associate - Online Sales & Support",
     company: "Thriving Skill",
     startDate: "2019",
     endDate: "2020",
-    description: "Business & Marketplace Analysis, Sales Growth Strategies, CRM",
-    technologies: ["CRM", "Sales Strategies"],
+    description: "Executed Market Analysis to identify high-converting sales funnels for digital courses. Managed CRM systems to improve customer retention.",
+    highlights: [
+      "Executed Market Analysis to identify high-converting sales funnels for digital courses",
+      "Managed CRM systems to improve customer retention and lead conversion rates"
+    ],
+    technologies: ["CRM", "Sales Strategies", "Market Analysis"],
   },
   {
     id: "deencommerce",
@@ -450,7 +495,11 @@ export const experiences: Experience[] = [
     company: "DEEN Commerce",
     startDate: "2018",
     endDate: "2019",
-    description: "CRM & Sales Growth, Business Analysis, Strategy & Development",
+    description: "Leading Business Strategy and CRM growth through granular performance tracking. Architecting weekly performance dashboards.",
+    highlights: [
+      "Leading Business Strategy and CRM growth through granular performance tracking",
+      "Architecting weekly performance dashboards for stakeholder reporting"
+    ],
     technologies: ["CRM", "Business Analysis", "Strategy"],
   },
   {
@@ -459,7 +508,11 @@ export const experiences: Experience[] = [
     company: "Gear Master",
     startDate: "2024",
     current: true,
-    description: "Bike Accessories Retail Store",
+    description: "Leading Business Operations for a bike accessories retail startup. Managing inventory and sales growth strategies.",
+    highlights: [
+      "Leading Business Operations for a bike accessories retail startup",
+      "Managing inventory, sales growth strategies, and multi-channel customer engagement"
+    ],
     technologies: ["Retail", "Business Management"],
   }
 ];
@@ -590,12 +643,17 @@ export const education: Education[] = [
     link: "https://abpbd.org/",
   },
   {
+    institution: "University of Dhaka",
+    degree: "Management Information System",
+    link: "https://www.du.ac.bd",
+  },
+  {
     institution: "North South University",
     degree: "Computer Science & Engineering",
     link: "https://www.northsouth.edu",
   },
   {
-    institution: "Bangladesh Air Force Shaheen College Dhaka",
+    institution: "BAF Shaheen College Dhaka",
     degree: "Science Division",
     link: "https://bafsd.edu.bd",
   },
