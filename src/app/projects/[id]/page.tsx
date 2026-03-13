@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { LuArrowLeft, LuExternalLink, LuGithub } from "react-icons/lu";
@@ -44,10 +45,11 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         {project.title}
       </h1>
       <div className="relative aspect-video rounded-[var(--vscode-border-radius-md)] overflow-hidden mb-6 border border-[var(--vscode-border)]">
-        <img
+        <Image
           src={project.image}
           alt={project.title}
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          className="object-cover"
         />
       </div>
       <div className="flex flex-wrap gap-3 mb-6">
@@ -55,6 +57,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           <Button asChild variant="secondary" className="w-auto">
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
               <LuExternalLink size={16} />
+              Live Demo
             </a>
           </Button>
         ) : null}
@@ -62,6 +65,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           <Button asChild variant="secondary">
             <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
               <LuGithub size={16} />
+              GitHub
             </a>
           </Button>
         ) : null}
@@ -92,10 +96,11 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                 key={`${project.id}-${index}`}
                 className="relative aspect-video rounded-[var(--vscode-border-radius-md)] overflow-hidden border border-[var(--vscode-border)]"
               >
-                <img
+                <Image
                   src={image}
                   alt={`${project.title} screenshot ${index + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  fill
+                  className="object-cover"
                 />
               </div>
             ))}

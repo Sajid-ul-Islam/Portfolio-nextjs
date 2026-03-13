@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useState } from "react";
 import { LuChevronDown, LuChevronRight } from "react-icons/lu";
 
@@ -25,7 +25,7 @@ function SkillCard({ name, icon, level }: SkillCardProps) {
         "transition-colors"
       )}
     >
-      {icon ? <img src={icon} alt={name} className="w-6 h-6" /> : null}
+      {icon ? <Image src={icon} alt={name} width={24} height={24} className="w-6 h-6" /> : null}
       <span className="text-vscode-sm text-[var(--vscode-text-primary)]">{name}</span>
       {level ? (
         <span className="ml-auto text-vscode-xs text-[var(--vscode-text-secondary)]">

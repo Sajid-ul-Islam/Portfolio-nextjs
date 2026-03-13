@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { LuMenu, LuMinus, LuSquare, LuX } from "react-icons/lu";
 
 import { menuItems, siteMeta } from "../../data/portfolio";
@@ -25,9 +25,11 @@ export default function TitleBar({ onMenuClick, isMobile }: TitleBarProps) {
         ) : (
           <>
             <div className="flex items-center justify-center w-12 h-full">
-              <img
+              <Image
                 src="https://img.icons8.com/color/96/000000/visual-studio-code-2019.png"
                 alt="VS Code"
+                width={16}
+                height={16}
                 className="w-4 h-4"
               />
             </div>

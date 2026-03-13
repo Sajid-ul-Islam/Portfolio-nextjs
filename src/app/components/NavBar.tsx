@@ -8,13 +8,13 @@ const NavBar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
 
-  const navItems = [
+  const navItems = React.useMemo(() => [
     { id: "hero", label: "Home", href: "/#hero" },
     { id: "about", label: "About", href: "/#about" },
     { id: "portfolio", label: "Portfolio", href: "/#portfolio" },
     { id: "blog", label: "Insights", href: "/#blog" },
     { id: "contact", label: "Contact", href: "/#contact" },
-  ];
+  ], []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,7 +41,7 @@ const NavBar = () => {
       if (el) observer.observe(el);
     });
     return () => observer.disconnect();
-  }, []);
+  }, [navItems]);
 
   return (
     <nav

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LuExternalLink, LuGithub } from "react-icons/lu";
 
@@ -26,11 +27,11 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
       )}
     >
       <Link href={`/projects/${project.id}`} className="relative aspect-video overflow-hidden">
-        <img
+        <Image
           src={project.image}
           alt={project.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
         />
       </Link>
       <div className="flex flex-col flex-1 p-4">
