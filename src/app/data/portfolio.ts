@@ -145,7 +145,7 @@ export const projects: Project[] = [
     description: "Modern e-commerce interface built with React.js featuring responsive design, product catalog, shopping cart functionality.",
     image: "",
     liveUrl: "https://gear-master.vercel.app/",
-    featured: true,
+    featured: false,
     technologies: ["React", "E-commerce", "Frontend"],
   },
   {
@@ -154,7 +154,7 @@ export const projects: Project[] = [
     description: "A productivity focused application featuring day progress tracking, focus task management, and customizable settings.",
     image: "",
     liveUrl: "https://saajiidi.github.io/TimeTracker/",
-    featured: true,
+    featured: false,
     technologies: ["Productivity", "React", "Utility"],
   },
   {
@@ -163,7 +163,7 @@ export const projects: Project[] = [
     description: "A comprehensive web development project showcasing modern web technologies and best practices.",
     image: "",
     liveUrl: "https://saajiidi.github.io/Growth-Analysis-Dashboard/",
-    featured: true,
+    featured: false,
     technologies: ["Web Dev", "React", "Analytics"],
   },
   {
@@ -172,7 +172,7 @@ export const projects: Project[] = [
     description: "Data visualization project analyzing border incident trends in Bangladesh using statistical methods.",
     image: "",
     liveUrl: "https://saajiidi.github.io/Border-Killing-Trend-in-Bangladesh/",
-    featured: true,
+    featured: false,
     technologies: ["Data Viz", "Statistics", "Social Impact"],
   },
   {
@@ -181,7 +181,7 @@ export const projects: Project[] = [
     description: "Versatile Python tool for downloading images from Pinterest with multiple interfaces including web UI and command line.",
     image: "",
     liveUrl: "https://img-scraper.streamlit.app/",
-    featured: true,
+    featured: false,
     technologies: ["Python", "Scraping", "Automation"],
   },
   {
@@ -190,7 +190,7 @@ export const projects: Project[] = [
     description: "Demographics, economic analysis, and security incident maps.",
     image: "",
     liveUrl: "https://public.tableau.com/app/profile/sajid.islam4721/viz/MuslimPopulationbyEthinicity/Dashboard1",
-    featured: true,
+    featured: false,
     technologies: ["Tableau", "Data Visualization"],
   },
   {
@@ -199,7 +199,7 @@ export const projects: Project[] = [
     description: "Web development project for B2B e-commerce.",
     image: "",
     liveUrl: "https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD",
-    featured: true,
+    featured: false,
     technologies: ["HTML/CSS", "JavaScript", "Web Dev"],
   }
 ];
@@ -245,7 +245,7 @@ export const fileTree: FileTreeSection[] = [
     id: "my-projects",
     label: "MY PROJECTS",
     isOpen: true,
-    items: projects.map((p) => ({
+    items: projects.filter(p => p.featured).map((p) => ({
       id: `project-${p.id}`,
       label: p.title.replace(/\s+/g, ""),
       href: `/projects/${p.id}`,
