@@ -1,6 +1,4 @@
-# Sajid Islam - Portfolio Website
-
-🚀 **Modern Portfolio Website** built with Next.js, TypeScript, and Tailwind CSS
+🚀 **VS Code Themed Portfolio** built with Next.js 14, TypeScript, and Tailwind CSS.
 
 [![Next.js](https://img.shields.io/badge/Next.js-14.2.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
@@ -8,30 +6,24 @@
 
 ## ✨ Features
 
-### 🎨 **Modern Design**
-- **Glassmorphism UI** with backdrop blur effects
-- **Gradient backgrounds** and smooth animations
-- **Responsive design** optimized for all devices
-- **Dark theme** with elegant color schemes
+### 💻 **VS Code Interface**
+- **Activity Bar & Sidebar**: Familiar VS Code layout for navigation
+- **Editor-like Shell**: Code-inspired UI for project showcases
+- **Theme Variables**: Full support for VS Code theme colors and tokens
+- **Interactive File Tree**: Navigate through portfolio sections like a workspace
 
-### 🚀 **Enhanced Components**
-- **Interactive Skills Section** with animated progress bars
-- **Enhanced Projects Showcase** with filtering and technology badges
-- **Contact Form** with validation and submission handling
-- **Smooth Scrolling** navigation with scroll-to-top functionality
-- **Theme Toggle** for light/dark mode switching
+### 🚀 **Portfolio Sections**
+- **Experience**: Timeline of professional growth
+- **Projects**: Grid of featured work with technology badges
+- **Skills**: Categorized technical expertise
+- **Blogs**: Integrated writing section
+- **Specialized Views**: Anime, Gaming, and Startup interest pages
 
-### ⚡ **Performance Optimizations**
-- **Next.js Image Optimization** for faster loading
-- **CSS Variables** for consistent theming
-- **Smooth Animations** with CSS transitions
-- **SEO Optimized** with proper meta tags and Open Graph
-
-### 📱 **User Experience**
-- **Mobile-first Design** with touch-friendly interactions
-- **Keyboard Navigation** support
-- **Loading States** and micro-interactions
-- **Accessibility Features** with ARIA labels
+### ⚡ **Performance & SEO**
+- **Next.js 14 App Router**: Utilizing the latest React features
+- **Type Safety**: Built entirely with TypeScript
+- **SEO Optimized**: Metadata and Open Graph support for every route
+- **Fast Refresh**: Optimized for a snappy development experience
 
 ## 🛠️ Tech Stack
 
@@ -80,24 +72,18 @@
 ## 📁 Project Structure
 
 ```
-src/
-├── app/
-│   ├── components/          # React components
-│   │   ├── About.tsx       # About section
-│   │   ├── NavBar.tsx      # Navigation component
-│   │   ├── SkillsEnhanced.tsx    # Enhanced skills with progress bars
-│   │   ├── ProjectsEnhanced.tsx  # Enhanced projects showcase
-│   │   ├── ContactForm.tsx       # Contact form component
-│   │   ├── ScrollToTop.tsx       # Scroll to top button
-│   │   ├── ThemeToggle.tsx       # Theme switcher
-│   │   └── LoadingSpinner.tsx    # Loading component
-│   ├── globals.css         # Global styles and CSS variables
-│   ├── styles.css          # Component-specific styles
-│   ├── layout.tsx          # Root layout with metadata
-│   └── page.tsx            # Main page component
-├── public/
-│   └── img/                # Images and assets
-└── ...
+src/app/
+├── (routes)/           # Page routes (Experience, Projects, etc.)
+├── components/         # React components
+│   └── vscode/         # Core VS Code themed UI components
+│       ├── ActivityBar.tsx
+│       ├── Badge.tsx
+│       ├── HomeClient.tsx
+│       └── VSCodeShell.tsx
+├── data/               # Portfolio content and project data
+├── lib/                # Shared utilities and helpers
+├── globals.css         # Global styles and theme variables
+└── layout.tsx          # Root layout with shell integration
 ```
 
 ## 🎨 Customization
@@ -173,9 +159,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **Next.js Team** for the amazing framework
+- **Raj Savaliya** for the inspiration and original VS Code theme design
 - **Tailwind CSS** for the utility-first CSS framework
 - **Vercel** for seamless deployment
-- **React Icons** for the beautiful icon library
 
 ## 📞 Contact
 
