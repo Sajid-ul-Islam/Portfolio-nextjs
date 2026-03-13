@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  LuBlocks,
+  LuBoxes,
   LuFolder,
   LuGitBranch,
   LuSearch,
@@ -15,7 +15,7 @@ const iconMap = {
   files: LuFolder,
   search: LuSearch,
   "git-branch": LuGitBranch,
-  blocks: LuBlocks,
+  blocks: LuBoxes,
   user: LuUser,
   settings: LuSettings,
 };
