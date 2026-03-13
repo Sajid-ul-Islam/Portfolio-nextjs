@@ -54,7 +54,7 @@ export default function HomeClient() {
             <StartLink href="/Skills" icon={<LuCode size={18} />}>
               Skills...
             </StartLink>
-            <StartLink href="/Projects" icon={<LuFolder size={18} />}>
+            <StartLink href="/projects" icon={<LuFolder size={18} />}>
               Projects...
             </StartLink>
             <StartLink href="/Anime" icon={<LuHash size={18} />}>

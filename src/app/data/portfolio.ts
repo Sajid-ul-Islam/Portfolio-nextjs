@@ -75,6 +75,21 @@ export type BlogPost = {
   url: string;
 };
 
+export type Education = {
+  institution: string;
+  degree: string;
+  link?: string;
+  logo?: string;
+};
+
+export type FamilyMember = {
+  relation: string;
+  name: string;
+  nameLink?: string;
+  occupation?: string;
+  link?: string;
+};
+
 export const siteMeta = {
   name: "Sajid Islam",
   title: "Sajid Islam | Business & Data Analyst",
@@ -228,8 +243,22 @@ export const fileTree: FileTreeSection[] = [
       {
         id: "projects",
         label: "Projects",
-        href: "/Projects",
+        href: "/projects",
         icon: "folder",
+        extension: "tsx",
+      },
+      {
+        id: "education",
+        label: "Education",
+        href: "/Education",
+        icon: "graduation-cap",
+        extension: "tsx",
+      },
+      {
+        id: "family",
+        label: "Family",
+        href: "/Family",
+        icon: "users",
         extension: "tsx",
       },
       {
@@ -552,4 +581,78 @@ export const startupValues = [
   "User feedback drives development",
   "Create something either you want or someone else needs",
   "Keep it simple",
+];
+
+export const education: Education[] = [
+  {
+    institution: "Academy of Business Professionals",
+    degree: "Data Science & Business Analytics",
+    link: "https://abpbd.org/",
+  },
+  {
+    institution: "North South University",
+    degree: "Computer Science & Engineering",
+    link: "https://www.northsouth.edu",
+  },
+  {
+    institution: "Bangladesh Air Force Shaheen College Dhaka",
+    degree: "Science Division",
+    link: "https://bafsd.edu.bd",
+  },
+  {
+    institution: "Uttara High School & College",
+    degree: "Science Division",
+    link: "https://uhscdhaka.edu.bd",
+  },
+];
+
+export const family: FamilyMember[] = [
+  {
+    relation: "Wife",
+    name: "Infida Yesmin",
+    nameLink: "https://saajiidi.github.io/Infida-Yesmin-Meem/",
+    occupation: "Bangla and Economics Instructor of Protishruti Poribar",
+    link: "https://www.facebook.com/ProtishrutiPoribar",
+  },
+  {
+    relation: "Father",
+    name: "Shahed Chowdhury",
+    occupation: "Merchandiser, Stocklot Business",
+  },
+  {
+    relation: "Mother",
+    name: "Suraiya Haque",
+    occupation: "Former KG School Teacher, House Wife",
+  },
+  {
+    relation: "Paternal Grandfather",
+    name: "Late. Mazharul Islam Chowdhury",
+    occupation: "Former Head Master, PG Govt. High School",
+  },
+  {
+    relation: "Maternal Grandfather",
+    name: "Late. Shamsul Haque",
+    occupation: "Former Govt. Officer, Land Acquisition",
+  },
+  {
+    relation: "Paternal Uncle",
+    name: "Late. Nurul Alam Chowdhury",
+    occupation: "Lieutenant Colonel (Rtd), Bangladesh Army",
+  },
+  {
+    relation: "Maternal Uncle",
+    name: "Moazzem Hossain",
+    occupation: "Principal Officer (Rtd), Shonali Bank Ltd.",
+  },
+  {
+    relation: "Paternal Uncle",
+    name: "Farid Ahmed Chowdhury",
+    occupation: "Head of Philosophy Dept. Chittagong College",
+  },
+  {
+    relation: "Sibling (Younger)",
+    name: "Sakib Islam",
+    occupation: "Owner - Gear Master",
+    link: "https://www.facebook.com/profile.php?id=61558077623189",
+  },
 ];

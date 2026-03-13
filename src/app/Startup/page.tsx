@@ -72,7 +72,7 @@ export default function StartupPage() {
               ))}
             </div>
             <Link
-              href="/Projects"
+              href="/projects"
               className="inline-flex items-center gap-2 mt-4 text-vscode-sm text-[var(--vscode-text-link)] hover:text-[var(--vscode-text-linkHover)] transition-colors"
             >
               View all projects

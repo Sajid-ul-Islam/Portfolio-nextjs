@@ -10,8 +10,8 @@ import { cn } from "../lib/cn";
 export const metadata = {
   title: "Projects",
   description:
-    "Portfolio of projects built by Raj Savaliya including AI applications, SaaS products, and web applications.",
-  alternates: { canonical: "/Projects" },
+    "Portfolio of projects built by Sajid Islam including AI applications, SaaS products, and data analytics tools.",
+  alternates: { canonical: "/projects" },
 };
 
 function ProjectCard({ project }: { project: (typeof projects)[number] }) {
@@ -27,12 +27,18 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
       )}
     >
       <Link href={`/projects/${project.id}`} className="relative aspect-video overflow-hidden">
-        <Image
-          src={project.image}
-          alt={project.title}
-          fill
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full bg-[var(--vscode-editor-background)] flex items-center justify-center text-[var(--vscode-text-secondary)]">
+            <span className="text-vscode-xs uppercase tracking-widest">{project.title}</span>
+          </div>
+        )}
       </Link>
       <div className="flex flex-col flex-1 p-4">
         <Link href={`/projects/${project.id}`}>
@@ -81,39 +87,20 @@ function ProjectCard({ project }: { project: (typeof projects)[number] }) {
 }
 
 export default function ProjectsPage() {
-  const featured = projects.filter((project) => project.featured);
-  const others = projects.filter((project) => !project.featured);
-
   return (
     <>
       <SectionHeader
         title="Projects"
-        description="A collection of projects I've built and contributed to."
+        description="A complete list of my professional work, indie projects, and academic contributions."
       />
-      {featured.length > 0 ? (
-        <section className="mb-12">
-          <h2 className="text-lg font-semibold text-[var(--vscode-text-primary)] mb-4">
-            Featured Projects
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featured.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        </section>
-      ) : null}
-      {others.length > 0 ? (
-        <section>
-          <h2 className="text-lg font-semibold text-[var(--vscode-text-primary)] mb-4">
-            Other Projects
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {others.map((project) => (
-              <ProjectCard key={project.id} project={project} />
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <section>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {projects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      </section>
     </>
   );
 }
+
