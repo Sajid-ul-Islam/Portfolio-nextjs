@@ -102,7 +102,7 @@ export default function ContactClient() {
                 Message Sent!
               </h3>
               <p className="text-vscode-sm text-[var(--vscode-text-secondary)] mb-4">
-                Thank you for reaching out. I'll get back to you soon.
+                Thank you for reaching out. I&apos;ll get back to you soon.
               </p>
             </div>
           ) : (

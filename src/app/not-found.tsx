@@ -8,7 +8,7 @@ export default function NotFound() {
         404 - File Not Found
       </h1>
       <p className="text-vscode-base text-[var(--vscode-text-secondary)] mb-6">
-        The file you're looking for doesn't exist in this workspace.
+        The file you&apos;re looking for doesn&apos;t exist in this workspace.
       </p>
       <Link
         href="/"

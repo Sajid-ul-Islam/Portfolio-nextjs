@@ -34,7 +34,7 @@ export default function StartupPage() {
           <section>
             <h2 className="text-lg font-semibold text-[var(--vscode-text-primary)] mb-4 flex items-center gap-2">
               <LuRocket size={20} className="text-[var(--vscode-accent)]" />
-              Products I've Built
+              Products I&apos;ve Built
             </h2>
             <div className="space-y-4">
               {featuredProducts.map((project) => (
