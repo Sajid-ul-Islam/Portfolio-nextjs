@@ -379,7 +379,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: "resume",
     name: "Resume",
-    url: "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
+    url: "https://saajiidi.github.io/resume.html",
     icon: "file-text",
     color: "#da552f",
   },
