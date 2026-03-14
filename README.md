@@ -57,7 +57,16 @@
    pnpm install
    ```
 
-3. **Run the development server**
+3. **Configure environment variables**
+   Copy `.env.example` to `.env.local` and update the values:
+   ```bash
+   cp .env.example .env.local
+   ```
+   Required for email: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`  
+   Optional: Turnstile `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`  
+   Optional: GitHub activity `GITHUB_USERNAME`, `GITHUB_TOKEN`
+
+4. **Run the development server**
    ```bash
    npm run dev
    # or
@@ -66,7 +75,7 @@
    pnpm dev
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## 📁 Project Structure

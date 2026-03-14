@@ -11,6 +11,7 @@ export type Tab = {
   href: string;
   isActive: boolean;
   isModified?: boolean;
+  isPinned?: boolean;
 };
 
 function buildTab(path: string): Tab {
@@ -21,6 +22,7 @@ function buildTab(path: string): Tab {
     label: `${labelBase}.tsx`,
     href: path,
     isActive: false,
+    isPinned: false,
   };
 }
 
@@ -53,9 +55,13 @@ export function useOpenTabs() {
   );
 
   const closeTab = useCallback(
-    (id: string) => {
+    (id: string, force = true) => {
       setTabs((prev) => {
         const index = prev.findIndex((tab) => tab.id === id);
+        const target = prev[index];
+        if (target?.isPinned && !force) {
+          return prev;
+        }
         const nextTabs = prev.filter((tab) => tab.id !== id);
 
         if (id === activeTab) {
@@ -75,18 +81,53 @@ export function useOpenTabs() {
 
   const closeOtherTabs = useCallback(
     (id: string) => {
-      setTabs((prev) => prev.filter((tab) => tab.id === id));
+      setTabs((prev) => {
+        const nextTabs = prev.filter(
+          (tab) => tab.id === id || tab.isPinned
+        );
+        const stillActive = nextTabs.some((tab) => tab.id === activeTab);
+        if (!stillActive) {
+          router.push(nextTabs[0]?.href ?? "/");
+        }
+        return nextTabs;
+      });
+    },
+    [activeTab, router, setTabs]
+  );
+
+  const closeAllTabs = useCallback(() => {
+    setTabs((prev) => {
+      const nextTabs = prev.filter((tab) => tab.isPinned);
+      if (nextTabs.length === 0) {
+        router.push("/");
+      } else if (!nextTabs.some((tab) => tab.id === activeTab)) {
+        router.push(nextTabs[0].href);
+      }
+      return nextTabs;
+    });
+  }, [activeTab, router, setTabs]);
+
+  const togglePin = useCallback(
+    (id: string) => {
+      setTabs((prev) =>
+        prev.map((tab) =>
+          tab.id === id ? { ...tab, isPinned: !tab.isPinned } : tab
+        )
+      );
     },
     [setTabs]
   );
 
-  const closeAllTabs = useCallback(() => {
-    setTabs([]);
-    router.push("/");
-  }, [router, setTabs]);
-
   return useMemo(
-    () => ({ tabs, activeTab, openTab, closeTab, closeOtherTabs, closeAllTabs }),
-    [tabs, activeTab, openTab, closeTab, closeOtherTabs, closeAllTabs]
+    () => ({
+      tabs,
+      activeTab,
+      openTab,
+      closeTab,
+      closeOtherTabs,
+      closeAllTabs,
+      togglePin,
+    }),
+    [tabs, activeTab, openTab, closeTab, closeOtherTabs, closeAllTabs, togglePin]
   );
 }
