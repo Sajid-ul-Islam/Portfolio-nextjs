@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LuExternalLink, LuGithub } from "react-icons/lu";
+import { LuArrowLeft, LuExternalLink, LuGithub } from "react-icons/lu";
 
 import Badge from "../components/vscode/Badge";
 import SectionHeader from "../components/vscode/SectionHeader";
