@@ -78,6 +78,8 @@ export type BlogPost = {
 export type Education = {
   institution: string;
   degree: string;
+  year?: string;
+  description?: string;
   link?: string;
   logo?: string;
 };
@@ -314,7 +316,7 @@ export const fileTree: FileTreeSection[] = [
     label: "HOBBIES",
     isOpen: false,
     items: [
-      { id: "anime", label: "Anime", href: "/Anime", icon: "tv", extension: "tsx" },
+      { id: "favorites", label: "Favorites", href: "/Favorites", icon: "star", extension: "tsx" },
       {
         id: "gaming",
         label: "Gaming",
@@ -436,71 +438,78 @@ export const skillGroups: SkillGroup[] = [
 
 export const experiences: Experience[] = [
   {
-    id: "daraz",
-    title: "Marketplace Analyst",
-    company: "Daraz (Alibaba Group)",
-    location: "Bangladesh",
-    startDate: "2022",
-    current: true,
-    description: "Optimized Marketplace Health through vendor performance tracking and catalog expansion. Leveraged BI tools to identify hyper-local food trends and demand spikes.",
-    technologies: ["Data Analysis", "Marketplace", "BI Tools"],
-    highlights: [
-      "Optimized Marketplace Health through vendor performance tracking and catalog expansion",
-      "Leveraged BI tools to identify hyper-local food trends and demand spikes in street food categories"
-    ],
-    logo: "",
-  },
-  {
-    id: "hungrynaki",
-    title: "Associate - Marketplace Analyst",
-    company: "HungryNaki (Alibaba Group)",
-    startDate: "2021",
-    endDate: "2022",
-    description: "Business & Marketplace Analysis, Brand & Partner Acquisition",
-    highlights: [
-      "Optimized Marketplace Health through vendor performance tracking and catalog expansion",
-      "Leveraged BI tools to identify hyper-local food trends and demand spikes"
-    ],
-    technologies: ["Business Analysis", "Partner Development"],
-  },
-  {
-    id: "nzfabrics",
-    title: "IT Executive - Quality Control",
-    company: "NZ Fabrics (NZ TEXTILE GROUP)",
-    startDate: "2020",
-    endDate: "2021",
-    description: "Provided Technical Support to the Quality Control team, digitizing inspection workflows. Collaborated with R&D for process optimization.",
-    highlights: [
-      "Provided Technical Support to the Quality Control team, digitizing inspection workflows",
-      "Collaborated with R&D for process optimization and automated performance reporting"
-    ],
-    technologies: ["Tech Support", "Quality Control", "Automation"],
-  },
-  {
-    id: "thrivingskill",
-    title: "Associate - Online Sales & Support",
-    company: "Thriving Skill",
-    startDate: "2019",
-    endDate: "2020",
-    description: "Executed Market Analysis to identify high-converting sales funnels for digital courses. Managed CRM systems to improve customer retention.",
-    highlights: [
-      "Executed Market Analysis to identify high-converting sales funnels for digital courses",
-      "Managed CRM systems to improve customer retention and lead conversion rates"
-    ],
-    technologies: ["CRM", "Sales Strategies", "Market Analysis"],
-  },
-  {
     id: "deencommerce",
-    title: "Executive - Business",
-    company: "DEEN Commerce",
-    startDate: "2018",
-    endDate: "2019",
+    title: "Business Analyst",
+    company: "Deen Commerce",
+    location: "Mirpur, Dhaka",
+    startDate: "June 2025",
+    current: true,
     description: "Leading Business Strategy and CRM growth through granular performance tracking. Architecting weekly performance dashboards.",
     highlights: [
-      "Leading Business Strategy and CRM growth through granular performance tracking",
+      "CRM Improvisation",
+      "Business Strategy",
       "Architecting weekly performance dashboards for stakeholder reporting"
     ],
     technologies: ["CRM", "Business Analysis", "Strategy"],
+  },
+  {
+    id: "nztex",
+    title: "IT Executive",
+    company: "NZ TEX GROUP",
+    location: "Rupganj, Narayanganj",
+    startDate: "Feb 2024",
+    endDate: "May 2024",
+    description: "Collaborated with the Research & Development Team to enhance product innovation. Delivered impactful presentations and reports to authorities and buyers.",
+    highlights: [
+      "Collaborated with the Research & Development Team to enhance product innovation",
+      "Delivered impactful presentations and reports to authorities and buyers, enhancing stakeholder engagement and decision-making"
+    ],
+    technologies: ["IT Support", "R&D", "Reporting"],
+  },
+  {
+    id: "thrivingskills",
+    title: "Associate – Online Sales & Customer Supports",
+    company: "Thriving Skills",
+    location: "Gulshan, Dhaka",
+    startDate: "Oct 2023",
+    endDate: "Jan 2024",
+    description: "Conducted business and marketplace analysis; executed targeted sales strategies to increase customer loyalty and engagement.",
+    highlights: [
+      "Conducted comprehensive business and marketplace analysis, identifying opportunities that increased sales",
+      "Designed and executed targeted sales strategies, resulting in a significant increase in customer loyalty and engagement",
+      "Managed CRM systems to improve customer retention"
+    ],
+    technologies: ["Market Analysis", "CRM", "Sales Strategy"],
+  },
+  {
+    id: "daraz",
+    title: "Jr. Executive – Marketplace",
+    company: "Daraz Bangladesh Ltd.",
+    location: "Banani, Dhaka",
+    startDate: "Jan 2020",
+    endDate: "Jan 2022",
+    description: "Increased partner acquisitions by 50% through targeted outreach strategies. Managed key accounts and increased client satisfaction by 20%.",
+    highlights: [
+      "Drove a 50% increase in partner acquisitions by implementing targeted outreach strategies and enhancing brand visibility",
+      "Led successful campaigns and managed key accounts, increasing client satisfaction by 20% and driving revenue growth",
+      "Optimized Marketplace Health through vendor performance tracking"
+    ],
+    technologies: ["Marketplace", "Acquisition", "Account Management"],
+  },
+  {
+    id: "hungrynaki",
+    title: "Associate – Home Kitchen & Street Food",
+    company: "HungryNaki (Sister concern of Daraz)",
+    location: "Banani, Dhaka",
+    startDate: "Jul 2021",
+    endDate: "Jan 2022",
+    description: "Identified 15% growth opportunities through in-depth marketplace analysis. Spearheaded partner acquisition initiatives, increasing the network by 25%.",
+    highlights: [
+      "Conducted in-depth business and marketplace analysis, identifying 15% growth opportunities that increased revenue",
+      "Spearheaded brand and partner acquisition initiatives, increasing partner network by 25%",
+      "Leveraged BI tools to identify hyper-local food trends"
+    ],
+    technologies: ["Business Analysis", "Growth Strategy", "BI Tools"],
   },
   {
     id: "gearmaster",
@@ -517,63 +526,24 @@ export const experiences: Experience[] = [
   }
 ];
 
-export const animeSeries = [
+export const favoriteMedia = [
   {
     id: "1",
-    title: "Naruto",
-    subtitle: "720 Episodes",
-    image:
-      "https://steamuserimages-a.akamaihd.net/ugc/910156967348138382/E4A8A3FAA9388A67BD3DC2CCD77216B21280A7A1/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false",
+    title: "Kingdom of Heaven",
+    subtitle: "Movie",
+    image: "/kingdom_of_heaven.png",
   },
   {
     id: "2",
-    title: "My Hero Academia",
-    subtitle: "5 Seasons",
-    image:
-      "https://c.tenor.com/bnRtrO9OLyIAAAAd/my-hero-academia-world-heroes-mission.gif",
+    title: "Fatih 1453",
+    subtitle: "Movie",
+    image: "/fatih_1453.png",
   },
   {
     id: "3",
-    title: "Attack on Titan",
-    subtitle: "5 Seasons",
-    image: "https://c.tenor.com/JcOj-GXlyGEAAAAC/attack-on-titan-shingeki-no-kyojin.gif",
-  },
-  {
-    id: "4",
-    title: "Hunter X Hunter",
-    subtitle: "On Going",
-    image: "https://giffiles.alphacoders.com/143/143442.gif",
-  },
-  {
-    id: "5",
-    title: "Tokyo Revengers",
-    subtitle: "On Going",
-    image: "https://c.tenor.com/YcRLyel0MgcAAAAC/mikey-tokyo-revengers-tokyo-revengers.gif",
-  },
-  {
-    id: "6",
-    title: "Jujutsu Kaisen",
-    subtitle: "On Going",
-    image:
-      "https://gifdb.com/images/high/jujutsu-kaisen-gojo-hollow-purple-of1gnux4ytfmt7il.gif",
-  },
-  {
-    id: "7",
-    title: "Death Note",
-    subtitle: "Completed",
-    image: "https://giffiles.alphacoders.com/254/2549.gif",
-  },
-  {
-    id: "8",
-    title: "One Punch Man",
-    subtitle: "On Going",
-    image: "https://giffiles.alphacoders.com/128/12870.gif",
-  },
-  {
-    id: "9",
-    title: "Boruto",
-    subtitle: "On Going",
-    image: "https://i.pinimg.com/originals/6b/80/f7/6b80f7be69539ae894673205f1dc503b.gif",
+    title: "The Godfather",
+    subtitle: "Novel",
+    image: "/godfather.png",
   },
 ];
 
@@ -639,27 +609,35 @@ export const startupValues = [
 export const education: Education[] = [
   {
     institution: "Academy of Business Professionals",
-    degree: "Data Science & Business Analytics",
+    degree: "PGD in Data Science & Business Analytics",
+    year: "2025",
+    description: "Focus on Data Analytics and Business Intelligence.",
     link: "https://abpbd.org/",
   },
   {
-    institution: "University of Dhaka",
-    degree: "Management Information System",
-    link: "https://www.du.ac.bd",
-  },
-  {
     institution: "North South University",
-    degree: "Computer Science & Engineering",
+    degree: "BSc in Computer Science & Engineering",
+    year: "2019",
+    description: "Publication: 'Categorizing self-narrated stories into distinct themes' (ICT Analysis and Applications, 2020).",
     link: "https://www.northsouth.edu",
   },
   {
     institution: "BAF Shaheen College Dhaka",
-    degree: "Science Division",
+    degree: "Higher Secondary Certificate (HSC)",
+    year: "2013",
+    description: "Science Division.",
     link: "https://bafsd.edu.bd",
   },
   {
+    institution: "University of Dhaka",
+    degree: "Management Information System",
+    description: "Reflects specialized study in MIS.",
+    link: "https://www.du.ac.bd",
+  },
+  {
     institution: "Uttara High School & College",
-    degree: "Science Division",
+    degree: "Secondary School Certificate (SSC)",
+    description: "Science Division.",
     link: "https://uhscdhaka.edu.bd",
   },
 ];

@@ -1,23 +1,23 @@
 import Image from "next/image";
 import SectionHeader from "../components/vscode/SectionHeader";
-import { animeSeries } from "../data/portfolio";
+import { favoriteMedia } from "../data/portfolio";
 import { cn } from "../lib/cn";
 
 export const metadata = {
-  title: "Anime",
+  title: "Favorites",
   description:
-    "Anime series that Raj Savaliya enjoys watching. A collection of favorite anime.",
-  alternates: { canonical: "/Anime" },
+    "Favorite movies and novels that Sajid Islam enjoys.",
+  alternates: { canonical: "/Favorites" },
 };
 
-export default function AnimePage() {
+export default function FavoritesPage() {
   return (
     <>
-      <SectionHeader title="Anime" description="Some of my anime series that i liked." />
+      <SectionHeader title="Favorites" description="Some of my favorite movies and novels." />
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-        {animeSeries.map((anime) => (
+        {favoriteMedia.map((item) => (
           <div
-            key={anime.id}
+            key={item.id}
             className={cn(
               "group relative overflow-hidden",
               "rounded-[var(--vscode-border-radius-md)]",
@@ -28,17 +28,17 @@ export default function AnimePage() {
           >
             <div className="relative aspect-[3/4] overflow-hidden">
               <Image
-                src={anime.image}
-                alt={anime.title}
+                src={item.image}
+                alt={item.title}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-3">
                 <h3 className="text-vscode-sm font-semibold text-white truncate">
-                  {anime.title}
+                  {item.title}
                 </h3>
-                <p className="text-vscode-xs text-gray-300">{anime.subtitle}</p>
+                <p className="text-vscode-xs text-gray-300">{item.subtitle}</p>
               </div>
             </div>
           </div>

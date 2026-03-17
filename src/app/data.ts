@@ -52,8 +52,37 @@ export const posts = [
         link: "#",
     },
 ];
-
 export const experience = [
+    {
+        role: "Business Analyst",
+        company: "Deen Commerce",
+        link: "https://saajiidi.github.io/",
+        tasks: [
+            "CRM Improvisation",
+            "Business Strategy",
+            "Architecting weekly performance dashboards"
+        ],
+    },
+    {
+        role: "IT Executive",
+        company: "NZ TEX GROUP",
+        link: "https://nztexgroup.com",
+        tasks: [
+            "Collaborated with R&D for product innovation",
+            "Delivered presentations to stakeholders and buyers",
+            "Reporting to Authorities"
+        ],
+    },
+    {
+        role: "Associate - Online Sales & Customer Supports",
+        company: "Thriving Skill",
+        link: "https://thrivingskill.com",
+        tasks: [
+            "Business & Marketplace Analysis",
+            "Sales Growth Strategies",
+            "Customer Relationship Management",
+        ],
+    },
     {
         role: "Jr. Executive - Marketplace",
         company: "Daraz",
@@ -77,37 +106,6 @@ export const experience = [
         ],
     },
     {
-        role: "IT Executive - Quality Control",
-        company: "NZ Fabrics",
-        group: "NZ TEXTILE GROUP",
-        link: "https://nztexgroup.com",
-        tasks: [
-            "Info & Tech Support to the Quality Control Team",
-            "Associating with the Research & Development Team",
-            "Presentation & Reporting to the Authorities & Buyers",
-        ],
-    },
-    {
-        role: "Associate - Online Sales & Customer Supports",
-        company: "Thriving Skill",
-        link: "https://thrivingskill.com",
-        tasks: [
-            "Business & Marketplace Analysis",
-            "Sales Growth Strategies",
-            "Customer Relationship Management",
-        ],
-    },
-    {
-        role: "Executive - Business",
-        company: "DEEN Commerce",
-        link: "https://saajiidi.github.io/",
-        tasks: [
-            "CRM & Sales Growth",
-            "Business Analysis",
-            "Strategy & Development",
-        ],
-    },
-    {
         role: "Co-Founder",
         company: "Gear Master",
         link: "https://www.facebook.com/profile.php?id=61558077623189",
@@ -118,23 +116,35 @@ export const experience = [
 export const education = [
     {
         institution: "Academy of Business Professionals",
-        degree: "Data Science & Business Analytics",
+        degree: "PGD in Data Science & Business Analytics",
+        year: "2025",
+        description: "Focus on Data Analytics and Business Intelligence.",
         link: "https://abpbd.org/",
     },
-
     {
         institution: "North South University",
-        degree: "Computer Science & Engineering",
+        degree: "BSc in Computer Science & Engineering",
+        year: "2019",
+        description: "Publication: 'Categorizing self-narrated stories into distinct themes' (ICT Analysis and Applications, 2020).",
         link: "https://www.northsouth.edu",
     },
     {
         institution: "Bangladesh Air Force Shaheen College Dhaka",
-        degree: "Science Division",
+        degree: "Higher Secondary Certificate (HSC)",
+        year: "2013",
+        description: "Science Division.",
         link: "https://bafsd.edu.bd",
     },
     {
+        institution: "University of Dhaka",
+        degree: "Management Information System",
+        description: "Reflects specialized study in MIS.",
+        link: "https://www.du.ac.bd",
+    },
+    {
         institution: "Uttara High School & College",
-        degree: "Science Division",
+        degree: "Secondary School Certificate (SSC)",
+        description: "Science Division.",
         link: "https://uhscdhaka.edu.bd",
     },
 ];
@@ -149,7 +159,7 @@ export const skills = {
         { name: "Google Analytics", icon: SiGoogleanalytics },
         { name: "Pandas", icon: SiPandas },
         { name: "NumPy", icon: SiNumpy },
-        { name: "Scikit-learn", icon: SiScikitlearn },
+        { name: "Scikitlearn", icon: SiScikitlearn },
     ],
     web: [
         { name: "React", icon: FaReact },
@@ -166,7 +176,7 @@ export const skills = {
         "Cross Functional Teams",
         "Agile Development & Scrum"
     ]
-}
+};
 
 export const interests = [
     { name: "Data Science", icon: FaBrain, desc: "Exploring machine learning algorithms, statistical modeling, and emerging AI technologies." },
