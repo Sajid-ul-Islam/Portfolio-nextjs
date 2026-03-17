@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import Script from "next/script";
+import { useEffect, useState } from "react";
 import { LuAlertCircle, LuCheckCircle, LuSend } from "react-icons/lu";
 
 import Button from "./Button";
@@ -18,16 +19,36 @@ type FormState = {
 };
 
 export default function ContactClient() {
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
+  const captchaEnabled = Boolean(turnstileSiteKey);
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
     subject: "",
     message: "",
   });
+  const [captchaToken, setCaptchaToken] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">(
     "idle"
   );
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if (!captchaEnabled) return;
+    (window as typeof window & {
+      onTurnstileSuccess?: (token: string) => void;
+      onTurnstileExpired?: () => void;
+    }).onTurnstileSuccess = (token: string) => {
+      setCaptchaToken(token);
+    };
+    (window as typeof window & {
+      onTurnstileExpired?: () => void;
+    }).onTurnstileExpired = () => {
+      setCaptchaToken("");
+    };
+  }, [captchaEnabled]);
 
   const validate = () => {
     const nextErrors: Record<string, string> = {};
@@ -38,6 +59,9 @@ export default function ContactClient() {
       nextErrors.email = "Invalid email address";
     }
     if (!form.message.trim()) nextErrors.message = "Message is required";
+    if (captchaEnabled && !captchaToken) {
+      nextErrors.captcha = "Please verify the captcha";
+    }
     setErrors(nextErrors);
     return Object.keys(nextErrors).length === 0;
   };
@@ -47,20 +71,30 @@ export default function ContactClient() {
     if (!validate()) return;
 
     setStatus("loading");
+    setErrorMessage("");
     try {
       const response = await fetch("/api/sendEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          captchaToken,
+          honeypot,
+        }),
       });
 
       if (response.ok) {
         setStatus("success");
         setForm({ name: "", email: "", subject: "", message: "" });
+        setCaptchaToken("");
+        setHoneypot("");
       } else {
+        const payload = await response.json().catch(() => null);
+        setErrorMessage(payload?.error ?? "Failed to send message. Please try again.");
         setStatus("error");
       }
     } catch (error) {
+      setErrorMessage("Failed to send message. Please try again.");
       setStatus("error");
     }
   };
@@ -77,6 +111,12 @@ export default function ContactClient() {
 
   return (
     <>
+      {captchaEnabled ? (
+        <Script
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+          strategy="afterInteractive"
+        />
+      ) : null}
       <SectionHeader
         title="Get in Touch"
         description="Have a question or want to work together? Send me a message!"
@@ -107,6 +147,15 @@ export default function ContactClient() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              <input
+                type="text"
+                name="website"
+                value={honeypot}
+                onChange={(event) => setHoneypot(event.target.value)}
+                className="hidden"
+                tabIndex={-1}
+                aria-hidden="true"
+              />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   id="name"
@@ -149,11 +198,26 @@ export default function ContactClient() {
                 error={errors.message}
                 disabled={status === "loading"}
               />
+              {captchaEnabled ? (
+                <div className="space-y-2">
+                  <div
+                    className="cf-turnstile"
+                    data-sitekey={turnstileSiteKey}
+                    data-callback="onTurnstileSuccess"
+                    data-expired-callback="onTurnstileExpired"
+                  />
+                  {errors.captcha ? (
+                    <span className="text-vscode-xs text-[var(--vscode-error)]">
+                      {errors.captcha}
+                    </span>
+                  ) : null}
+                </div>
+              ) : null}
               {status === "error" ? (
                 <div className="flex items-center gap-2 px-4 py-3 bg-[var(--vscode-error)]/10 border border-[var(--vscode-error)] rounded">
                   <LuAlertCircle size={16} className="text-[var(--vscode-error)]" />
                   <span className="text-vscode-sm text-[var(--vscode-error)]">
-                    Failed to send message. Please try again.
+                    {errorMessage || "Failed to send message. Please try again."}
                   </span>
                 </div>
               ) : null}

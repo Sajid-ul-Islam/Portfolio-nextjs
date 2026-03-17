@@ -1,92 +1,85 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { LuChevronDown, LuChevronRight } from "react-icons/lu";
+import { LuX } from "react-icons/lu";
 
-import { fileTree } from "../../data/portfolio";
 import { cn } from "../../lib/cn";
-import FileIcon from "./FileIcon";
+import AccountPanel from "./panels/AccountPanel";
+import ExplorerPanel from "./panels/ExplorerPanel";
+import ExtensionsPanel from "./panels/ExtensionsPanel";
+import SearchPanel from "./panels/SearchPanel";
+import SettingsPanel from "./panels/SettingsPanel";
+import SourceControlPanel from "./panels/SourceControlPanel";
 
 type SidebarProps = {
   isOpen?: boolean;
   onClose?: () => void;
+  activePanel?: "explorer" | "search" | "git" | "extensions" | "account" | "settings";
+  variant?: "default" | "drawer";
 };
 
-export default function Sidebar({ isOpen = true, onClose }: SidebarProps) {
-  const pathname = usePathname();
-  const [sections, setSections] = useState(() => {
-    const initial: Record<string, boolean> = {};
-    fileTree.forEach((section) => {
-      initial[section.id] = section.isOpen;
-    });
-    return initial;
-  });
+const panelLabels: Record<
+  NonNullable<SidebarProps["activePanel"]>,
+  string
+> = {
+  explorer: "Explorer",
+  search: "Search",
+  git: "Source Control",
+  extensions: "Extensions",
+  account: "Account",
+  settings: "Settings",
+};
 
-  const toggleSection = (id: string) => {
-    setSections((prev) => ({ ...prev, [id]: !prev[id] }));
-  };
-
+export default function Sidebar({
+  isOpen = true,
+  onClose,
+  activePanel = "explorer",
+  variant = "default",
+}: SidebarProps) {
   if (!isOpen) return null;
 
+  const panelContent = (() => {
+    switch (activePanel) {
+      case "search":
+        return <SearchPanel />;
+      case "git":
+        return <SourceControlPanel />;
+      case "extensions":
+        return <ExtensionsPanel />;
+      case "account":
+        return <AccountPanel />;
+      case "settings":
+        return <SettingsPanel />;
+      case "explorer":
+      default:
+        return <ExplorerPanel onClose={onClose} />;
+    }
+  })();
+
   return (
-    <aside className="flex flex-col w-[var(--vscode-sidebar-width)] h-full bg-[var(--vscode-sideBar-background)] border-r border-[var(--vscode-border)] overflow-hidden">
-      <div className="flex items-center justify-between px-4 py-2 text-vscode-xs font-semibold uppercase tracking-wider text-[var(--vscode-text-secondary)]">
-        <span>Explorer</span>
+    <aside
+      className={cn(
+        "flex flex-col h-full bg-[var(--vscode-sideBar-background)] overflow-hidden",
+        variant === "drawer"
+          ? "w-full border-t border-[var(--vscode-border)]"
+          : "w-[var(--vscode-sidebar-width)] border-r border-[var(--vscode-border)]"
+      )}
+    >
+      <div className="flex items-center justify-between px-4 py-2 text-vscode-xs font-semibold uppercase tracking-wider text-[var(--vscode-text-secondary)] border-b border-[var(--vscode-border)]">
+        <span>{panelLabels[activePanel]}</span>
+        {onClose ? (
+          <button
+            onClick={onClose}
+            className={cn(
+              "flex items-center justify-center w-6 h-6 rounded",
+              "hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
+            )}
+            aria-label="Close panel"
+          >
+            <LuX size={14} />
+          </button>
+        ) : null}
       </div>
-      <div className="flex-1 overflow-y-auto overflow-x-hidden">
-        {fileTree.map((section) => {
-          const open = sections[section.id];
-          return (
-            <div key={section.id} className="mb-1">
-              <button
-                onClick={() => toggleSection(section.id)}
-                className={cn(
-                  "flex items-center w-full px-2 py-1 gap-1",
-                  "text-vscode-xs font-semibold uppercase tracking-wider",
-                  "text-[var(--vscode-text-secondary)]",
-                  "hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
-                )}
-              >
-                {open ? (
-                  <LuChevronDown size={16} />
-                ) : (
-                  <LuChevronRight size={16} />
-                )}
-                <span>{section.label}</span>
-              </button>
-              {open ? (
-                <div className="animate-fade-in">
-                  {section.items.map((item) => {
-                    const isActive =
-                      pathname === item.href ||
-                      (item.href !== "/" && pathname.startsWith(item.href));
-                    const filename = `${item.label}.${item.extension}`;
-                    return (
-                      <Link
-                        key={item.id}
-                        href={item.href}
-                        onClick={onClose}
-                        className={cn(
-                          "flex items-center gap-2 px-4 py-[5px] pl-6",
-                          "text-vscode-sm text-[var(--vscode-sideBar-foreground)]",
-                          "hover:bg-[var(--vscode-list-hoverBackground)] transition-colors",
-                          "cursor-pointer",
-                          isActive && "bg-[var(--vscode-list-inactiveSelectionBackground)]"
-                        )}
-                      >
-                        <FileIcon filename={filename} size={16} />
-                        <span className="truncate">{filename}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
-      </div>
+      {panelContent}
     </aside>
   );
 }

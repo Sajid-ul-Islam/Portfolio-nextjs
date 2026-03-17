@@ -49,6 +49,15 @@ export type Project = {
   liveUrl?: string;
   githubUrl?: string;
   featured?: boolean;
+  caseStudy?: {
+    role?: string;
+    timeline?: string;
+    problem?: string;
+    solution?: string;
+    impact?: string[];
+    highlights?: string[];
+    metrics?: { label: string; value: string }[];
+  };
 };
 
 export type Experience = {
@@ -106,37 +115,87 @@ export const projects: Project[] = [
     id: "1",
     title: "ECommerce Dashboard",
     description: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value.",
-    image: "",
+    image: "/img/projects/ecommerce.png",
     liveUrl: "https://e-com-dashborad.vercel.app/",
     featured: true,
     technologies: ["Dashboard", "React", "Analytics", "E-commerce"],
+    caseStudy: {
+      role: "Data Analyst & Dashboard Builder",
+      timeline: "2021–2025 dataset",
+      problem: "Stakeholders needed a single view of revenue, orders, customers, and AOV trends.",
+      solution: "Built a KPI dashboard consolidating 2021–2025 sales data into a unified view.",
+      impact: [
+        "Improved visibility into marketplace performance trends.",
+        "Standardized KPI definitions for recurring reviews.",
+      ],
+      metrics: [
+        { label: "Time Range", value: "2021–2025" },
+        { label: "Core KPIs", value: "4" },
+      ],
+    },
   },
   {
     id: "2",
     title: "Sheet2WhatsApp",
     description: "Automates WhatsApp link generation from Excel/CSV files.",
-    image: "",
+    image: "/img/projects/whatsapp.png",
     liveUrl: "https://sheet2whatsapp.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Pandas", "Vercel"],
+    caseStudy: {
+      role: "Builder",
+      timeline: "2024",
+      problem: "Creating WhatsApp links from spreadsheets was manual and error-prone.",
+      solution: "Streamlit app that converts CSV/Excel rows into share-ready WhatsApp links.",
+      impact: [
+        "Reduced copy/paste effort for outreach.",
+        "Improved accuracy of contact links.",
+      ],
+      metrics: [
+        { label: "Input", value: "CSV/Excel" },
+        { label: "Output", value: "WhatsApp links" },
+      ],
+    },
   },
   {
     id: "3",
     title: "Sentinel Bangladesh",
     description: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking.",
-    image: "",
+    image: "/img/projects/sentinel.png",
     liveUrl: "https://sentinelbangladesh.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Data Visualization", "Security Analysis"],
+    caseStudy: {
+      role: "Data Visualization",
+      timeline: "2024",
+      problem: "Security incidents needed spatial insight at scale.",
+      solution: "Interactive map with clustering, heatmaps, and drill-down incident details.",
+      impact: [
+        "Faster pattern discovery across regions.",
+        "Clearer communication of incident density.",
+      ],
+      metrics: [{ label: "Map Layers", value: "Clusters + Heatmap + Points" }],
+    },
   },
   {
     id: "4",
     title: "Order Process Automation",
     description: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
-    image: "",
+    image: "/img/projects/automation.png",
     liveUrl: "https://order-process-automation.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Automation", "Data Processing"],
+    caseStudy: {
+      role: "Automation Engineer",
+      timeline: "2024",
+      problem: "Order sheets required manual consolidation and formatting.",
+      solution: "Automated ingestion, cleaning, and categorization of Excel orders.",
+      impact: ["Faster order preparation.", "Consistent output formatting."],
+      metrics: [
+        { label: "Input", value: "Excel" },
+        { label: "Output", value: "Formatted sheets" },
+      ],
+    },
   },
   {
     id: "5",
@@ -146,6 +205,14 @@ export const projects: Project[] = [
     liveUrl: "https://saajiidi.github.io/Air_Passengers_Forecasting_Models/",
     featured: true,
     technologies: ["Machine Learning", "Time Series", "Python"],
+    caseStudy: {
+      role: "Data Scientist",
+      timeline: "2023",
+      problem: "Forecast air passenger demand using multiple time-series models.",
+      solution: "Compared ARIMA and Exponential Smoothing forecasts.",
+      impact: ["Enabled model comparison for planning scenarios."],
+      metrics: [{ label: "Models", value: "ARIMA, Exp. Smoothing" }],
+    },
   },
   {
     id: "6",
@@ -155,6 +222,17 @@ export const projects: Project[] = [
     liveUrl: "https://ramadancompass.vercel.app/",
     featured: true,
     technologies: ["Next.js", "Ramadan", "Prayer Times", "React", "PWA"],
+    caseStudy: {
+      role: "Frontend Engineer",
+      timeline: "2024",
+      problem: "Users needed prayer times, Qibla, and daily goals in one place.",
+      solution: "Next.js PWA combining daily utilities and reminders.",
+      impact: ["Simplified daily Ramadan routines in a single app."],
+      metrics: [
+        { label: "Platform", value: "PWA" },
+        { label: "Core Features", value: "Prayer times + Qibla" },
+      ],
+    },
   },
   {
     id: "churn-analysis",
@@ -164,6 +242,17 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/saajiidi/Customer-Churn-Prediction/",
     featured: true,
     technologies: ["Python", "Machine Learning", "XGBoost", "Random Forest"],
+    caseStudy: {
+      role: "ML Engineer",
+      timeline: "2023",
+      problem: "Identify at-risk customers before churn.",
+      solution: "Built Random Forest and XGBoost models for churn prediction.",
+      impact: ["Improved visibility into churn drivers."],
+      metrics: [
+        { label: "Reported Accuracy", value: "85%+" },
+        { label: "Models", value: "RF + XGBoost" },
+      ],
+    },
   },
   {
     id: "security-map",
@@ -173,6 +262,14 @@ export const projects: Project[] = [
     liveUrl: "https://trr-bd.vercel.app",
     featured: true,
     technologies: ["R", "Folium", "Leaflet", "Data Viz"],
+    caseStudy: {
+      role: "Data Visualization",
+      timeline: "2023",
+      problem: "Visualize security events with spatial and temporal context.",
+      solution: "R + Folium + Leaflet map with temporal sliders.",
+      impact: ["Improved spatial + temporal analysis for stakeholders."],
+      metrics: [{ label: "Tech", value: "R, Folium, Leaflet" }],
+    },
   },
   {
     id: "gdp-debt",
@@ -182,6 +279,14 @@ export const projects: Project[] = [
     liveUrl: "https://saajiidi.github.io/Economic-Analysis-GDP-vs-Debt-Correlation/",
     featured: true,
     technologies: ["Data Analysis", "Economics", "Python"],
+    caseStudy: {
+      role: "Analyst",
+      timeline: "2022",
+      problem: "Understand GDP vs debt correlation across countries.",
+      solution: "Cross-country analysis with comparative visuals.",
+      impact: ["Highlighted macroeconomic patterns and outliers."],
+      metrics: [{ label: "Scope", value: "Global economies" }],
+    },
   },
   {
     id: "7",
@@ -191,6 +296,14 @@ export const projects: Project[] = [
     liveUrl: "https://gear-master.vercel.app/",
     featured: false,
     technologies: ["React", "E-commerce", "Frontend"],
+    caseStudy: {
+      role: "Frontend Engineer",
+      timeline: "2022",
+      problem: "Need a modern, responsive e-commerce interface.",
+      solution: "React UI with catalog and cart workflows.",
+      impact: ["Delivered a clean, mobile-ready shopping experience."],
+      metrics: [{ label: "Modules", value: "Catalog + Cart" }],
+    },
   },
   {
     id: "8",
@@ -200,6 +313,14 @@ export const projects: Project[] = [
     liveUrl: "https://saajiidi.github.io/TimeTracker/",
     featured: false,
     technologies: ["Productivity", "React", "Utility"],
+    caseStudy: {
+      role: "Productivity App Builder",
+      timeline: "2022",
+      problem: "Track daily progress and focus tasks in one view.",
+      solution: "Day progress tracker with focus task management.",
+      impact: ["Improved daily planning and focus."],
+      metrics: [{ label: "Features", value: "Progress + Focus tasks" }],
+    },
   },
   {
     id: "9",
@@ -209,6 +330,14 @@ export const projects: Project[] = [
     liveUrl: "https://saajiidi.github.io/Growth-Analysis-Dashboard/",
     featured: false,
     technologies: ["Web Dev", "React", "Analytics"],
+    caseStudy: {
+      role: "Frontend Engineer",
+      timeline: "2022",
+      problem: "Centralize growth metrics into a single dashboard.",
+      solution: "Analytics dashboard showcasing key KPIs.",
+      impact: ["Simplified growth reporting for quick reviews."],
+      metrics: [{ label: "Focus", value: "Analytics KPIs" }],
+    },
   },
   {
     id: "10",
@@ -218,6 +347,14 @@ export const projects: Project[] = [
     liveUrl: "https://saajiidi.github.io/Border-Killing-Trend-in-Bangladesh/",
     featured: false,
     technologies: ["Data Viz", "Statistics", "Social Impact"],
+    caseStudy: {
+      role: "Data Analyst",
+      timeline: "2021",
+      problem: "Analyze border incident trends in Bangladesh.",
+      solution: "Statistical analysis with clear visualizations.",
+      impact: ["Made incident trends easier to interpret."],
+      metrics: [{ label: "Methods", value: "Stats + Data Viz" }],
+    },
   },
   {
     id: "11",
@@ -227,6 +364,14 @@ export const projects: Project[] = [
     liveUrl: "https://img-scraper.streamlit.app/",
     featured: false,
     technologies: ["Python", "Scraping", "Automation"],
+    caseStudy: {
+      role: "Python Developer",
+      timeline: "2021",
+      problem: "Collect images from Pinterest efficiently.",
+      solution: "Python tool with web UI and CLI options.",
+      impact: ["Faster dataset creation for research and projects."],
+      metrics: [{ label: "Interfaces", value: "Web UI + CLI" }],
+    },
   },
   {
     id: "12",
@@ -236,6 +381,14 @@ export const projects: Project[] = [
     liveUrl: "https://public.tableau.com/app/profile/sajid.islam4721/viz/MuslimPopulationbyEthinicity/Dashboard1",
     featured: false,
     technologies: ["Tableau", "Data Visualization"],
+    caseStudy: {
+      role: "BI Analyst",
+      timeline: "2021",
+      problem: "Showcase Tableau dashboards in one place.",
+      solution: "Published portfolio of interactive dashboards.",
+      impact: ["Centralized BI work for easy sharing."],
+      metrics: [{ label: "Platform", value: "Tableau Public" }],
+    },
   },
   {
     id: "13",
@@ -245,6 +398,14 @@ export const projects: Project[] = [
     liveUrl: "https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD",
     featured: false,
     technologies: ["HTML/CSS", "JavaScript", "Web Dev"],
+    caseStudy: {
+      role: "Web Developer",
+      timeline: "2020",
+      problem: "Create an online presence for B2B stock lot sales.",
+      solution: "Static site built with HTML, CSS, and JavaScript.",
+      impact: ["Provided a basic online storefront."],
+      metrics: [{ label: "Stack", value: "HTML/CSS/JS" }],
+    },
   }
 ];
 

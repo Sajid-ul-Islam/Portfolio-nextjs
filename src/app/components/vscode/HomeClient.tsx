@@ -10,7 +10,7 @@ import {
 } from "react-icons/lu";
 
 import SocialLinks from "./SocialLinks";
-import { useRecentPages } from "../../lib/useRecentPages";
+import { useRecentPagesContext } from "../../lib/recentPagesContext";
 
 type StartLinkProps = {
   href: string;
@@ -35,7 +35,7 @@ function StartLink({ href, icon, children }: StartLinkProps) {
 }
 
 export default function HomeClient() {
-  const { recentPages } = useRecentPages();
+  const { recentPages } = useRecentPagesContext();
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">

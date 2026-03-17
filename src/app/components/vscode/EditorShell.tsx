@@ -2,6 +2,7 @@
 
 import Tabs from "./Tabs";
 import Breadcrumbs from "./Breadcrumbs";
+import CommandPalette from "./CommandPalette";
 
 type EditorShellProps = {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export default function EditorShell({ children }: EditorShellProps) {
           {children}
         </div>
       </main>
+      <CommandPalette />
     </div>
   );
 }
