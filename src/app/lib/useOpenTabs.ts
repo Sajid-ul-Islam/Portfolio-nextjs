@@ -14,12 +14,40 @@ export type Tab = {
   isPinned?: boolean;
 };
 
+import { fileTree, projects } from "../data/portfolio";
+
 function buildTab(path: string): Tab {
-  const labelBase =
-    path === "/" ? "Welcome" : path.slice(1).replace(/-/g, " ");
+  // Find the item in the file tree to get the correct extension
+  let item: any = null;
+  for (const section of fileTree) {
+    item = section.items.find(i => i.href === path);
+    if (item) break;
+  }
+
+  // If not in file tree, check if it's a project
+  if (!item && path.startsWith("/projects/")) {
+    const projectId = path.split("/").pop();
+    const project = projects.find(p => p.id === projectId);
+    if (project) {
+      let extension = "ts";
+      if (project.technologies.includes("Python")) extension = "py";
+      else if (project.technologies.includes("React") || project.technologies.includes("Next.js")) extension = "tsx";
+      else if (project.technologies.includes("R")) extension = "r";
+      else if (project.technologies.includes("Tableau")) extension = "tableau";
+      
+      item = {
+        label: project.title.replace(/\s+/g, ""),
+        extension: extension
+      };
+    }
+  }
+
+  const extension = item?.extension ?? "tsx";
+  const labelBase = item?.label ?? (path === "/" ? "Welcome" : path.slice(1).split('/').pop()?.replace(/-/g, " ") ?? "Unknown");
+  
   return {
     id: path,
-    label: `${labelBase}.tsx`,
+    label: `${labelBase}.${extension}`,
     href: path,
     isActive: false,
     isPinned: false,

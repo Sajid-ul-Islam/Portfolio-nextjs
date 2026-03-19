@@ -464,13 +464,21 @@ export const fileTree: FileTreeSection[] = [
     id: "my-projects",
     label: "MY PROJECTS",
     isOpen: true,
-    items: projects.filter(p => p.featured).map((p) => ({
-      id: `project-${p.id}`,
-      label: p.title.replace(/\s+/g, ""),
-      href: `/projects/${p.id}`,
-      icon: "code",
-      extension: "ts",
-    })),
+    items: projects.filter(p => p.featured).map((p) => {
+      let extension = "ts";
+      if (p.technologies.includes("Python")) extension = "py";
+      else if (p.technologies.includes("React") || p.technologies.includes("Next.js")) extension = "tsx";
+      else if (p.technologies.includes("R")) extension = "r";
+      else if (p.technologies.includes("Tableau")) extension = "tableau";
+
+      return {
+        id: `project-${p.id}`,
+        label: p.title.replace(/\s+/g, ""),
+        href: `/projects/${p.id}`,
+        icon: "code",
+        extension: extension,
+      };
+    }),
   },
   {
     id: "hobbies",
