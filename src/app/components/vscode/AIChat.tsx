@@ -81,6 +81,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           onChange={(e) => setInput(e.target.value)}
           placeholder="ENTER_INTEL_QUERY..."
           className="w-full bg-transparent border border-[#a3e635]/30 p-2 text-[#a3e635] outline-none placeholder:text-[#a3e635]/30"
+          aria-label="AI message input"
         />
       </form>
     </div>

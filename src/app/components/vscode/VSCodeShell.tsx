@@ -226,7 +226,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
               <div className="h-full bg-[var(--vscode-sideBar-background)] shadow-2xl rounded-t-lg overflow-hidden">
                 <Sidebar
                   isOpen
-                  activePanel={activeActivity}
+                  activePanel={activeActivity as "explorer" | "search" | "git" | "extensions" | "account" | "settings"}
                   onClose={() => setMobileDrawerOpen(false)}
                   variant="drawer"
                 />
@@ -269,7 +269,10 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
           !sidebarOpen && "w-0"
         )}
       >
-        <Sidebar isOpen={sidebarOpen} activePanel={activeActivity} />
+        <Sidebar 
+          isOpen={sidebarOpen} 
+          activePanel={activeActivity as "explorer" | "search" | "git" | "extensions" | "account" | "settings"} 
+        />
       </div>
       <div
         className={cn(

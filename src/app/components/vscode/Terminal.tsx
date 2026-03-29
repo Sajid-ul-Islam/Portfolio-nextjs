@@ -88,8 +88,10 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
                     type="text"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    className="bg-transparent border-none outline-none w-full text-[#a3e635]"
+                    className="bg-transparent border-none outline-none w-full text-[#a3e635] placeholder-[#a3e635]/30"
                     spellCheck={false}
+                    aria-label="Terminal input"
+                    placeholder="Type a command..."
                 />
             </form>
         </div>

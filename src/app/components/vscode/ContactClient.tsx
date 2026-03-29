@@ -155,6 +155,7 @@ export default function ContactClient() {
                 className="hidden"
                 tabIndex={-1}
                 aria-hidden="true"
+                title="Honeypot field"
               />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input

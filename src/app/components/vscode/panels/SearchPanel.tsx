@@ -31,6 +31,7 @@ export default function SearchPanel() {
           <LuSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--vscode-text-muted)]" size={14} />
           <Input
             placeholder="Search files, projects, blogs, experience..."
+            aria-label="Search items"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             className="pl-8"

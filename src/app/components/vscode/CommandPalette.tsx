@@ -154,6 +154,7 @@ export default function CommandPalette() {
             }}
             className="flex-1 bg-transparent text-vscode-base text-[var(--vscode-text-primary)] placeholder:text-[var(--vscode-text-muted)] focus:outline-none"
             placeholder="Type a command or search..."
+            aria-label="Command palette input"
           />
           <div className="flex items-center gap-1 text-vscode-xs text-[var(--vscode-text-secondary)]">
             <LuCornerDownLeft size={14} />
