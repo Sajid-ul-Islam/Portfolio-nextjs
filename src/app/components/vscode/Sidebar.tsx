@@ -13,7 +13,7 @@ import SourceControlPanel from "./panels/SourceControlPanel";
 type SidebarProps = {
   isOpen?: boolean;
   onClose?: () => void;
-  activePanel?: "explorer" | "search" | "git" | "extensions" | "account" | "settings";
+  activePanel?: "explorer" | "search" | "git" | "extensions" | "account" | "settings" | "terminal" | "chat";
   variant?: "default" | "drawer";
 };
 
@@ -27,6 +27,8 @@ const panelLabels: Record<
   extensions: "Extensions",
   account: "Account",
   settings: "Settings",
+  terminal: "Terminal",
+  chat: "AI Chat",
 };
 
 export default function Sidebar({
