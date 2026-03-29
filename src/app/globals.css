@@ -152,9 +152,11 @@ img {
   background: var(--vscode-scrollbarSlider-activeBackground);
 }
 
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--vscode-scrollbarSlider-background) transparent;
+@supports (scrollbar-color: auto) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--vscode-scrollbarSlider-background) transparent;
+  }
 }
 
 ::selection {
@@ -180,8 +182,10 @@ img {
   animation: fadeIn 0.2s ease-in-out;
 }
 
-.scrollbar-none {
-  scrollbar-width: none;
+@supports (scrollbar-width: none) {
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
 }
 
 .scrollbar-none::-webkit-scrollbar {
@@ -193,6 +197,7 @@ img {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 1;
+  line-clamp: 1;
 }
 
 .line-clamp-2 {
@@ -200,11 +205,14 @@ img {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
 }
 
-@layer  utilities {
+@layer utilities {
   .text-balance {
-    text-wrap: balance;
+    @supports (text-wrap: balance) {
+      text-wrap: balance;
+    }
   }
 }
 
