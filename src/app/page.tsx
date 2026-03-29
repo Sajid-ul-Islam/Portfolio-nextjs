@@ -8,21 +8,32 @@ import Interests from "./components/Interests";
 import Awards from "./components/Awards";
 import Projects from "./components/Projects";
 
+import VSCodeIDE from "./components/vscode/VSCodeIDE";
+
 export default function Home() {
   return (
-    <div>
-      <NavBar />
-      <main className="container mx-auto p-4">
-        <div className="content-wrapper">
-          <About />
-          <Experience />
-          <Education />
-          <Skills />
-          <Interests />
-          <Awards />
-          <Projects />
-        </div>
-      </main>
-    </div>
+    <VSCodeIDE>
+      <section id="about">
+        <About />
+      </section>
+      <section id="experience">
+        <Experience />
+      </section>
+      <section id="education">
+        <Education />
+      </section>
+      <section id="skills">
+        <Skills />
+      </section>
+      <section id="interests">
+        <Interests />
+      </section>
+      <section id="awards">
+        <Awards />
+      </section>
+      <section id="projects">
+        <Projects />
+      </section>
+    </VSCodeIDE>
   );
 }
