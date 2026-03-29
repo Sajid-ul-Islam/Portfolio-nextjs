@@ -45,54 +45,65 @@ export default function SearchPanel() {
           </div>
         ) : (
           <ul className="py-2">
-            {results.map((item) => {
-              const content = (
-                <div className="flex items-center justify-between gap-3">
-                  <div className="flex flex-col">
-                    <span className="text-vscode-sm text-[var(--vscode-text-primary)]">
-                      {item.title}
-                    </span>
-                    {item.subtitle ? (
-                      <span className="text-vscode-xs text-[var(--vscode-text-secondary)]">
-                        {item.subtitle}
-                      </span>
-                    ) : null}
-                  </div>
-                  <div className="flex items-center gap-2 text-vscode-xs text-[var(--vscode-text-secondary)]">
-                    <span className="px-2 py-0.5 rounded border border-[var(--vscode-border)] uppercase tracking-wider">
-                      {typeLabel[item.type] ?? item.type}
-                    </span>
-                    {item.external ? <LuExternalLink size={12} /> : null}
-                  </div>
-                </div>
-              );
-
-              return (
-                <li key={item.id}>
-                  {item.external ? (
-                    <a
-                      href={item.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={cn(
-                        "block px-4 py-2 hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
-                      )}
-                    >
-                      {content}
-                    </a>
-                  ) : (
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "block px-4 py-2 hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
-                      )}
-                    >
-                      {content}
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
+            {results.map((item) => (
+              <li key={item.id}>
+                {item.external ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      "block px-4 py-2 hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
+                    )}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex flex-col">
+                        <span className="text-vscode-sm text-[var(--vscode-text-primary)]">
+                          {item.title}
+                        </span>
+                        {item.subtitle ? (
+                          <span className="text-vscode-xs text-[var(--vscode-text-secondary)]">
+                            {item.subtitle}
+                          </span>
+                        ) : null}
+                      </div>
+                      <div className="flex items-center gap-2 text-vscode-xs text-[var(--vscode-text-secondary)]">
+                        <span className="px-2 py-0.5 rounded border border-[var(--vscode-border)] uppercase tracking-wider">
+                          {typeLabel[item.type] ?? item.type}
+                        </span>
+                        {item.external ? <LuExternalLink size={12} /> : null}
+                      </div>
+                    </div>
+                  </a>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "block px-4 py-2 hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
+                    )}
+                  >
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="flex flex-col">
+                        <span className="text-vscode-sm text-[var(--vscode-text-primary)]">
+                          {item.title}
+                        </span>
+                        {item.subtitle ? (
+                          <span className="text-vscode-xs text-[var(--vscode-text-secondary)]">
+                            {item.subtitle}
+                          </span>
+                        ) : null}
+                      </div>
+                      <div className="flex items-center gap-2 text-vscode-xs text-[var(--vscode-text-secondary)]">
+                        <span className="px-2 py-0.5 rounded border border-[var(--vscode-border)] uppercase tracking-wider">
+                          {typeLabel[item.type] ?? item.type}
+                        </span>
+                        {item.external ? <LuExternalLink size={12} /> : null}
+                      </div>
+                    </div>
+                  </Link>
+                )}
+              </li>
+            ))}
           </ul>
         )}
       </div>

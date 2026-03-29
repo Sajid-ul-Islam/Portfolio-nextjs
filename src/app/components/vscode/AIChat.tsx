@@ -2,13 +2,18 @@
 
 import { useState, useRef, useEffect } from "react";
 
-const INITIAL_MESSAGES = [
-  { role: "system" as const, content: "[SECURITY_ENCRYPTION_ACTIVE]" },
-  { role: "bot" as const, content: "GREETINGS_OPERATIVE. AI_INTEL_ENGINE STANDING BY. ASK ME ANYTHING ABOUT SAJID'S PROJECTS OR SKILLS." },
+type ChatMessage = {
+  role: "system" | "bot" | "user";
+  content: string;
+};
+
+const INITIAL_MESSAGES: ChatMessage[] = [
+  { role: "system", content: "[SECURITY_ENCRYPTION_ACTIVE]" },
+  { role: "bot", content: "GREETINGS_OPERATIVE. AI_INTEL_ENGINE STANDING BY. ASK ME ANYTHING ABOUT SAJID'S PROJECTS OR SKILLS." },
 ];
 
 export default function AIChat({ onClose }: { onClose: () => void }) {
-  const [messages, setMessages] = useState(INITIAL_MESSAGES);
+  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
