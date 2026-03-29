@@ -2,18 +2,18 @@
 
 import { useState } from "react";
 import ActivityBar from "./ActivityBar";
-import SideBar from "./SideBar";
+import Sidebar from "./Sidebar";
 import StatusBar from "./StatusBar";
 import Terminal from "./Terminal";
 import AIChat from "./AIChat";
 
 export default function VSCodeIDE({ children }: { children: React.ReactNode }) {
-  const [activeSide, setActiveSide] = useState('explorer');
+  const [activeSide, setActiveSide] = useState<"explorer" | "search" | "git" | "extensions" | "account" | "settings" | "terminal" | "chat">('explorer');
   const [activeFile, setActiveFile] = useState('about');
   const [showTerminal, setShowTerminal] = useState(false);
   const [showAIChat, setShowAIChat] = useState(false);
 
-  const handleSidebarChange = (id: string) => {
+  const handleSidebarChange = (id: "explorer" | "search" | "git" | "extensions" | "account" | "settings" | "terminal" | "chat") => {
     if (id === 'terminal') {
       setShowTerminal(!showTerminal);
     } else if (id === 'chat') {
@@ -35,7 +35,7 @@ export default function VSCodeIDE({ children }: { children: React.ReactNode }) {
     <div className="flex h-screen w-full bg-[#121212] flex-col overflow-hidden text-white font-sans selection:bg-[#a3e635]/30">
         <div className="flex flex-1 w-full overflow-hidden">
             <ActivityBar activeItem={activeSide} onItemClick={handleSidebarChange} />
-            <SideBar activePanel={activeSide as any} />
+            <Sidebar activePanel={activeSide} />
             
             <div className="flex-1 flex flex-col min-w-0 bg-[#1e1e1e] relative">
                 {/* Editor Tabs */}
