@@ -34,8 +34,8 @@ export default function VSCodeIDE({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen w-full bg-[#121212] flex-col overflow-hidden text-white font-sans selection:bg-[#a3e635]/30">
         <div className="flex flex-1 w-full overflow-hidden">
-            <ActivityBar active={activeSide} onChange={handleSidebarChange} />
-            <SideBar active={activeFile} onChange={handleActiveFileChange} />
+            <ActivityBar activeItem={activeSide} onItemClick={handleSidebarChange} />
+            <SideBar activePanel={activeSide as any} />
             
             <div className="flex-1 flex flex-col min-w-0 bg-[#1e1e1e] relative">
                 {/* Editor Tabs */}

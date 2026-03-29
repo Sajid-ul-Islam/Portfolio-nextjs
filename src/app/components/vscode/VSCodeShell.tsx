@@ -16,6 +16,8 @@ import EditorShell from "./EditorShell";
 import Sidebar from "./Sidebar";
 import StatusBar from "./StatusBar";
 import TitleBar from "./TitleBar";
+import Terminal from "./Terminal";
+import AIChat from "./AIChat";
 
 type VSCodeShellProps = {
   children: React.ReactNode;
@@ -27,7 +29,9 @@ type ActivityId =
   | "git"
   | "extensions"
   | "account"
-  | "settings";
+  | "settings"
+  | "terminal"
+  | "chat";
 
 const mobileItems = [
   { id: "explorer", icon: "files", label: "Explorer" },
@@ -45,6 +49,8 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   const [activeActivity, setActiveActivity] =
     useState<ActivityId>("explorer");
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const [showTerminal, setShowTerminal] = useState(false);
+  const [showAIChat, setShowAIChat] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useLocalStorage<number>(
     "vscodeSidebarWidth",
     256
@@ -81,6 +87,15 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
         setActiveActivity(id);
         setMobileDrawerOpen(true);
       }
+      return;
+    }
+
+    if (id === 'terminal') {
+      setShowTerminal(!showTerminal);
+      return;
+    }
+    if (id === 'chat') {
+      setShowAIChat(!showAIChat);
       return;
     }
 
@@ -278,6 +293,18 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
       <div className="col-span-4">
         <StatusBar />
       </div>
+
+      {showTerminal && (
+          <div className="absolute bottom-6 left-0 right-0 h-64 z-[1000]">
+              <Terminal onClose={() => setShowTerminal(false)} />
+          </div>
+      )}
+
+      {showAIChat && (
+          <div className="fixed bottom-12 right-12 z-[2000]">
+              <AIChat onClose={() => setShowAIChat(false)} />
+          </div>
+      )}
     </div>
   );
 }

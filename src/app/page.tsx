@@ -1,5 +1,3 @@
-import HomeClient from "./components/vscode/HomeClient";
-import VSCodeIDE from "./components/vscode/VSCodeIDE";
 import About from "./components/About";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
@@ -10,7 +8,7 @@ import Projects from "./components/Projects";
 
 export default function Home() {
   return (
-    <VSCodeIDE>
+    <div className="space-y-32 py-20 pb-64">
       <section id="about">
         <About />
       </section>
@@ -32,6 +30,6 @@ export default function Home() {
       <section id="projects">
         <Projects />
       </section>
-    </VSCodeIDE>
+    </div>
   );
 }

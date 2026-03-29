@@ -1,40 +1,5 @@
 "use client";
 
-<<<<<<< HEAD
-export default function StatusBar() {
-  return (
-    <div className="h-6 w-full bg-[#166534] flex items-center justify-between px-3 text-[10px] text-white/90 font-mono tracking-wider z-50 animate-pulse duration-[3000ms]">
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-1 group cursor-pointer hover:bg-white/10 px-2 h-full transition-colors">
-          <span className="text-xs">🌿</span>
-          <span className="font-bold">main*</span>
-        </div>
-        <div className="flex items-center gap-2 text-white/60">
-          <span>0 ▲</span>
-          <span>0 ✖</span>
-          <span className="animate-spin text-[8px]">⚙️</span>
-          <span>BUILD: OK</span>
-        </div>
-      </div>
-      
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-1 opacity-60">
-            <span>Spaces: 4</span>
-        </div>
-        <div className="flex items-center gap-1 font-bold">
-            <span className="text-[#a3e635]">UTF-8</span>
-        </div>
-        <div className="flex items-center gap-1 font-bold group cursor-pointer hover:bg-white/10 px-2 h-full transition-colors">
-            <span>PRETTIER: ✅</span>
-        </div>
-        <div className="flex items-center gap-1 bg-white/15 px-2 h-full">
-            <span>🔔</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-=======
 import { useEffect, useState } from "react";
 import { LuBell, LuCheck, LuGitBranch, LuTerminal } from "react-icons/lu";
 
@@ -52,7 +17,7 @@ function StatusItem({
       className={cn(
         "flex items-center gap-1 px-1 py-0.5 text-vscode-xs",
         "hover:bg-[var(--vscode-statusBarItem-hoverBackground)]",
-        "rounded cursor-pointer transition-colors",
+        "rounded cursor-pointer transition-colors whitespace-nowrap",
         className
       )}
     >
@@ -82,34 +47,32 @@ export default function StatusBar() {
   }, []);
 
   return (
-    <footer className="flex items-center justify-between h-[var(--vscode-statusbar-height)] px-2 bg-[var(--vscode-statusBar-background)] text-[var(--vscode-statusBar-foreground)]">
-      <div className="flex items-center gap-3">
+    <footer className="flex items-center justify-between h-[var(--vscode-statusbar-height)] px-3 bg-[#166534] text-white font-mono uppercase tracking-[0.1em]">
+      <div className="flex items-center gap-4">
+        <StatusItem className="bg-[#a3e635] text-black font-bold px-2">
+           <span>TACTICAL_OPS_MODE</span>
+        </StatusItem>
         <StatusItem>
-          <LuTerminal size={14} />
-          <span>Remote</span>
+          <LuTerminal size={14} className="text-[#a3e635]" />
+          <span className="text-[#a3e635]">DHAKA_GRID_02</span>
         </StatusItem>
         <StatusItem>
           <LuGitBranch size={14} />
-          <span>main</span>
+          <span>main*</span>
         </StatusItem>
-        <StatusItem>
-          <LuCheck size={14} />
-          <span>0</span>
-          <span className="ml-1">0</span>
+        <StatusItem className="hidden md:flex">
+          <LuCheck size={14} className="text-[#a3e635]" />
+          <span>BUILD: OK</span>
         </StatusItem>
       </div>
-      <div className="flex items-center gap-3">
-        <StatusItem>Next.js</StatusItem>
-        <StatusItem>TypeScript</StatusItem>
-        <StatusItem>Tailwind</StatusItem>
-        <StatusItem>UTF-8</StatusItem>
-        <StatusItem>Port: 3000</StatusItem>
-        <StatusItem>{time}</StatusItem>
+      <div className="flex items-center gap-4">
+        <StatusItem className="hidden lg:flex">UTF-8</StatusItem>
+        <StatusItem className="hidden lg:flex">Spaces: 4</StatusItem>
+        <StatusItem className="bg-black/20">{time}</StatusItem>
         <StatusItem>
-          <LuBell size={14} />
+          <LuBell size={14} className="animate-pulse" />
         </StatusItem>
       </div>
     </footer>
   );
 }
->>>>>>> 086842fd025a55b975dbf46a3260a7ae75406454
