@@ -1,58 +1,49 @@
+"use client";
 import React from "react";
-import { FaProjectDiagram } from "react-icons/fa";
-
-const projects = [
-  {
-    title: "My Portfolio with Bootstrap",
-    link: "https://saajiidi.github.io/",
-  },
-  {
-    title: "My Portfolio with React App & TypeScript",
-    link: "https://saajiidi.github.io/portfolio/",
-  },
-  {
-    title: "My Portfolio with Next JS & Tailwind CSS",
-    link: "https://sajid-islam-portfolio.vercel.app/",
-  },
-
-  {
-    title: "E-Commerce Interface with React JS",
-    link: "https://gear-master.vercel.app/",
-  },
-
-  {
-    title: "LMS Interface with React JS",
-    link: "https://altenaitve-school.vercel.app/",
-  },
-];
+import { projects } from "../data";
 
 const Projects = () => {
+  const latest = projects.slice(0, 6);
+
   return (
-    <section
-      className="p-3 lg:p-5 flex flex-col items-center text-white"
-      id="projects"
-    >
-      <div className="w-full max-w-4xl">
-        <h2 className="mb-5 text-4xl font-bold text-left">Projects</h2>
-        {projects.map((project, index) => (
-          <div
-            key={index}
-            className="mb-5 p-5 rounded-lg shadow-lg bg-black"
-          >
-            <div className="flex items-center mb-3">
-              <FaProjectDiagram className="text-warning mr-3" />
-              <h3 className="text-xl font-semibold text-primary">
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {project.title}
-                </a>
-              </h3>
-            </div>
+    <section id="portfolio" className="py-20 bg-paper">
+      <div className="container mx-auto px-6">
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-ink mb-2">
+              Latest Work
+            </h2>
+            <p className="text-ink/70">Selected projects and products</p>
           </div>
-        ))}
+          <a
+            href="#"
+            className="text-ink/70 hover:text-ink underline decoration-dotted"
+          >
+            View all
+          </a>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {latest.map((project, index) => (
+            <a
+              key={index}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-6 rounded-2xl bg-white border border-ink/10 hover:border-ink/40 transition-all"
+            >
+              <div className="text-xs uppercase tracking-wider text-ink/60 mb-3">
+                {project.tags?.[0] || "Project"}
+              </div>
+              <h3 className="text-xl font-semibold text-ink mb-2">
+                {project.title}
+              </h3>
+              <p className="text-ink/70 text-sm leading-relaxed">
+                {project.desc}
+              </p>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   );

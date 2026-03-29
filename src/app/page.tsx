@@ -1,5 +1,5 @@
-import "./styles.css";
-import NavBar from "./components/NavBar";
+import HomeClient from "./components/vscode/HomeClient";
+import VSCodeIDE from "./components/vscode/VSCodeIDE";
 import About from "./components/About";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
@@ -7,8 +7,6 @@ import Skills from "./components/Skills";
 import Interests from "./components/Interests";
 import Awards from "./components/Awards";
 import Projects from "./components/Projects";
-
-import VSCodeIDE from "./components/vscode/VSCodeIDE";
 
 export default function Home() {
   return (

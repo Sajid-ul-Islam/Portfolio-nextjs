@@ -3,31 +3,242 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+  --vscode-editor-background: #1e1e1e;
+  --vscode-editor-foreground: #cccccc;
+  --vscode-sideBar-background: #252526;
+  --vscode-sideBar-foreground: #cccccc;
+  --vscode-activityBar-background: #333333;
+  --vscode-activityBar-foreground: #ffffff;
+  --vscode-activityBar-inactiveForeground: #858585;
+  --vscode-activityBar-border: #333333;
+  --vscode-activityBar-activeBorder: #ffffff;
+  --vscode-titleBar-activeBackground: #323233;
+  --vscode-titleBar-activeForeground: #cccccc;
+  --vscode-titleBar-inactiveBackground: #3c3c3c;
+  --vscode-titleBar-inactiveForeground: #999999;
+  --vscode-statusBar-background: #007acc;
+  --vscode-statusBar-foreground: #ffffff;
+  --vscode-statusBar-border: #007acc;
+  --vscode-statusBarItem-hoverBackground: hsla(0, 0%, 100%, 0.12);
+  --vscode-tab-activeBackground: #1e1e1e;
+  --vscode-tab-activeForeground: #ffffff;
+  --vscode-tab-inactiveBackground: #2d2d2d;
+  --vscode-tab-inactiveForeground: #858585;
+  --vscode-tab-border: #252526;
+  --vscode-tab-activeBorderTop: #007acc;
+  --vscode-tab-hoverBackground: #2d2d2d;
+  --vscode-list-hoverBackground: #2a2d2e;
+  --vscode-list-activeSelectionBackground: #094771;
+  --vscode-list-activeSelectionForeground: #ffffff;
+  --vscode-list-inactiveSelectionBackground: #37373d;
+  --vscode-list-inactiveSelectionForeground: #cccccc;
+  --vscode-list-focusOutline: #007fd4;
+  --vscode-input-background: #3c3c3c;
+  --vscode-input-foreground: #cccccc;
+  --vscode-input-border: #3c3c3c;
+  --vscode-input-placeholderForeground: #858585;
+  --vscode-button-background: #0e639c;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-hoverBackground: #1177bb;
+  --vscode-button-secondaryBackground: #3a3d41;
+  --vscode-button-secondaryForeground: #cccccc;
+  --vscode-button-secondaryHoverBackground: #45494e;
+  --vscode-focusBorder: #007fd4;
+  --vscode-border: #3c3c3c;
+  --vscode-panel-border: #454545;
+  --vscode-text-primary: #cccccc;
+  --vscode-text-secondary: #858585;
+  --vscode-text-muted: #6e6e6e;
+  --vscode-text-link: #3794ff;
+  --vscode-text-linkHover: #4da6ff;
+  --vscode-success: #4ec9b0;
+  --vscode-warning: #dcdcaa;
+  --vscode-error: #f14c4c;
+  --vscode-info: #75beff;
+  --vscode-scrollbar-shadow: rgba(0, 0, 0, 0.25);
+  --vscode-scrollbarSlider-background: hsla(0, 0%, 47%, 0.4);
+  --vscode-scrollbarSlider-hoverBackground: hsla(0, 0%, 47%, 0.7);
+  --vscode-scrollbarSlider-activeBackground: hsla(0, 0%, 47%, 0.9);
+  --vscode-font-family: "Segoe UI", system-ui, Segoe UI, Roboto, Ubuntu, Cantarell,
+    "Noto Sans", -apple-system, sans-serif;
+  --vscode-font-mono: "Consolas", "Monaco", "Menlo", monospace;
+  --vscode-font-size: 13px;
+  --vscode-font-size-small: 12px;
+  --vscode-font-size-large: 14px;
+  --vscode-line-height: 1.5;
+  --vscode-spacing-xs: 4px;
+  --vscode-spacing-sm: 8px;
+  --vscode-spacing-md: 12px;
+  --vscode-spacing-lg: 16px;
+  --vscode-spacing-xl: 24px;
+  --vscode-activitybar-width: 48px;
+  --vscode-sidebar-width: 256px;
+  --vscode-titlebar-height: 30px;
+  --vscode-statusbar-height: 22px;
+  --vscode-tab-height: 35px;
+  --vscode-border-radius-sm: 2px;
+  --vscode-border-radius-md: 4px;
+  --vscode-border-radius-lg: 6px;
+  --vscode-transition-fast: 0.1s ease;
+  --vscode-transition-normal: 0.2s ease;
+  --vscode-transition-slow: 0.3s ease;
+  --vscode-accent: #007acc;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  /* --- Tactical HUD Aesthetic (Night Ops) --- */
+  --primary-color: #166534;
+  --primary-light: #a3e635;
+  --accent-color: #bef264;
+  --bg-page: #051410;
+  --bg-card: rgba(6, 20, 15, 0.95);
+  --text-highlight: #a3e635;
+  --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  margin: 0;
+  color: var(--vscode-editor-foreground);
+  background: var(--vscode-editor-background);
+  overflow: hidden;
+  min-height: 100vh;
 }
 
-@layer utilities {
+html {
+  font-family: var(--vscode-font-family);
+  font-size: var(--vscode-font-size);
+  line-height: var(--vscode-line-height);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--vscode-text-link);
+  text-decoration: none;
+  transition: color var(--vscode-transition-fast);
+}
+
+a:hover {
+  color: var(--vscode-text-linkHover);
+}
+
+code {
+  font-family: var(--vscode-font-mono);
+  font-size: var(--vscode-font-size-small);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vscode-scrollbarSlider-background);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--vscode-scrollbarSlider-activeBackground);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--vscode-scrollbarSlider-background) transparent;
+}
+
+::selection {
+  background-color: var(--vscode-list-activeSelectionBackground);
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+@layer  utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* --- HUD Overlays --- */
+.scanlines {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, .05) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.1;
+  animation: scanlineScroll 10s linear infinite;
+}
+
+@keyframes scanlineScroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 100%; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background: var(--primary-light);
+  margin-left: 4px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
