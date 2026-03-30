@@ -557,11 +557,12 @@ export const socialLinks: SocialLink[] = [
 ];
 
 export const menuItems: MenuItem[] = [
-  { label: "File", items: ["New File", "Open", "Save", "Exit"] },
-  { label: "Edit", items: ["Undo", "Redo", "Cut", "Copy", "Paste"] },
-  { label: "View", items: ["Explorer", "Search", "Extensions"] },
-  { label: "Go", items: ["Go to File", "Go to Symbol"] },
-  { label: "Help", items: ["About", "Documentation"] },
+  { label: "File", items: ["New File", "Open File", "Open Folder", "---", "Save", "Save As", "---", "Exit"] },
+  { label: "Edit", items: ["Undo", "Redo", "---", "Cut", "Copy", "Paste", "---", "Find", "Replace"] },
+  { label: "Selection", items: ["Select All", "Expand Selection", "Shrink Selection"] },
+  { label: "View", items: ["Explorer", "Search", "Source Control", "---", "Terminal", "AI Chat", "---", "Full Screen"] },
+  { label: "Go", items: ["Go to File", "Go to Symbol", "---", "Next Dossier", "Previous Dossier"] },
+  { label: "Help", items: ["Welcome", "Documentation", "Check for Updates", "---", "About"] },
 ];
 
 export const skillGroups: SkillGroup[] = [

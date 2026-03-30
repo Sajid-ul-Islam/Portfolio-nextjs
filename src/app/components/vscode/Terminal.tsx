@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Plus, Trash2, X, ChevronRight, LayoutPanelLeft, Terminal as TerminalIcon, AlertCircle, Info, Bug } from "lucide-react";
+import { useState, useRef, useEffect, useMemo } from "react";
+import { Plus, Trash2, X, ChevronRight, Terminal as TerminalIcon, AlertCircle } from "lucide-react";
 import { cn } from "../../lib/cn";
 
 type TerminalTab = "TERMINAL" | "DEBUG CONSOLE" | "OUTPUT" | "PROBLEMS";
@@ -17,11 +17,29 @@ const NEO_ASCII = `
                  |___/           
 `;
 
+const INITIAL_FS = {
+  "/": ["home", "etc", "bin", "var"],
+  "/home": ["sajid"],
+  "/home/sajid": ["projects", "skills", "experience", "README.md", "identity.json"],
+  "/home/sajid/projects": ["ecommerce.tsx", "sentinel.py", "ramadan.js", "automation.sh"],
+  "/home/sajid/skills": ["tech_stack.json", "analytics_tools.txt"],
+  "/home/sajid/experience": ["work_history.md"],
+};
+
+const FILE_CONTENT: Record<string, string> = {
+  "readme.md": "# SAJID_ISLAM_ARCHIVE\nOperational dossier for Sajid Islam. All data verified.\n\nWelcome to my tactical portfolio terminal. Type 'help' to begin.",
+  "identity.json": '{\n  "operative": "Sajid Islam",\n  "role": "Data Engineer / BI Strategist",\n  "clearance": "Level 5",\n  "status": "Active"\n}',
+  "ecommerce.tsx": "export default function EcomMission() {\n  return <div>Mission Critical E-Commerce Dashboard</div>;\n}",
+  "sentinel.py": "import sentinel_core\ndef analyze_security():\n    return sentinel_core.scan_vulnerability()",
+  "tech_stack.json": '{\n  "frontend": ["Next.js", "React", "Tailwind"],\n  "data": ["Python", "SQL", "Tableau", "PowerBI"],\n  "devops": ["Vercel", "Git", "GitHub Actions"]\n}',
+  "work_history.md": "### Professional Dossier\n- Data Analyst @ Pathao\n- IT Strategist @ Multiple Missions\n- Open Source Operative",
+};
+
 export default function Terminal({ onClose }: { onClose: () => void }) {
   const [activeTab, setActiveTab] = useState<TerminalTab>("TERMINAL");
-  const [currentDir, setCurrentDir] = useState("C:\\Users\\SAJID\\Portfolio");
+  const [currentDir, setCurrentDir] = useState("/home/sajid");
   const [output, setOutput] = useState<string[]>([
-    "Tactical_OS [Version 2.4.102]",
+    "Tactical_OS [Version 2.4.110]",
     "(c) 2026 Sajid Intelligence Systems. All rights reserved.",
     "",
     "Establishing secure uplink...",
@@ -32,19 +50,7 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
   const [input, setInput] = useState("");
   const [history, setHistory] = useState<string[]>([]);
   const [historyIdx, setHistoryIdx] = useState(-1);
-  
-  // Mock data for other tabs
-  const [problems] = useState([
-    { file: "AIIntelEngine.ts", msg: "Missing documentation for [NEURAL_BUFFER]", line: 142, severity: "warning" },
-    { file: "Terminal.tsx", msg: "Unoptimized scanline animation", line: 89, severity: "info" }
-  ]);
-  
-  const [debugLogs] = useState([
-    "[09:42:12] [DEBUG] Initializing Neural_Uplink...",
-    "[09:42:15] [INFO] Gemini 1.5 Flash responding in 450ms.",
-    "[09:43:01] [DEBUG] Syncing Local_Intel_Engine indices.",
-    "[09:43:05] [SUCCESS] All systems NOMINAL."
-  ]);
+  const [fs, setFs] = useState(INITIAL_FS);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const outputRef = useRef<HTMLDivElement>(null);
@@ -55,8 +61,26 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
     }
   }, [output, activeTab]);
 
-  const terminalCommands = {
-    help: () => `AVAILABLE_OPS:
+  const availableCommands = useMemo(() => [
+    "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "projects", "status", "clear", "exit", "mkdir", "touch", "date"
+  ], []);
+
+  const handleCommand = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cmd = input.trim();
+    if (!cmd) return;
+
+    setHistory(prev => [cmd, ...prev].slice(0, 50));
+    setHistoryIdx(-1);
+
+    const fullCmd = `\u001b[32m${currentDir}\u001b[0m \u276f ${cmd}`;
+    const [baseCmd, ...args] = cmd.toLowerCase().split(' ');
+    
+    let response = "";
+
+    switch (baseCmd) {
+      case "help":
+        response = `AVAILABLE_OPS:
   help              Display tactical assistance
   ls                List archive contents
   cd [dir]          Change operational directory
@@ -66,90 +90,96 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
   whoami            Verification of operative identity
   projects          Summary of active mission projects
   status            Internal hardware diagnostics
+  mkdir [name]      Create secondary directory
+  touch [name]      Initialize new data file
+  date              Retrieve temporal coordinates
   clear             Purge terminal buffer
-  exit              Terminate session`,
-
-    neofetch: () => `${NEO_ASCII}
+  exit              Terminate session`;
+        break;
+      case "neofetch":
+        response = `${NEO_ASCII}
 OPERATIVE: Sajid Islam
 OS: Tactical_OS_v2.0 (x86_64)
 SHELL: SAJ-SH v1.2
 UPTIME: ${Math.floor(performance.now() / 1000)}s
-RESOLUTION: 1920x1080 (HUD_ENHANCED)
+RESOLUTION: HUD_ENHANCED
 WM: VSCode_IDE_Shell
-CPU: Neural_Engine_v15 (8) @ 4.2GHz
-MEMORY: 32768MiB / 65536MiB
-THEME: Midnight_Operative_Green`,
-
-    whoami: () => `IDENTITY_SECURED: SAJID ISLAM
-ROLE: DATA_ENGINEER // BI_STRATEGIST
-LOC: DHAKA_SECTOR_07
-CLEARANCE: LVL_05_ROOT`,
-
-    ls: () => `mode     lastWriteTime         length name
-----     -------------         ------ ----
-d-----   30/03/2026     12:47         Experience/
-d-----   30/03/2026     12:47         Projects/
-d-----   30/03/2026     12:47         Skills/
--a----   30/03/2026     12:47    4201 README.md
--a----   30/03/2026     12:47    1024 identity.json`,
-
-    pwd: () => currentDir,
-
-    date: () => new Date().toLocaleString(),
-
-    projects: () => `ACTIVE_MISSION_SESSIONS (LIVE):
-[01] E-Commerce Dashboard  |  STATUS: DEPLOYED
-[02] Sheet2WhatsApp        |  STATUS: OPERATION_SUCCESS
-[03] Sentinel Bangladesh   |  STATUS: ACTIVE_INTEL
-[04] Ramadan Compass       |  STATUS: MISSION_COMPLETE`,
-
-    status: () => `[DIAGNOSTICS]
-> CORE_TEMP: 42°C [STABLE]
-> NET_UPLINK: 450Mbps [ENCRYPTED]
-> AI_LATENCY: 12ms [OPTIMAL]
-> DATA_INTEGRITY: 100% [VERIFIED]`,
-
-    clear: () => "CLEAR",
-    exit: () => "EXIT",
-  };
-
-  const handleCommand = (e: React.FormEvent) => {
-    e.preventDefault();
-    const cmd = input.trim();
-    if (!cmd) return;
-
-    const newHistory = [cmd, ...history].slice(0, 50);
-    setHistory(newHistory);
-    setHistoryIdx(-1);
-
-    const fullCmd = `${currentDir}> ${cmd}`;
-    const [baseCmd, ...args] = cmd.toLowerCase().split(' ');
-    
-    if (baseCmd === 'clear') {
-      setOutput([]);
-    } else if (baseCmd === 'exit') {
-       onClose();
-    } else if (baseCmd === 'cd') {
-      const target = args[0] || "~";
-      if (target === ".." || target === "projects" || target === "skills" || target === "experience") {
-        setCurrentDir(`C:\\Users\\SAJID\\Portfolio\\${target === ".." ? "" : target}`);
-        setOutput(prev => [...prev, fullCmd, ""]);
-      } else {
-        setOutput(prev => [...prev, fullCmd, `cd: ${target}: Access Denied or Path Not Found`, ""]);
-      }
-    } else if (baseCmd === 'cat') {
-      const file = args[0];
-      let response = `cat: ${file}: Unable to read sector. File may be encrypted.`;
-      if (file === 'readme.md') response = "# SAJID_ISLAM_ARCHIVE\nOperational dossier for Sajid Islam. All data verified.";
-      if (file === 'identity.json') response = '{\n  "operative": "Sajid Islam",\n  "status": "Ready for assignment",\n  "specialties": ["BI", "Data Analytics", "IT Strategy"]\n}';
-      setOutput(prev => [...prev, fullCmd, response, ""]);
-    } else if (terminalCommands[baseCmd as keyof typeof terminalCommands]) {
-      const response = terminalCommands[baseCmd as keyof typeof terminalCommands]();
-      setOutput(prev => [...prev, fullCmd, response, ""]);
-    } else {
-      setOutput(prev => [...prev, fullCmd, `Term: '${cmd}' not recognized as a valid internal command.`, ""]);
+CPU: Neural_Engine_v15 (8)
+MEMORY: 32GB / 64GB
+STATUS: ALL_SYSTEMS_NOMINAL`;
+        break;
+      case "whoami":
+        response = "operative: sajid islam\nrole: data_engineer / bi_strategist\nclearance: level_5_root";
+        break;
+      case "pwd":
+        response = currentDir;
+        break;
+      case "ls":
+        const contents = fs[currentDir as keyof typeof fs] || [];
+        response = contents.length > 0 ? contents.join("  ") : "directory is empty";
+        break;
+      case "cd":
+        const target = args[0] || "/home/sajid";
+        if (target === "..") {
+          const parts = currentDir.split("/").filter(Boolean);
+          parts.pop();
+          const next = "/" + parts.join("/");
+          setCurrentDir(next || "/");
+        } else {
+          const path = target.startsWith("/") ? target : `${currentDir === "/" ? "" : currentDir}/${target}`;
+          if (fs[path as keyof typeof fs]) {
+            setCurrentDir(path);
+          } else {
+            response = `cd: ${target}: Access Denied or Path Not Found`;
+          }
+        }
+        break;
+      case "cat":
+        const file = args[0]?.toLowerCase();
+        if (!file) {
+          response = "usage: cat <filename>";
+        } else {
+          response = FILE_CONTENT[file] || `cat: ${file}: Unable to read sector. File may be encrypted.`;
+        }
+        break;
+      case "mkdir":
+        if (!args[0]) {
+           response = "mkdir: missing operation target";
+        } else {
+           const newDir = `${currentDir === "/" ? "" : currentDir}/${args[0]}`;
+           setFs(prev => ({ ...prev, [newDir]: [], [currentDir]: [...(prev[currentDir as keyof typeof prev] || []), args[0]] }));
+           response = `Created directory: ${args[0]}`;
+        }
+        break;
+      case "touch":
+        if (!args[0]) {
+            response = "touch: missing file target";
+        } else {
+            setFs(prev => ({ ...prev, [currentDir]: [...(prev[currentDir as keyof typeof prev] || []), args[0]] }));
+            response = `Initialized file: ${args[0]}`;
+        }
+        break;
+      case "date":
+        response = new Date().toLocaleString();
+        break;
+      case "projects":
+        response = "ACTIVE_MISSION_SESSIONS (LIVE):\n[01] E-Commerce Dashboard\n[02] Sheet2WhatsApp\n[03] Sentinel Bangladesh\n[04] Ramadan Compass";
+        break;
+      case "status":
+        response = "[DIAGNOSTICS]\nCORE: 42°C [STABLE]\nNET: ENCRYPTED\nAI: OPTIMAL";
+        break;
+      case "clear":
+        setOutput([]);
+        setInput("");
+        return;
+      case "exit":
+        onClose();
+        return;
+      default:
+        response = `Term: '${cmd}' not recognized in current tactical context. Type 'help' for ops.`;
     }
-    
+
+    setOutput(prev => [...prev, fullCmd, response, ""]);
     setInput("");
   };
 
@@ -171,65 +201,76 @@ d-----   30/03/2026     12:47         Skills/
         setHistoryIdx(-1);
         setInput("");
       }
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      const currentInput = input.trim();
+      if (!currentInput) return;
+      
+      const parts = currentInput.split(' ');
+      const lastPart = parts[parts.length - 1];
+      
+      if (parts.length === 1) {
+        // Autocomplete commands
+        const matches = availableCommands.filter(c => c.startsWith(lastPart.toLowerCase()));
+        if (matches.length === 1) setInput(matches[0] + " ");
+      } else {
+        // Autocomplete files/dirs
+        const contents = fs[currentDir as keyof typeof fs] || [];
+        const matches = contents.filter(f => f.toLowerCase().startsWith(lastPart.toLowerCase()));
+        if (matches.length === 1) {
+            parts[parts.length - 1] = matches[0];
+            setInput(parts.join(' ') + " ");
+        }
+      }
     }
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#0c0c0c] border-t border-white/10 text-[#cccccc] font-mono text-[12px] select-text">
-      {/* Header Tabs */}
-      <div className="flex items-center justify-between px-4 bg-[#111111] h-9 border-b border-white/5">
-        <div className="flex items-center gap-5 h-full">
-          {["PROBLEMS", "OUTPUT", "DEBUG CONSOLE", "TERMINAL"].map((tab) => {
-            const isActive = activeTab === tab;
-            return (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab as TerminalTab)}
-                className={cn(
-                  "h-full flex items-center text-[10px] font-bold tracking-tight transition-all border-b-2 hover:text-white relative",
-                  isActive ? "border-[#a3e635] text-white" : "border-transparent text-gray-500"
-                )}
-              >
-                {tab}
-                {tab === "PROBLEMS" && (
-                  <span className="ml-1.5 flex items-center justify-center w-3.5 h-3.5 bg-red-500/20 text-red-500 text-[8px] rounded-full">
-                    {problems.length}
-                  </span>
-                )}
-              </button>
-            );
-          })}
+    <div className="flex flex-col h-full bg-[#080808] border-t border-white/10 text-[#cccccc] font-mono text-[11px] select-text">
+      {/* Tab Bar */}
+      <div className="flex items-center justify-between px-3 bg-[#111111] h-8 border-b border-white/5">
+        <div className="flex items-center gap-4 h-full">
+          {["PROBLEMS", "OUTPUT", "DEBUG CONSOLE", "TERMINAL"].reverse().map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab as TerminalTab)}
+              className={cn(
+                "h-full px-2 flex items-center text-[10px] font-bold tracking-tight transition-all border-b-2",
+                activeTab === tab ? "border-[#a3e635] text-white" : "border-transparent text-gray-500 hover:text-gray-300"
+              )}
+            >
+              {tab}
+            </button>
+          ))}
         </div>
         
-        <div className="flex items-center gap-4 text-gray-500">
-           <div className="flex items-center gap-1.5 px-2 py-0.5 bg-white/5 rounded text-[10px] text-[#a3e635]/80 font-bold border border-white/5">
+        <div className="flex items-center gap-3 text-gray-500">
+           <div className="flex items-center gap-2 px-2 py-0.5 bg-white/5 rounded text-[9px] text-[#a3e635]/80 font-bold border border-white/5">
               <ChevronRight size={10} />
-              <span>ps: saj-shell</span>
+              <span>bash --operative-saj</span>
            </div>
-           <div className="flex items-center gap-3 border-l border-white/5 pl-3">
-             <Plus size={14} className="hover:text-white cursor-pointer transition-colors" />
-             <Trash2 size={14} className="hover:text-white cursor-pointer transition-colors" onClick={() => setOutput([])} />
-             <X size={16} className="hover:text-[#a3e635] cursor-pointer transition-colors" onClick={onClose} />
-           </div>
+           <Trash2 size={13} className="hover:text-white cursor-pointer" onClick={() => setOutput([])} />
+           <X size={14} className="hover:text-[#a3e635] cursor-pointer" onClick={onClose} />
         </div>
       </div>
 
-      {/* Area */}
+      {/* Main Content */}
       <div 
         ref={outputRef}
         onClick={() => inputRef.current?.focus()}
-        className="flex-1 overflow-y-auto p-4 scrollbar-none selection:bg-[#a3e635]/30"
+        className="flex-1 overflow-y-auto p-4 custom-editor-scroll selection:bg-[#a3e635]/20"
       >
-        {activeTab === "TERMINAL" && (
-          <div className="animate-in fade-in duration-300">
+        {activeTab === "TERMINAL" ? (
+          <div className="space-y-1">
             {output.map((line, i) => (
-              <div key={i} className="mb-0.5 leading-relaxed whitespace-pre-wrap">
-                {line.startsWith("[SUCCESS]") ? <span className="text-[#a3e635] font-bold">{line}</span> : line}
+              <div key={i} className="whitespace-pre-wrap leading-relaxed">
+                {line.includes("[SUCCESS]") ? <span className="text-[#a3e635] font-bold">{line}</span> : 
+                 line.includes("\u001b[32m") ? <span dangerouslySetInnerHTML={{ __html: line.replace(/\u001b\[32m/g, '<span class="text-[#a3e635]">').replace(/\u001b\[0m/g, '</span>') }} /> : line}
               </div>
             ))}
-            <div className="flex items-start mt-1 relative">
-                <span className="mr-2 text-[#a3e635] whitespace-nowrap font-bold">{currentDir}&gt;</span>
-                <form onSubmit={handleCommand} className="flex-1 relative min-w-0">
+            <div className="flex items-center pt-1 group">
+                <span className="text-[#a3e635] font-bold mr-2">{currentDir} \u276f</span>
+                <div className="relative flex-1">
                     <input
                         ref={inputRef}
                         autoFocus
@@ -237,60 +278,19 @@ d-----   30/03/2026     12:47         Skills/
                         value={input}
                         onKeyDown={handleKeyDown}
                         onChange={(e) => setInput(e.target.value)}
-                        className="bg-transparent border-none outline-none w-full text-white caret-[#a3e635] caret-transparent absolute inset-0 opacity-0 z-10"
+                        className="bg-transparent border-none outline-none w-full text-white caret-transparent"
                         spellCheck={false}
-                        aria-label="Terminal input"
                     />
-                    <div className="relative pointer-events-none break-all flex flex-wrap">
-                       <span className="text-white">{input}</span>
-                       <span className="inline-block w-2 H-4 bg-[#a3e635] animate-pulse ml-0.5 mt-0.5 shadow-[0_0_8px_#a3e635]"></span>
+                    <div className="absolute top-0 left-0 pointer-events-none flex items-center">
+                        <span className="text-white invisible">{input}</span>
+                        <span className="w-1.5 h-3.5 bg-[#a3e635] shadow-[0_0_8px_#a3e635] animate-pulse"></span>
                     </div>
-                </form>
+                </div>
             </div>
           </div>
-        )}
-
-        {activeTab === "PROBLEMS" && (
-          <div className="space-y-2 animate-in slide-in-from-bottom-1 duration-200">
-            {problems.map((p, i) => (
-              <div key={i} className="flex items-start gap-3 p-2 bg-red-500/5 border border-red-500/10 rounded group hover:border-red-500/30 transition-colors">
-                <AlertCircle size={14} className="text-red-500 mt-0.5" />
-                <div className="flex-1">
-                  <div className="text-[11px] text-white flex items-center justify-between">
-                    <span>{p.msg}</span>
-                    <span className="text-red-500/50 group-hover:text-red-500 text-[10px]">L:{p.line}</span>
-                  </div>
-                  <div className="text-[9px] text-gray-500 font-mono italic tracking-tighter">~/src/app/core/{p.file}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {activeTab === "DEBUG CONSOLE" && (
-          <div className="space-y-1 font-mono text-[11px]">
-            {debugLogs.map((log, i) => (
-              <div key={i} className={cn(
-                "py-0.5",
-                log.includes("[DEBUG]") ? "text-gray-500" : 
-                log.includes("[INFO]") ? "text-blue-400" :
-                log.includes("[SUCCESS]") ? "text-[#a3e635]" : ""
-              )}>
-                {log}
-              </div>
-            ))}
-            <div className="mt-2 text-gray-600 animate-pulse">&gt; Initializing secondary debugger...</div>
-          </div>
-        )}
-
-        {activeTab === "OUTPUT" && (
-          <div className="text-[11px] text-gray-400 space-y-4">
-             <div className="p-3 bg-white/5 border-l-2 border-[#a3e635] italic">
-                Welcome to Output Stream. Monitoring mission-critical builds.
-             </div>
-             <div>[09:44:00] Building statically generated pages...</div>
-             <div>[09:44:02] Optimizing tactical image assets...</div>
-             <div>[09:44:05] Mission deployment READY.</div>
+        ) : (
+          <div className="flex flex-col items-center justify-center h-full text-gray-600 italic">
+            [DATA_STREAM_WAITING_FOR_UPLINK]
           </div>
         )}
       </div>

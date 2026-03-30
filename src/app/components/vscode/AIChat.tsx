@@ -94,6 +94,13 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     }
   };
 
+  const suggestions = [
+    { label: "SHOW_DOSSUIER", prompt: "Who is Sajid Islam?" },
+    { label: "PROJECT_STATUS", prompt: "Tell me about your featured projects." },
+    { label: "TECH_OPS", prompt: "What is your primary tech stack?" },
+    { label: "EXPERIENCE_LOG", prompt: "Where have you worked before?" },
+  ];
+
   return (
     <div className="fixed bottom-20 right-8 w-80 md:w-96 h-[550px] bg-[#0d0d0d]/95 backdrop-blur-md border border-[#a3e635]/30 shadow-[0_0_40px_rgba(163,230,53,0.15)] z-[2000] flex flex-col font-mono text-[11px] animate-in slide-in-from-right-5 fade-in duration-300 rounded-lg overflow-hidden">
       {/* Header */}
@@ -175,7 +182,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* Messages */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#a3e635]/30 custom-chat-scroll">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#a3e635]/30 custom-chat-scroll relative">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`max-w-[90%] p-2.5 rounded border relative ${
@@ -183,7 +190,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 ? 'bg-[#a3e635]/10 text-[#a3e635] border-[#a3e635]/40 rounded-tr-none' 
                 : m.role === 'system'
                   ? 'border-none italic text-gray-500 opacity-70 text-[10px]'
-                  : 'bg-white/5 text-gray-200 border-white/10 rounded-tl-none selection:bg-[#a3e635] selection:text-black'
+                  : 'bg-white/5 text-gray-200 border-white/10 rounded-tl-none selection:bg-[#a3e635] selection:text-black shadow-[0_5px_15px_rgba(0,0,0,0.3)]'
             }`}>
               {m.role === 'user' && (
                 <div className="absolute -top-3 right-0 text-[8px] text-[#a3e635]/50 flex items-center gap-1">
@@ -192,9 +199,9 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 </div>
               )}
               {m.role === 'bot' && (
-                <div className="absolute -top-3 left-0 text-[8px] text-gray-500 flex items-center gap-1">
+                <div className="absolute -top-3 left-0 text-[8px] text-gray-500 flex items-center gap-1 font-bold">
                   <Bot size={8} /> 
-                  INTEL_FETCH
+                  INTEL_FETCHED // RESPONSE_SECURE
                 </div>
               )}
               <div className="whitespace-pre-wrap leading-relaxed tracking-tight">
@@ -217,27 +224,43 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         )}
       </div>
 
-      {/* Input */}
-      <form onSubmit={handleSend} className="p-3 border-t border-[#a3e635]/20 bg-black/40 group focus-within:bg-black/60 transition-colors">
-        <div className="flex items-center gap-2 bg-[#0a0a0a] border border-[#a3e635]/30 rounded overflow-hidden p-1 focus-within:border-[#a3e635] group-hover:border-[#a3e635]/50 transition-all shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
-          <input 
-            type="text" 
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={isTyping}
-            placeholder={isTyping ? "WAITING_FOR_UPLINK..." : "EXECUTE_INTEL_QUERY..."}
-            className="flex-1 bg-transparent border-none p-2 text-[#a3e635] outline-none placeholder:text-[#a3e635]/30 disabled:opacity-50"
-            aria-label="AI message input"
-          />
-          <button 
-            type="submit" 
-            disabled={!input.trim() || isTyping}
-            className="p-2 text-[#a3e635] hover:bg-[#a3e635]/10 disabled:opacity-30 disabled:hover:bg-transparent rounded transition-colors"
-          >
-            <Send size={16} />
-          </button>
-        </div>
-      </form>
+      {/* Input & Suggestions */}
+      <div className="p-3 border-t border-[#a3e635]/20 bg-black/40">
+        {!isTyping && messages.length < 5 && (
+          <div className="flex flex-wrap gap-2 mb-3">
+             {suggestions.map((s) => (
+               <button
+                 key={s.label}
+                 onClick={() => { setInput(s.prompt); handleSend({ preventDefault: () => {} } as any); }}
+                 className="px-2 py-1 bg-[#a3e635]/5 border border-[#a3e635]/20 rounded-sm text-[8px] text-[#a3e635] hover:bg-[#a3e635]/20 hover:border-[#a3e635]/40 transition-all uppercase tracking-wider"
+               >
+                 {s.label}
+               </button>
+             ))}
+          </div>
+        )}
+
+        <form onSubmit={handleSend} className="group focus-within:bg-black/60 transition-colors">
+          <div className="flex items-center gap-2 bg-[#0a0a0a] border border-[#a3e635]/30 rounded overflow-hidden p-1 focus-within:border-[#a3e635] group-hover:border-[#a3e635]/50 transition-all shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
+            <input 
+              type="text" 
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              disabled={isTyping}
+              placeholder={isTyping ? "SIGNAL_PROCESSING..." : "EXECUTE_INTEL_QUERY..."}
+              className="flex-1 bg-transparent border-none p-2 text-[#a3e635] outline-none placeholder:text-[#a3e635]/30 disabled:opacity-50"
+              aria-label="AI message input"
+            />
+            <button 
+              type="submit" 
+              disabled={!input.trim() || isTyping}
+              className="p-2 text-[#a3e635] hover:bg-[#a3e635]/10 disabled:opacity-30 disabled:hover:bg-transparent rounded transition-colors"
+            >
+              <Send size={16} />
+            </button>
+          </div>
+        </form>
+      </div>
 
       <style jsx>{`
         .custom-chat-scroll::-webkit-scrollbar {
