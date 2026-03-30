@@ -1,56 +1,57 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import { LuCalendar, LuExternalLink } from "react-icons/lu";
+import { LuCalendar, LuExternalLink, LuMaximize2 } from "react-icons/lu";
 
 import Badge from "../components/vscode/Badge";
 import SectionHeader from "../components/vscode/SectionHeader";
-import { blogPosts } from "../data/portfolio";
+import { blogPosts, BlogPost } from "../data/portfolio";
 import { cn } from "../lib/cn";
-
-export const metadata = {
-  title: "Blogs",
-  description:
-    "Technical articles and blog posts written by Raj Savaliya on software development, AI, and technology.",
-  alternates: { canonical: "/Blogs" },
-};
+import BlogDetailModal from "../components/vscode/BlogDetailModal";
 
 export default function BlogsPage() {
+  const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+
   return (
     <>
       <SectionHeader
         title="Blogs"
-        description="Useful Articles and thoughts on software development, AI, and technology."
+        description="Useful Articles and thoughts on software development, AI, and technology. Centralized intelligence archive."
       />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {blogPosts.map((post) => (
           <article
             key={post.id}
+            onClick={() => setSelectedPost(post)}
             className={cn(
-              "group flex flex-col overflow-hidden",
-              "bg-[var(--vscode-sideBar-background)]",
-              "border border-[var(--vscode-border)]",
-              "rounded-[var(--vscode-border-radius-md)]",
-              "hover:border-[var(--vscode-focusBorder)]",
-              "transition-all duration-200"
+                "group flex flex-col overflow-hidden cursor-pointer",
+                "bg-[#0a1a15]/40 backdrop-blur-sm",
+                "border border-[#a3e635]/10",
+                "rounded-xl",
+                "hover:border-[#a3e635]/40 hover:shadow-[0_0_20px_rgba(163,230,53,0.05)]",
+                "transition-all duration-300"
             )}
           >
             {post.image ? (
-              <a
-                href={post.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative aspect-video overflow-hidden"
-              >
+              <div className="relative aspect-video overflow-hidden">
                 <Image
                   src={post.image}
                   alt={post.title}
                   fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
                 />
-              </a>
-            ) : null}
-            <div className="flex flex-col flex-1 p-4">
-              <div className="flex items-center gap-2 text-vscode-xs text-[var(--vscode-text-secondary)] mb-2">
-                <LuCalendar size={12} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              </div>
+            ) : (
+                <div className="relative aspect-video bg-[#051410] flex items-center justify-center overflow-hidden">
+                    <LuFileText size={40} className="text-[#a3e635]/20 group-hover:text-[#a3e635]/40 transition-all duration-700" />
+                    <div className="absolute top-0 left-0 w-full h-[1px] bg-[#a3e635]/30 group-hover:bg-[#a3e635] animate-scan-line"></div>
+                </div>
+            )}
+            <div className="flex flex-col flex-1 p-5 relative">
+              <div className="flex items-center gap-2 text-[10px] font-bold text-[#a3e635]/50 mb-3 uppercase tracking-widest">
+                <LuCalendar size={12} className="text-[#a3e635]" />
                 <time dateTime={post.date}>
                   {new Date(post.date).toLocaleDateString("en-US", {
                     year: "numeric",
@@ -59,34 +60,43 @@ export default function BlogsPage() {
                   })}
                 </time>
               </div>
-              <a href={post.url} target="_blank" rel="noopener noreferrer">
-                <h2 className="text-vscode-lg font-semibold text-[var(--vscode-text-primary)] hover:text-[var(--vscode-text-link)] transition-colors line-clamp-2">
-                  {post.title}
-                </h2>
-              </a>
-              <p className="mt-2 text-vscode-sm text-[var(--vscode-text-secondary)] line-clamp-2">
+              
+              <h2 className={cn(
+                  "text-sm font-black text-white hover:text-[#a3e635] transition-colors line-clamp-2 uppercase tracking-tight mb-2",
+                  post.title.match(/[\u0980-\u09FF]/) && "font-[var(--font-tiro-bangla),serif] tracking-normal capitalize"
+                )}>
+                {post.title}
+              </h2>
+              
+              <p className="mt-2 text-[11px] text-gray-500 line-clamp-2 leading-relaxed">
                 {post.excerpt}
               </p>
+              
               {post.tags && post.tags.length > 0 ? (
-                <div className="flex flex-wrap gap-1.5 mt-3">
+                <div className="flex flex-wrap gap-1.5 mt-4">
                   {post.tags.map((tag) => (
-                    <Badge key={tag}>{tag}</Badge>
+                    <Badge key={tag} className="text-[9px] uppercase tracking-tighter">#{tag}</Badge>
                   ))}
                 </div>
               ) : null}
-              <a
-                href={post.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-4 pt-3 border-t border-[var(--vscode-border)] text-vscode-sm text-[var(--vscode-text-link)] hover:text-[var(--vscode-text-linkHover)] transition-colors"
-              >
-                <LuExternalLink size={14} />
-                Read Article
-              </a>
+              
+              <div className="inline-flex items-center gap-1.5 mt-6 pt-4 border-t border-white/5 text-[10px] font-black text-[#a3e635] hover:tracking-[0.1em] transition-all uppercase tracking-widest">
+                <LuMaximize2 size={12} />
+                Expand Intel dossier
+              </div>
             </div>
           </article>
         ))}
       </div>
+
+      {selectedPost && (
+          <BlogDetailModal 
+            post={selectedPost} 
+            onClose={() => setSelectedPost(null)} 
+          />
+      )}
     </>
   );
 }
+
+import { LuFileText } from "react-icons/lu";

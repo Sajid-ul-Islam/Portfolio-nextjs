@@ -35,7 +35,13 @@ const FILE_CONTENT: Record<string, string> = {
   "work_history.md": "### Professional Dossier\n- Data Analyst @ Pathao\n- IT Strategist @ Multiple Missions\n- Open Source Operative",
 };
 
-export default function Terminal({ onClose }: { onClose: () => void }) {
+type TerminalProps = {
+  onClose: () => void;
+  isAudioPlaying?: boolean;
+  onAudioToggle?: (active: boolean) => void;
+};
+
+export default function Terminal({ onClose, isAudioPlaying, onAudioToggle }: TerminalProps) {
   const [activeTab, setActiveTab] = useState<TerminalTab>("TERMINAL");
   const [currentDir, setCurrentDir] = useState("/home/sajid");
   const [output, setOutput] = useState<string[]>([
@@ -96,12 +102,25 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
   whoami            Verification of operative identity
   projects          Summary of active mission projects
   status            Internal hardware diagnostics
+  audio [on/off]    Control ambient synth stream
   mkdir [name]      Create secondary directory
   touch [name]      Initialize new data file
   date              Retrieve temporal coordinates
   clear             Purge terminal buffer
   exit              Terminate session
   sudo unlock_vault Uncover clandestine dossiers`;
+                break;
+            case "audio":
+                const action = args[0];
+                if (action === "on") {
+                    onAudioToggle?.(true);
+                    response = "[SUCCESS] DEEP_WORK_STREAM_ACTIVE [STABLE]";
+                } else if (action === "off") {
+                    onAudioToggle?.(false);
+                    response = "[INFO] STREAM_DEACTIVATED";
+                } else {
+                    response = `AUDIO_LOG: Status: ${isAudioPlaying ? 'ACTIVE' : 'INACTIVE'}\nUse 'audio on' or 'audio off' to control.`;
+                }
                 break;
             case "cat":
                 const file = args[0]?.toLowerCase();

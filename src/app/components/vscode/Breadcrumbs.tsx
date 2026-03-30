@@ -21,7 +21,7 @@ export default function Breadcrumbs() {
   }
 
   return (
-    <nav className="flex items-center gap-1 px-4 py-1 text-vscode-sm text-[var(--vscode-text-secondary)] bg-[var(--vscode-editor-background)] border-b border-[var(--vscode-border)]">
+    <nav className="flex items-center gap-1 px-4 py-1 text-vscode-sm text-[var(--vscode-text-secondary)] bg-[var(--vscode-editor-background)] border-b border-[var(--vscode-border)] overflow-x-auto whitespace-nowrap scrollbar-none">
       <Link href="/" className="hover:text-[var(--vscode-text-primary)] transition-colors">
         <LuHome size={14} />
       </Link>

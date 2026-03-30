@@ -107,14 +107,6 @@ export default function StatusBar() {
       </div>
 
       <div className="flex items-center gap-4">
-        <button 
-           onClick={toggleAudio}
-           className="flex items-center gap-1.5 px-2 py-1 bg-black/30 rounded border border-white/10 hover:bg-[#a3e635]/20 transition-all text-[9px] font-bold"
-        >
-          {isMuted ? <LuVolumeX size={12} className="text-red-400" /> : <LuVolume2 size={12} className="text-[#a3e635] animate-pulse" />}
-          <span>DEEP_WORK_PLAYER</span>
-        </button>
-
         {battery !== null && (
           <StatusItem className={cn(battery < 20 ? "text-red-500 animate-pulse" : "text-white")}>
             <LuBattery size={12} className={battery < 20 ? "text-red-500" : "text-[#a3e635]"} />

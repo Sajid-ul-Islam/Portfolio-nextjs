@@ -58,6 +58,22 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
     "vscodeSidebarWidth",
     256
   );
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const handleAudioToggle = useCallback((active: boolean) => {
+    if (!audioRef.current) {
+        audioRef.current = new Audio("https://cdn.pixabay.com/audio/2022/02/10/audio_141a0e1b6f.mp3");
+        audioRef.current.loop = true;
+    }
+    if (active) {
+        audioRef.current.play().catch(() => console.log("Audio play blocked."));
+        setIsAudioPlaying(true);
+    } else {
+        audioRef.current.pause();
+        setIsAudioPlaying(false);
+    }
+  }, []);
   const resizeState = useRef<{ startX: number; startWidth: number } | null>(
     null
   );
@@ -265,8 +281,8 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
         "grid h-full min-h-screen overflow-hidden bg-[var(--vscode-editor-background)]",
         "grid-rows-[var(--vscode-titlebar-height)_1fr_var(--vscode-statusbar-height)]",
         sidebarOpen
-          ? "grid-cols-[var(--vscode-activitybar-width)_var(--vscode-sidebar-width)_2px_1fr]"
-          : "grid-cols-[var(--vscode-activitybar-width)_1fr]"
+          ? "grid-cols-[var(--vscode-activitybar-width)_var(--vscode-sidebar-width)_2px_minmax(0,1fr)]"
+          : "grid-cols-[var(--vscode-activitybar-width)_minmax(0,1fr)]"
       )}
       style={shellStyle}
     >
@@ -315,7 +331,11 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
 
       {showTerminal && (
           <div className="absolute bottom-6 left-0 right-0 h-64 z-[1000]">
-              <Terminal onClose={() => setShowTerminal(false)} />
+              <Terminal 
+                onClose={() => setShowTerminal(false)} 
+                isAudioPlaying={isAudioPlaying}
+                onAudioToggle={handleAudioToggle}
+              />
           </div>
       )}
 

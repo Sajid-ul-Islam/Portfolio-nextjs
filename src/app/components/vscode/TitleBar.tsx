@@ -113,7 +113,7 @@ export default function TitleBar({ onMenuClick, isMobile }: TitleBarProps) {
         )}
       </div>
       
-      <div className="absolute left-1/2 -translate-x-1/2 text-[12px] text-[var(--vscode-titleBar-activeForeground)] font-medium pointer-events-none opacity-80">
+      <div className="absolute left-1/2 -translate-x-1/2 text-[12px] text-[var(--vscode-titleBar-activeForeground)] font-medium pointer-events-none opacity-80 hidden sm:block">
         {siteMeta.name} — Tactical Dossier
       </div>
 
