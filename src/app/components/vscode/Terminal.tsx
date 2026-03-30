@@ -157,7 +157,19 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
         response = "ACTIVE_MISSION_SESSIONS (LIVE):\n[01] E-Commerce Dashboard\n[02] Sheet2WhatsApp\n[03] Sentinel Bangladesh\n[04] Ramadan Compass";
         break;
       case "status":
-        response = "[DIAGNOSTICS]\nCORE: 42°C [STABLE]\nNET: ENCRYPTED\nAI: OPTIMAL";
+        const batt = (window as any).batteryLevel ? `${(window as any).batteryLevel}%` : "100%";
+        const mem = (performance as any).memory ? `${Math.round((performance as any).memory.usedJSHeapSize / 1048576)}MB` : "24MB";
+        response = `[DIAGNOSTICS]
+OPERATIVE: SAJID_ISLAM
+STATION: TERMINAL_0x07
+UPTIME: ${Math.floor(performance.now() / 60000)}m
+MEM_LOAD: ${mem} [OK]
+BATT_LVL: ${batt}
+UPLINK: ENCRYPTED_V5
+CORE_TEMP: 42°C [STABLE]`;
+        break;
+      case "whoami":
+        response = "SAJID_ISLAM // OPERATIVE_ID: 0x29A // CLEARANCE: LEVEL_5";
         break;
       case "clear":
         setOutput([]);
@@ -166,6 +178,19 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
       case "exit":
         onClose();
         return;
+      case "neofetch":
+        response = `\u001b[32m${NEO_ASCII}\u001b[0m
+  \u001b[32mOS\u001b[0m: Tactical_OS v2.4.1 [Night Ops]
+  \u001b[32mHOST\u001b[0m: Sajid-Intelligence-Station-0x7
+  \u001b[32mKERNEL\u001b[0m: 6.5.0-operative-next
+  \u001b[32mUPTIME\u001b[0m: ${Math.floor(performance.now() / 60000)}m
+  \u001b[32mSHELL\u001b[0m: bash --operative-saj
+  \u001b[32mRESOLUTION\u001b[0m: ${window.innerWidth}x${window.innerHeight}
+  \u001b[32mTHEME\u001b[0m: Midnight_Hacker_V5
+  \u001b[32mCPU\u001b[0m: Neural_Link_Core_i9 (Virtual)
+  \u001b[32mGPU\u001b[0m: RTX_Nvidia_Intelligence_Stream
+  \u001b[32mMEMORY\u001b[0m: ${Math.round((performance as any).memory?.usedJSHeapSize / 1048576 || 24)}MB / 4096MB`;
+        break;
       default:
         response = `Term: '${cmd}' not recognized in current tactical context. Type 'help' for ops.`;
     }

@@ -56,12 +56,16 @@ export default function StatusBar() {
     const interval = setInterval(update, 1000);
 
     // Battery API
-    if (typeof navigator !== "undefined" && (navigator as any).getBattery) {
-      (navigator as any).getBattery().then((batt: any) => {
-          setBattery(Math.round(batt.level * 100));
-          batt.addEventListener("levelchange", () => setBattery(Math.round(batt.level * 100)));
-      });
-    }
+      if (typeof navigator !== "undefined" && (navigator as any).getBattery) {
+        (navigator as any).getBattery().then((batt: any) => {
+            const updateBatt = () => {
+              setBattery(Math.round(batt.level * 100));
+              (window as any).batteryLevel = Math.round(batt.level * 100);
+            };
+            updateBatt();
+            batt.addEventListener("levelchange", updateBatt);
+        });
+      }
 
     return () => clearInterval(interval);
   }, []);
