@@ -52,8 +52,8 @@ export default function ExcelGrid() {
       {/* Office Style Ribbon - Excel Analyzer (Green Theme) */}
       <div className="bg-[#217346] p-1 px-4 flex flex-wrap items-center justify-between shadow-lg gap-2">
         <div className="flex items-center gap-4">
-          <div className="bg-white/10 p-1.5 rounded">
-            <LuTable size={18} className="text-white" />
+          <div className="bg-white/10 p-0.5 rounded overflow-hidden">
+            <img src="/excel_logo.png" alt="Excel" className="w-8 h-8 object-contain" />
           </div>
           <div>
             <h1 className="text-[10px] font-black text-white/50 uppercase tracking-widest leading-none mb-1">OPERATIVE_DATA // ANALYZER</h1>

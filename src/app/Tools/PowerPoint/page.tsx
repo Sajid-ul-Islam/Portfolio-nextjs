@@ -57,8 +57,9 @@ export default function PowerPointDeck() {
       {/* Office Style Ribbon - PowerPoint Presenter (Orange Theme) */}
       <div className="bg-[#b7472a] p-1 px-4 flex items-center justify-between shadow-lg">
         <div className="flex items-center gap-4">
-          <div className="bg-white/10 p-1.5 rounded">
-            <LuPresentation size={18} className="text-white" />
+          <div className="bg-white/10 p-1.5 rounded w-9 h-9 flex items-center justify-center border border-white/5 relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-tr from-[#a3e635]/20 to-transparent"></div>
+            <span className="text-[#a3e635] font-black text-lg drop-shadow-[0_0_8px_rgba(163,230,53,0.8)]">P</span>
           </div>
           <div>
             <h1 className="text-[10px] font-black text-white/50 uppercase tracking-widest leading-none mb-1">OPERATIVE_VISUAL // PRESENTER</h1>
