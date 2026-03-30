@@ -9,34 +9,53 @@ type MissionReplayProps = {
   logs: string[];
 };
 
+const TypewriterLine = ({ content, speed = 30 }: { content: string; speed?: number }) => {
+  const [displayed, setDisplayed] = useState("");
+  
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i < content.length) {
+        setDisplayed(content.substring(0, i + 1));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, speed);
+    return () => clearInterval(interval);
+  }, [content, speed]);
+
+  return <span>{displayed}</span>;
+};
+
 export default function MissionReplay({ title, logs }: MissionReplayProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentLogs, setCurrentLogs] = useState<string[]>([]);
+  const [visibleLines, setVisibleLines] = useState<number>(0);
   const [isReplaying, setIsReplaying] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const startReplay = () => {
     setIsOpen(true);
     setIsReplaying(true);
-    setCurrentLogs([]);
+    setVisibleLines(0);
     
     let i = 0;
     const interval = setInterval(() => {
       if (i < logs.length) {
-        setCurrentLogs(prev => [...prev, logs[i]]);
+        setVisibleLines(prev => prev + 1);
         i++;
       } else {
         setIsReplaying(false);
         clearInterval(interval);
       }
-    }, 800);
+    }, 1200); // Wait for typing to progress
   };
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [currentLogs]);
+  }, [visibleLines]);
 
   return (
     <>
@@ -66,9 +85,9 @@ export default function MissionReplay({ title, logs }: MissionReplayProps) {
             </div>
 
             {/* Terminal Content */}
-            <div ref={scrollRef} className="flex-1 p-6 font-mono text-[11px] overflow-y-auto space-y-2 bg-[#050505] selection:bg-[#a3e635]/30">
-              {currentLogs.map((log, i) => (
-                <div key={i} className="flex gap-3 animate-in slide-in-from-left-2 duration-300">
+            <div ref={scrollRef} className="flex-1 p-6 font-mono text-[11px] overflow-y-auto space-y-2 bg-[#050505] selection:bg-[#a3e635]/30 custom-scroll">
+              {logs.slice(0, visibleLines).map((log, i) => (
+                <div key={i} className="flex gap-3">
                   <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>
                   <span className={cn(
                     "flex-1",
@@ -76,7 +95,7 @@ export default function MissionReplay({ title, logs }: MissionReplayProps) {
                     log.startsWith("[!] ") ? "text-yellow-500" :
                     log.startsWith("[ERR]") ? "text-red-500" : "text-gray-300"
                   )}>
-                    {log}
+                    <TypewriterLine content={log} />
                   </span>
                 </div>
               ))}
@@ -90,10 +109,11 @@ export default function MissionReplay({ title, logs }: MissionReplayProps) {
 
             {/* Footer */}
             {!isReplaying && (
-              <div className="p-3 border-t border-[#a3e635]/10 bg-black/40 flex justify-end">
+              <div className="p-3 border-t border-[#a3e635]/10 bg-black/40 flex justify-end gap-4 items-center">
+                <span className="text-[9px] text-[#a3e635]/40 font-bold uppercase tracking-widest">TRANSMISSION_COMPLETE</span>
                 <button 
                   onClick={startReplay}
-                  className="flex items-center gap-2 px-3 py-1 bg-[#a3e635]/10 border border-[#a3e635]/20 rounded text-[9px] font-bold text-[#a3e635] hover:bg-[#a3e635]/20 transition-all"
+                  className="flex items-center gap-2 px-3 py-1 bg-[#a3e635]/10 border border-[#a3e635]/20 rounded text-[9px] font-bold text-[#a3e635] hover:bg-[#a3e635]/20 transition-all font-mono"
                 >
                   <RotateCcw size={10} />
                   <span>REBOOT_SEQUENCE</span>

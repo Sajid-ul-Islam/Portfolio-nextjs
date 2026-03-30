@@ -52,6 +52,67 @@ function SkillGrid({
   );
 }
 
+function SkillRadar() {
+  const categories = ["Frontend", "Data", "Backend", "Mobile", "DevOps", "AI/ML"];
+  const values = [85, 95, 75, 60, 80, 70]; // Tactical density levels
+  const size = 300;
+  const center = size / 2;
+  const radius = (size / 2) * 0.8;
+  const angleStep = (Math.PI * 2) / categories.length;
+
+  const points = values.map((v, i) => {
+    const angle = i * angleStep - Math.PI / 2;
+    const r = (v / 100) * radius;
+    return `${center + Math.cos(angle) * r},${center + Math.sin(angle) * r}`;
+  }).join(" ");
+
+  const gridLevels = [0.2, 0.4, 0.6, 0.8, 1];
+
+  return (
+    <div className="flex flex-col items-center gap-6 p-8 bg-[#0a1a15] rounded-2xl border border-[#a3e635]/10 shadow-[0_0_50px_rgba(0,0,0,0.3)] relative overflow-hidden group">
+      <div className="absolute inset-0 bg-[#a3e635]/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+      <div className="text-[10px] font-black text-[#a3e635]/40 uppercase tracking-[0.5em] mb-4 border-b border-[#a3e635]/10 w-full text-center pb-2">TACTICAL_SKILL_DENSITY_FIX</div>
+      <svg width={size} height={size} className="filter drop-shadow-[0_0_8px_rgba(163,230,53,0.3)]">
+        {/* Grid */}
+        {gridLevels.map((lvl, i) => {
+           const r = lvl * radius;
+           const pts = categories.map((_, j) => {
+             const a = j * angleStep - Math.PI / 2;
+             return `${center + Math.cos(a) * r},${center + Math.sin(a) * r}`;
+           }).join(" ");
+           return <polygon key={i} points={pts} fill="none" stroke="#a3e635" strokeWidth="0.5" strokeOpacity="0.1" />;
+        })}
+        {/* Axis */}
+        {categories.map((cat, i) => {
+          const a = i * angleStep - Math.PI / 2;
+          const x = center + Math.cos(a) * radius;
+          const y = center + Math.sin(a) * radius;
+          const tx = center + Math.cos(a) * (radius + 25);
+          const ty = center + Math.sin(a) * (radius + 25);
+          return (
+            <g key={cat}>
+              <line x1={center} y1={center} x2={x} y2={y} stroke="#a3e635" strokeWidth="0.5" strokeOpacity="0.2" />
+              <text x={tx} y={ty} textAnchor="middle" fill="#a3e635" className="text-[8px] font-black uppercase tracking-tighter opacity-60 group-hover:opacity-100 transition-opacity" dy=".3em">{cat}</text>
+            </g>
+          );
+        })}
+        {/* Data Area */}
+        <polygon points={points} fill="#a3e635" fillOpacity="0.15" stroke="#a3e635" strokeWidth="2" className="animate-in fade-in zoom-in duration-1000" />
+        {/* Data Points */}
+        {values.map((v, i) => {
+           const a = i * angleStep - Math.PI / 2;
+           const r = (v / 100) * radius;
+           return <circle key={i} cx={center + Math.cos(a) * r} cy={center + Math.sin(a) * r} r="3" fill="#a3e635" className="animate-pulse" />;
+        })}
+      </svg>
+      <div className="absolute bottom-4 right-4 flex items-center gap-2">
+         <div className="w-2 h-2 bg-[#a3e635] rounded-full animate-ping"></div>
+         <span className="text-[8px] text-[#a3e635] font-black uppercase">LIVE_DENSITY_SYNC</span>
+      </div>
+    </div>
+  );
+}
+
 function SkillSphere() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const skills = useMemo(() => skillGroups.flatMap(g => g.skills.map(s => s.name)), []);
@@ -109,7 +170,7 @@ function SkillSphere() {
     rotate();
   }, [skills]);
 
-  return <canvas ref={canvasRef} className="w-full h-[300px] mb-8 bg-black/20 rounded-xl border border-white/5 shadow-inner" />;
+  return <canvas ref={canvasRef} className="w-full h-full bg-transparent" />;
 }
 
 export default function SkillsClient() {

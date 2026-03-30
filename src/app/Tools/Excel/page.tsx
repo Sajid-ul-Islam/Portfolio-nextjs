@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Image from "next/image";
 import { 
   LuTable, 
   LuSave, 
@@ -12,7 +13,8 @@ import {
   LuSearch,
   LuDownload,
   LuShare2,
-  LuSettings2
+  LuSettings2,
+  LuUpload
 } from "react-icons/lu";
 import { cn } from "../../lib/cn";
 
@@ -47,13 +49,28 @@ export default function ExcelGrid() {
     setData(newData);
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const content = event.target?.result as string;
+            const rows = content.split('\n').map(row => row.split(','));
+            setData(rows);
+        };
+        reader.readAsText(file);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full bg-[#0a0a0a] font-mono select-none animate-in fade-in duration-500 overflow-hidden">
       {/* Office Style Ribbon - Excel Analyzer (Green Theme) */}
       <div className="bg-[#217346] p-1 px-4 flex flex-wrap items-center justify-between shadow-lg gap-2">
         <div className="flex items-center gap-4">
-          <div className="bg-white/10 p-0.5 rounded overflow-hidden">
-            <img src="/excel_logo.png" alt="Excel" className="w-8 h-8 object-contain" />
+          <div className="bg-white/10 p-0.5 rounded overflow-hidden relative w-8 h-8 flex-shrink-0">
+            <Image src="/excel_logo.png" alt="Excel" fill className="object-contain" />
           </div>
           <div>
             <h1 className="text-[10px] font-black text-white/50 uppercase tracking-widest leading-none mb-1">OPERATIVE_DATA // ANALYZER</h1>
@@ -61,6 +78,20 @@ export default function ExcelGrid() {
           </div>
         </div>
         <div className="flex items-center gap-1">
+            <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileImport} 
+                accept=".csv" 
+                className="hidden" 
+            />
+            <button 
+                onClick={() => fileInputRef.current?.click()}
+                className="p-2 hover:bg-white/10 text-white rounded transition-colors" 
+                title="Intake Intelligence (.csv)"
+            >
+                <LuUpload size={16} />
+            </button>
             <button 
                 onClick={() => {
                    const csv = data.map(row => row.join(",")).join("\n");

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { 
   LuFileText, 
   LuSave, 
@@ -14,7 +15,8 @@ import {
   LuAlignRight,
   LuDownload,
   LuFileSearch,
-  LuCheck
+  LuCheck,
+  LuUpload
 } from "react-icons/lu";
 import { cn } from "../../lib/cn";
 
@@ -93,13 +95,32 @@ export default function WordWriter() {
     URL.revokeObjectURL(url);
   };
 
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileImport = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && editorRef.current) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const content = event.target?.result as string;
+            if (file.name.endsWith('.html') || file.name.endsWith('.htm')) {
+                editorRef.current!.innerHTML = content;
+            } else {
+                editorRef.current!.innerText = content;
+            }
+            updateStats();
+        };
+        reader.readAsText(file);
+    }
+  };
+
   return (
     <div className="flex flex-col h-full bg-[#0a0a0a] font-mono select-none animate-in fade-in duration-500 overflow-hidden">
       {/* Office Style Ribbon - Word Writer (Blue Theme) */}
       <div className="bg-[#2b579a] p-1 px-4 flex flex-wrap items-center justify-between shadow-lg gap-4">
         <div className="flex items-center gap-4">
-          <div className="bg-white/10 p-0.5 rounded overflow-hidden">
-            <img src="/word_logo.png" alt="Word" className="w-8 h-8 object-contain" />
+          <div className="bg-white/10 p-0.5 rounded overflow-hidden relative w-8 h-8 flex-shrink-0">
+            <Image src="/word_logo.png" alt="Word" fill className="object-contain" />
           </div>
           <div>
             <h1 className="text-[10px] font-black text-white/50 uppercase tracking-widest leading-none mb-1">OPERATIVE_WRITER // TACTICAL</h1>
@@ -107,6 +128,20 @@ export default function WordWriter() {
           </div>
         </div>
         <div className="flex items-center gap-1">
+            <input 
+                type="file" 
+                ref={fileInputRef} 
+                onChange={handleFileImport} 
+                accept=".txt,.html,.htm" 
+                className="hidden" 
+            />
+            <button 
+                onClick={() => fileInputRef.current?.click()}
+                className="p-2 hover:bg-white/10 text-white rounded transition-colors" 
+                title="Intake Intelligence (.txt, .html)"
+            >
+                <LuUpload size={16} />
+            </button>
             <button 
                 onClick={handleSave}
                 className={cn(

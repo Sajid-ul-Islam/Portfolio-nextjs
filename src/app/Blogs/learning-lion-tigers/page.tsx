@@ -15,7 +15,7 @@ export default function BlogContentPage() {
       <div className="mb-10 relative">
         <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-1 h-12 bg-[#a3e635]"></div>
         <h1 className="text-4xl font-black text-white tracking-tighter uppercase mb-4 glow-text leading-tight">
-          Learning from Lion & Tigers: Adapting Strategy to Context
+          Learning from Lion &amp; Tigers: Adapting Strategy to Context
         </h1>
         <div className="flex flex-wrap items-center gap-6 text-[10px] text-gray-500 uppercase tracking-widest">
             <div className="flex items-center gap-2">
@@ -36,28 +36,28 @@ export default function BlogContentPage() {
       <div className="p-8 bg-[#0a1a15]/40 backdrop-blur-sm border border-[#a3e635]/10 rounded-lg space-y-8 text-gray-300 leading-relaxed text-sm">
         <section className="space-y-4">
             <p className="first-letter:text-4xl first-letter:font-bold first-letter:text-[#a3e635] first-letter:mr-2 first-letter:float-left">
-                Everyone wants to be a lion, the king of the jungle – majestic, powerful, and roaring in dominance. Yet, when it comes to guerrilla warfare, revolutionary movements, or grassroots struggles, adopting the lion's approach can lead to failure. Especially on this land, this terrain. Here, the metaphorical tiger reigns supreme. The tiger's strategy, not the lion's, holds lessons for survival and success.
+                Everyone wants to be a lion, the king of the jungle – majestic, powerful, and roaring in dominance. Yet, when it comes to guerrilla warfare, revolutionary movements, or grassroots struggles, adopting the lion&apos;s approach can lead to failure. Especially on this land, this terrain. Here, the metaphorical tiger reigns supreme. The tiger&apos;s strategy, not the lion&apos;s, holds lessons for survival and success.
             </p>
             <p>
-                At first glance, this idea may seem unusual. But reflect on it: a tiger's approach offers a more fitting strategy for today's realities than the lion's.
+                At first glance, this idea may seem unusual. But reflect on it: a tiger&apos;s approach offers a more fitting strategy for today&apos;s realities than the lion&apos;s.
             </p>
         </section>
 
         <section className="bg-white/5 p-6 border-l-2 border-[#a3e635]">
             <h2 className="text-[#a3e635] font-bold uppercase tracking-widest mb-4">The Context: Then and Now</h2>
             <p className="mb-4">
-                During the time of the Sahaba (companions of the Prophet Muhammad ﷺ) or the reigns of Muslim sultans, battles were fought in open fields, often head-on. These wars demanded the lion's bravery, its boldness, and its leadership in the forefront. The Muslim community was already in power, and their strategies reflected their dominance.
+                During the time of the Sahaba (companions of the Prophet Muhammad ﷺ) or the reigns of Muslim sultans, battles were fought in open fields, often head-on. These wars demanded the lion&apos;s bravery, its boldness, and its leadership in the forefront. The Muslim community was already in power, and their strategies reflected their dominance.
             </p>
             <p>
-                But today's reality is drastically different. Muslims are not sitting on thrones or commanding empires. The environment demands adaptability, stealth, and strategic camouflage – qualities that align more with the tiger than the lion.
+                But today&apos;s reality is drastically different. Muslims are not sitting on thrones or commanding empires. The environment demands adaptability, stealth, and strategic camouflage – qualities that align more with the tiger than the lion.
             </p>
             <p>
-                Yet, many are stuck romanticizing historical eras, attempting to emulate the lion's roar when the situation calls for the tiger's quiet hunt.
+                Yet, many are stuck romanticizing historical eras, attempting to emulate the lion&apos;s roar when the situation calls for the tiger&apos;s quiet hunt.
             </p>
         </section>
 
         <section className="space-y-4">
-            <h2 className="text-white font-bold uppercase mb-2">[ INTEL: THE TIGER'S APPROACH ]</h2>
+            <h2 className="text-white font-bold uppercase mb-2">[ INTEL: THE TIGER&apos;S APPROACH ]</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="p-4 bg-black/40 border border-white/5 rounded">
                     <h3 className="text-white text-xs font-bold mb-2">LIONS: VISIBLE_GROUP_SPEC</h3>
@@ -88,14 +88,14 @@ export default function BlogContentPage() {
                     <span className="text-[#a3e635] font-bold">02_</span>
                     <div>
                         <span className="text-white block font-bold uppercase">Avoid Unnecessary Confrontation</span>
-                        Tigers don't attack without reason. They are calculated, saving their energy for meaningful pursuits. Similarly, not every challenge requires a direct confrontation. Knowing when to engage and when to hold back is crucial.
+                        Tigers don&apos;t attack without reason. They are calculated, saving their energy for meaningful pursuits. Similarly, not every challenge requires a direct confrontation. Knowing when to engage and when to hold back is crucial.
                     </div>
                 </div>
                 <div className="flex gap-4">
                     <span className="text-[#a3e635] font-bold">03_</span>
                     <div>
                         <span className="text-white block font-bold uppercase">Blend In Strategically</span>
-                        Camouflage is the tiger's greatest asset. This means blending into society, understanding its nuances, and working from within to achieve goals. Loud declarations of intent may backfire where subtlety is a stronger ally.
+                        Camouflage is the tiger&apos;s greatest asset. This means blending into society, understanding its nuances, and working from within to achieve goals. Loud declarations of intent may backfire where subtlety is a stronger ally.
                     </div>
                 </div>
                 <div className="flex gap-4">
@@ -110,7 +110,7 @@ export default function BlogContentPage() {
 
         <section className="p-6 bg-[#a3e635]/5 border border-[#a3e635]/20 rounded-lg italic">
             <h2 className="text-[#a3e635] font-bold not-italic mb-2 uppercase">Misplaced Expectations</h2>
-            "Forcing one to adopt the other's strategy can lead to failure. Recognizing which method suits the situation is the first step toward victory."
+            &quot;Forcing one to adopt the other&apos;s strategy can lead to failure. Recognizing which method suits the situation is the first step toward victory.&quot;
         </section>
 
         <section className="pt-10 border-t border-white/5 text-center">

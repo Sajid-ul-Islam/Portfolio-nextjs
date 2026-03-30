@@ -14,7 +14,9 @@ import {
   LuMessageCircle,
   LuExternalLink,
   LuCopy,
-  LuCheck
+  LuCheck,
+  LuVolume2,
+  LuVolumeX
 } from "react-icons/lu";
 import { cn } from "../../lib/cn";
 import { BlogPost } from "../../data/portfolio";
@@ -29,6 +31,29 @@ export default function BlogDetailModal({ post, onClose }: BlogDetailModalProps)
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(Math.floor(Math.random() * 100) + 50);
   const [copied, setCopied] = useState(false);
+  const [isReading, setIsReading] = useState(false);
+
+  const handleReadAloud = () => {
+    if (isReading) {
+      window.speechSynthesis.cancel();
+      setIsReading(false);
+      return;
+    }
+
+    const textToRead = `${post.title}. ${post.content || post.excerpt}`;
+    const utterance = new SpeechSynthesisUtterance(textToRead);
+    
+    // Choose a professional tactical voice if available
+    const voices = window.speechSynthesis.getVoices();
+    utterance.voice = voices.find(v => v.name.includes('Google UK English Male') || v.name.includes('Male')) || voices[0];
+    utterance.rate = 0.9;
+    utterance.pitch = 0.8;
+
+    utterance.onend = () => setIsReading(false);
+    
+    setIsReading(true);
+    window.speechSynthesis.speak(utterance);
+  };
 
   const handleLike = () => {
     setLiked(!liked);
@@ -61,12 +86,25 @@ export default function BlogDetailModal({ post, onClose }: BlogDetailModalProps)
             <div className="w-1.5 h-1.5 rounded-full bg-[#a3e635] animate-pulse"></div>
             <h2 className="text-[9px] font-black text-[#a3e635]/50 uppercase tracking-[0.4em] leading-none">INTEL_ARCHIVE // SIGNAL_STABILIZED</h2>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-1.5 hover:bg-[#a3e635]/10 text-gray-500 hover:text-[#a3e635] rounded-full transition-all"
-          >
-            <LuX size={18} />
-          </button>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <button 
+                onClick={handleReadAloud}
+                className={cn(
+                    "flex items-center gap-2 px-3 py-1.5 rounded text-[9px] font-black uppercase tracking-widest transition-all",
+                    isReading ? "bg-[#a3e635] text-black shadow-[0_0_15px_#a3e635]" : "bg-white/5 text-gray-500 hover:text-[#a3e635] border border-white/5"
+                )}
+                title={isReading ? "Cut Neural Uplink" : "Neural Audio Uplink"}
+            >
+                {isReading ? <LuVolume2 size={14} className="animate-pulse" /> : <LuVolumeX size={14} />}
+                <span className="hidden sm:inline">{isReading ? "VOICE_LIVE" : "NEURAL_LINK"}</span>
+            </button>
+            <button 
+                onClick={onClose}
+                className="p-1.5 hover:bg-[#a3e635]/10 text-gray-500 hover:text-[#a3e635] rounded-full transition-all"
+            >
+                <LuX size={18} />
+            </button>
+          </div>
         </div>
 
         {/* Content Area */}
@@ -166,9 +204,9 @@ export default function BlogDetailModal({ post, onClose }: BlogDetailModalProps)
                         )}
                     >
                         <LuHeart size={16} fill={liked ? "currentColor" : "none"} className={liked ? "animate-pulse" : ""} />
-                        <span>{likesCount} // RATIFIED_INTEL</span>
+                        <span>{likesCount} {"//"} RATIFIED_INTEL</span>
                     </button>
-                    <div className="hidden sm:block text-[9px] text-gray-600 font-black uppercase tracking-widest">TRANSMIT_DATA_TO_NODES &gt;&gt;</div>
+                    <div className="hidden sm:block text-[9px] text-gray-600 font-black uppercase tracking-widest">TRANSMIT_DATA_TO_NODES {"&gt;&gt;"}</div>
                 </div>
 
                 <div className="flex items-center gap-3">

@@ -41,7 +41,7 @@ export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
               <Sparkles size={12} className="text-[#a3e635] animate-pulse" />
               <span className="text-[#a3e635] font-bold uppercase tracking-wider text-[9px]">AI Assistant</span>
             </div>
-            Ready to decode Sajid's portfolio data or assist your mission. <span className="text-[#a3e635] font-bold underline cursor-pointer" onClick={onClick}>Ask anything!</span>
+            Ready to decode Sajid&apos;s portfolio data or assist your mission. <span className="text-[#a3e635] font-bold underline cursor-pointer" onClick={onClick}>Ask anything!</span>
           </div>
           {/* Arrow */}
           <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-[#1a1a1a] border-r border-b border-[#a3e635]/30 rotate-45"></div>

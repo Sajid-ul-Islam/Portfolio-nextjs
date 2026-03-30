@@ -1,4 +1,5 @@
 import { LuGraduationCap } from "react-icons/lu";
+import Image from "next/image";
 
 import SectionHeader from "../components/vscode/SectionHeader";
 import { education } from "../data/portfolio";
@@ -26,11 +27,12 @@ function EducationItem({ item }: { item: (typeof education)[number] }) {
           <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
             <div className="flex gap-4 items-start">
               {item.logo && (
-                <div className="flex-shrink-0 w-12 h-12 rounded bg-white p-1 border border-[var(--vscode-border)] overflow-hidden">
-                  <img
+                <div className="flex-shrink-0 w-12 h-12 rounded bg-white p-1 border border-[var(--vscode-border)] overflow-hidden relative">
+                  <Image
                     src={item.logo}
                     alt={item.institution}
-                    className="w-full h-full object-contain"
+                    fill
+                    className="object-contain p-1"
                   />
                 </div>
               )}

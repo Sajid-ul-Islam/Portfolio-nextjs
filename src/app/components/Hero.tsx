@@ -71,7 +71,7 @@ const Hero = () => {
               {personalInfo.name}
             </h1>
             <p className="text-[#a3e635] font-mono text-[9px] sm:text-[10px] mt-2 tracking-[0.2em] sm:tracking-[0.4em] uppercase opacity-80 mb-6 sm:mb-0">
-              {personalInfo.title} // NODE_01
+              {personalInfo.title} {"//"} NODE_01
             </p>
 
             <div className="mt-4 sm:mt-8 flex flex-col items-center gap-4 sm:gap-6">
