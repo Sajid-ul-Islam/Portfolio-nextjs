@@ -765,6 +765,18 @@ export const favoriteMedia = [
     subtitle: "Animated Series",
     image: "/powerpuff_girls.png",
   },
+  {
+    id: "8",
+    title: "The Terminator Series",
+    subtitle: "Movie Series",
+    image: "/terminator.png",
+  },
+  {
+    id: "9",
+    title: "Rambo Series",
+    subtitle: "Movie Series",
+    image: "/rambo.png",
+  },
 ];
 
 export const gamingPlatforms = [{ name: "PC" }];
