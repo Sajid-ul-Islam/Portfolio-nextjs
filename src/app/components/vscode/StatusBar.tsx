@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { LuBell, LuCheck, LuGitBranch, LuTerminal } from "react-icons/lu";
+import { useEffect, useState, useRef } from "react";
+import { LuBell, LuCheck, LuGitBranch, LuTerminal, LuCpu, LuBattery, LuMusic, LuVolume2, LuVolumeX } from "react-icons/lu";
 
 import { cn } from "../../lib/cn";
 
@@ -15,7 +15,7 @@ function StatusItem({
   return (
     <div
       className={cn(
-        "flex items-center gap-1 px-1 py-0.5 text-vscode-xs",
+        "flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold tracking-tighter uppercase",
         "hover:bg-[var(--vscode-statusBarItem-hoverBackground)]",
         "rounded cursor-pointer transition-colors whitespace-nowrap",
         className
@@ -28,6 +28,10 @@ function StatusItem({
 
 export default function StatusBar() {
   const [time, setTime] = useState("");
+  const [battery, setBattery] = useState<number | null>(null);
+  const [memory, setMemory] = useState<string | null>(null);
+  const [isMuted, setIsMuted] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const update = () => {
@@ -40,37 +44,83 @@ export default function StatusBar() {
           hour12: true,
         })
       );
+
+      // Memory Polling (Chrome Only)
+      if ((performance as any).memory) {
+        const used = (performance as any).memory.usedJSHeapSize;
+        setMemory(`${Math.round(used / 1048576)}MB`);
+      }
     };
+
     update();
     const interval = setInterval(update, 1000);
+
+    // Battery API
+    if (typeof navigator !== "undefined" && (navigator as any).getBattery) {
+      (navigator as any).getBattery().then((batt: any) => {
+          setBattery(Math.round(batt.level * 100));
+          batt.addEventListener("levelchange", () => setBattery(Math.round(batt.level * 100)));
+      });
+    }
+
     return () => clearInterval(interval);
   }, []);
 
+  const toggleAudio = () => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio("https://cdn.pixabay.com/audio/2022/02/10/audio_141a0e1b6f.mp3"); // Dark Ambient Synth
+      audioRef.current.loop = true;
+    }
+    
+    if (isMuted) {
+      audioRef.current.play().catch(e => console.log("Audio play blocked by browser. User interaction needed."));
+    } else {
+      audioRef.current.pause();
+    }
+    setIsMuted(!isMuted);
+  };
+
   return (
-    <footer className="flex items-center justify-between h-[var(--vscode-statusbar-height)] px-3 bg-[#166534] text-white font-mono uppercase tracking-[0.1em]">
+    <footer className="flex items-center justify-between h-[var(--vscode-statusbar-height)] px-3 bg-[#166534] text-white font-mono border-t border-white/5 relative z-50">
       <div className="flex items-center gap-4">
-        <StatusItem className="bg-[#a3e635] text-black font-bold px-2">
-           <span>TACTICAL_OPS_MODE</span>
-        </StatusItem>
-        <StatusItem>
-          <LuTerminal size={14} className="text-[#a3e635]" />
-          <span className="text-[#a3e635]">DHAKA_GRID_02</span>
-        </StatusItem>
-        <StatusItem>
-          <LuGitBranch size={14} />
-          <span>main*</span>
+        <StatusItem className="bg-[#a3e635] text-black font-black px-3">
+           <span>LIVE_SYSTEM_UPLINK</span>
         </StatusItem>
         <StatusItem className="hidden md:flex">
-          <LuCheck size={14} className="text-[#a3e635]" />
-          <span>BUILD: OK</span>
+          <LuTerminal size={12} className="text-[#a3e635]" />
+          <span className="text-[#a3e635]">TERMINAL_OK</span>
         </StatusItem>
-      </div>
-      <div className="flex items-center gap-4">
-        <StatusItem className="hidden lg:flex">UTF-8</StatusItem>
-        <StatusItem className="hidden lg:flex">Spaces: 4</StatusItem>
-        <StatusItem className="bg-black/20">{time}</StatusItem>
         <StatusItem>
-          <LuBell size={14} className="animate-pulse" />
+          <LuGitBranch size={12} />
+          <span>master*</span>
+        </StatusItem>
+        {memory && (
+          <StatusItem className="text-[#a3e635]/80">
+            <LuCpu size={12} />
+            <span>HEARTBEAT: {memory}</span>
+          </StatusItem>
+        )}
+      </div>
+
+      <div className="flex items-center gap-4">
+        <button 
+           onClick={toggleAudio}
+           className="flex items-center gap-1.5 px-2 py-1 bg-black/30 rounded border border-white/10 hover:bg-[#a3e635]/20 transition-all text-[9px] font-bold"
+        >
+          {isMuted ? <LuVolumeX size={12} className="text-red-400" /> : <LuVolume2 size={12} className="text-[#a3e635] animate-pulse" />}
+          <span>DEEP_WORK_PLAYER</span>
+        </button>
+
+        {battery !== null && (
+          <StatusItem className={cn(battery < 20 ? "text-red-500 animate-pulse" : "text-white")}>
+            <LuBattery size={12} className={battery < 20 ? "text-red-500" : "text-[#a3e635]"} />
+            <span>CHARGE: {battery}%</span>
+          </StatusItem>
+        )}
+
+        <StatusItem className="bg-black/20 font-bold px-3">{time}</StatusItem>
+        <StatusItem>
+          <LuBell size={12} className="animate-pulse" />
         </StatusItem>
       </div>
     </footer>

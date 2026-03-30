@@ -58,6 +58,7 @@ export type Project = {
     highlights?: string[];
     metrics?: { label: string; value: string }[];
   };
+  missionLogs?: string[];
 };
 
 export type Experience = {

@@ -7,6 +7,7 @@ import Badge from "../../components/vscode/Badge";
 import Button from "../../components/vscode/Button";
 import Panel from "../../components/vscode/Panel";
 import AIInsightButton from "../../components/vscode/AIInsightButton";
+import MissionReplay from "../../components/vscode/MissionReplay";
 import { projects } from "../../data/portfolio";
 
 type ProjectPageProps = {
@@ -140,6 +141,17 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <p className="text-vscode-lg text-[var(--vscode-text-secondary)] leading-relaxed">
               {project.longDescription ?? project.description}
             </p>
+            <MissionReplay 
+              title={project.title} 
+              logs={project.missionLogs ?? [
+                ">> Initializing repository sector...",
+                ">> Scaffolding core architecture layers...",
+                "[!] Warning: Data throughput threshold exceeded. Optimizing hooks.",
+                ">> Injecting " + project.technologies.slice(0, 2).join(", ") + " logic modules...",
+                ">> Finalizing mission UI/UX paradigms...",
+                ">> System deployment complete. MISSION_SUCCESS."
+              ]} 
+            />
           </section>
 
           <section>

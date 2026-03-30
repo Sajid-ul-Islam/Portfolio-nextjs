@@ -34,6 +34,24 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     setMessages(INITIAL_MESSAGES);
   };
 
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [voiceEnabled, setVoiceEnabled] = useState(false);
+
+  const speak = (text: string) => {
+    if (!voiceEnabled || typeof window === "undefined") return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.1;
+    utterance.pitch = 0.8;
+    // Find a robotic sounding voice
+    const voices = window.speechSynthesis.getVoices();
+    utterance.voice = voices.find(v => v.name.includes("Google UK English Male")) || voices[0];
+    
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    window.speechSynthesis.speak(utterance);
+  };
+
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isTyping) return;
@@ -43,17 +61,18 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     setInput("");
     setIsTyping(true);
 
-    // 1. LOCAL DATA CHECK (First Priority)
+    // 1. LOCAL DATA CHECK
     const localMatch = getLocalIntel(input);
     if (localMatch) {
       setTimeout(() => {
         setMessages(prev => [...prev, { role: "bot" as const, content: localMatch }]);
+        speak(localMatch);
         setIsTyping(false);
       }, 800);
       return;
     }
 
-    // 2. REMOTE AI CHECK (AI Fallback)
+    // 2. REMOTE AI CHECK
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -64,31 +83,11 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `HTTP_STATUS_${response.status}`);
-      }
-
       const data = await response.json();
-      if (data.error) throw new Error(data.error);
-
       setMessages(prev => [...prev, { role: "bot" as const, content: data.content }]);
+      speak(data.content);
     } catch (err: any) {
-      console.error("Chat error:", err);
-      let errorMsg = "[ERROR]: CONNECTION_FAILED_RETRY_LATER";
-      
-      if (err.message?.includes("API_KEY")) {
-        errorMsg = "[ERROR]: UPLINK_FAILURE: API_KEY_MISSING. PLEASE SECURE_KEY_STORAGE.";
-      } else if (err.message?.includes("quota") || err.message?.includes("429")) {
-        errorMsg = "[ERROR]: SIGNAL_SATURATED: RATE_LIMIT_EXCEEDED. STAND_BY.";
-      } else if (err.message?.includes("fetch")) {
-        errorMsg = "[ERROR]: NETWORK_OFFLINE: UNABLE_TO_REACH_GEMINI_UPLINK.";
-      }
-
-      setMessages(prev => [...prev, { 
-        role: "system" as const, 
-        content: errorMsg 
-      }]);
+      setMessages(prev => [...prev, { role: "system" as const, content: "[ERROR]: UPLINK_FAILURE" }]);
     } finally {
       setIsTyping(false);
     }

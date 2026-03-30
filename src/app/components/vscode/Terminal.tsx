@@ -65,10 +65,12 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
     "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "projects", "status", "clear", "exit", "mkdir", "touch", "date"
   ], []);
 
+  const [isUnlocked, setIsUnlocked] = useState(false);
+
   const handleCommand = (e: React.FormEvent) => {
     e.preventDefault();
     const cmd = input.trim();
-    if (!cmd) return;
+    if (!input) return;
 
     setHistory(prev => [cmd, ...prev].slice(0, 50));
     setHistoryIdx(-1);
@@ -78,9 +80,13 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
     
     let response = "";
 
-    switch (baseCmd) {
-      case "help":
-        response = `AVAILABLE_OPS:
+    if (cmd === "sudo unlock_vault") {
+        setIsUnlocked(true);
+        response = "[SUCCESS] SECTOR_07_ENCRYPTION_BYPASSED. NEW_DATA_SOURCE_FOUND: secret.txt";
+    } else {
+        switch (baseCmd) {
+            case "help":
+                response = `AVAILABLE_OPS:
   help              Display tactical assistance
   ls                List archive contents
   cd [dir]          Change operational directory
@@ -94,54 +100,39 @@ export default function Terminal({ onClose }: { onClose: () => void }) {
   touch [name]      Initialize new data file
   date              Retrieve temporal coordinates
   clear             Purge terminal buffer
-  exit              Terminate session`;
-        break;
-      case "neofetch":
-        response = `${NEO_ASCII}
-OPERATIVE: Sajid Islam
-OS: Tactical_OS_v2.0 (x86_64)
-SHELL: SAJ-SH v1.2
-UPTIME: ${Math.floor(performance.now() / 1000)}s
-RESOLUTION: HUD_ENHANCED
-WM: VSCode_IDE_Shell
-CPU: Neural_Engine_v15 (8)
-MEMORY: 32GB / 64GB
-STATUS: ALL_SYSTEMS_NOMINAL`;
-        break;
-      case "whoami":
-        response = "operative: sajid islam\nrole: data_engineer / bi_strategist\nclearance: level_5_root";
-        break;
-      case "pwd":
-        response = currentDir;
-        break;
-      case "ls":
-        const contents = fs[currentDir as keyof typeof fs] || [];
-        response = contents.length > 0 ? contents.join("  ") : "directory is empty";
-        break;
-      case "cd":
-        const target = args[0] || "/home/sajid";
-        if (target === "..") {
-          const parts = currentDir.split("/").filter(Boolean);
-          parts.pop();
-          const next = "/" + parts.join("/");
-          setCurrentDir(next || "/");
-        } else {
-          const path = target.startsWith("/") ? target : `${currentDir === "/" ? "" : currentDir}/${target}`;
-          if (fs[path as keyof typeof fs]) {
-            setCurrentDir(path);
-          } else {
-            response = `cd: ${target}: Access Denied or Path Not Found`;
-          }
-        }
-        break;
-      case "cat":
-        const file = args[0]?.toLowerCase();
-        if (!file) {
-          response = "usage: cat <filename>";
-        } else {
-          response = FILE_CONTENT[file] || `cat: ${file}: Unable to read sector. File may be encrypted.`;
-        }
-        break;
+  exit              Terminate session
+  sudo unlock_vault Uncover clandestine dossiers`;
+                break;
+            case "cat":
+                const file = args[0]?.toLowerCase();
+                if (file === "secret.txt") {
+                    if (isUnlocked) {
+                        response = `[CLANDESTINE_DOSSIER_OPEN]
+        
+    .--------.
+   / .------. \\
+  / /        \\ \\
+  | |        | |
+ _| |________| |_
+.' |_|        |_| '.
+'._____ ____ _____.'
+|     .'    '.     |
+'-----'------'-----'
+[INTEL]: Sajid actually loves 80s synthwave and deep-sea diving.
+[LOCATION]: secret_location_0x42
+[SIGNATURE]: Mission_Accomplished`;
+                    } else {
+                        response = "cat: secret.txt: Access Denied. Sudo Clearance Required.";
+                    }
+                } else {
+                    response = FILE_CONTENT[file!] || `cat: ${file}: Unable to read sector.`;
+                }
+                break;
+            case "ls":
+                const contents = [...(fs[currentDir as keyof typeof fs] || [])];
+                if (isUnlocked && currentDir === "/home/sajid") contents.push("secret.txt");
+                response = contents.length > 0 ? contents.join("  ") : "directory is empty";
+                break;
       case "mkdir":
         if (!args[0]) {
            response = "mkdir: missing operation target";
@@ -178,6 +169,7 @@ STATUS: ALL_SYSTEMS_NOMINAL`;
       default:
         response = `Term: '${cmd}' not recognized in current tactical context. Type 'help' for ops.`;
     }
+  }
 
     setOutput(prev => [...prev, fullCmd, response, ""]);
     setInput("");
