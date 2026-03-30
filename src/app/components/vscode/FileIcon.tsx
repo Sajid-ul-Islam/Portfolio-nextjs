@@ -14,7 +14,7 @@ import {
   SiPostgresql,
   SiNextdotjs,
 } from "react-icons/si";
-import { LuFile, LuFileText } from "react-icons/lu";
+import { LuFile, LuFileText, LuGlobe } from "react-icons/lu";
 import { VscCode, VscJson, VscMarkdown } from "react-icons/vsc";
 
 import { cn } from "../../lib/cn";
@@ -35,6 +35,7 @@ const extensionColors: Record<string, string> = {
   sql: "text-orange-400",
   tw: "text-teal-400",
   tableau: "text-blue-700",
+  web: "text-blue-400",
 };
 
 type FileIconProps = {
@@ -79,6 +80,8 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
       return <SiTableau {...iconProps} />;
     case "go":
       return <VscCode {...iconProps} />;
+    case "web":
+      return <LuGlobe {...iconProps} />;
     default:
       if (["md", "txt"].includes(extension)) {
         return <LuFileText {...iconProps} />;

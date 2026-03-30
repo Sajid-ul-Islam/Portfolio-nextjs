@@ -453,6 +453,13 @@ export const fileTree: FileTreeSection[] = [
         extension: "tsx",
       },
       {
+        id: "portfolio-site",
+        label: "Portfolio Site",
+        href: "/portfolio-site",
+        icon: "globe",
+        extension: "web",
+      },
+      {
         id: "contact",
         label: "Contact",
         href: "/contact",
