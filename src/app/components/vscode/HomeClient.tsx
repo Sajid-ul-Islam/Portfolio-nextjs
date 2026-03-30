@@ -126,7 +126,7 @@ export default function HomeClient() {
                 <h3 className="text-[10px] font-black uppercase tracking-widest text-white/50">Tactical_Shell</h3>
               </div>
               <p className="text-xs text-gray-400 mb-6 leading-relaxed font-mono">
-                &gt; Execute direct commands via the lower buffer. Type 'help' to start.
+                &gt; Execute direct commands via the lower buffer. Type &apos;help&apos; to start.
               </p>
               <div className="flex items-center gap-2 text-[9px] text-[#a3e635]/60 font-bold bg-[#a3e635]/5 p-2 rounded border border-[#a3e635]/10 w-fit">
                 <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-pulse shadow-[0_0_8px_#a3e635]"></span>

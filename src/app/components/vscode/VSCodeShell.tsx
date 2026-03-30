@@ -120,7 +120,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
     } else {
       activatePanel("explorer");
     }
-  }, [activeActivity]);
+  }, [activeActivity, activatePanel]);
 
   useEffect(() => {
     if (!isResizing) return;
