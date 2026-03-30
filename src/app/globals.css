@@ -92,6 +92,56 @@
   --bg-card: rgba(6, 20, 15, 0.95);
   --text-highlight: #a3e635;
   --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
+  --hud-glow: 0 0 10px rgba(163, 230, 53, 0.3);
+}
+
+/* --- HUD Overlays & Effects --- */
+.glow-text {
+  text-shadow: 0 0 10px rgba(163, 230, 53, 0.5);
+}
+
+.hud-panel {
+  background: rgba(10, 20, 15, 0.8);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(163, 230, 53, 0.1);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
+
+.glitch:hover {
+  animation: glitch 0.2s infinite;
+}
+
+@keyframes border-pulse {
+  0%, 100% { border-color: rgba(163, 230, 53, 0.1); }
+  50% { border-color: rgba(163, 230, 53, 0.4); }
+}
+
+.hud-border {
+  animation: border-pulse 4s infinite;
+}
+
+.scanline-overlay {
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  ),
+  linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.06),
+    rgba(0, 255, 0, 0.02),
+    rgba(0, 0, 255, 0.06)
+  );
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
 }
 
 body {
@@ -99,10 +149,11 @@ body {
   color: var(--vscode-editor-foreground);
   background: var(--vscode-editor-background);
   overflow: hidden;
-  min-height: 100vh;
+  height: 100%;
 }
 
 html {
+  height: 100%;
   font-family: var(--vscode-font-family);
   font-size: var(--vscode-font-size);
   line-height: var(--vscode-line-height);
@@ -232,9 +283,32 @@ img {
   animation: scanlineScroll 10s linear infinite;
 }
 
+@keyframes loading-slide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-loading-slide {
+  animation: loading-slide 1.5s infinite linear;
+}
+
+@keyframes scan-line {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+.animate-scan-line {
+  animation: scan-line 2s linear infinite;
+}
+
 @keyframes scanlineScroll {
   0% { background-position: 0 0; }
   100% { background-position: 0 100%; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .terminal-cursor {
@@ -244,9 +318,4 @@ img {
   background: var(--primary-light);
   margin-left: 4px;
   animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
 }

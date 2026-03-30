@@ -18,6 +18,8 @@ import StatusBar from "./StatusBar";
 import TitleBar from "./TitleBar";
 import Terminal from "./Terminal";
 import AIChat from "./AIChat";
+import IntroAnimation from "./IntroAnimation";
+import CommandPalette from "./CommandPalette";
 
 type VSCodeShellProps = {
   children: React.ReactNode;
@@ -99,10 +101,10 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
       return;
     }
 
-    setActiveActivity(id);
     if (activeActivity === id) {
       setSidebarOpen((open) => !open);
     } else {
+      setActiveActivity(id);
       setSidebarOpen(true);
     }
   };
@@ -202,37 +204,48 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   if (isMobile) {
     return (
       <div
-        className="flex flex-col h-screen overflow-hidden"
+        className="flex flex-col h-screen overflow-hidden relative"
         style={shellStyle}
       >
         <TitleBar
           onMenuClick={() => {
-            setActiveActivity("explorer");
-            setMobileDrawerOpen((open) => !open);
+             if (mobileDrawerOpen) {
+                 setMobileDrawerOpen(false);
+             } else {
+                setActiveActivity("explorer");
+                setMobileDrawerOpen(true);
+             }
           }}
           isMobile
         />
         <div className="flex-1 overflow-hidden relative">
           <EditorShell>{children}</EditorShell>
-          {mobileDrawerOpen ? (
-            <div
-              className="fixed left-0 right-0 z-40"
-              style={{
-                bottom:
-                  "calc(var(--vscode-statusbar-height) + var(--vscode-activitybar-width))",
-                height: "60vh",
-              }}
-            >
-              <div className="h-full bg-[var(--vscode-sideBar-background)] shadow-2xl rounded-t-lg overflow-hidden">
+          
+          {/* Mobile Side Drawer Overlay */}
+          <div 
+            className={cn(
+              "fixed inset-0 z-[100] bg-black/60 transition-opacity duration-300",
+              mobileDrawerOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+            )}
+            onClick={() => setMobileDrawerOpen(false)}
+          />
+
+          {/* Mobile Side Drawer Content */}
+          <div
+            className={cn(
+              "fixed top-0 bottom-0 left-0 z-[101] w-[80%] max-w-[300px] transition-transform duration-300 ease-out shadow-2xl",
+              mobileDrawerOpen ? "translate-x-0" : "-translate-x-full"
+            )}
+          >
+            <div className="h-full bg-[var(--vscode-sideBar-background)] border-r border-white/5">
                 <Sidebar
                   isOpen
                   activePanel={activeActivity}
                   onClose={() => setMobileDrawerOpen(false)}
                   variant="drawer"
                 />
-              </div>
             </div>
-          ) : null}
+          </div>
         </div>
         <ActivityBar
           orientation="horizontal"
@@ -248,54 +261,56 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   return (
     <div
       className={cn(
-        "grid h-screen overflow-hidden",
+        "grid h-full min-h-screen overflow-hidden bg-[var(--vscode-editor-background)]",
         "grid-rows-[var(--vscode-titlebar-height)_1fr_var(--vscode-statusbar-height)]",
         sidebarOpen
-          ? "grid-cols-[var(--vscode-activitybar-width)_var(--vscode-sidebar-width)_4px_1fr]"
-          : "grid-cols-[var(--vscode-activitybar-width)_0_0_1fr]"
+          ? "grid-cols-[var(--vscode-activitybar-width)_var(--vscode-sidebar-width)_2px_1fr]"
+          : "grid-cols-[var(--vscode-activitybar-width)_1fr]"
       )}
       style={shellStyle}
     >
-      <div className="col-span-4">
+      <header className={cn("z-50", sidebarOpen ? "col-span-4" : "col-span-2")}>
         <TitleBar />
-      </div>
-      <ActivityBar
-        activeItem={activeActivity}
-        onItemClick={handleActivityClick}
-      />
-      <div
-        className={cn(
-          "overflow-hidden transition-all duration-200",
-          !sidebarOpen && "w-0"
-        )}
-      >
-        <Sidebar 
-          isOpen={sidebarOpen} 
-          activePanel={activeActivity} 
+      </header>
+
+      <div className="flex h-full min-h-0 col-span-1">
+        <ActivityBar
+          activeItem={activeActivity}
+          onItemClick={handleActivityClick}
         />
       </div>
-      <div
-        className={cn(
-          "relative",
-          sidebarOpen
-            ? "cursor-col-resize bg-[var(--vscode-border)] hover:bg-[var(--vscode-focusBorder)] transition-colors"
-            : "pointer-events-none"
-        )}
-        onMouseDown={(event) => {
-          if (!sidebarOpen) return;
-          resizeState.current = {
-            startX: event.clientX,
-            startWidth: sidebarWidth,
-          };
-          setIsResizing(true);
-        }}
-      />
-      <div className={cn("col-span-1", isResizing && "cursor-col-resize")}>
+
+      {sidebarOpen && (
+        <>
+          <div className="col-span-1 h-full min-h-0 overflow-hidden">
+            <Sidebar 
+              isOpen={sidebarOpen} 
+              activePanel={activeActivity} 
+            />
+          </div>
+          <div
+            className={cn(
+              "col-span-1 h-full min-h-0 relative",
+              "cursor-col-resize bg-[var(--vscode-border)] hover:bg-[var(--vscode-focusBorder)] transition-colors"
+            )}
+            onMouseDown={(event) => {
+              resizeState.current = {
+                startX: event.clientX,
+                startWidth: sidebarWidth,
+              };
+              setIsResizing(true);
+            }}
+          />
+        </>
+      )}
+
+      <main className={cn("h-full min-h-0 bg-transparent relative", isResizing && "cursor-col-resize")}>
         <EditorShell>{children}</EditorShell>
-      </div>
-      <div className="col-span-4">
+      </main>
+
+      <footer className={cn("z-50", sidebarOpen ? "col-span-4" : "col-span-2")}>
         <StatusBar />
-      </div>
+      </footer>
 
       {showTerminal && (
           <div className="absolute bottom-6 left-0 right-0 h-64 z-[1000]">
@@ -308,6 +323,8 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
               <AIChat onClose={() => setShowAIChat(false)} />
           </div>
       )}
+      <IntroAnimation />
+      <CommandPalette />
     </div>
   );
 }

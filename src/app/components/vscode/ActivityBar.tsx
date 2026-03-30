@@ -1,27 +1,28 @@
 "use client";
 
 import {
-  LuBoxes,
-  LuFolder,
-  LuGitBranch,
-  LuSearch,
-  LuSettings,
-  LuUser,
-  LuMessageSquare,
-  LuTerminal
-} from "react-icons/lu";
+  SquareStack,
+  Folder,
+  GitBranch,
+  Search,
+  Settings,
+  User,
+  MessageSquare,
+  Terminal as TerminalIcon,
+  ChevronRight
+} from "lucide-react";
 
 import { cn } from "../../lib/cn";
 
 const iconMap = {
-  files: LuFolder,
-  search: LuSearch,
-  "git-branch": LuGitBranch,
-  blocks: LuBoxes,
-  user: LuUser,
-  settings: LuSettings,
-  chat: LuMessageSquare,
-  terminal: LuTerminal,
+  files: Folder,
+  search: Search,
+  "git-branch": GitBranch,
+  blocks: SquareStack,
+  user: User,
+  settings: Settings,
+  chat: MessageSquare,
+  terminal: TerminalIcon,
 };
 
 const mainItems = [
@@ -55,46 +56,42 @@ export default function ActivityBar<T extends string = string>({
   return (
     <aside
       className={cn(
-        "bg-[var(--vscode-activityBar-background)]",
+        "bg-[var(--vscode-activityBar-background)] border-r border-white/5",
         isHorizontal
-          ? "flex items-center justify-around h-[var(--vscode-activitybar-width)] w-full"
+          ? "flex items-center justify-around h-[var(--vscode-activitybar-width)] w-full border-t border-r-0"
           : "flex flex-col justify-between w-[var(--vscode-activitybar-width)] h-full"
       )}
     >
-      <div className={cn(isHorizontal ? "flex items-center gap-2" : "flex flex-col")}>
+      <div className={cn(isHorizontal ? "flex items-center gap-1 w-full" : "flex flex-col")}>
         {topItems.map((item) => {
-          const Icon = iconMap[item.icon as keyof typeof iconMap];
+          const Icon = iconMap[item.icon as keyof typeof iconMap] || Folder;
           const isActive = activeItem === item.id;
           return (
             <button
               key={item.id}
               onClick={() => onItemClick?.(item.id as T)}
               className={cn(
-                "relative flex items-center justify-center",
-                isHorizontal ? "w-11 h-11 rounded" : "w-full h-12",
+                "relative flex items-center justify-center transition-all",
+                isHorizontal ? "flex-1 h-full py-2" : "w-full h-12",
                 "text-[var(--vscode-activityBar-inactiveForeground)]",
                 "hover:text-[var(--vscode-activityBar-foreground)]",
-                "transition-colors group",
                 isActive && "text-[var(--vscode-activityBar-foreground)]"
               )}
               aria-label={item.label}
               title={item.label}
             >
               {isActive && !isHorizontal ? (
-                <span className="absolute left-0 top-0 w-[2px] h-full bg-[var(--vscode-activityBar-activeBorder)]" />
+                <span className="absolute left-0 top-0 w-[2px] h-full bg-[#a3e635]" />
               ) : null}
               {isActive && isHorizontal ? (
-                <span className="absolute bottom-0 left-2 right-2 h-[2px] bg-[var(--vscode-activityBar-activeBorder)]" />
+                <span className="absolute bottom-0 left-4 right-4 h-[2.5px] bg-[#a3e635] shadow-[0_0_8px_#a3e635]" />
               ) : null}
-              <Icon size={22} strokeWidth={1.5} />
-              <span
-                className={cn(
-                  "absolute px-2 py-1 text-vscode-xs bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-opacity",
-                  isHorizontal ? "bottom-full mb-2" : "left-full ml-2"
-                )}
-              >
-                {item.label}
-              </span>
+              <Icon size={20} strokeWidth={isActive ? 2 : 1.5} />
+              {!isHorizontal && (
+                <span className="absolute left-full ml-3 px-2 py-1 text-[10px] font-bold bg-[#1e1e1e] border border-white/10 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-all scale-95 group-hover:scale-100 group">
+                    {item.label}
+                </span>
+              )}
             </button>
           );
         })}
@@ -102,22 +99,21 @@ export default function ActivityBar<T extends string = string>({
       {!isHorizontal ? (
         <div className="flex flex-col">
           {bottomItems.map((item) => {
-            const Icon = iconMap[item.icon as keyof typeof iconMap];
+            const Icon = iconMap[item.icon as keyof typeof iconMap] || User;
             return (
               <button
                 key={item.id}
                 onClick={() => onItemClick?.(item.id as T)}
                 className={cn(
-                  "relative flex items-center justify-center w-full h-12",
+                  "relative flex items-center justify-center w-full h-12 group",
                   "text-[var(--vscode-activityBar-inactiveForeground)]",
-                  "hover:text-[var(--vscode-activityBar-foreground)]",
-                  "transition-colors group"
+                  "hover:text-[var(--vscode-activityBar-foreground)] transition-all"
                 )}
                 aria-label={item.label}
                 title={item.label}
               >
-                <Icon size={22} strokeWidth={1.5} />
-                <span className="absolute left-full ml-2 px-2 py-1 text-vscode-xs bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-opacity">
+                <Icon size={20} strokeWidth={1.5} />
+                <span className="absolute left-full ml-3 px-2 py-1 text-[10px] font-bold bg-[#1e1e1e] border border-white/10 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-all scale-95 group-hover:scale-100">
                   {item.label}
                 </span>
               </button>

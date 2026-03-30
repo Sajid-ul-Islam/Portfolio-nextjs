@@ -26,7 +26,7 @@ type SocialLinksProps = {
 
 export default function SocialLinks({ className }: SocialLinksProps) {
   return (
-    <div className={cn("flex flex-col gap-3", className)}>
+    <div className={cn("flex flex-wrap items-center gap-2", className)}>
       {socialLinks.map((link) => {
         const Icon = iconMap[link.icon as keyof typeof iconMap] ?? LuRocket;
         return (
@@ -36,22 +36,16 @@ export default function SocialLinks({ className }: SocialLinksProps) {
             target="_blank"
             rel="noopener noreferrer"
             className={cn(
-              "flex items-center gap-3 px-4 py-3",
-              "bg-[var(--vscode-sideBar-background)]",
-              "border-b-4 border-[var(--vscode-accent)]",
-              "rounded-[var(--vscode-border-radius-sm)]",
-              "hover:bg-[var(--vscode-list-hoverBackground)]",
-              "transition-colors group"
+              "flex items-center gap-2 px-3 py-1.5",
+              "bg-white/5 border border-white/10",
+              "rounded-md hover:bg-[#a3e635]/10 hover:border-[#a3e635]/30 group transition-all"
             )}
+            title={link.name}
           >
-            <Icon size={20} className="text-[var(--vscode-text-primary)]" />
-            <span className="text-vscode-sm text-[var(--vscode-text-primary)]">
+            <Icon size={16} className="text-white group-hover:text-[#a3e635]" />
+            <span className="text-[10px] font-bold text-gray-400 group-hover:text-white uppercase tracking-tighter">
               {link.name}
             </span>
-            <LuExternalLink
-              size={14}
-              className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-[var(--vscode-text-secondary)]"
-            />
           </a>
         );
       })}
