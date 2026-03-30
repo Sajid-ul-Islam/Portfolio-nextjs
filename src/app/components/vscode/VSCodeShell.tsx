@@ -18,6 +18,7 @@ import StatusBar from "./StatusBar";
 import TitleBar from "./TitleBar";
 import Terminal from "./Terminal";
 import AIChat from "./AIChat";
+import AIChatTrigger from "./AIChatTrigger";
 import IntroAnimation from "./IntroAnimation";
 import CommandPalette from "./CommandPalette";
 
@@ -319,10 +320,11 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
       )}
 
       {showAIChat && (
-          <div className="fixed bottom-12 right-12 z-[2000]">
+          <div className="fixed bottom-12 right-12 z-[2000] animate-in zoom-in-95 duration-300">
               <AIChat onClose={() => setShowAIChat(false)} />
           </div>
       )}
+      <AIChatTrigger isOpen={showAIChat} onClick={() => setShowAIChat(true)} />
       <IntroAnimation />
       <CommandPalette />
     </div>

@@ -629,6 +629,7 @@ export const experiences: Experience[] = [
       "Architecting weekly performance dashboards for stakeholder reporting"
     ],
     technologies: ["CRM", "Business Analysis", "Strategy"],
+    logo: "https://www.google.com/s2/favicons?domain=deencommerce.com&sz=128",
   },
   {
     id: "nztex",
@@ -643,6 +644,7 @@ export const experiences: Experience[] = [
       "Delivered impactful presentations and reports to authorities and buyers, enhancing stakeholder engagement and decision-making"
     ],
     technologies: ["IT Support", "R&D", "Reporting"],
+    logo: "https://www.google.com/s2/favicons?domain=nztexgroup.com&sz=128",
   },
   {
     id: "thrivingskills",
@@ -658,6 +660,7 @@ export const experiences: Experience[] = [
       "Managed CRM systems to improve customer retention"
     ],
     technologies: ["Market Analysis", "CRM", "Sales Strategy"],
+    logo: "https://www.google.com/s2/favicons?domain=thrivingskills.com&sz=128",
   },
   {
     id: "daraz",
@@ -673,6 +676,7 @@ export const experiences: Experience[] = [
       "Optimized Marketplace Health through vendor performance tracking"
     ],
     technologies: ["Marketplace", "Acquisition", "Account Management"],
+    logo: "https://www.google.com/s2/favicons?domain=daraz.com.bd&sz=128",
   },
   {
     id: "hungrynaki",
@@ -688,6 +692,7 @@ export const experiences: Experience[] = [
       "Leveraged BI tools to identify hyper-local food trends"
     ],
     technologies: ["Business Analysis", "Growth Strategy", "BI Tools"],
+    logo: "https://www.google.com/s2/favicons?domain=hungrynaki.com&sz=128",
   },
   {
     id: "gearmaster",
@@ -701,6 +706,7 @@ export const experiences: Experience[] = [
       "Managing inventory, sales growth strategies, and multi-channel customer engagement"
     ],
     technologies: ["Retail", "Business Management"],
+    logo: "https://www.google.com/s2/favicons?domain=github.com&sz=128",
   }
 ];
 
@@ -791,6 +797,7 @@ export const education: Education[] = [
     year: "2025",
     description: "Focus on Data Analytics and Business Intelligence.",
     link: "https://abpbd.org/",
+    logo: "https://www.google.com/s2/favicons?domain=abpbd.org&sz=128",
   },
   {
     institution: "North South University",
@@ -798,6 +805,7 @@ export const education: Education[] = [
     year: "2019",
     description: "Publication: 'Categorizing self-narrated stories into distinct themes' (ICT Analysis and Applications, 2020).",
     link: "https://www.northsouth.edu",
+    logo: "https://www.google.com/s2/favicons?domain=northsouth.edu&sz=128",
   },
   {
     institution: "BAF Shaheen College Dhaka",
@@ -805,18 +813,21 @@ export const education: Education[] = [
     year: "2013",
     description: "Science Division.",
     link: "https://bafsd.edu.bd",
+    logo: "https://www.google.com/s2/favicons?domain=bafsd.edu.bd&sz=128",
   },
   {
     institution: "University of Dhaka",
     degree: "Management Information System",
     description: "Reflects specialized study in MIS.",
     link: "https://www.du.ac.bd",
+    logo: "https://www.google.com/s2/favicons?domain=du.ac.bd&sz=128",
   },
   {
     institution: "Uttara High School & College",
     degree: "Secondary School Certificate (SSC)",
     description: "Science Division.",
     link: "https://uhscdhaka.edu.bd",
+    logo: "https://www.google.com/s2/favicons?domain=uhscdhaka.edu.bd&sz=128",
   },
 ];
 

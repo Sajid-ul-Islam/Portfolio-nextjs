@@ -30,13 +30,24 @@ function ExperienceItem({ experience }: { experience: (typeof experiences)[numbe
       </span>
       <div className="bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded-[var(--vscode-border-radius-md)] p-4">
         <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-          <div>
-            <h3 className="text-vscode-lg font-semibold text-[var(--vscode-text-primary)]">
-              {experience.title}
-            </h3>
-            <p className="text-vscode-sm text-[var(--vscode-accent)]">
-              {experience.company}
-            </p>
+          <div className="flex gap-4 items-start">
+            {experience.logo && (
+              <div className="flex-shrink-0 w-12 h-12 rounded bg-white p-1 border border-[var(--vscode-border)] overflow-hidden">
+                <img
+                  src={experience.logo}
+                  alt={experience.company}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+            )}
+            <div>
+              <h3 className="text-vscode-lg font-semibold text-[var(--vscode-text-primary)]">
+                {experience.title}
+              </h3>
+              <p className="text-vscode-sm text-[var(--vscode-accent)]">
+                {experience.company}
+              </p>
+            </div>
           </div>
           {experience.current ? <Badge variant="success">Current</Badge> : null}
         </div>

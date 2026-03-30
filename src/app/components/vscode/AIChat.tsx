@@ -101,38 +101,55 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   ];
 
   return (
-    <div className="fixed bottom-20 right-8 w-80 md:w-96 h-[550px] bg-[#0d0d0d]/95 backdrop-blur-md border border-[#a3e635]/30 shadow-[0_0_40px_rgba(163,230,53,0.15)] z-[2000] flex flex-col font-mono text-[11px] animate-in slide-in-from-right-5 fade-in duration-300 rounded-lg overflow-hidden">
+    <div className="fixed bottom-28 right-8 w-[350px] md:w-[400px] h-[600px] bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] z-[2000] flex flex-col font-mono text-[11px] animate-in slide-in-from-bottom-8 zoom-in-95 duration-500 rounded-2xl overflow-hidden group/chat">
+      {/* Decorative HUD Elements */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#a3e635] to-transparent opacity-50"></div>
+      <div className="absolute top-0 right-0 p-1 opacity-20 group-hover/chat:opacity-50 transition-opacity">
+        <Sparkles size={40} className="text-[#a3e635]" />
+      </div>
+
       {/* Header */}
-      <div className="bg-[#a3e635]/5 p-3 border-b border-[#a3e635]/20 flex justify-between items-center bg-gradient-to-r from-black/50 to-transparent">
-        <div className="flex items-center gap-2">
-          <div className="relative">
-            <Bot size={16} className="text-[#a3e635] animate-pulse" />
-            <div className="absolute -top-1 -right-1 w-2 h-2 bg-[#a3e635] rounded-full shadow-[0_0_10px_#a3e635]"></div>
+      <div className="bg-white/5 p-4 border-b border-white/10 flex justify-between items-center relative z-10">
+        <div className="flex items-center gap-3">
+          <div className="relative flex items-center justify-center">
+            <div className="absolute inset-0 bg-[#a3e635]/20 animate-ping rounded-full duration-[3000ms]"></div>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#a3e635] to-[#65a30d] flex items-center justify-center shadow-[0_0_15px_rgba(163,230,53,0.3)]">
+              <Bot size={18} className="text-black" />
+            </div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#a3e635] rounded-full border-2 border-[#111] shadow-[0_0_10px_#a3e635]"></div>
           </div>
-          <span className="text-[#a3e635] tracking-[0.2em] font-bold text-[10px] uppercase">[ intel_engine_v1.5 ]</span>
+          <div className="flex flex-col">
+            <span className="text-[#a3e635] tracking-[0.2em] font-bold text-[10px] uppercase">NEURAL_UPLINK_v1.5</span>
+            <div className="flex items-center gap-2">
+               <span className="w-1 h-1 bg-[#a3e635] rounded-full animate-pulse"></span>
+               <span className="text-[9px] text-white/40 font-mono tracking-tighter uppercase">SIGNAL_STRENGTH_MAX</span>
+            </div>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <button 
             onClick={handleClear}
-            className="text-[#a3e635]/60 hover:text-white transition-colors p-1"
+            className="text-white/40 hover:text-[#a3e635] transition-colors p-1"
             title="Clear Chat"
           >
             <Trash2 size={14} />
           </button>
-          <button onClick={onClose} className="text-[#a3e635]/60 hover:text-white transition-colors hover:rotate-90 duration-200">
+          <button onClick={onClose} className="text-white/40 hover:text-white transition-colors hover:rotate-90 duration-200">
             <X size={18} />
           </button>
         </div>
       </div>
       
       {/* Model Selection Bar */}
-      <div className="px-3 py-1.5 border-b border-[#a3e635]/10 flex items-center justify-between bg-black/40 text-[9px] text-[#a3e635]/50">
-        <div className="flex items-center gap-2">
-          <Settings2 size={10} />
-          <span>PROTOCOL:</span>
+      <div className="px-4 py-2 border-b border-white/5 flex items-center justify-between bg-white/[0.02] text-[9px] text-white/30 relative z-10">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            <Settings2 size={10} className="opacity-50" />
+            <span className="uppercase tracking-[1px] opacity-40">INTEL_CORE:</span>
+          </div>
           <button 
             onClick={() => setShowModelSelect(!showModelSelect)}
-            className="flex items-center gap-1 text-[#a3e635] hover:bg-[#a3e635]/10 px-1.5 py-0.5 rounded border border-[#a3e635]/20"
+            className="flex items-center gap-1 text-[#a3e635] hover:bg-[#a3e635]/10 px-1.5 py-0.5 rounded border border-[#a3e635]/20 bg-[#a3e635]/5"
           >
             {model === "gemini-1.5-flash" ? (
               <>
@@ -148,90 +165,99 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
             <ChevronDown size={8} className={`transition-transform ${showModelSelect ? 'rotate-180' : ''}`} />
           </button>
         </div>
-        <div className="flex items-center gap-1">
-          <div className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-pulse"></div>
-          <span>UPLINK_STABLE</span>
+        <div className="flex items-center gap-3">
+          <div className="h-4 w-[1px] bg-white/10"></div>
+          <div className="flex items-center gap-2 text-[#a3e635]/60 hover:text-[#a3e635] cursor-help">
+            <Zap size={10} className="animate-pulse" />
+            <span className="uppercase tracking-widest font-bold">READY</span>
+          </div>
         </div>
 
         {/* Model Dropdown */}
         {showModelSelect && (
-          <div className="absolute top-[75px] left-3 bg-[#111] border border-[#a3e635]/30 rounded shadow-xl z-10 w-40 overflow-hidden animate-in zoom-in-95 duration-100">
+          <div className="absolute top-[35px] left-4 bg-[#111] border border-white/10 rounded shadow-2xl z-20 w-48 overflow-hidden animate-in zoom-in-95 duration-100 backdrop-blur-md">
              <button 
               onClick={() => { setModel("gemini-1.5-flash"); setShowModelSelect(false); }}
-              className={`w-full text-left p-2 hover:bg-[#a3e635]/10 flex flex-col gap-0.5 ${model === "gemini-1.5-flash" ? 'bg-[#a3e635]/10' : ''}`}
+              className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 ${model === "gemini-1.5-flash" ? 'bg-white/5' : ''}`}
              >
                 <div className="flex items-center gap-2 text-[#a3e635]">
                   <Zap size={10} />
                   <span className="font-bold">Gemini 1.5 Flash</span>
                 </div>
-                <span className="text-[8px] text-gray-500 opacity-70">FAST, LIGHTWEIGHT, BALANCED</span>
+                <span className="text-[8px] text-white/30">FAST, LIGHTWEIGHT, BALANCED</span>
              </button>
              <button 
               onClick={() => { setModel("gemini-1.5-pro"); setShowModelSelect(false); }}
-              className={`w-full text-left p-2 hover:bg-[#a3e635]/10 flex flex-col gap-0.5 border-t border-[#a3e635]/10 ${model === "gemini-1.5-pro" ? 'bg-[#a3e635]/10 border-l-2 border-l-purple-500' : ''}`}
+              className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 ${model === "gemini-1.5-pro" ? 'bg-white/5' : ''}`}
              >
                 <div className="flex items-center gap-2 text-purple-400">
                   <Sparkles size={10} />
                   <span className="font-bold">Gemini 1.5 Pro</span>
                 </div>
-                <span className="text-[8px] text-gray-500 opacity-70">ADVANCED REASONING, DEEP INTEL</span>
+                <span className="text-[8px] text-white/30">ADVANCED REASONING, DEEP INTEL</span>
              </button>
           </div>
         )}
       </div>
 
       {/* Messages */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#a3e635]/30 custom-chat-scroll relative">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-white/10 custom-chat-scroll relative z-10">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
         {messages.map((m, i) => (
-          <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[90%] p-2.5 rounded border relative ${
+          <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2 duration-300`}>
+            <div className={`max-w-[85%] p-3 rounded-xl border relative transition-all duration-300 shadow-2xl ${
               m.role === 'user' 
-                ? 'bg-[#a3e635]/10 text-[#a3e635] border-[#a3e635]/40 rounded-tr-none' 
+                ? 'bg-gradient-to-br from-[#a3e635] to-[#65a30d] text-black border-[#a3e635]/30 rounded-tr-none' 
                 : m.role === 'system'
-                  ? 'border-none italic text-gray-500 opacity-70 text-[10px]'
-                  : 'bg-white/5 text-gray-200 border-white/10 rounded-tl-none selection:bg-[#a3e635] selection:text-black shadow-[0_5px_15px_rgba(0,0,0,0.3)]'
+                  ? 'border-none italic text-white/20 text-[9px] uppercase tracking-widest text-center w-full bg-white/5 py-1 rounded'
+                  : 'bg-white/10 backdrop-blur-md text-white border-white/10 rounded-tl-none overflow-hidden'
             }`}>
+              {m.role === 'bot' && (
+                 <div className="absolute top-0 right-0 p-1 opacity-5">
+                    <Sparkles size={30} />
+                 </div>
+              )}
               {m.role === 'user' && (
-                <div className="absolute -top-3 right-0 text-[8px] text-[#a3e635]/50 flex items-center gap-1">
+                <div className="absolute -top-3.5 right-0 text-[8px] text-[#a3e635]/50 flex items-center gap-1 font-bold uppercase tracking-tighter">
                   <Zap size={8} className="opacity-50" /> 
-                  LOCAL_COMMAND
+                  USER_QUERY_STREAM
                 </div>
               )}
               {m.role === 'bot' && (
-                <div className="absolute -top-3 left-0 text-[8px] text-gray-500 flex items-center gap-1 font-bold">
+                <div className="absolute -top-3.5 left-0 text-[8px] text-white/30 flex items-center gap-1 font-bold uppercase tracking-tighter">
                   <Bot size={8} /> 
-                  INTEL_FETCHED // RESPONSE_SECURE
+                  INTEL_FETCHED // SOURCE: PORTFOLIO_DB
                 </div>
               )}
-              <div className="whitespace-pre-wrap leading-relaxed tracking-tight">
+              <div className="whitespace-pre-wrap leading-relaxed tracking-tight relative z-10">
                 {m.content}
               </div>
             </div>
           </div>
         ))}
         {isTyping && (
-          <div className="flex justify-start">
-            <div className="p-2.5 bg-black/40 border border-[#a3e635]/20 text-[#a3e635] flex items-center gap-2 italic">
-              <div className="flex gap-1">
-                <span className="w-1 h-1 bg-[#a3e635] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                <span className="w-1 h-1 bg-[#a3e635] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                <span className="w-1 h-1 bg-[#a3e635] rounded-full animate-bounce"></span>
+          <div className="flex justify-start animate-pulse">
+            <div className="p-3 bg-white/5 border border-white/10 text-[#a3e635] flex items-center gap-3 italic rounded-xl rounded-tl-none">
+              <div className="flex gap-1.5">
+                <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-bounce"></span>
               </div>
-              ANALYZING_INTEL_STREAMS...
+              <span className="text-[9px] font-bold uppercase tracking-widest">ANALYZING_INTEL_STREAMS...</span>
             </div>
           </div>
         )}
       </div>
 
       {/* Input & Suggestions */}
-      <div className="p-3 border-t border-[#a3e635]/20 bg-black/40">
+      <div className="p-4 border-t border-white/10 bg-[#0a0a0a] relative z-10">
         {!isTyping && messages.length < 5 && (
-          <div className="flex flex-wrap gap-2 mb-3">
+          <div className="flex flex-wrap gap-2 mb-4">
              {suggestions.map((s) => (
                <button
                  key={s.label}
                  onClick={() => { setInput(s.prompt); handleSend({ preventDefault: () => {} } as any); }}
-                 className="px-2 py-1 bg-[#a3e635]/5 border border-[#a3e635]/20 rounded-sm text-[8px] text-[#a3e635] hover:bg-[#a3e635]/20 hover:border-[#a3e635]/40 transition-all uppercase tracking-wider"
+                 className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] text-[#a3e635] hover:bg-[#a3e635]/10 hover:border-[#a3e635]/30 transition-all uppercase tracking-wider font-bold"
                >
                  {s.label}
                </button>
@@ -239,23 +265,23 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           </div>
         )}
 
-        <form onSubmit={handleSend} className="group focus-within:bg-black/60 transition-colors">
-          <div className="flex items-center gap-2 bg-[#0a0a0a] border border-[#a3e635]/30 rounded overflow-hidden p-1 focus-within:border-[#a3e635] group-hover:border-[#a3e635]/50 transition-all shadow-[inset_0_0_10px_rgba(0,0,0,0.5)]">
+        <form onSubmit={handleSend} className="relative group">
+          <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl overflow-hidden p-1.5 focus-within:border-[#a3e635]/50 group-hover:border-[#a3e635]/30 transition-all shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
             <input 
               type="text" 
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={isTyping}
               placeholder={isTyping ? "SIGNAL_PROCESSING..." : "EXECUTE_INTEL_QUERY..."}
-              className="flex-1 bg-transparent border-none p-2 text-[#a3e635] outline-none placeholder:text-[#a3e635]/30 disabled:opacity-50"
+              className="flex-1 bg-transparent border-none p-2 text-white outline-none placeholder:text-white/20 disabled:opacity-50 text-[12px]"
               aria-label="AI message input"
             />
             <button 
               type="submit" 
               disabled={!input.trim() || isTyping}
-              className="p-2 text-[#a3e635] hover:bg-[#a3e635]/10 disabled:opacity-30 disabled:hover:bg-transparent rounded transition-colors"
+              className="w-10 h-10 flex items-center justify-center bg-[#a3e635] hover:bg-[#bef264] text-black disabled:bg-white/10 disabled:text-white/20 rounded-lg transition-all shadow-lg active:scale-95"
             >
-              <Send size={16} />
+              <Send size={18} />
             </button>
           </div>
         </form>
@@ -266,14 +292,14 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           width: 4px;
         }
         .custom-chat-scroll::-webkit-scrollbar-track {
-          background: rgba(0,0,0,0.1);
+          background: transparent;
         }
         .custom-chat-scroll::-webkit-scrollbar-thumb {
-          background: rgba(163,230,53,0.2);
+          background: rgba(255,255,255,0.1);
           border-radius: 10px;
         }
         .custom-chat-scroll::-webkit-scrollbar-thumb:hover {
-          background: rgba(163,230,53,0.4);
+          background: rgba(163,230,53,0.3);
         }
       `}</style>
     </div>
