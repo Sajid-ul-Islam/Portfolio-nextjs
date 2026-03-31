@@ -150,10 +150,12 @@ body {
   background: var(--vscode-editor-background);
   overflow: hidden;
   height: 100%;
+  height: 100dvh;
 }
 
 html {
   height: 100%;
+  height: 100dvh;
   font-family: var(--vscode-font-family);
   font-size: var(--vscode-font-size);
   line-height: var(--vscode-line-height);

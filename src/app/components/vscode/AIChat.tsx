@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, X, Bot, Settings2, Sparkles, Zap, ChevronDown, Trash2 } from "lucide-react";
+import { Send, X, Bot, Settings2, Sparkles, Zap, ChevronDown, Trash2, Minus } from "lucide-react";
 import { getLocalIntel } from "../../lib/intelEngine";
 
 type ChatMessage = {
@@ -101,7 +101,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   ];
 
   return (
-    <div className="fixed bottom-28 right-8 w-[350px] md:w-[400px] h-[600px] bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] z-[2000] flex flex-col font-mono text-[11px] animate-in slide-in-from-bottom-8 zoom-in-95 duration-500 rounded-2xl overflow-hidden group/chat">
+    <div className="w-[350px] md:w-[400px] h-[600px] bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col font-mono text-[11px] rounded-2xl overflow-hidden group/chat relative">
       {/* Decorative HUD Elements */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#a3e635] to-transparent opacity-50"></div>
       <div className="absolute top-0 right-0 p-1 opacity-20 group-hover/chat:opacity-50 transition-opacity">
@@ -134,7 +134,18 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           >
             <Trash2 size={14} />
           </button>
-          <button onClick={onClose} className="text-white/40 hover:text-white transition-colors hover:rotate-90 duration-200">
+          <button 
+            onClick={onClose} 
+            className="text-white/40 hover:text-[#a3e635] transition-colors p-1"
+            title="Minimize"
+          >
+            <Minus size={18} />
+          </button>
+          <button 
+            onClick={onClose} 
+            className="text-white/40 hover:text-white transition-colors hover:rotate-90 duration-200 p-1"
+            title="Close"
+          >
             <X size={18} />
           </button>
         </div>

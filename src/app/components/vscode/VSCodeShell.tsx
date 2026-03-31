@@ -278,7 +278,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   return (
     <div
       className={cn(
-        "grid h-full min-h-screen overflow-hidden bg-[var(--vscode-editor-background)]",
+        "grid h-[100dvh] min-h-[100dvh] overflow-hidden bg-[var(--vscode-editor-background)]",
         "grid-rows-[var(--vscode-titlebar-height)_1fr_var(--vscode-statusbar-height)]",
         sidebarOpen
           ? "grid-cols-[var(--vscode-activitybar-width)_var(--vscode-sidebar-width)_2px_minmax(0,1fr)]"
@@ -340,8 +340,12 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
       )}
 
       {showAIChat && (
-          <div className="fixed bottom-12 right-12 z-[2000] animate-in zoom-in-95 duration-300">
-              <AIChat onClose={() => setShowAIChat(false)} />
+          <div className="fixed bottom-12 md:bottom-28 right-6 md:right-12 z-[2000] animate-in slide-in-from-bottom-8 zoom-in-95 duration-500 ease-out">
+              <div className="relative group/float">
+                {/* Floating Shadow Glow */}
+                <div className="absolute inset-0 bg-[#a3e635]/10 rounded-2xl blur-3xl opacity-30 group-hover/float:opacity-50 transition-opacity duration-1000"></div>
+                <AIChat onClose={() => setShowAIChat(false)} />
+              </div>
           </div>
       )}
       <AIChatTrigger isOpen={showAIChat} onClick={() => setShowAIChat(true)} />

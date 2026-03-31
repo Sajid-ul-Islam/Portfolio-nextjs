@@ -30,16 +30,16 @@ export default function Tabs() {
   if (tabs.length === 0) return null;
 
   return (
-    <div className="relative flex items-center h-auto min-h-[var(--vscode-tab-height)] bg-[var(--vscode-tab-inactiveBackground)] border-b border-[var(--vscode-tab-border)] overflow-x-auto scrollbar-none flex-wrap">
+    <div className="relative flex items-center h-auto min-h-[var(--vscode-tab-height)] bg-[var(--vscode-tab-inactiveBackground)] border-b border-[var(--vscode-tab-border)] overflow-x-auto scrollbar-none whitespace-nowrap">
       {tabs.map((tab) => {
         const isActive = tab.isActive;
         return (
           <div
             key={tab.id}
             className={cn(
-              "group relative flex items-center gap-2 h-[var(--vscode-tab-height)] px-3 flex-1 min-w-[40px] max-w-[200px] flex-shrink flex-grow-0",
+              "group relative flex items-center gap-2 h-[var(--vscode-tab-height)] px-3 flex-shrink flex-grow-0 min-w-[45px] w-auto max-w-[200px]",
               "border-r border-[var(--vscode-tab-border)]",
-              "cursor-pointer transition-all duration-200",
+              "cursor-pointer transition-colors duration-150",
               isActive
                 ? "bg-[var(--vscode-tab-activeBackground)] text-[var(--vscode-tab-activeForeground)] z-10"
                 : "bg-[var(--vscode-tab-inactiveBackground)] text-[var(--vscode-tab-inactiveForeground)] hover:bg-[var(--vscode-tab-hoverBackground)]"

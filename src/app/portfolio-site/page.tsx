@@ -24,10 +24,10 @@ export default function PortfolioSitePage() {
           Open in Browser
         </a>
       </div>
-      <div className="flex-1 relative bg-white">
+      <div className="flex-1 relative">
         <iframe
-          src="https://saajiidi.github.io/"
-          className="w-full h-full border-none"
+          src="/"
+          className="absolute inset-0 w-full h-full border-none"
           title="Sajid Islam Portfolio"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen

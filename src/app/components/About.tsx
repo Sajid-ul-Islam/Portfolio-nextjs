@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import Typewriter from "./Typewriter";
 import { personalInfo, metrics } from "../data";
 
 const About = () => {
@@ -10,8 +10,8 @@ const About = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-ink">
             About
           </h2>
-          <p className="text-ink/80 leading-relaxed mb-6">
-            {personalInfo.bio}
+          <p className="text-ink/80 leading-relaxed mb-6 font-mono">
+            <Typewriter text={personalInfo.bio} speed="medium" delay={500} />
           </p>
           <a
             href="#portfolio"
