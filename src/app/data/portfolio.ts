@@ -787,8 +787,12 @@ export const favoriteGames = [
   { name: "Forza Horizon 5", category: "Racing", platform: "PC" },
   { name: "FIFA", category: "Sports", platform: "PC" },
   { name: "Fortnite", category: "Battle Royale", platform: "PC" },
-  { name: "Snake (Nokia)", category: "Classic", platform: "Nokia Mobile" },
-  { name: "Tetris", category: "Puzzle", platform: "Mobile" },
+  { name: "Need for Speed", category: "Racing", platform: "PC", image: "/img/projects/ecommerce.png", poster: "https://images.unsplash.com/photo-1549923746-c502d2e81597?auto=format&fit=crop&w=250&q=80" },
+  { name: "Asphalt", category: "Racing", platform: "PC", image: "/img/projects/scraper.png", poster: "https://images.unsplash.com/photo-1511918984145-48de785d4c4f?auto=format&fit=crop&w=250&q=80" },
+  { name: "Snake (Nokia)", category: "Classic", platform: "Nokia Mobile", image: "https://via.placeholder.com/120x80?text=Snake" },
+  { name: "Tetris", category: "Puzzle", platform: "Mobile", image: "https://via.placeholder.com/120x80?text=Tetris" },
+  { name: "Sudoku", category: "Puzzle", platform: "Mobile", image: "https://via.placeholder.com/120x80?text=Sudoku" },
+  { name: "Tic Tac Toe", category: "Classic", platform: "Mobile", image: "https://via.placeholder.com/120x80?text=Tic+Tac+Toe" },
 ];
 
 export const gamingStats = [

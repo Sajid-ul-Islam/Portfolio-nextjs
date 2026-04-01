@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import { Fingerprint, Loader2, ShieldCheck, Lock } from "lucide-react";
 import { cn } from "../../lib/cn";
 
-export default function IntroAnimation() {
+type IntroAnimationProps = {
+  onComplete?: () => void;
+};
+
+export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   const [step, setStep] = useState(0); // 0: Init, 1: Scanning, 2: Access Granted, 3: Exit
   const [progress, setProgress] = useState(0);
 
