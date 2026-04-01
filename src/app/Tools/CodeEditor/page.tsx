@@ -14,6 +14,12 @@ import {
 } from "react-icons/lu";
 import { cn } from "../../lib/cn";
 
+type NotebookCell = {
+  cell_type: "markdown" | "code";
+  source: string[];
+  outputs?: string[];
+};
+
 export default function CodeEditor() {
   const [code, setCode] = useState(`// Tactical OS Scripting Module
 // Operative: Sajid Islam
@@ -31,51 +37,130 @@ deployModule();`);
 
   const [output, setOutput] = useState<string[]>([]);
   const [isRunning, setIsRunning] = useState(false);
+  const [mode, setMode] = useState<"script" | "notebook">("script");
+  const defaultNotebook = `{
+  "cells": [
+    {"cell_type": "markdown", "source": ["# Jupyter-style Notebook\n", "Use this interactive mode for analysis.\n"]},
+    {"cell_type": "code", "source": ["const series = [1,2,4,8,16];\n", "plot(series);\n", "const mean = series.reduce((a,b) => a+b,0)/series.length;\n", "console.log('mean', mean);\n"]}
+  ],
+  "metadata": {},
+  "nbformat": 4,
+  "nbformat_minor": 5
+}`;
+
+  const [notebookJson, setNotebookJson] = useState(defaultNotebook);
+  const [notebookCells, setNotebookCells] = useState<NotebookCell[]>([]);
+  const [notebookError, setNotebookError] = useState("");
+  const [graphData, setGraphData] = useState<number[]>([]);
 
   const runCode = () => {
     setIsRunning(true);
-    setOutput([]); // Clear previous output
-    
-    // Simulate real execution delay
+    setOutput([]);
+    setGraphData([]);
+
     const logs: string[] = [];
     const originalLog = console.log;
-    
-    // Attempt real execution for simple JS
+
     try {
-        // Collect logs for the UI
-        console.log = (...args) => {
-            logs.push(`> ${args.join(' ')}`);
-        };
-        
-        const result = eval(code);
-        if (result !== undefined) {
-            logs.push(`\nRESULT: ${result}`);
-        }
+      console.log = (...args) => {
+        logs.push(`> ${args.join(' ')}`);
+      };
+      const result = eval(code);
+      if (result !== undefined) logs.push(`\nRESULT: ${result}`);
     } catch (err: any) {
-        logs.push(`\n[ERROR]: ${err.message}`);
+      logs.push(`\n[ERROR]: ${err.message}`);
     } finally {
-        console.log = originalLog;
+      console.log = originalLog;
     }
 
-    // Delayed output to look "tactical"
     let i = 0;
     const interval = setInterval(() => {
-        if (i < logs.length) {
-            setOutput(prev => [...prev, logs[i]]);
-            i++;
-        } else {
-            clearInterval(interval);
-            setIsRunning(false);
-        }
+      if (i < logs.length) {
+        setOutput(prev => [...prev, logs[i]]);
+        i++;
+      } else {
+        clearInterval(interval);
+        setIsRunning(false);
+      }
     }, 100);
+  };
+
+  const loadNotebook = () => {
+    try {
+      const parsed: { cells: NotebookCell[] } = JSON.parse(notebookJson);
+      if (!parsed.cells || !Array.isArray(parsed.cells)) throw new Error("Invalid .ipynb format");
+      setNotebookCells(parsed.cells);
+      setNotebookError("");
+      setGraphData([]);
+    } catch (err: any) {
+      setNotebookError(err.message || "Invalid JSON");
+      setNotebookCells([]);
+    }
+  };
+
+  const runNotebook = () => {
+    if (notebookCells.length === 0) {
+      setNotebookError("Load a valid notebook first.");
+      return;
+    }
+
+    setNotebookError("");
+    setGraphData([]);
+
+    let newCells = notebookCells.map(cell => ({ ...cell, outputs: [] as string[] }));
+
+    newCells = newCells.map(cell => {
+      if (cell.cell_type !== "code") return cell;
+      const outputs: string[] = [];
+
+      const plot = (data: number[]) => {
+        setGraphData(data);
+        outputs.push(`[PLOT] ${JSON.stringify(data)}`);
+      };
+
+      const log = (...args: any[]) => outputs.push(`> ${args.join(" ")}`);
+
+      try {
+        const fn = new Function("plot", "log", cell.source.join(""));
+        const result = fn(plot, log);
+        if (result !== undefined) outputs.push(`RESULT: ${result}`);
+      } catch (err) {
+        outputs.push(`[ERROR]: ${err instanceof Error ? err.message : String(err)}`);
+      }
+      return { ...cell, outputs };
+    });
+
+    setNotebookCells(newCells);
   };
 
   const clearBuffer = () => setOutput([]);
 
   return (
     <div className="flex flex-col h-full bg-[#0a0a0a] font-mono select-none animate-in fade-in duration-500 overflow-hidden">
-      {/* Office Style Ribbon - Code Editor (Dark Grey/Black Theme) */}
-      <div className="bg-[#1e1e1e] border-b border-white/10 p-1 px-4 flex items-center justify-between shadow-lg">
+      <div className="p-2 flex gap-2 border-b border-white/10 bg-[#101719]">
+        <button
+          onClick={() => setMode("script")}
+          className={cn(
+            "px-3 py-1 rounded text-sm font-bold",
+            mode === "script" ? "bg-[#a3e635] text-black" : "bg-white/10 text-white"
+          )}
+        >
+          Script Editor
+        </button>
+        <button
+          onClick={() => setMode("notebook")}
+          className={cn(
+            "px-3 py-1 rounded text-sm font-bold",
+            mode === "notebook" ? "bg-[#a3e635] text-black" : "bg-white/10 text-white"
+          )}
+        >
+          Notebook (.ipynb)
+        </button>
+      </div>
+      {mode === "script" ? (
+        <>
+          {/* Office Style Ribbon - Code Editor (Dark Grey/Black Theme) */}
+          <div className="bg-[#1e1e1e] border-b border-white/10 p-1 px-4 flex items-center justify-between shadow-lg">
         <div className="flex items-center gap-4">
           <div className="bg-[#a3e635]/10 p-1.5 rounded border border-[#a3e635]/20">
             <LuCode size={18} className="text-[#a3e635]" />
@@ -184,6 +269,74 @@ deployModule();`);
             <span className="text-white px-2 bg-[#a3e635]/20 rounded">STATUS: READY</span>
         </div>
       </div>
+      </>
+      ) : (
+      <div className="p-4 overflow-y-auto h-full">
+        <div className="mb-4 flex flex-wrap gap-2">
+          <button
+            onClick={loadNotebook}
+            className="px-3 py-1 rounded bg-[#a3e635] text-black font-semibold"
+          >
+            Load .ipynb
+          </button>
+          <button
+            onClick={runNotebook}
+            className="px-3 py-1 rounded bg-[#a3e635] text-black font-semibold"
+          >
+            Run Notebook
+          </button>
+        </div>
+
+        {notebookError && <div className="mb-3 text-sm text-red-400">{notebookError}</div>}
+
+        <div className="mb-4">
+          <label className="block text-xs text-[#a3e635]/80 mb-1">Notebook JSON (.ipynb)</label>
+          <textarea
+            value={notebookJson}
+            onChange={(e) => setNotebookJson(e.target.value)}
+            className="w-full h-36 bg-[#051410] border border-white/10 text-sm p-2 rounded outline-none focus:border-[#a3e635]"
+          />
+        </div>
+
+        <div className="space-y-4">
+          {notebookCells.map((cell, idx) => (
+            <div key={idx} className="rounded-lg border border-white/10 p-3 bg-[#061215]">
+              <div className="text-xs text-[#a3e635]/80 mb-1">
+                {cell.cell_type.toUpperCase()} CELL
+              </div>
+              {cell.cell_type === "markdown" ? (
+                <div className="prose prose-invert max-w-none text-sm">{cell.source.join("")}</div>
+              ) : (
+                <>
+                  <pre className="whitespace-pre-wrap text-xs border border-white/10 rounded p-2 bg-[#0a1117]">{cell.source.join("")}</pre>
+                  <div className="mt-2 text-xs text-[#c8f1b3]">
+                    {cell.outputs?.length ? cell.outputs.map((o, j) => (<div key={j}>{o}</div>)) : <div className="text-[#999]">No output yet</div>}
+                  </div>
+                </>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {graphData.length > 0 && (
+          <div className="mt-4 p-3 border border-white/10 rounded bg-[#051410]">
+            <h3 className="text-sm uppercase tracking-widen text-[#a3e635] mb-2">Graph Output</h3>
+            <div className="w-full h-48 relative bg-black border border-white/10">
+              <svg viewBox="0 0 100 100" className="w-full h-full">
+                <polyline
+                  fill="none"
+                  stroke="#a3e635"
+                  strokeWidth="2"
+                  points={graphData
+                    .map((v, i) => `${(i/(graphData.length-1))*100},${100 - (v / Math.max(...graphData))*90}`)
+                    .join(" ")}
+                />
+              </svg>
+            </div>
+          </div>
+        )}
+      </div>
+      )}
     </div>
   );
 }
