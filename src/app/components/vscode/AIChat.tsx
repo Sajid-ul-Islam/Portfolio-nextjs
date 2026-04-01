@@ -11,7 +11,7 @@ type ChatMessage = {
 
 type ModelOption = "gemini-1.5-flash" | "gemini-1.5-pro" | "claude-3-5-sonnet";
 
-type ToolingMode = "portfolio" | "website";
+type ToolingMode = "portfolio" | "website" | "combined";
 
 const INITIAL_MESSAGES: ChatMessage[] = [
   { role: "system", content: "[EXTERNAL_LINK_SECURED] PROTOCOL: G-MODEL-1.5" },
@@ -27,7 +27,6 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   const [showModelSelect, setShowModelSelect] = useState(false);
   const [siteSnapshot, setSiteSnapshot] = useState<string>("");
   const [isFetchingSite, setIsFetchingSite] = useState(false);
-  const [testimonial, setTestimonial] = useState<string>("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -81,13 +80,15 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     // 2. REMOTE AI CHECK
     try {
       let siteContext = siteSnapshot;
-      if (toolingMode === "website" && !siteContext) {
+      if ((toolingMode === "website" || toolingMode === "combined") && !siteContext) {
         const siteResp = await fetch("/api/site");
         const siteData = await siteResp.json();
         siteContext = siteData.content || "";
         setSiteSnapshot(siteContext);
       }
-      const promptContext = toolingMode === "website" ? `SITE_CONTENT:\n${siteContext}\n\n` : "";
+      const promptContext = (toolingMode === "website" || toolingMode === "combined") && siteContext
+        ? `SITE_CONTENT:\n${siteContext}\n\n`
+        : "";
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -95,6 +96,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           messages: [...messages, userMsg],
           model,
           siteContext: promptContext,
+          sourceMode: toolingMode,
         }),
       });
 
@@ -205,6 +207,10 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               onClick={() => setToolingMode("website")}
               className={`px-2 py-0.5 rounded ${toolingMode === "website" ? "bg-[#a3e635]/40 text-white" : "bg-white/5 text-white/50"}`}
             >WEBSITE</button>
+            <button
+              onClick={() => setToolingMode("combined")}
+              className={`px-2 py-0.5 rounded ${toolingMode === "combined" ? "bg-[#a3e635]/40 text-white" : "bg-white/5 text-white/50"}`}
+            >COMBINED</button>
           </div>
         </div>
         <div className="flex items-center gap-3">
@@ -253,8 +259,18 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       </div>
 
       <div className="px-4 py-1 border-b border-white/10 text-[8px] text-white/40 flex items-center justify-between gap-2">
-        <span>{toolingMode === "website" ? (siteSnapshot ? "Website snapshot loaded" : "Website snapshot not loaded") : "Portfolio context active"}</span>
-        {toolingMode === "website" && (
+        <span>
+          {toolingMode === "website"
+            ? siteSnapshot
+              ? "Website snapshot loaded"
+              : "Website snapshot not loaded"
+            : toolingMode === "combined"
+              ? siteSnapshot
+                ? "Combined context active (website + portfolio)"
+                : "Combined context active (portfolio only, website is pending)"
+              : "Portfolio context active"}
+        </span>
+        {(toolingMode === "website" || toolingMode === "combined") && (
           <button
             disabled={isFetchingSite}
             onClick={async () => {

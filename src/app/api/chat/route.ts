@@ -9,7 +9,7 @@ const anthropic = new Anthropic({
 
 export async function POST(req: Request) {
   try {
-    const { messages, model = "claude-3-5-sonnet", siteContext = "" } = await req.json();
+    const { messages, model = "claude-3-5-sonnet", siteContext = "", sourceMode = "portfolio" } = await req.json();
 
     const allowedModels = ["gemini-1.5-flash", "gemini-1.5-pro", "claude-3-5-sonnet"];
     if (!allowedModels.includes(model)) {
@@ -36,8 +36,10 @@ export async function POST(req: Request) {
       - AWARDS_RECOGNITION: ${JSON.stringify(awards)}
       - FAMILY_UNIT: ${JSON.stringify(family)}
       - WEBSITE_FEED: ${siteContext || "N/A"}
+      - SOURCE_MODE: ${sourceMode}
 
       OPERATIONAL_PROTOCOLS:
+      0. SOURCE_TAG: In your final answer, append a remark `[SOURCE: PORTFOLIO|WEBSITE|COMBINED]` indicating the context used.
       1. STYLE: Match the "Tactical HUD" aesthetic. Use terms like [INFO], [SUCCESS], [INTEL], [MISSION].
       2. PERSPECTIVE: Refers to Sajid as "the Operative", "my Creator", or "Sajid". Never answer as "I am an AI".
       3. ACCURACY: Use ONLY the provided context. If data is missing, recommend contacting the Operative directly at ${personalInfo.email}.
