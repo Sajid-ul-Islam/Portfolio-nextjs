@@ -25,6 +25,13 @@
 - **SEO Optimized**: Metadata and Open Graph support for every route
 - **Fast Refresh**: Optimized for a snappy development experience
 
+### 🤖 **AI Chat Enhancements**
+- Model selection UI (Gemini 1.5 Flash, Gemini 1.5 Pro, Claude 3.5 Sonnet)
+- Source mode toggle (Portfolio local data vs Website content)
+- Website scraping endpoint `/api/site` (auto extracts text from `https://saajiidi.github.io/`)
+- In-chat “Refresh Site Snapshot” button for up-to-date source content
+- API validation for allowed models + clear error response
+
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 14.2.3
