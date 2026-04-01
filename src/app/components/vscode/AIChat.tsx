@@ -9,7 +9,9 @@ type ChatMessage = {
   content: string;
 };
 
-type ModelOption = "gemini-1.5-flash" | "gemini-1.5-pro";
+type ModelOption = "gemini-1.5-flash" | "gemini-1.5-pro" | "claude-3-5-sonnet";
+
+type ToolingMode = "portfolio" | "website";
 
 const INITIAL_MESSAGES: ChatMessage[] = [
   { role: "system", content: "[EXTERNAL_LINK_SECURED] PROTOCOL: G-MODEL-1.5" },
@@ -21,7 +23,11 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [model, setModel] = useState<ModelOption>("gemini-1.5-flash");
+  const [toolingMode, setToolingMode] = useState<ToolingMode>("portfolio");
   const [showModelSelect, setShowModelSelect] = useState(false);
+  const [siteSnapshot, setSiteSnapshot] = useState<string>("");
+  const [isFetchingSite, setIsFetchingSite] = useState(false);
+  const [testimonial, setTestimonial] = useState<string>("");
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -74,12 +80,21 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
 
     // 2. REMOTE AI CHECK
     try {
+      let siteContext = siteSnapshot;
+      if (toolingMode === "website" && !siteContext) {
+        const siteResp = await fetch("/api/site");
+        const siteData = await siteResp.json();
+        siteContext = siteData.content || "";
+        setSiteSnapshot(siteContext);
+      }
+      const promptContext = toolingMode === "website" ? `SITE_CONTENT:\n${siteContext}\n\n` : "";
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [...messages, userMsg],
-          model: model,
+          model,
+          siteContext: promptContext,
         }),
       });
 
@@ -151,7 +166,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         </div>
       </div>
       
-      {/* Model Selection Bar */}
+      {/* Model + Source Controls */}
       <div className="px-4 py-2 border-b border-white/5 flex items-center justify-between bg-white/[0.02] text-[9px] text-white/30 relative z-10">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
@@ -167,14 +182,30 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 <Zap size={10} className="text-yellow-400" />
                 <span>FLASH_1.5</span>
               </>
-            ) : (
+            ) : model === "gemini-1.5-pro" ? (
               <>
                 <Sparkles size={10} className="text-purple-400" />
                 <span>PRO_1.5</span>
               </>
+            ) : (
+              <>
+                <Settings2 size={10} className="text-cyan-400" />
+                <span>CLAUDE_3.5</span>
+              </>
             )}
             <ChevronDown size={8} className={`transition-transform ${showModelSelect ? 'rotate-180' : ''}`} />
           </button>
+          <div className="flex items-center gap-1">
+            <span className="text-[9px] opacity-50">SOURCE:</span>
+            <button
+              onClick={() => setToolingMode("portfolio")}
+              className={`px-2 py-0.5 rounded ${toolingMode === "portfolio" ? "bg-[#a3e635]/40 text-white" : "bg-white/5 text-white/50"}`}
+            >PORTFOLIO</button>
+            <button
+              onClick={() => setToolingMode("website")}
+              className={`px-2 py-0.5 rounded ${toolingMode === "website" ? "bg-[#a3e635]/40 text-white" : "bg-white/5 text-white/50"}`}
+            >WEBSITE</button>
+          </div>
         </div>
         <div className="flex items-center gap-3">
           <div className="h-4 w-[1px] bg-white/10"></div>
@@ -186,7 +217,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
 
         {/* Model Dropdown */}
         {showModelSelect && (
-          <div className="absolute top-[35px] left-4 bg-[#111] border border-white/10 rounded shadow-2xl z-20 w-48 overflow-hidden animate-in zoom-in-95 duration-100 backdrop-blur-md">
+          <div className="absolute top-[35px] left-4 bg-[#111] border border-white/10 rounded shadow-2xl z-20 w-56 overflow-hidden animate-in zoom-in-95 duration-100 backdrop-blur-md">
              <button 
               onClick={() => { setModel("gemini-1.5-flash"); setShowModelSelect(false); }}
               className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 ${model === "gemini-1.5-flash" ? 'bg-white/5' : ''}`}
@@ -207,7 +238,42 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 </div>
                 <span className="text-[8px] text-white/30">ADVANCED REASONING, DEEP INTEL</span>
              </button>
+             <button 
+              onClick={() => { setModel("claude-3-5-sonnet"); setShowModelSelect(false); }}
+              className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 ${model === "claude-3-5-sonnet" ? 'bg-white/5' : ''}`}
+             >
+                <div className="flex items-center gap-2 text-cyan-400">
+                  <Settings2 size={10} />
+                  <span className="font-bold">Claude 3.5 Sonnet</span>
+                </div>
+                <span className="text-[8px] text-white/30">DOMAIN KNOWLEDGE + NATURAL COMPREHENSION</span>
+             </button>
           </div>
+        )}
+      </div>
+
+      <div className="px-4 py-1 border-b border-white/10 text-[8px] text-white/40 flex items-center justify-between gap-2">
+        <span>{toolingMode === "website" ? (siteSnapshot ? "Website snapshot loaded" : "Website snapshot not loaded") : "Portfolio context active"}</span>
+        {toolingMode === "website" && (
+          <button
+            disabled={isFetchingSite}
+            onClick={async () => {
+              setIsFetchingSite(true);
+              try {
+                const result = await fetch("/api/site");
+                const data = await result.json();
+                if (data.content) setSiteSnapshot(data.content);
+                else setSiteSnapshot("");
+              } catch {
+                setSiteSnapshot("");
+              } finally {
+                setIsFetchingSite(false);
+              }
+            }}
+            className="px-2 py-0.5 rounded border border-white/10 bg-white/10 hover:bg-white/20 disabled:opacity-40"
+          >
+            {isFetchingSite ? "Refreshing..." : "Refresh Site Snapshot"}
+          </button>
         )}
       </div>
 

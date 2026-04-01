@@ -9,7 +9,12 @@ const anthropic = new Anthropic({
 
 export async function POST(req: Request) {
   try {
-    const { messages, model = "claude-3-5-sonnet-20241022" } = await req.json();
+    const { messages, model = "claude-3-5-sonnet", siteContext = "" } = await req.json();
+
+    const allowedModels = ["gemini-1.5-flash", "gemini-1.5-pro", "claude-3-5-sonnet"];
+    if (!allowedModels.includes(model)) {
+      return new Response(JSON.stringify({ error: `Unsupported model: ${model}` }), { status: 400 });
+    }
 
     if (!process.env.ANTHROPIC_API_KEY) {
       console.error("CRITICAL_ERROR: ANTHROPIC_API_KEY is not configured in environment.");
@@ -30,6 +35,7 @@ export async function POST(req: Request) {
       - CORE_METRICS: ${JSON.stringify(metrics)}
       - AWARDS_RECOGNITION: ${JSON.stringify(awards)}
       - FAMILY_UNIT: ${JSON.stringify(family)}
+      - WEBSITE_FEED: ${siteContext || "N/A"}
 
       OPERATIONAL_PROTOCOLS:
       1. STYLE: Match the "Tactical HUD" aesthetic. Use terms like [INFO], [SUCCESS], [INTEL], [MISSION].
