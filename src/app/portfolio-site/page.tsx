@@ -26,7 +26,7 @@ export default function PortfolioSitePage() {
       </div>
       <div className="flex-1 relative">
         <iframe
-          src="/"
+          src="https://saajiidi.github.io/"
           className="absolute inset-0 w-full h-full border-none"
           title="Sajid Islam Portfolio"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
