@@ -787,6 +787,8 @@ export const favoriteGames = [
   { name: "Forza Horizon 5", category: "Racing", platform: "PC" },
   { name: "FIFA", category: "Sports", platform: "PC" },
   { name: "Fortnite", category: "Battle Royale", platform: "PC" },
+  { name: "Snake (Nokia)", category: "Classic", platform: "Nokia Mobile" },
+  { name: "Tetris", category: "Puzzle", platform: "Mobile" },
 ];
 
 export const gamingStats = [
