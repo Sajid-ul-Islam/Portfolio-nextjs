@@ -1,18 +1,20 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import "dotenv/config";
+import Anthropic from "@anthropic-ai/sdk";
 import { personalInfo, experience, education, skills, projects, metrics, awards, family } from "@/app/data";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
+// Initialize with encrypted environment variable
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
 
 export async function POST(req: Request) {
   try {
-    const { messages, model = "gemini-1.5-flash" } = await req.json();
+    const { messages, model = "claude-3-5-sonnet-20241022" } = await req.json();
 
-    if (!process.env.GEMINI_API_KEY) {
-      console.error("CRITICAL_ERROR: GEMINI_API_KEY is null or undefined in environment.");
-      return new Response(JSON.stringify({ error: "GEMINI_API_KEY is not configured" }), { status: 500 });
+    if (!process.env.ANTHROPIC_API_KEY) {
+      console.error("CRITICAL_ERROR: ANTHROPIC_API_KEY is not configured in environment.");
+      return new Response(JSON.stringify({ error: "ANTHROPIC_API_KEY is not configured" }), { status: 500 });
     }
-
-    const modelInstance = genAI.getGenerativeModel({ model });
 
     const systemPrompt = `
       You are the [AI_INTEL_ENGINE] for Sajid Islam's Tactical Portfolio.
@@ -36,28 +38,17 @@ export async function POST(req: Request) {
       4. CONCISION: Keep intel streams short and high-impact.
     `;
 
-    // Filter messages to format for Gemini
-    const chat = modelInstance.startChat({
-      history: messages.slice(0, -1).map((m: any) => ({
-        role: m.role === "user" ? "user" : "model",
-        parts: [{ text: m.content }],
+    const response = await anthropic.messages.create({
+      model,
+      max_tokens: 500,
+      system: systemPrompt,
+      messages: messages.map((m: any) => ({
+        role: m.role,
+        content: m.content,
       })),
-      generationConfig: {
-        maxOutputTokens: 500,
-      },
     });
 
-    // Gemini doesn't have a direct "system message" in history for startChat in the simple SDK, 
-    // so we prepend it to the first message or use a different approach.
-    // For simplicity, we'll prepend it to the current prompt if history is empty, 
-    // or just pass it as context in every request.
-    
-    const lastMessage = messages[messages.length - 1].content;
-    const promptWithContext = `${systemPrompt}\n\nUSER_QUERY: ${lastMessage}`;
-
-    const result = await modelInstance.generateContent(promptWithContext);
-    const response = await result.response;
-    const text = response.text();
+    const text = response.content[0].type === "text" ? response.content[0].text : "";
 
     return new Response(JSON.stringify({ content: text }));
   } catch (error: any) {
