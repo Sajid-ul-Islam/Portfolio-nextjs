@@ -13,6 +13,7 @@
     "deploy": "gh-pages -d out"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.81.0",
     "@google/generative-ai": "^0.24.1",
     "dotenv-vault": "^1.27.0",
     "lucide-react": "^1.7.0",
