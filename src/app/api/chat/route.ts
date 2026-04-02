@@ -11,7 +11,7 @@ export async function POST(req: Request) {
   try {
     const { messages, model = "claude-3-5-sonnet", siteContext = "", sourceMode = "portfolio" } = await req.json();
 
-    const allowedModels = ["gemini-1.5-flash", "gemini-1.5-pro", "claude-3-5-sonnet"];
+    const allowedModels = ["claude-3-haiku", "claude-3-5-sonnet", "claude-3-opus"];
     if (!allowedModels.includes(model)) {
       return new Response(JSON.stringify({ error: `Unsupported model: ${model}` }), { status: 400 });
     }

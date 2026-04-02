@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
 import { FaGamepad } from "react-icons/fa";
 import { LuMonitor, LuTrophy } from "react-icons/lu";
 
@@ -232,9 +233,11 @@ export default function GamingPage() {
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 p-1 bg-[#0b1118] border border-white/10 rounded">
-                      <img
+                      <Image
                         src={game.image || "https://via.placeholder.com/80x60?text=Game"}
                         alt={`${game.name} image`}
+                        width={80}
+                        height={60}
                         className="h-14 w-20 object-cover rounded"
                       />
                     </div>
@@ -246,9 +249,11 @@ export default function GamingPage() {
                         {game.category}
                       </p>
                       {game.poster && (
-                        <img
+                        <Image
                           src={game.poster}
                           alt={`${game.name} official poster`}
+                          width={250}
+                          height={150}
                           className="mt-2 h-20 w-full rounded border border-white/10 object-cover"
                         />
                       )}

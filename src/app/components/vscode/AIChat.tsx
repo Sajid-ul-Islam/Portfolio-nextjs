@@ -9,7 +9,7 @@ type ChatMessage = {
   content: string;
 };
 
-type ModelOption = "gemini-1.5-flash" | "gemini-1.5-pro" | "claude-3-5-sonnet";
+type ModelOption = "claude-3-5-sonnet" | "claude-3-haiku" | "claude-3-opus";
 
 type ToolingMode = "portfolio" | "website" | "combined";
 
@@ -22,7 +22,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [model, setModel] = useState<ModelOption>("gemini-1.5-flash");
+  const [model, setModel] = useState<ModelOption>("claude-3-5-sonnet");
   const [toolingMode, setToolingMode] = useState<ToolingMode>("portfolio");
   const [showModelSelect, setShowModelSelect] = useState(false);
   const [siteSnapshot, setSiteSnapshot] = useState<string>("");
@@ -179,20 +179,20 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
             onClick={() => setShowModelSelect(!showModelSelect)}
             className="flex items-center gap-1 text-[#a3e635] hover:bg-[#a3e635]/10 px-1.5 py-0.5 rounded border border-[#a3e635]/20 bg-[#a3e635]/5"
           >
-            {model === "gemini-1.5-flash" ? (
+            {model === "claude-3-haiku" ? (
               <>
                 <Zap size={10} className="text-yellow-400" />
-                <span>FLASH_1.5</span>
+                <span>HAIKU</span>
               </>
-            ) : model === "gemini-1.5-pro" ? (
+            ) : model === "claude-3-opus" ? (
               <>
                 <Sparkles size={10} className="text-purple-400" />
-                <span>PRO_1.5</span>
+                <span>OPUS</span>
               </>
             ) : (
               <>
                 <Settings2 size={10} className="text-cyan-400" />
-                <span>CLAUDE_3.5</span>
+                <span>SONNET_3.5</span>
               </>
             )}
             <ChevronDown size={8} className={`transition-transform ${showModelSelect ? 'rotate-180' : ''}`} />
@@ -225,32 +225,32 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         {showModelSelect && (
           <div className="absolute top-[35px] left-4 bg-[#111] border border-white/10 rounded shadow-2xl z-20 w-56 overflow-hidden animate-in zoom-in-95 duration-100 backdrop-blur-md">
              <button 
-              onClick={() => { setModel("gemini-1.5-flash"); setShowModelSelect(false); }}
-              className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 ${model === "gemini-1.5-flash" ? 'bg-white/5' : ''}`}
+              onClick={() => { setModel("claude-3-haiku"); setShowModelSelect(false); }}
+              className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 ${model === "claude-3-haiku" ? 'bg-white/5' : ''}`}
              >
                 <div className="flex items-center gap-2 text-[#a3e635]">
                   <Zap size={10} />
-                  <span className="font-bold">Gemini 1.5 Flash</span>
+                  <span className="font-bold">Claude 3 Haiku</span>
                 </div>
                 <span className="text-[8px] text-white/30">FAST, LIGHTWEIGHT, BALANCED</span>
-             </button>
-             <button 
-              onClick={() => { setModel("gemini-1.5-pro"); setShowModelSelect(false); }}
-              className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 ${model === "gemini-1.5-pro" ? 'bg-white/5' : ''}`}
-             >
-                <div className="flex items-center gap-2 text-purple-400">
-                  <Sparkles size={10} />
-                  <span className="font-bold">Gemini 1.5 Pro</span>
-                </div>
-                <span className="text-[8px] text-white/30">ADVANCED REASONING, DEEP INTEL</span>
              </button>
              <button 
               onClick={() => { setModel("claude-3-5-sonnet"); setShowModelSelect(false); }}
               className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 ${model === "claude-3-5-sonnet" ? 'bg-white/5' : ''}`}
              >
+                <div className="flex items-center gap-2 text-purple-400">
+                  <Sparkles size={10} />
+                  <span className="font-bold">Claude 3.5 Sonnet</span>
+                </div>
+                <span className="text-[8px] text-white/30">ADVANCED REASONING, DEEP INTEL</span>
+             </button>
+             <button 
+              onClick={() => { setModel("claude-3-opus"); setShowModelSelect(false); }}
+              className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 ${model === "claude-3-opus" ? 'bg-white/5' : ''}`}
+             >
                 <div className="flex items-center gap-2 text-cyan-400">
                   <Settings2 size={10} />
-                  <span className="font-bold">Claude 3.5 Sonnet</span>
+                  <span className="font-bold">Claude 3 Opus</span>
                 </div>
                 <span className="text-[8px] text-white/30">DOMAIN KNOWLEDGE + NATURAL COMPREHENSION</span>
              </button>
