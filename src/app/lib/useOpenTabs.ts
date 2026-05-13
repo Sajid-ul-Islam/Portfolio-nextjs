@@ -14,11 +14,11 @@ export type Tab = {
   isPinned?: boolean;
 };
 
-import { fileTree, projects } from "../data/portfolio";
+import { fileTree, projects, blogPosts, FileTreeItem } from "../data/portfolio";
 
 function buildTab(path: string): Tab {
   // Find the item in the file tree to get the correct extension
-  let item: any = null;
+  let item: FileTreeItem | { label: string; extension: string } | null = null;
   for (const section of fileTree) {
     item = section.items.find(i => i.href === path);
     if (item) break;
@@ -34,7 +34,7 @@ function buildTab(path: string): Tab {
       else if (project.technologies.includes("React") || project.technologies.includes("Next.js")) extension = "tsx";
       else if (project.technologies.includes("R")) extension = "r";
       else if (project.technologies.includes("Tableau")) extension = "tableau";
-      
+
       item = {
         label: project.title.replace(/\s+/g, ""),
         extension: extension
@@ -42,9 +42,20 @@ function buildTab(path: string): Tab {
     }
   }
 
+  // Check if it's a dynamic blog post
+  if (!item && path.startsWith("/Blogs/")) {
+    const blogId = path.split("/").pop();
+    if (blogId) {
+      item = {
+        label: blogId.replace(/-/g, "_"),
+        extension: "mdx"
+      };
+    }
+  }
+
   const extension = item?.extension ?? "tsx";
   const labelBase = item?.label ?? (path === "/" ? "Welcome" : path.slice(1).split('/').pop()?.replace(/-/g, " ") ?? "Unknown");
-  
+
   return {
     id: path,
     label: `${labelBase}.${extension}`,

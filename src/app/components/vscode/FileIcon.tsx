@@ -29,6 +29,7 @@ const extensionColors: Record<string, string> = {
   scss: "text-pink-400",
   html: "text-orange-500",
   md: "text-gray-400",
+  mdx: "text-yellow-300",
   py: "text-blue-400",
   go: "text-cyan-400",
   r: "text-blue-600",
@@ -52,7 +53,7 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
   switch (extension) {
     case "tsx":
       if (filename.toLowerCase().includes("page") || filename.toLowerCase().includes("layout")) {
-         return <SiNextdotjs {...iconProps} />;
+        return <SiNextdotjs {...iconProps} />;
       }
       return <SiReact {...iconProps} />;
     case "jsx":
@@ -71,6 +72,7 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
     case "scss":
       return <SiCss3 {...iconProps} />;
     case "md":
+    case "mdx":
       return <SiMarkdown {...iconProps} />;
     case "r":
       return <SiR {...iconProps} />;
@@ -89,5 +91,3 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
       return <LuFile {...iconProps} />;
   }
 }
-
-

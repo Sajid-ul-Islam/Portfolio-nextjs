@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LuCornerDownLeft, LuSearch } from "react-icons/lu";
+import { Command } from "cmdk";
 
 import { cn } from "../../lib/cn";
 import { filterSearchItems, getSearchItems } from "../../lib/search";
@@ -23,8 +24,6 @@ export default function CommandPalette() {
   const { closeAllTabs } = useTabs();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const [activeIndex, setActiveIndex] = useState(0);
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const baseItems = useMemo(() => getSearchItems(), []);
 
@@ -103,102 +102,71 @@ export default function CommandPalette() {
   }, []);
 
   useEffect(() => {
-    if (open) {
-      setActiveIndex(0);
-      setQuery("");
-      requestAnimationFrame(() => inputRef.current?.focus());
-    }
+    if (open) setQuery("");
   }, [open]);
-
-  useEffect(() => {
-    setActiveIndex((index) => Math.min(index, Math.max(items.length - 1, 0)));
-  }, [items.length]);
 
   const handleSelect = (item: PaletteItem) => {
     item.onSelect();
     setOpen(false);
   };
 
-  if (!open) return null;
-
   return (
-    <div
-      className="fixed inset-0 z-[60] flex items-start justify-center bg-black/50 pt-24"
-      onClick={() => setOpen(false)}
+    <Command.Dialog
+      open={open}
+      onOpenChange={setOpen}
+      label="Global Command Palette"
+      shouldFilter={false} // Uses your custom filterSearchItems instead
+      className="fixed inset-0 z-[60] flex items-start justify-center bg-black/50 pt-24 p-4"
     >
       <div
-        className="w-full max-w-2xl mx-4 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded-[var(--vscode-border-radius-md)] shadow-2xl overflow-hidden"
-        onClick={(event) => event.stopPropagation()}
+        className="w-full max-w-2xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded-[var(--vscode-border-radius-md)] shadow-2xl overflow-hidden flex flex-col"
       >
         <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--vscode-border)]">
           <LuSearch size={16} className="text-[var(--vscode-text-secondary)]" />
-          <input
-            ref={inputRef}
+          <Command.Input
             value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            onKeyDown={(event) => {
-              if (event.key === "ArrowDown") {
-                event.preventDefault();
-                setActiveIndex((index) =>
-                  Math.min(index + 1, Math.max(items.length - 1, 0))
-                );
-              }
-              if (event.key === "ArrowUp") {
-                event.preventDefault();
-                setActiveIndex((index) => Math.max(index - 1, 0));
-              }
-              if (event.key === "Enter" && items[activeIndex]) {
-                event.preventDefault();
-                handleSelect(items[activeIndex]);
-              }
-            }}
+            onValueChange={setQuery}
             className="flex-1 bg-transparent text-vscode-base text-[var(--vscode-text-primary)] placeholder:text-[var(--vscode-text-muted)] focus:outline-none"
             placeholder="Type a command or search..."
-            aria-label="Command palette input"
           />
           <div className="flex items-center gap-1 text-vscode-xs text-[var(--vscode-text-secondary)]">
             <LuCornerDownLeft size={14} />
             Enter
           </div>
         </div>
-        <div className="max-h-[360px] overflow-y-auto">
-          {items.length === 0 ? (
-            <div className="px-4 py-6 text-vscode-sm text-[var(--vscode-text-secondary)]">
-              No matches found.
-            </div>
-          ) : (
-            <ul className="py-2">
-              {items.map((item, index) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => handleSelect(item)}
-                    className={cn(
-                      "w-full text-left px-4 py-2 flex items-center justify-between gap-3",
-                      "hover:bg-[var(--vscode-list-hoverBackground)] transition-colors",
-                      index === activeIndex &&
-                        "bg-[var(--vscode-list-inactiveSelectionBackground)]"
-                    )}
-                  >
-                    <div>
-                      <div className="text-vscode-sm text-[var(--vscode-text-primary)]">
-                        {item.title}
-                      </div>
-                      {item.subtitle ? (
-                        <div className="text-vscode-xs text-[var(--vscode-text-secondary)]">
-                          {item.subtitle}
-                        </div>
-                      ) : null}
-                    </div>
-                    <span className="px-2 py-0.5 border border-[var(--vscode-border)] rounded text-vscode-xs text-[var(--vscode-text-secondary)]">
-                      {item.typeLabel}
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <Command.List className="max-h-[360px] overflow-y-auto py-2">
+          <Command.Empty className="px-4 py-6 text-vscode-sm text-[var(--vscode-text-secondary)] text-center">
+            No matches found.
+          </Command.Empty>
+
+          {items.map((item) => (
+            <Command.Item
+              key={item.id}
+              value={item.id}
+              onSelect={() => handleSelect(item)}
+              className={cn(
+                "px-4 py-2 flex items-center justify-between gap-3 cursor-pointer",
+                "hover:bg-[var(--vscode-list-hoverBackground)] transition-colors",
+                "aria-selected:bg-[var(--vscode-list-inactiveSelectionBackground)]"
+              )}
+            >
+              <div>
+                <div className="text-vscode-sm text-[var(--vscode-text-primary)]">
+                  {item.title}
+                </div>
+                {item.subtitle ? (
+                  <div className="text-vscode-xs text-[var(--vscode-text-secondary)]">
+                    {item.subtitle}
+                  </div>
+                ) : null}
+              </div>
+              <span className="px-2 py-0.5 border border-[var(--vscode-border)] rounded text-vscode-xs text-[var(--vscode-text-secondary)]">
+                {item.typeLabel}
+              </span>
+            </Command.Item>
+          ))}
+        </Command.List>
       </div>
-    </div>
+    </Command.Dialog>
   );
 }
