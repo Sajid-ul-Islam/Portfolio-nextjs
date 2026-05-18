@@ -12,7 +12,7 @@ export default function PortfolioSitePage() {
           </div>
           <div className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-[var(--vscode-input-background)] border border-[var(--vscode-border)]">
             <span className="opacity-70">https://</span>
-            <span className="font-medium text-[var(--vscode-text-primary)]">saajiidi.github.io</span>
+            <span className="font-medium text-[var(--vscode-text-primary)]">Sajid-ul-Islam.github.io</span>
           </div>
         </div>
         <a 
