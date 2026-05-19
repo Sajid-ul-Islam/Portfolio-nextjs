@@ -30,10 +30,11 @@ export async function GET() {
       source: TARGET_URL,
       timestamp: new Date().toISOString(),
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error scraping website:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
     return NextResponse.json(
-      { success: false, error: error.message || 'Failed to scrape website content' },
+      { success: false, error: errorMessage || 'Failed to scrape website content' },
       { status: 500 }
     );
   }

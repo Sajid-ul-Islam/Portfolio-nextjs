@@ -7,11 +7,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const nextConfig = {
   // basePath: "/example-app-nextjs",
   // reactStrictMode: true,
-
-
-  images: {
-    unoptimized: true,
-  },
 };
 
 export default nextConfig;
