@@ -20,7 +20,7 @@ function buildTab(path: string): Tab {
   // Find the item in the file tree to get the correct extension
   let item: FileTreeItem | { label: string; extension: string } | null = null;
   for (const section of fileTree) {
-    item = section.items.find(i => i.href === path);
+    item = section.items.find(i => i.href === path) || null;
     if (item) break;
   }
 
