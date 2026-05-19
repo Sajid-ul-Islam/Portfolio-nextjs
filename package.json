@@ -15,6 +15,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.81.0",
     "@google/generative-ai": "^0.24.1",
+    "cheerio": "^1.2.0",
     "cmdk": "^1.0.0",
     "dotenv-vault": "^1.27.0",
     "framer-motion": "^11.2.10",
