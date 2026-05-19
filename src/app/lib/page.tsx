@@ -3,6 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import { LuCalendar, LuChevronLeft, LuFileText, LuTag } from "react-icons/lu";
@@ -78,15 +79,17 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
             <div className="p-8 bg-[#0a1a15]/40 backdrop-blur-sm border border-[#a3e635]/10 rounded-lg space-y-8 text-gray-300 leading-relaxed text-sm">
                 {/* 4. Render the MDX Content */}
                 <article className="prose prose-invert prose-pre:bg-[#0d1117] prose-pre:border prose-pre:border-white/10 prose-p:leading-relaxed prose-a:text-[#a3e635] max-w-none">
-                    <MDXRemote
-                        source={content}
-                        components={components}
-                        options={{
-                            mdxOptions: {
-                                rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions] as any],
-                            },
-                        }}
-                    />
+                    <Suspense fallback={<div className="text-[#a3e635]/60 animate-pulse text-xs tracking-widest uppercase">Loading intel_dossier...</div>}>
+                        <MDXRemote
+                            source={content}
+                            components={components}
+                            options={{
+                                mdxOptions: {
+                                    rehypePlugins: [[rehypePrettyCode, rehypePrettyCodeOptions] as any],
+                                },
+                            }}
+                        />
+                    </Suspense>
                 </article>
 
                 <section className="pt-10 border-t border-white/5 text-center">
