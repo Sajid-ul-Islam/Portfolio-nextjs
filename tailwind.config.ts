@@ -26,6 +26,10 @@ const config: Config = {
           darker: "#020617", // Slate-950
         },
       },
+      transitionDuration: {
+        "2000": "2000ms",
+        "3000": "3000ms",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
