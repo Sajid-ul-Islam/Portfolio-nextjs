@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { FaGamepad } from "react-icons/fa";
+import Image from "next/image";
 import { LuMonitor, LuTrophy } from "react-icons/lu";
 
 import Badge from "../components/vscode/Badge";
@@ -53,8 +54,8 @@ function TicTacToe() {
         {winner
           ? `Winner: ${winner}`
           : board.every(cell => cell !== "")
-          ? "Draw"
-          : `Next player: ${xIsNext ? "X" : "O"}`}
+            ? "Draw"
+            : `Next player: ${xIsNext ? "X" : "O"}`}
       </div>
       <div className="grid grid-cols-3 gap-1 w-[240px]">
         {board.map((cell, idx) => (
@@ -232,10 +233,12 @@ export default function GamingPage() {
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 p-1 bg-[#0b1118] border border-white/10 rounded">
-                      <img
+                      <Image
                         src={game.image || "https://via.placeholder.com/80x60?text=Game"}
                         alt={`${game.name} image`}
                         className="h-14 w-20 object-cover rounded"
+                        width={80}
+                        height={56}
                       />
                     </div>
                     <div>
@@ -246,10 +249,12 @@ export default function GamingPage() {
                         {game.category}
                       </p>
                       {game.poster && (
-                        <img
+                        <Image
                           src={game.poster}
                           alt={`${game.name} official poster`}
                           className="mt-2 h-20 w-full rounded border border-white/10 object-cover"
+                          width={320}
+                          height={80}
                         />
                       )}
                     </div>
