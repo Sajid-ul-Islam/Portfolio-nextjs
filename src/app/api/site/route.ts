@@ -3,6 +3,8 @@ import * as cheerio from 'cheerio';
 
 const TARGET_URL = 'https://sajid-ul-islam.github.io/';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     // Fetch the target website. We use 'no-store' to ensure we get a fresh
