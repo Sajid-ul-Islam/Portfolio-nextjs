@@ -2,7 +2,7 @@
   "name": "Portfolio-nextjs",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Sajid-ul-Islam.github.io/Portfolio-nextjs",
+  "homepage": "https://Sajid-ul-Islam.vercel.app",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
