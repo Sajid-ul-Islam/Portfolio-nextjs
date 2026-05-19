@@ -32,6 +32,8 @@
 - In-chat “Refresh Site Snapshot” button for up-to-date source content
 - API validation for allowed models + clear error response
 
+> 📖 **Read the full AI Agent Architecture & Features documentation.**
+
 ## 🛠️ Tech Stack
 
 - **Framework**: Next.js 14.2.3

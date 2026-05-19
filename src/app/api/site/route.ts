@@ -1,22 +1,40 @@
+import { NextResponse } from 'next/server';
+import * as cheerio from 'cheerio';
+
+const TARGET_URL = 'https://sajid-ul-islam.github.io/';
+
 export async function GET() {
   try {
-    const external = await fetch("https://saajiidi.github.io/", { next: { revalidate: 300 } });
-    if (!external.ok) {
-      return new Response(JSON.stringify({ error: "Failed to fetch site content" }), { status: 502 });
+    // Fetch the target website. We use 'no-store' to ensure we get a fresh
+    // snapshot every time the "Refresh Site Snapshot" button is clicked.
+    const response = await fetch(TARGET_URL, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch website: ${response.status} ${response.statusText}`);
     }
 
-    const html = await external.text();
-    // Basic extraction: remove tags, keep text, limit size
-    const text = html
-      .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
-      .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
-      .replace(/<[^>]+>/g, " ")
-      .replace(/\s+/g, " ")
-      .trim()
-      .substring(0, 3500);
+    const html = await response.text();
+    const $ = cheerio.load(html);
 
-    return new Response(JSON.stringify({ content: text }));
+    // Remove unnecessary elements that don't contain meaningful conversational text
+    $('script, style, noscript, iframe, img, svg, head').remove();
+
+    // Extract text from the body and clean up the whitespace
+    const extractedText = $('body').text().replace(/\s+/g, ' ').trim();
+
+    return NextResponse.json({
+      success: true,
+      data: extractedText,
+      source: TARGET_URL,
+      timestamp: new Date().toISOString(),
+    });
   } catch (error: any) {
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    console.error('Error scraping website:', error);
+    return NextResponse.json(
+      { success: false, error: error.message || 'Failed to scrape website content' },
+      { status: 500 }
+    );
   }
 }
