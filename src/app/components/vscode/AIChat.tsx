@@ -19,7 +19,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
 ];
 
 export default function AIChat({ onClose }: { onClose: () => void }) {
-  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [model, setModel] = useState<ModelOption>("gemini-1.5-flash");
@@ -30,8 +30,19 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Introductory boot-up sequence
+    const timer1 = setTimeout(() => {
+      setMessages([INITIAL_MESSAGES[0]]);
+    }, 400);
+    const timer2 = setTimeout(() => {
+      setMessages(INITIAL_MESSAGES);
+    }, 1200);
+    return () => { clearTimeout(timer1); clearTimeout(timer2); };
+  }, []);
+
+  useEffect(() => {
     if (scrollRef.current) {
-        scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isTyping]);
 
@@ -51,7 +62,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     // Find a robotic sounding voice
     const voices = window.speechSynthesis.getVoices();
     utterance.voice = voices.find(v => v.name.includes("Google UK English Male")) || voices[0];
-    
+
     utterance.onstart = () => setIsSpeaking(true);
     utterance.onend = () => setIsSpeaking(false);
     window.speechSynthesis.speak(utterance);
@@ -138,28 +149,28 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           <div className="flex flex-col">
             <span className="text-[#a3e635] tracking-[0.2em] font-bold text-[10px] uppercase">NEURAL_UPLINK_v1.5</span>
             <div className="flex items-center gap-2">
-               <span className="w-1 h-1 bg-[#a3e635] rounded-full animate-pulse"></span>
-               <span className="text-[9px] text-white/40 font-mono tracking-tighter uppercase">SIGNAL_STRENGTH_MAX</span>
+              <span className="w-1 h-1 bg-[#a3e635] rounded-full animate-pulse"></span>
+              <span className="text-[9px] text-white/40 font-mono tracking-tighter uppercase">SIGNAL_STRENGTH_MAX</span>
             </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <button 
+          <button
             onClick={handleClear}
             className="text-white/40 hover:text-[#a3e635] transition-colors p-1"
             title="Clear Chat"
           >
             <Trash2 size={14} />
           </button>
-          <button 
-            onClick={onClose} 
+          <button
+            onClick={onClose}
             className="text-white/40 hover:text-[#a3e635] transition-colors p-1"
             title="Minimize"
           >
             <Minus size={18} />
           </button>
-          <button 
-            onClick={onClose} 
+          <button
+            onClick={onClose}
             className="text-white/40 hover:text-white transition-colors hover:rotate-90 duration-200 p-1"
             title="Close"
           >
@@ -167,7 +178,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           </button>
         </div>
       </div>
-      
+
       {/* Model + Source Controls */}
       <div className="px-4 py-2 border-b border-white/5 flex items-center justify-between bg-white/[0.02] text-[9px] text-white/30 relative z-10">
         <div className="flex items-center gap-3">
@@ -175,7 +186,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
             <Settings2 size={10} className="opacity-50" />
             <span className="uppercase tracking-[1px] opacity-40">INTEL_CORE:</span>
           </div>
-          <button 
+          <button
             onClick={() => setShowModelSelect(!showModelSelect)}
             className="flex items-center gap-1 text-[#a3e635] hover:bg-[#a3e635]/10 px-1.5 py-0.5 rounded border border-[#a3e635]/20 bg-[#a3e635]/5"
           >
@@ -224,36 +235,36 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         {/* Model Dropdown */}
         {showModelSelect && (
           <div className="absolute top-[35px] left-4 bg-[#111] border border-white/10 rounded shadow-2xl z-20 w-56 overflow-hidden animate-in zoom-in-95 duration-100 backdrop-blur-md">
-             <button 
+            <button
               onClick={() => { setModel("gemini-1.5-flash"); setShowModelSelect(false); }}
               className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 ${model === "gemini-1.5-flash" ? 'bg-white/5' : ''}`}
-             >
-                <div className="flex items-center gap-2 text-[#a3e635]">
-                  <Zap size={10} />
-                  <span className="font-bold">Gemini 1.5 Flash</span>
-                </div>
-                <span className="text-[8px] text-white/30">FAST, LIGHTWEIGHT, BALANCED</span>
-             </button>
-             <button 
+            >
+              <div className="flex items-center gap-2 text-[#a3e635]">
+                <Zap size={10} />
+                <span className="font-bold">Gemini 1.5 Flash</span>
+              </div>
+              <span className="text-[8px] text-white/30">FAST, LIGHTWEIGHT, BALANCED</span>
+            </button>
+            <button
               onClick={() => { setModel("gemini-1.5-pro"); setShowModelSelect(false); }}
               className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 ${model === "gemini-1.5-pro" ? 'bg-white/5' : ''}`}
-             >
-                <div className="flex items-center gap-2 text-purple-400">
-                  <Sparkles size={10} />
-                  <span className="font-bold">Gemini 1.5 Pro</span>
-                </div>
-                <span className="text-[8px] text-white/30">ADVANCED REASONING, DEEP INTEL</span>
-             </button>
-             <button 
+            >
+              <div className="flex items-center gap-2 text-purple-400">
+                <Sparkles size={10} />
+                <span className="font-bold">Gemini 1.5 Pro</span>
+              </div>
+              <span className="text-[8px] text-white/30">ADVANCED REASONING, DEEP INTEL</span>
+            </button>
+            <button
               onClick={() => { setModel("claude-3-5-sonnet"); setShowModelSelect(false); }}
               className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 ${model === "claude-3-5-sonnet" ? 'bg-white/5' : ''}`}
-             >
-                <div className="flex items-center gap-2 text-cyan-400">
-                  <Settings2 size={10} />
-                  <span className="font-bold">Claude 3.5 Sonnet</span>
-                </div>
-                <span className="text-[8px] text-white/30">DOMAIN KNOWLEDGE + NATURAL COMPREHENSION</span>
-             </button>
+            >
+              <div className="flex items-center gap-2 text-cyan-400">
+                <Settings2 size={10} />
+                <span className="font-bold">Claude 3.5 Sonnet</span>
+              </div>
+              <span className="text-[8px] text-white/30">DOMAIN KNOWLEDGE + NATURAL COMPREHENSION</span>
+            </button>
           </div>
         )}
       </div>
@@ -298,27 +309,26 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2 duration-300`}>
-            <div className={`max-w-[85%] p-3 rounded-xl border relative transition-all duration-300 shadow-2xl ${
-              m.role === 'user' 
-                ? 'bg-gradient-to-br from-[#a3e635] to-[#65a30d] text-black border-[#a3e635]/30 rounded-tr-none' 
+            <div className={`max-w-[85%] p-3 rounded-xl border relative transition-all duration-300 shadow-2xl hover:shadow-[#a3e635]/10 ${m.role === 'user'
+                ? 'bg-gradient-to-br from-[#a3e635] to-[#65a30d] text-black border-[#a3e635]/30 rounded-tr-none'
                 : m.role === 'system'
                   ? 'border-none italic text-white/20 text-[9px] uppercase tracking-widest text-center w-full bg-white/5 py-1 rounded'
                   : 'bg-white/10 backdrop-blur-md text-white border-white/10 rounded-tl-none overflow-hidden'
-            }`}>
+              }`}>
               {m.role === 'bot' && (
-                 <div className="absolute top-0 right-0 p-1 opacity-5">
-                    <Sparkles size={30} />
-                 </div>
+                <div className="absolute top-0 right-0 p-1 opacity-5">
+                  <Sparkles size={30} />
+                </div>
               )}
               {m.role === 'user' && (
                 <div className="absolute -top-3.5 right-0 text-[8px] text-[#a3e635]/50 flex items-center gap-1 font-bold uppercase tracking-tighter">
-                  <Zap size={8} className="opacity-50" /> 
+                  <Zap size={8} className="opacity-50" />
                   USER_QUERY_STREAM
                 </div>
               )}
               {m.role === 'bot' && (
                 <div className="absolute -top-3.5 left-0 text-[8px] text-white/30 flex items-center gap-1 font-bold uppercase tracking-tighter">
-                  <Bot size={8} /> 
+                  <Bot size={8} />
                   INTEL_FETCHED // SOURCE: PORTFOLIO_DB
                 </div>
               )}
@@ -346,22 +356,22 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       <div className="p-4 border-t border-white/10 bg-[#0a0a0a] relative z-10">
         {!isTyping && messages.length < 5 && (
           <div className="flex flex-wrap gap-2 mb-4">
-             {suggestions.map((s) => (
-               <button
-                 key={s.label}
-                 onClick={() => { setInput(s.prompt); handleSend({ preventDefault: () => {} } as any); }}
-                 className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] text-[#a3e635] hover:bg-[#a3e635]/10 hover:border-[#a3e635]/30 transition-all uppercase tracking-wider font-bold"
-               >
-                 {s.label}
-               </button>
-             ))}
+            {suggestions.map((s) => (
+              <button
+                key={s.label}
+                onClick={() => { setInput(s.prompt); handleSend({ preventDefault: () => { } } as any); }}
+                className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] text-[#a3e635] hover:bg-[#a3e635]/10 hover:border-[#a3e635]/30 transition-all uppercase tracking-wider font-bold"
+              >
+                {s.label}
+              </button>
+            ))}
           </div>
         )}
 
         <form onSubmit={handleSend} className="relative group">
-          <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl overflow-hidden p-1.5 focus-within:border-[#a3e635]/50 group-hover:border-[#a3e635]/30 transition-all shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
-            <input 
-              type="text" 
+          <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl overflow-hidden p-1.5 focus-within:border-[#a3e635]/50 focus-within:bg-white/10 group-hover:border-[#a3e635]/30 transition-all shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+            <input
+              type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={isTyping}
@@ -369,8 +379,8 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               className="flex-1 bg-transparent border-none p-2 text-white outline-none placeholder:text-white/20 disabled:opacity-50 text-[12px]"
               aria-label="AI message input"
             />
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               disabled={!input.trim() || isTyping}
               className="w-10 h-10 flex items-center justify-center bg-[#a3e635] hover:bg-[#bef264] text-black disabled:bg-white/10 disabled:text-white/20 rounded-lg transition-all shadow-lg active:scale-95"
             >
