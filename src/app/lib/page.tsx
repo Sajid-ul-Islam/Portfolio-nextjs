@@ -6,8 +6,8 @@ import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypePrettyCode from "rehype-pretty-code";
 import { LuCalendar, LuChevronLeft, LuFileText, LuTag } from "react-icons/lu";
-import Badge from "../../components/vscode/Badge";
-import Panel from "../../components/vscode/Panel";
+import Badge from "@/app/components/vscode/Badge";
+import Panel from "@/app/components/vscode/Panel";
 
 const BLOGS_DIR = path.join(process.cwd(), "src/content/blogs");
 
