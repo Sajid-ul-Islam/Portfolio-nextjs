@@ -15,7 +15,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   useEffect(() => {
     // Phase 1: Initialization
     const initTimer = setTimeout(() => setStep(1), 1000);
-    
+
     // Phase 2: Scanning Progress
     const scanInterval = setInterval(() => {
       setProgress(prev => {
@@ -44,25 +44,28 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
   return (
     <div className={`fixed inset-0 z-[9999] bg-[#051410] flex flex-col items-center justify-center font-mono transition-opacity duration-1000 ${step === 2 ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-      <div className="relative w-64 h-64 flex flex-col items-center justify-center border border-[#a3e635]/20 rounded-lg bg-black/40 shadow-[0_0_50px_rgba(163,230,53,0.1)] overflow-hidden">
-        {/* Scanning Line */}
+      <div className="relative w-[80vw] max-w-[16rem] aspect-square flex flex-col items-center justify-center border border-[#a3e635]/30 rounded-2xl bg-black/60 shadow-[0_0_50px_rgba(163,230,53,0.2)] overflow-hidden backdrop-blur-sm">
+        {/* Scanning Area */}
         {step === 1 && (
-          <div 
-            className="absolute left-0 right-0 h-0.5 bg-[#a3e635] shadow-[0_0_15px_#a3e635] z-10 animate-scan-line"
-            style={{ top: `${progress}%` }}
-          ></div>
+          <>
+            <div
+              className="absolute left-0 right-0 h-12 bg-gradient-to-b from-transparent to-[#a3e635]/30 border-b border-[#a3e635] shadow-[0_2px_15px_#a3e635] z-10"
+              style={{ top: `calc(${progress}% - 3rem)` }}
+            ></div>
+            <div className="absolute inset-0 bg-[#a3e635]/5 animate-pulse"></div>
+          </>
         )}
 
         {/* Scan Icon */}
         <div className="relative mb-6">
           {step < 2 ? (
-            <Fingerprint size={80} className={cn("text-[#a3e635]", step === 1 ? "animate-pulse" : "opacity-40")} />
+            <Fingerprint size={80} className={cn("text-[#a3e635] transition-all duration-300", step === 1 ? "scale-110 drop-shadow-[0_0_10px_rgba(163,230,53,0.8)]" : "opacity-40")} />
           ) : (
-            <ShieldCheck size={80} className="text-[#a3e635] animate-in zoom-in duration-500" />
+            <ShieldCheck size={80} className="text-[#a3e635] animate-in zoom-in duration-500 drop-shadow-[0_0_15px_rgba(163,230,53,1)]" />
           )}
-          
-          <div className="absolute inset-0 -m-4 border border-[#a3e635]/10 rounded-full animate-spin"></div>
-          <div className="absolute inset-0 -m-8 border border-[#a3e635]/5 rounded-full animate-spin [animation-direction:reverse]"></div>
+
+          <div className="absolute inset-0 -m-4 border-2 border-dashed border-[#a3e635]/30 rounded-full animate-spin [animation-duration:3s]"></div>
+          <div className="absolute inset-0 -m-8 border border-[#a3e635]/10 rounded-full animate-ping [animation-duration:2s]"></div>
         </div>
 
         {/* Status Text */}
@@ -77,10 +80,10 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
         {/* Bottom Progress Bar */}
         <div className="absolute bottom-0 left-0 h-1 bg-[#a3e635]/20 w-full">
-            <div 
-                className="h-full bg-[#a3e635] transition-all duration-300 ease-out"
-                style={{ width: `${progress}%` }}
-            ></div>
+          <div
+            className="h-full bg-[#a3e635] transition-all duration-300 ease-out shadow-[0_0_10px_#a3e635]"
+            style={{ width: `${progress}%` }}
+          ></div>
         </div>
       </div>
 

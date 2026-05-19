@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { 
-  Zap, 
-  Code, 
-  Folder, 
-  Settings, 
-  MessageSquare, 
-  Star, 
+import {
+  Zap,
+  Code,
+  Folder,
+  Settings,
+  MessageSquare,
+  Star,
   ExternalLink,
   ChevronRight,
   Sparkles,
@@ -18,6 +18,7 @@ import {
 
 import SocialLinks from "./SocialLinks";
 import { useRecentPagesContext } from "../../lib/recentPagesContext";
+import GlitchText from "../GlitchText";
 
 type StartLinkProps = {
   href: string;
@@ -34,7 +35,7 @@ function StartLink({ href, icon, label, desc }: StartLinkProps) {
     >
       <div className="flex items-center gap-3 text-[var(--vscode-text-link)] group-hover:text-[var(--vscode-text-linkHover)] transition-colors">
         <div className="p-1 px-1.5 rounded-sm bg-white/5 group-hover:bg-[#a3e635]/10 group-hover:text-[#a3e635]">
-           {icon}
+          {icon}
         </div>
         <div className="flex flex-col">
           <span className="font-semibold text-sm">{label}</span>
@@ -61,7 +62,7 @@ export default function HomeClient() {
               <span className="text-[10px] uppercase tracking-widest text-[#a3e635] font-bold">TACTICAL_PORTFOLIO_OS_V2.0</span>
             </div>
             <h1 className="text-5xl font-black text-white mb-2 tracking-tight">
-              Sajid Islam
+              <GlitchText text="Sajid Islam" delay={600} speed={40} />
             </h1>
             <p className="text-xl text-gray-500 font-mono italic">
               &gt; Business & Data Analyst // <span className="text-[#a3e635]/80">BI Architect</span>
@@ -91,28 +92,28 @@ export default function HomeClient() {
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 relative">
-              <StartLink 
-                href="/Skills" 
-                icon={<Code size={18} />} 
-                label="Toolkit_Specs" 
+              <StartLink
+                href="/Skills"
+                icon={<Code size={18} />}
+                label="Toolkit_Specs"
                 desc="PYTHON_SQL_VINC"
               />
-              <StartLink 
-                href="/projects" 
-                icon={<Folder size={18} />} 
-                label="Project_Archives" 
+              <StartLink
+                href="/projects"
+                icon={<Folder size={18} />}
+                label="Project_Archives"
                 desc="15_ACTIVE_MISSIONS"
               />
-              <StartLink 
-                href="/Experience" 
-                icon={<BookOpen size={18} />} 
-                label="Service_History" 
+              <StartLink
+                href="/Experience"
+                icon={<BookOpen size={18} />}
+                label="Service_History"
                 desc="SECTOR_DATA_ANALYTICS"
               />
-              <StartLink 
-                href="/contact" 
-                icon={<MessageSquare size={18} />} 
-                label="Secure_Uplink" 
+              <StartLink
+                href="/contact"
+                icon={<MessageSquare size={18} />}
+                label="Secure_Uplink"
                 desc="ENCRYPTED_COMMS"
               />
             </div>
@@ -193,22 +194,22 @@ export default function HomeClient() {
               <li className="flex items-start gap-3">
                 <span className="text-[#a3e635] text-[10px] font-bold mt-0.5">01</span>
                 <div>
-                   <p className="text-[11px] font-bold text-white/90 leading-tight">Published Data Research</p>
-                   <p className="text-[9px] text-gray-500 uppercase">ICT4SD Proceedings 2020</p>
+                  <p className="text-[11px] font-bold text-white/90 leading-tight">Published Data Research</p>
+                  <p className="text-[9px] text-gray-500 uppercase">ICT4SD Proceedings 2020</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#a3e635] text-[10px] font-bold mt-0.5">02</span>
                 <div>
-                   <p className="text-[11px] font-bold text-white/90 leading-tight">Alibaba Group Ops</p>
-                   <p className="text-[9px] text-gray-500 uppercase">Deployed Weekly BI Dashboards</p>
+                  <p className="text-[11px] font-bold text-white/90 leading-tight">Alibaba Group Ops</p>
+                  <p className="text-[9px] text-gray-500 uppercase">Deployed Weekly BI Dashboards</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#a3e635] text-[10px] font-bold mt-0.5">03</span>
                 <div>
-                   <p className="text-[11px] font-bold text-white/90 leading-tight">Mission Critical Tools</p>
-                   <p className="text-[9px] text-gray-500 uppercase">15+ Advanced BI Utilities</p>
+                  <p className="text-[11px] font-bold text-white/90 leading-tight">Mission Critical Tools</p>
+                  <p className="text-[9px] text-gray-500 uppercase">15+ Advanced BI Utilities</p>
                 </div>
               </li>
             </ul>

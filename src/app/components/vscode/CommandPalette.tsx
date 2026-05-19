@@ -9,6 +9,7 @@ import { cn } from "../../lib/cn";
 import { filterSearchItems, getSearchItems } from "../../lib/search";
 import { useRecentPagesContext } from "../../lib/recentPagesContext";
 import { useTabs } from "../../lib/tabsContext";
+import { useTheme } from "../../lib/themeContext";
 
 type PaletteItem = {
   id: string;
@@ -24,6 +25,7 @@ export default function CommandPalette() {
   const { closeAllTabs } = useTabs();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const { theme, setTheme } = useTheme();
 
   const baseItems = useMemo(() => getSearchItems(), []);
 
@@ -84,8 +86,19 @@ export default function CommandPalette() {
       );
     });
 
-    return [...actionItems, ...recentItems, ...navItems];
-  }, [baseItems, clearPages, closeAllTabs, query, recentPages, router]);
+    const themeItems: PaletteItem[] = [
+      { id: "theme-tactical", title: "Color Theme: Tactical Dark (Default)", subtitle: "Preferences", typeLabel: "THEME", onSelect: () => setTheme("tactical-dark") },
+      { id: "theme-vscode-dark", title: "Color Theme: VS Code Dark+", subtitle: "Preferences", typeLabel: "THEME", onSelect: () => setTheme("vscode-dark") },
+      { id: "theme-vscode-light", title: "Color Theme: VS Code Light+", subtitle: "Preferences", typeLabel: "THEME", onSelect: () => setTheme("vscode-light") },
+      { id: "theme-dracula", title: "Color Theme: Dracula", subtitle: "Preferences", typeLabel: "THEME", onSelect: () => setTheme("dracula") },
+      { id: "theme-monokai", title: "Color Theme: Monokai", subtitle: "Preferences", typeLabel: "THEME", onSelect: () => setTheme("monokai") },
+    ].filter((item) => {
+      if (!normalized) return true;
+      return item.title.toLowerCase().includes(normalized);
+    });
+
+    return [...themeItems, ...actionItems, ...recentItems, ...navItems];
+  }, [baseItems, clearPages, closeAllTabs, query, recentPages, router, setTheme]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -98,7 +111,18 @@ export default function CommandPalette() {
       }
     };
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+
+    const handleCustomEvent = (event: Event) => {
+      const customEvent = event as CustomEvent<string>;
+      setOpen(true);
+      if (customEvent.detail) setQuery(customEvent.detail);
+    };
+    window.addEventListener("open-command-palette", handleCustomEvent);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("open-command-palette", handleCustomEvent);
+    };
   }, []);
 
   useEffect(() => {

@@ -72,15 +72,15 @@ function SkillRadar() {
     <div className="flex flex-col items-center gap-6 p-8 bg-[#0a1a15] rounded-2xl border border-[#a3e635]/10 shadow-[0_0_50px_rgba(0,0,0,0.3)] relative overflow-hidden group">
       <div className="absolute inset-0 bg-[#a3e635]/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
       <div className="text-[10px] font-black text-[#a3e635]/40 uppercase tracking-[0.5em] mb-4 border-b border-[#a3e635]/10 w-full text-center pb-2">TACTICAL_SKILL_DENSITY_FIX</div>
-      <svg width={size} height={size} className="filter drop-shadow-[0_0_8px_rgba(163,230,53,0.3)]">
+      <svg viewBox={`0 0 ${size} ${size}`} className="w-full max-w-[300px] h-auto filter drop-shadow-[0_0_8px_rgba(163,230,53,0.3)]">
         {/* Grid */}
         {gridLevels.map((lvl, i) => {
-           const r = lvl * radius;
-           const pts = categories.map((_, j) => {
-             const a = j * angleStep - Math.PI / 2;
-             return `${center + Math.cos(a) * r},${center + Math.sin(a) * r}`;
-           }).join(" ");
-           return <polygon key={i} points={pts} fill="none" stroke="#a3e635" strokeWidth="0.5" strokeOpacity="0.1" />;
+          const r = lvl * radius;
+          const pts = categories.map((_, j) => {
+            const a = j * angleStep - Math.PI / 2;
+            return `${center + Math.cos(a) * r},${center + Math.sin(a) * r}`;
+          }).join(" ");
+          return <polygon key={i} points={pts} fill="none" stroke="#a3e635" strokeWidth="0.5" strokeOpacity="0.1" />;
         })}
         {/* Axis */}
         {categories.map((cat, i) => {
@@ -100,14 +100,14 @@ function SkillRadar() {
         <polygon points={points} fill="#a3e635" fillOpacity="0.15" stroke="#a3e635" strokeWidth="2" className="animate-in fade-in zoom-in duration-1000" />
         {/* Data Points */}
         {values.map((v, i) => {
-           const a = i * angleStep - Math.PI / 2;
-           const r = (v / 100) * radius;
-           return <circle key={i} cx={center + Math.cos(a) * r} cy={center + Math.sin(a) * r} r="3" fill="#a3e635" className="animate-pulse" />;
+          const a = i * angleStep - Math.PI / 2;
+          const r = (v / 100) * radius;
+          return <circle key={i} cx={center + Math.cos(a) * r} cy={center + Math.sin(a) * r} r="3" fill="#a3e635" className="animate-pulse" />;
         })}
       </svg>
       <div className="absolute bottom-4 right-4 flex items-center gap-2">
-         <div className="w-2 h-2 bg-[#a3e635] rounded-full animate-ping"></div>
-         <span className="text-[8px] text-[#a3e635] font-black uppercase">LIVE_DENSITY_SYNC</span>
+        <div className="w-2 h-2 bg-[#a3e635] rounded-full animate-ping"></div>
+        <span className="text-[8px] text-[#a3e635] font-black uppercase">LIVE_DENSITY_SYNC</span>
       </div>
     </div>
   );
@@ -127,50 +127,54 @@ function SkillSphere() {
     let height = canvas.height = canvas.offsetHeight;
 
     const points: { x: number; y: number; z: number; text: string }[] = skills.map((text, i) => {
-        const theta = Math.acos(-1 + (2 * i) / skills.length);
-        const phi = Math.sqrt(skills.length * Math.PI) * theta;
-        return {
-            x: Math.cos(phi) * Math.sin(theta),
-            y: Math.sin(phi) * Math.sin(theta),
-            z: Math.cos(theta),
-            text
-        };
+      const theta = Math.acos(-1 + (2 * i) / skills.length);
+      const phi = Math.sqrt(skills.length * Math.PI) * theta;
+      return {
+        x: Math.cos(phi) * Math.sin(theta),
+        y: Math.sin(phi) * Math.sin(theta),
+        z: Math.cos(theta),
+        text
+      };
     });
 
     let angleX = 0.005;
     let angleY = 0.005;
 
     const rotate = () => {
-        ctx.clearRect(0, 0, width, height);
-        ctx.textAlign = "center";
-        
-        points.forEach(p => {
-            // Rotate Y
-            const x1 = p.x * Math.cos(angleY) - p.z * Math.sin(angleY);
-            const z1 = p.z * Math.cos(angleY) + p.x * Math.sin(angleY);
-            // Rotate X
-            const y2 = p.y * Math.cos(angleX) - z1 * Math.sin(angleX);
-            const z2 = z1 * Math.cos(angleX) + p.y * Math.sin(angleX);
-            
-            p.x = x1; p.y = y2; p.z = z2;
+      ctx.clearRect(0, 0, width, height);
+      ctx.textAlign = "center";
 
-            const scale = 300 / (300 - z2 * 150);
-            const x2d = x1 * 150 * scale + width / 2;
-            const y2d = y2 * 150 * scale + height / 2;
+      points.forEach(p => {
+        // Rotate Y
+        const x1 = p.x * Math.cos(angleY) - p.z * Math.sin(angleY);
+        const z1 = p.z * Math.cos(angleY) + p.x * Math.sin(angleY);
+        // Rotate X
+        const y2 = p.y * Math.cos(angleX) - z1 * Math.sin(angleX);
+        const z2 = z1 * Math.cos(angleX) + p.y * Math.sin(angleX);
 
-            const alpha = (z2 + 1) / 2;
-            ctx.fillStyle = `rgba(163, 230, 53, ${alpha + 0.1})`;
-            ctx.font = `${10 * scale}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
-            ctx.fillText(p.text, x2d, y2d);
-        });
+        p.x = x1; p.y = y2; p.z = z2;
 
-        requestAnimationFrame(rotate);
+        const scale = 300 / (300 - z2 * 150);
+        const x2d = x1 * 150 * scale + width / 2;
+        const y2d = y2 * 150 * scale + height / 2;
+
+        const alpha = (z2 + 1) / 2;
+        ctx.fillStyle = `rgba(163, 230, 53, ${alpha + 0.1})`;
+        ctx.font = `${10 * scale}px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace`;
+        ctx.fillText(p.text, x2d, y2d);
+      });
+
+      requestAnimationFrame(rotate);
     };
 
     rotate();
   }, [skills]);
 
-  return <canvas ref={canvasRef} className="w-full h-full bg-transparent" />;
+  return (
+    <div className="relative w-full aspect-square max-w-[300px] sm:max-w-[400px] mx-auto overflow-hidden">
+      <canvas ref={canvasRef} className="w-full h-full bg-transparent" />
+    </div>
+  );
 }
 
 export default function SkillsClient() {

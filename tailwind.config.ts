@@ -32,6 +32,18 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "hero-gradient": "linear-gradient(to right bottom, #0f172a, #1e293b)",
       },
+      keyframes: {
+        glitch: {
+          "0%, 100%": { transform: "translate(0)" },
+          "20%": { transform: "translate(-2px, 2px)" },
+          "40%": { transform: "translate(-2px, -2px)" },
+          "60%": { transform: "translate(2px, 2px)" },
+          "80%": { transform: "translate(2px, -2px)" },
+        },
+      },
+      animation: {
+        glitch: "glitch 0.2s cubic-bezier(.25, .46, .45, .94) both infinite",
+      },
     },
   },
   plugins: [

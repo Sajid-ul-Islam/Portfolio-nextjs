@@ -48,6 +48,9 @@ export default function TitleBar({ onMenuClick, isMobile }: TitleBarProps) {
     console.log(`Action: ${action}`);
     setActiveMenu(null);
     if (action === "Exit") window.location.reload();
+    if (action === "Color Theme") {
+      window.dispatchEvent(new CustomEvent('open-command-palette', { detail: 'Color Theme' }));
+    }
   };
 
   return (
@@ -86,7 +89,7 @@ export default function TitleBar({ onMenuClick, isMobile }: TitleBarProps) {
                   >
                     {item.label}
                   </button>
-                  
+
                   {activeMenu === item.label && (
                     <div className="absolute top-full left-0 w-64 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] shadow-2xl py-1 z-[200] animate-in fade-in zoom-in-95 duration-100">
                       {item.items.map((subItem, idx) => {
@@ -112,7 +115,7 @@ export default function TitleBar({ onMenuClick, isMobile }: TitleBarProps) {
           </>
         )}
       </div>
-      
+
       <div className="absolute left-1/2 -translate-x-1/2 text-[12px] text-[var(--vscode-titleBar-activeForeground)] font-medium pointer-events-none opacity-80 hidden sm:block">
         {siteMeta.name} — Tactical Dossier
       </div>

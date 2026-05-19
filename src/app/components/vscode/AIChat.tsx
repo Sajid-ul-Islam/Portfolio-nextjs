@@ -129,7 +129,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   ];
 
   return (
-    <div className="w-[350px] md:w-[400px] h-[600px] bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col font-mono text-[11px] rounded-2xl overflow-hidden group/chat relative">
+    <div className="w-[calc(100vw-3rem)] sm:w-[350px] md:w-[400px] h-[calc(100dvh-8rem)] sm:h-[600px] max-h-[600px] bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col font-mono text-[11px] rounded-2xl overflow-hidden group/chat relative">
       {/* Decorative HUD Elements */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#a3e635] to-transparent opacity-50"></div>
       <div className="absolute top-0 right-0 p-1 opacity-20 group-hover/chat:opacity-50 transition-opacity">
@@ -310,10 +310,10 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2 duration-300`}>
             <div className={`max-w-[85%] p-3 rounded-xl border relative transition-all duration-300 shadow-2xl hover:shadow-[#a3e635]/10 ${m.role === 'user'
-                ? 'bg-gradient-to-br from-[#a3e635] to-[#65a30d] text-black border-[#a3e635]/30 rounded-tr-none'
-                : m.role === 'system'
-                  ? 'border-none italic text-white/20 text-[9px] uppercase tracking-widest text-center w-full bg-white/5 py-1 rounded'
-                  : 'bg-white/10 backdrop-blur-md text-white border-white/10 rounded-tl-none overflow-hidden'
+              ? 'bg-gradient-to-br from-[#a3e635] to-[#65a30d] text-black border-[#a3e635]/30 rounded-tr-none'
+              : m.role === 'system'
+                ? 'border-none italic text-white/20 text-[9px] uppercase tracking-widest text-center w-full bg-white/5 py-1 rounded'
+                : 'bg-white/10 backdrop-blur-md text-white border-white/10 rounded-tl-none overflow-hidden'
               }`}>
               {m.role === 'bot' && (
                 <div className="absolute top-0 right-0 p-1 opacity-5">

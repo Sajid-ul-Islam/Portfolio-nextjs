@@ -114,6 +114,40 @@ export const siteMeta = {
 
 export const projects: Project[] = [
   {
+    id: "deen-ops",
+    title: "Deen Ops Dashboard",
+    description: "An operational dashboard built to track and manage day-to-day business metrics and CRM growth.",
+    image: "/img/projects/automation.png",
+    liveUrl: "https://deen-ops.streamlit.app/",
+    featured: true,
+    technologies: ["Streamlit", "Python", "Operations", "Data Analysis"],
+    caseStudy: {
+      role: "Business Analyst",
+      timeline: "2025",
+      problem: "Needed a centralized operational tool for tracking business strategy and CRM growth.",
+      solution: "Built a Streamlit application for granular performance tracking.",
+      impact: ["Streamlined daily operations.", "Improved CRM tracking visibility."],
+      metrics: [{ label: "Platform", value: "Streamlit" }],
+    },
+  },
+  {
+    id: "deen-business-intel",
+    title: "Deen Business Intel",
+    description: "A comprehensive Business Intelligence dashboard for tracking weekly performance and stakeholder reporting.",
+    image: "/img/projects/ecommerce.png",
+    liveUrl: "https://deen-business-intel.streamlit.app/",
+    featured: true,
+    technologies: ["Streamlit", "Python", "Business Intelligence", "Analytics"],
+    caseStudy: {
+      role: "Business Analyst",
+      timeline: "2025",
+      problem: "Stakeholders required weekly performance dashboards with actionable BI insights.",
+      solution: "Architected a comprehensive BI dashboard using Streamlit and Python.",
+      impact: ["Automated weekly reporting.", "Enhanced stakeholder decision-making."],
+      metrics: [{ label: "Focus", value: "Business Strategy & BI" }],
+    },
+  },
+  {
     id: "1",
     title: "ECommerce Dashboard",
     description: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value.",
@@ -574,6 +608,13 @@ export const socialLinks: SocialLink[] = [
     icon: "file-text",
     color: "#da552f",
   },
+  {
+    id: "streamlit",
+    name: "Streamlit",
+    url: "https://share.streamlit.io/user/saajiidi",
+    icon: "layout-dashboard",
+    color: "#FF4B4B",
+  },
 ];
 
 export const menuItems: MenuItem[] = [
@@ -582,6 +623,7 @@ export const menuItems: MenuItem[] = [
   { label: "Selection", items: ["Select All", "Expand Selection", "Shrink Selection"] },
   { label: "View", items: ["Explorer", "Search", "Source Control", "---", "Terminal", "AI Chat", "---", "Full Screen"] },
   { label: "Go", items: ["Go to File", "Go to Symbol", "---", "Next Dossier", "Previous Dossier"] },
+  { label: "Preferences", items: ["Color Theme", "Settings", "Keyboard Shortcuts"] },
   { label: "Help", items: ["Welcome", "Documentation", "Check for Updates", "---", "About"] },
 ];
 
