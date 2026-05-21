@@ -1,66 +1,71 @@
-import "dotenv/config";
-import Anthropic from "@anthropic-ai/sdk";
-import { personalInfo, experience, education, skills, projects, metrics, awards, family } from "@/app/data";
+import { streamText, embed } from 'ai';
+import { google } from '@ai-sdk/google';
+import { Pinecone } from '@pinecone-database/pinecone';
 
-// Initialize with encrypted environment variable
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
+// 1. Initialize Pinecone Client
+// Ensure you have PINECONE_API_KEY and PINECONE_INDEX_NAME in your .env.local
+const pinecone = new Pinecone({
+  apiKey: process.env.PINECONE_API_KEY || '',
 });
+
+// 2. RETRIEVAL FUNCTION (The real 'R' in RAG)
+async function retrieveContext(query: string): Promise<string> {
+  try {
+    // a) Create an embedding for the user's query
+    const { embedding } = await embed({
+      model: google.textEmbeddingModel('text-embedding-004'),
+      value: query,
+    });
+
+    // b) Query the Pinecone Vector Database
+    const index = pinecone.index(process.env.PINECONE_INDEX_NAME || 'portfolio-index');
+    const queryResponse = await index.query({
+      vector: embedding,
+      topK: 5,
+      includeMetadata: true,
+    });
+
+    // c) Extract the text from the metadata of the matched vectors
+    const matches = queryResponse.matches
+      .map((match) => (match.metadata as { text?: string })?.text)
+      .filter((text): text is string => !!text);
+
+    return matches.length > 0 ? matches.join("\n- ") : "No specific context found.";
+  } catch (error) {
+    console.error("Pinecone Retrieval Error:", error);
+    return "Context retrieval failed.";
+  }
+}
 
 export async function POST(req: Request) {
   try {
-    const { messages, model = "claude-3-5-sonnet", siteContext = "", sourceMode = "portfolio" } = await req.json();
+    // Extract the messages and the selected model from the request body
+    const { messages, model = 'gemini-1.5-flash' } = await req.json();
 
-    const allowedModels = ["gemini-1.5-flash", "gemini-1.5-pro", "claude-3-5-sonnet"];
-    if (!allowedModels.includes(model)) {
-      return new Response(JSON.stringify({ error: `Unsupported model: ${model}` }), { status: 400 });
-    }
+    // Get the latest message from the user to use as our search query
+    const lastUserMessage = messages[messages.length - 1];
 
-    if (!process.env.ANTHROPIC_API_KEY) {
-      console.error("CRITICAL_ERROR: ANTHROPIC_API_KEY is not configured in environment.");
-      return new Response(JSON.stringify({ error: "ANTHROPIC_API_KEY is not configured" }), { status: 500 });
-    }
+    // 3. RETRIEVE CONTEXT
+    const context = await retrieveContext(lastUserMessage.content);
 
-    const systemPrompt = `
-      You are the [AI_INTEL_ENGINE] for Sajid Islam's Tactical Portfolio.
-      Your goal is to answer queries as a highly advanced neural system with full access to Sajid's mission files.
-      
-      CONTEXT_FILES:
-      - ACTIVE_OPERATIVE: ${personalInfo.name} (${personalInfo.title})
-      - BIO_DOSSIER: ${personalInfo.bio}
-      - TOOLKIT_SPECS: ${JSON.stringify(skills)}
-      - MISSION_HISTORY: ${JSON.stringify(experience)}
-      - ACADEMIC_RECORDS: ${JSON.stringify(education)}
-      - PROJECT_ARCHIVE: ${JSON.stringify(projects)}
-      - CORE_METRICS: ${JSON.stringify(metrics)}
-      - AWARDS_RECOGNITION: ${JSON.stringify(awards)}
-      - FAMILY_UNIT: ${JSON.stringify(family)}
-      - WEBSITE_FEED: ${siteContext || "N/A"}
-      - SOURCE_MODE: ${sourceMode}
+    // 4. AUGMENT & GENERATE (The 'A' and 'G' in RAG)
+    const result = await streamText({
+      model: google(model),
+      system: `You are a helpful AI assistant integrated into Sajid Islam's VS Code-themed developer portfolio.
+      Use the following retrieved context to answer the user's query accurately. 
+      If the answer is not contained in the context, you may use your general knowledge, but always prioritize the context provided below.
+      Keep your answers concise, professional, and matching a developer/hacker persona.
 
-      OPERATIONAL_PROTOCOLS:
-      0. SOURCE_TAG: In your final answer, append a remark [SOURCE: PORTFOLIO|WEBSITE|COMBINED] indicating the context used.
-      1. STYLE: Match the "Tactical HUD" aesthetic. Use terms like [INFO], [SUCCESS], [INTEL], [MISSION].
-      2. PERSPECTIVE: Refers to Sajid as "the Operative", "my Creator", or "Sajid". Never answer as "I am an AI".
-      3. ACCURACY: Use ONLY the provided context. If data is missing, recommend contacting the Operative directly at ${personalInfo.email}.
-      4. CONCISION: Keep intel streams short and high-impact.
-    `;
-
-    const response = await anthropic.messages.create({
-      model,
-      max_tokens: 500,
-      system: systemPrompt,
-      messages: messages.map((m: any) => ({
-        role: m.role,
-        content: m.content,
-      })),
+      === RETRIEVED CONTEXT ===
+      - ${context}
+      =========================`,
+      messages,
     });
 
-    const text = response.content[0].type === "text" ? response.content[0].text : "";
-
-    return new Response(JSON.stringify({ content: text }));
-  } catch (error: any) {
-    console.error("AI Chat Error:", error);
-    return new Response(JSON.stringify({ error: error.message }), { status: 500 });
+    // Return the streaming response to the frontend client
+    return result.toDataStreamResponse();
+  } catch (error) {
+    console.error("Chat API Error:", error);
+    return new Response("Internal Server Error", { status: 500 });
   }
 }

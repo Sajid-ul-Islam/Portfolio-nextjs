@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { FaGamepad } from "react-icons/fa";
 import Image from "next/image";
 import { LuMonitor, LuTrophy } from "react-icons/lu";
@@ -87,26 +87,37 @@ function SnakeGame() {
   const [score, setScore] = useState(0);
   const [isRunning, setIsRunning] = useState(true);
 
+  const directionRef = useRef(direction);
+  const foodRef = useRef(food);
+
+  useEffect(() => { directionRef.current = direction; }, [direction]);
+  useEffect(() => { foodRef.current = food; }, [food]);
+
   useEffect(() => {
-    const validFood = () => {
+    const validFood = (currentSnake: Coord[]) => {
       let next: Coord;
       do {
         next = [Math.floor(Math.random() * width), Math.floor(Math.random() * height)];
-      } while (snake.some(([x, y]) => x === next[0] && y === next[1]));
+      } while (currentSnake.some(([x, y]) => x === next[0] && y === next[1]));
       return next;
     };
+
     const makeMove = () => {
       setSnake(prev => {
         const head = prev[prev.length - 1];
-        const next: Coord = [(head[0] + direction[0] + width) % width, (head[1] + direction[1] + height) % height];
+        const curDir = directionRef.current;
+        const curFood = foodRef.current;
+        const next: Coord = [(head[0] + curDir[0] + width) % width, (head[1] + curDir[1] + height) % height];
+
         const collision = prev.some(([x, y]) => x === next[0] && y === next[1]);
         if (collision) {
           setIsRunning(false);
           return prev;
         }
-        const ate = next[0] === food[0] && next[1] === food[1];
+
+        const ate = next[0] === curFood[0] && next[1] === curFood[1];
         if (ate) {
-          setFood(validFood());
+          setFood(validFood([...prev, next]));
           setScore(s => s + 1);
           return [...prev, next];
         }
@@ -117,18 +128,24 @@ function SnakeGame() {
     if (!isRunning) return;
     const timer = window.setInterval(makeMove, 150);
     return () => window.clearInterval(timer);
-  }, [direction, food, isRunning, snake]);
+  }, [isRunning]);
 
   useEffect(() => {
     const handleKey = (event: KeyboardEvent) => {
-      if (event.key === "ArrowUp") setDirection([0, -1]);
-      if (event.key === "ArrowDown") setDirection([0, 1]);
-      if (event.key === "ArrowLeft") setDirection([-1, 0]);
-      if (event.key === "ArrowRight") setDirection([1, 0]);
+      if (isRunning && ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) {
+        event.preventDefault();
+      }
+      setDirection(prev => {
+        if (event.key === "ArrowUp" && prev[1] !== 1) return [0, -1];
+        if (event.key === "ArrowDown" && prev[1] !== -1) return [0, 1];
+        if (event.key === "ArrowLeft" && prev[0] !== 1) return [-1, 0];
+        if (event.key === "ArrowRight" && prev[0] !== -1) return [1, 0];
+        return prev;
+      });
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  }, []);
+  }, [isRunning]);
 
   const reset = () => {
     setSnake([[7, 7]]);
@@ -233,13 +250,21 @@ export default function GamingPage() {
                 >
                   <div className="flex items-start gap-3">
                     <div className="flex-shrink-0 p-1 bg-[#0b1118] border border-white/10 rounded">
-                      <Image
-                        src={game.image || "https://via.placeholder.com/80x60?text=Game"}
-                        alt={`${game.name} image`}
-                        className="h-14 w-20 object-cover rounded"
-                        width={80}
-                        height={56}
-                      />
+                      {game.image ? (
+                        <Image
+                          src={game.image}
+                          alt={`${game.name} image`}
+                          className="h-14 w-20 object-cover rounded"
+                          width={80}
+                          height={56}
+                        />
+                      ) : (
+                        <img
+                          src="https://via.placeholder.com/80x60?text=Game"
+                          alt="Placeholder"
+                          className="h-14 w-20 object-cover rounded"
+                        />
+                      )}
                     </div>
                     <div>
                       <h3 className="text-vscode-sm font-medium text-[var(--vscode-text-primary)]">
