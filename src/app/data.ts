@@ -189,13 +189,13 @@ export const interests = [
 
 export const projects = [
     {
-        title: "Deen-Business",
+        title: "Business-Intel Dashborad",
         desc: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value, along with revenue trends and customer segmentation.",
         link: "https://deen-business-intel.streamlit.app/",
         tags: ["Dashboard", "Python", "Analytics", "E-commerce"]
     },
     {
-        title: "Deen-Ops",
+        title: "Operation Dashborad",
         desc: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value, along with revenue trends and customer segmentation.",
         link: "https://deen-ops.streamlit.app/",
         tags: ["Operation", "Python", "Analytics", "E-commerce"]
