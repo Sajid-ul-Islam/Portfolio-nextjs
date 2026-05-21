@@ -15,6 +15,19 @@ The portfolio features a dynamic model selection UI, allowing users to choose th
 - The backend implements strict API validation to ensure only the explicitly allowed models can be queried.
 - Clear error responses are returned if an invalid or unsupported model is requested.
 
+## 📚 Retrieval-Augmented Generation (RAG)
+
+The chat agent implements a sophisticated RAG architecture using the Vercel AI SDK and Pinecone Vector Database to ground the LLM's responses in actual portfolio data.
+
+### Architecture Flow
+1. **Embedding Generation**: User queries are transformed into vector embeddings using Google's `text-embedding-004` model via the Vercel AI SDK.
+2. **Similarity Search**: The embeddings are used to query a **Pinecone Vector Database** (`portfolio-index`) for the top-K most mathematically similar documents (e.g., resume details, project descriptions, blog posts).
+3. **Context Augmentation**: The retrieved metadata text is injected directly into the LLM's system prompt context window.
+4. **Streaming Generation**: The augmented prompt is sent to the selected model (e.g., `gemini-1.5-flash`), and the response is streamed back to the client interface.
+
+### Fallback & Error Handling
+- If context retrieval fails, the system gracefully degrades by informing the agent that specific context could not be found, allowing it to rely on its base knowledge where appropriate.
+
 ## 🌐 Data Sources & Website Scraping
 
 To ensure the AI agent provides accurate and up-to-date information, it supports multiple data sources which can be toggled via the chat interface.

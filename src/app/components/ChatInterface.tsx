@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import { useChat } from "ai/react";
 import Panel from "./vscode/Panel";
+import { FaCopy, FaCheck } from "react-icons/fa";
 
 export default function ChatInterface() {
     const [isRefreshing, setIsRefreshing] = useState(false);
     const [refreshMessage, setRefreshMessage] = useState("");
+    const [copiedId, setCopiedId] = useState<string | null>(null);
 
     // useChat automatically POSTs to the `/api/chat` endpoint by default
     const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
@@ -31,6 +33,12 @@ export default function ChatInterface() {
         }
     };
 
+    const handleCopy = (id: string, text: string) => {
+        navigator.clipboard.writeText(text);
+        setCopiedId(id);
+        setTimeout(() => setCopiedId(null), 2000);
+    };
+
     return (
         <Panel className="flex flex-col h-[500px] max-w-2xl mx-auto p-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
             <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-3">
@@ -53,10 +61,21 @@ export default function ChatInterface() {
             <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
                 {messages.map(m => (
                     <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-3 rounded-lg max-w-[85%] text-sm ${m.role === 'user' ? 'bg-[var(--vscode-accent)] text-black' : 'bg-[#0d1117] border border-white/10 text-[var(--vscode-text-primary)]'}`}>
-                            <span className={`font-bold text-xs opacity-50 block mb-1.5 font-mono ${m.role === 'user' ? 'text-black' : 'text-[var(--vscode-text-secondary)]'}`}>
-                                {m.role === 'user' ? 'YOU' : 'AI_AGENT'}
-                            </span>
+                        <div className={`px-4 py-3 rounded-lg max-w-[85%] text-sm ${m.role === 'user' ? 'bg-[var(--vscode-accent)] text-black' : 'bg-[#0d1117] border border-white/10 text-[var(--vscode-text-primary)] group relative'}`}>
+                            <div className="flex justify-between items-start mb-1.5 gap-4">
+                                <span className={`font-bold text-xs opacity-50 font-mono ${m.role === 'user' ? 'text-black' : 'text-[var(--vscode-text-secondary)]'}`}>
+                                    {m.role === 'user' ? 'YOU' : 'AI_AGENT'}
+                                </span>
+                                {m.role === 'assistant' && (
+                                    <button
+                                        onClick={() => handleCopy(m.id, m.content)}
+                                        className="text-[var(--vscode-text-secondary)] hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                                        title="Copy to clipboard"
+                                    >
+                                        {copiedId === m.id ? <FaCheck className="text-green-400" size={12} /> : <FaCopy size={12} />}
+                                    </button>
+                                )}
+                            </div>
                             <p className="whitespace-pre-wrap leading-relaxed font-sans">{m.content}</p>
                         </div>
                     </div>

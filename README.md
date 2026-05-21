@@ -27,6 +27,7 @@
 
 ### 🤖 **AI Chat Enhancements**
 - Model selection UI (Gemini 1.5 Flash, Gemini 1.5 Pro, Claude 3.5 Sonnet)
+- **Retrieval-Augmented Generation (RAG)** using Pinecone Vector Database
 - Source mode toggle (Portfolio local data vs Website content)
 - Website scraping endpoint `/api/site` (auto extracts text from `https://sajid-ul-islam.github.io/`)
 - In-chat “Refresh Site Snapshot” button for up-to-date source content
@@ -72,6 +73,7 @@
    cp .env.example .env.local
    ```
    Required for email: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`  
+   Required for AI Chat (RAG): `GOOGLE_GENERATIVE_AI_API_KEY`, `PINECONE_API_KEY`, `PINECONE_INDEX_NAME`  
    Optional: Turnstile `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`  
    Optional: GitHub activity `GITHUB_USERNAME`, `GITHUB_TOKEN`
 
@@ -119,7 +121,7 @@ Edit CSS variables in `src/app/globals.css`:
 ```
 
 ### **Content Updates**
-- **Personal Info**: Update `src/app/components/About.tsx`
+- **Personal Info**: Update `src/app/components/AboutEnhanced.tsx`
 - **Experience**: Modify `src/app/components/Experience.tsx`
 - **Projects**: Edit `src/app/components/ProjectsEnhanced.tsx`
 - **Skills**: Update `src/app/components/SkillsEnhanced.tsx`
