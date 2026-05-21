@@ -53,8 +53,8 @@
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/saajiidi/example-app-nextjs.git
-   cd example-app-nextjs
+   git clone https://github.com/sajid-ul-islam/portfolio-nextjs.git
+   cd portfolio-nextjs
    ```
 
 2. **Install dependencies**
@@ -186,7 +186,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Sajid Islam**
 - 📧 Email: sajid.islam.chowdhury@gmail.com
 - 💼 LinkedIn: [sajidislamchowdhury](https://www.linkedin.com/in/sajidislamchowdhury/)
-- 🐱 GitHub: [saajiidi](https://github.com/saajiidi)
+- 🐱 GitHub: [sajid-ul-islam](https://github.com/sajid-ul-islam)
 - 🌐 Portfolio: [Live Demo](https://sajid-islam-portfolio.vercel.app/)
 
 ---

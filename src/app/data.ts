@@ -189,6 +189,18 @@ export const interests = [
 
 export const projects = [
     {
+        title: "Deen-Business",
+        desc: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value, along with revenue trends and customer segmentation.",
+        link: "https://deen-business-intel.streamlit.app/",
+        tags: ["Dashboard", "Python", "Analytics", "E-commerce"]
+    },
+    {
+        title: "Deen-Ops",
+        desc: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value, along with revenue trends and customer segmentation.",
+        link: "https://deen-ops.streamlit.app/",
+        tags: ["Operation", "Python", "Analytics", "E-commerce"]
+    },
+    {
         title: "ECommerce Dashboard",
         desc: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value, along with revenue trends and customer segmentation.",
         link: "https://e-com-dashborad.vercel.app/",
@@ -199,12 +211,6 @@ export const projects = [
         desc: "Modern e-commerce interface built with React.js featuring responsive design, product catalog, shopping cart functionality.",
         link: "https://gear-master.vercel.app/",
         tags: ["React", "E-commerce", "Frontend"]
-    },
-    {
-        title: "Sheet2WhatsApp",
-        desc: "Automates WhatsApp link generation from Excel/CSV files.",
-        link: "https://sheet2whatsapp.streamlit.app/",
-        tags: ["Streamlit", "Python", "Pandas", "Vercel"]
     },
     {
         title: "Sentinel Bangladesh",
@@ -221,25 +227,25 @@ export const projects = [
     {
         title: "Day Progress Plus",
         desc: "A productivity focused application featuring day progress tracking, focus task management, and customizable settings.",
-        link: "https://saajiidi.github.io/TimeTracker/",
+        link: "https://sajid-ul-islam.github.io/TimeTracker/",
         tags: ["Productivity", "React", "Utility"]
     },
     {
         title: "Growth Analysis Dashboard",
         desc: "A comprehensive web development project showcasing modern web technologies and best practices.",
-        link: "https://saajiidi.github.io/Growth-Analysis-Dashboard/",
+        link: "https://sajid-ul-islam.github.io/Growth-Analysis-Dashboard/",
         tags: ["Web Dev", "React", "Analytics"]
     },
     {
         title: "Border Security Analysis",
         desc: "Data visualization project analyzing border incident trends in Bangladesh using statistical methods.",
-        link: "https://saajiidi.github.io/Border-Killing-Trend-in-Bangladesh/",
+        link: "https://sajid-ul-islam.github.io/Border-Killing-Trend-in-Bangladesh/",
         tags: ["Data Viz", "Statistics", "Social Impact"]
     },
     {
         title: "Air Passenger Forecasting",
         desc: "Time series analysis comparing multiple forecasting models (ARIMA, Exponential Smoothing) for airline passenger prediction.",
-        link: "https://saajiidi.github.io/Air_Passengers_Forecasting_Models/",
+        link: "https://sajid-ul-islam.github.io/Air_Passengers_Forecasting_Models/",
         tags: ["Machine Learning", "Time Series", "Python"]
     },
     {

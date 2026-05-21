@@ -1,4 +1,4 @@
-import About from "./components/About";
+import AboutEnhanced from "./components/AboutEnhanced";
 import Experience from "./components/Experience";
 import Education from "./components/Education";
 import Skills from "./components/Skills";
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="space-y-32 py-20 pb-64">
       <section id="about">
-        <About />
+        <AboutEnhanced />
       </section>
       <section id="experience">
         <Experience />
