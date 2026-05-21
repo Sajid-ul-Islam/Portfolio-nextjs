@@ -275,7 +275,7 @@ export const projects: Project[] = [
     title: "Customer Churn Analysis",
     description: "Predictive modeling using Python to identify at-risk customers. Implementation of Random Forest and XGBoost with 85%+ accuracy.",
     image: "/img/projects/churn.png",
-    githubUrl: "https://github.com/saajiidi/Customer-Churn-Prediction/",
+    githubUrl: "https://github.com/sajid-ul-islam/Customer-Churn-Prediction/",
     featured: true,
     technologies: ["Python", "Machine Learning", "XGBoost", "Random Forest"],
     caseStudy: {
@@ -590,7 +590,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: "github",
     name: "GitHub",
-    url: "https://github.com/saajiidi",
+    url: "https://github.com/sajid-ul-islam",
     icon: "github",
     color: "#333333",
   },

@@ -15,9 +15,9 @@ export default function PortfolioSitePage() {
             <span className="font-medium text-[var(--vscode-text-primary)]">Sajid-ul-Islam.github.io</span>
           </div>
         </div>
-        <a 
-          href="https://saajiidi.github.io/" 
-          target="_blank" 
+        <a
+          href="https://sajid-ul-islam.github.io/"
+          target="_blank"
           rel="noopener noreferrer"
           className="text-[var(--vscode-text-link)] hover:text-[var(--vscode-text-linkHover)] transition-colors flex items-center gap-1"
         >
@@ -26,7 +26,7 @@ export default function PortfolioSitePage() {
       </div>
       <div className="flex-1 relative">
         <iframe
-          src="https://saajiidi.github.io/"
+          src="https://sajid-ul-islam.github.io/"
           className="absolute inset-0 w-full h-full border-none"
           title="Sajid Islam Portfolio"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

@@ -56,7 +56,7 @@ export const experience = [
     {
         role: "Business Analyst",
         company: "Deen Commerce",
-        link: "https://saajiidi.github.io/",
+        link: "https://sajid-ul-islam.github.io/",
         tasks: [
             "CRM Improvisation",
             "Business Strategy",
@@ -263,7 +263,7 @@ export const projects = [
     {
         title: "B2B StockLot E-Commerce",
         desc: "Web development project for B2B e-commerce.",
-        link: "https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD",
+        link: "https://github.com/sajid-ul-islam/B2B-StockLot-E-Commerce-BD",
         tags: ["HTML/CSS", "JavaScript", "Web Dev"]
     }
 ];

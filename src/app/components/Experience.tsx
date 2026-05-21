@@ -1,9 +1,11 @@
 "use client";
+
 import React, { useState } from 'react';
 import { experience } from '../data';
-import { FaBriefcase, FaChevronDown } from 'react-icons/fa';
+import { FaBriefcase, FaChevronRight } from 'react-icons/fa';
+import Panel from './vscode/Panel';
 
-const Experience = () => {
+export default function Experience() {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   const toggleExpand = (index: number) => {
@@ -11,67 +13,70 @@ const Experience = () => {
   };
 
   return (
-    <section id="experience" className="py-20 bg-dark-lighter">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            <span className="border-b-4 border-primary pb-2">Experience</span>
-          </h2>
-          <p className="text-gray-400">My professional journey</p>
-        </div>
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500 font-mono">
+      {/* VS Code Syntax Header */}
+      <div className="mb-6 border-b border-white/10 pb-3">
+        <h2 className="text-lg md:text-xl font-bold text-[var(--vscode-text-primary)] tracking-widest flex flex-wrap items-center gap-2">
+          <span className="text-[var(--vscode-accent)]">export const</span>
+          <span>Experience = [</span>
+        </h2>
+      </div>
 
-        <div className="relative max-w-4xl mx-auto">
-          {/* Vertical Line */}
-          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 h-full w-1 bg-gradient-to-b from-primary to-accent opacity-30"></div>
+      <div className="relative border-l border-white/10 ml-2 md:ml-4 space-y-6 pb-4">
+        {experience.map((exp, index) => (
+          <div key={index} className="relative pl-6 md:pl-8">
+            {/* Timeline Dot */}
+            <div className={`absolute -left-[5px] top-5 w-2.5 h-2.5 rounded-full transition-colors duration-300 ${expandedIndex === index ? 'bg-[var(--vscode-accent)] shadow-[0_0_10px_var(--vscode-accent)]' : 'bg-white/20'}`} />
 
-          {experience.map((exp, index) => (
-            <div key={index} className={`relative flex flex-col md:flex-row gap-8 mb-12 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-
-              {/* Animated Dot on Line */}
-              <div className={`absolute left-[-5px] md:left-1/2 transform md:-translate-x-1/2 w-4 h-4 rounded-full z-10 mt-6 shadow-lg transition-all duration-500 border-2 border-dark ${expandedIndex === index ? 'bg-primary shadow-primary/50 scale-125' : 'bg-accent shadow-accent/50 hover:scale-110'}`}></div>
-
-              {/* Content Card */}
-              <div className="md:w-1/2 pl-8 md:pl-0 md:pr-12 md:text-right group">
-                <div
-                  onClick={() => toggleExpand(index)}
-                  className={`p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 backdrop-blur-sm cursor-pointer ${index % 2 === 0 && 'md:text-left md:ml-12 md:pr-0'}`}
-                >
-                  <div className={`flex items-center justify-between gap-3 mb-2 text-primary w-full ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                    <div className={`flex items-center gap-2 ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                      <FaBriefcase className="text-lg" />
-                      <span className="text-sm font-semibold tracking-wider text-accent">{exp.company}</span>
-                    </div>
-                    <div className="flex-shrink-0 text-gray-500 opacity-40 group-hover:opacity-100 transition-opacity">
-                      <FaChevronDown className={`transition-transform duration-300 ${expandedIndex === index ? 'rotate-180' : ''}`} />
-                    </div>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-white mb-1 group-hover:text-primary transition-colors">{exp.role}</h3>
-                  {exp.group && <p className="text-sm text-gray-500 mb-3">{exp.group}</p>}
-
-                  <div className={`grid transition-all duration-300 ease-in-out ${expandedIndex === index ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0'}`}>
-                    <div className="overflow-hidden">
-                      <ul className="space-y-2">
-                        {exp.tasks.map((task, i) => (
-                          <li key={i} className="text-gray-400 text-sm flex items-start gap-2">
-                            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-gray-600 flex-shrink-0"></span>
-                            <span className={index % 2 === 0 ? 'text-left' : 'text-left md:text-right'}>{task}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+            <Panel
+              className={`overflow-hidden transition-all duration-300 border ${expandedIndex === index ? 'border-[var(--vscode-accent)]/50' : 'border-white/5 hover:border-white/20'}`}
+            >
+              {/* Accordion Header */}
+              <div
+                onClick={() => toggleExpand(index)}
+                className="p-4 cursor-pointer flex items-center justify-between bg-[#0d1117]/50 hover:bg-white/5 transition-colors"
+              >
+                <div className="flex items-center gap-3 w-full">
+                  <FaChevronRight className={`flex-shrink-0 text-[var(--vscode-text-secondary)] text-xs transition-transform duration-300 ${expandedIndex === index ? 'rotate-90' : ''}`} />
+                  <FaBriefcase className="flex-shrink-0 text-[var(--vscode-accent)] text-sm hidden sm:block" />
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+                    <h3 className="text-sm md:text-base font-bold text-[var(--vscode-text-primary)]">
+                      {exp.role}
+                    </h3>
+                    <span className="text-[var(--vscode-text-secondary)] text-xs md:text-sm hidden sm:inline">|</span>
+                    <span className="text-[var(--vscode-text-secondary)] text-xs md:text-sm">
+                      {exp.company}
+                    </span>
                   </div>
                 </div>
               </div>
 
-              {/* Spacer for other side */}
-              <div className="md:w-1/2 hidden md:block"></div>
-            </div>
-          ))}
-        </div>
+              {/* Accordion Content */}
+              <div className={`grid transition-all duration-300 ease-in-out ${expandedIndex === index ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+                <div className="overflow-hidden">
+                  <div className="p-4 pt-0 border-t border-white/5 mt-2 space-y-3 bg-[#0d1117]/30">
+                    {exp.group && (
+                      <div className="text-xs font-semibold text-[var(--vscode-accent)] mb-2 uppercase tracking-wider">
+                        // {exp.group}
+                      </div>
+                    )}
+                    {exp.tasks.map((task, i) => (
+                      <div key={i} className="flex items-start gap-3 text-sm">
+                        <span className="text-[var(--vscode-accent)] mt-0.5 select-none font-bold">{">"}</span>
+                        <span className="text-[var(--vscode-text-secondary)] leading-relaxed">{task}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </Panel>
+          </div>
+        ))}
       </div>
-    </section>
-  );
-};
 
-export default Experience;
+      <div className="text-lg md:text-xl font-bold text-[var(--vscode-text-primary)] uppercase tracking-widest">
+        ];
+      </div>
+    </div>
+  );
+}
