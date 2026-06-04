@@ -2,6 +2,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { LuSettings } from "react-icons/lu";
+import Settings from "./Settings";
 
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,9 +47,8 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        scrolled ? "bg-paper/90 backdrop-blur-md py-4 shadow-sm" : "bg-transparent py-6"
-      }`}
+      className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? "bg-paper/90 backdrop-blur-md py-4 shadow-sm" : "bg-transparent py-6"
+        }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">
         <Link
@@ -63,16 +64,14 @@ const NavBar = () => {
             <a
               key={index}
               href={item.href}
-              className={`font-medium transition-colors relative group ${
-                activeSection === item.id ? "text-ink" : "text-ink/70 hover:text-ink"
-              }`}
+              className={`font-medium transition-colors relative group ${activeSection === item.id ? "text-ink" : "text-ink/70 hover:text-ink"
+                }`}
               aria-current={activeSection === item.id ? "page" : undefined}
             >
               {item.label}
               <span
-                className={`absolute -bottom-1 left-0 h-0.5 bg-ink transition-all ${
-                  activeSection === item.id ? "w-full" : "w-0 group-hover:w-full"
-                }`}
+                className={`absolute -bottom-1 left-0 h-0.5 bg-ink transition-all ${activeSection === item.id ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
               ></span>
             </a>
           ))}
@@ -90,6 +89,13 @@ const NavBar = () => {
           >
             Resume
           </a>
+          <button
+            onClick={() => document.dispatchEvent(new CustomEvent('open-settings'))}
+            className="p-2 text-ink/70 hover:text-ink transition-colors flex items-center justify-center"
+            title="Open Settings (Ctrl+,)"
+          >
+            <LuSettings size={20} className="hover:rotate-45 transition-transform" />
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
@@ -132,6 +138,7 @@ const NavBar = () => {
           </div>
         )}
       </div>
+      <Settings />
     </nav>
   );
 };

@@ -51,7 +51,7 @@ export default function ChatInterface() {
                         type="button"
                         onClick={handleRefreshSnapshot}
                         disabled={isRefreshing}
-                        className="px-3 py-1 bg-[#0d1117] hover:bg-white/5 border border-white/10 text-[var(--vscode-text-secondary)] hover:text-white text-xs rounded font-mono transition-colors disabled:opacity-50"
+                        className="px-3 py-1 bg-[var(--vscode-bg)] hover:bg-white/5 border border-white/10 text-[var(--vscode-text-secondary)] hover:text-white text-xs rounded font-mono transition-colors disabled:opacity-50"
                     >
                         {isRefreshing ? "SCRAPING..." : "Refresh Site Snapshot"}
                     </button>
@@ -61,7 +61,7 @@ export default function ChatInterface() {
             <div className="flex-1 overflow-y-auto space-y-4 mb-4 pr-2">
                 {messages.map(m => (
                     <div key={m.id} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`px-4 py-3 rounded-lg max-w-[85%] text-sm ${m.role === 'user' ? 'bg-[var(--vscode-accent)] text-black' : 'bg-[#0d1117] border border-white/10 text-[var(--vscode-text-primary)] group relative'}`}>
+                        <div className={`px-4 py-3 rounded-lg max-w-[85%] text-sm ${m.role === 'user' ? 'bg-[var(--vscode-accent)] text-black' : 'bg-[var(--vscode-bg)] border border-white/10 text-[var(--vscode-text-primary)] group relative'}`}>
                             <div className="flex justify-between items-start mb-1.5 gap-4">
                                 <span className={`font-bold text-xs opacity-50 font-mono ${m.role === 'user' ? 'text-black' : 'text-[var(--vscode-text-secondary)]'}`}>
                                     {m.role === 'user' ? 'YOU' : 'AI_AGENT'}

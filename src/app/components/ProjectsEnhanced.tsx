@@ -63,7 +63,7 @@ export default function ProjectsEnhanced() {
 
             <div className="ml-2 md:ml-4 border-l border-white/10 pl-4 md:pl-6 pb-4 space-y-8">
                 {/* Technology Filter Bar */}
-                <div className="flex flex-wrap gap-2 p-1.5 bg-[#0d1117]/80 backdrop-blur-xl border border-white/10 rounded-xl w-fit">
+                <div className="flex flex-wrap gap-2 p-1.5 bg-[var(--vscode-bg)]/80 backdrop-blur-xl border border-white/10 rounded-xl w-fit">
                     {categories.map((tech) => (
                         <button
                             key={tech}
@@ -81,7 +81,7 @@ export default function ProjectsEnhanced() {
                 {/* Project Cards Grid (Bento Box Style) */}
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
                     {filteredProjects.map((project) => (
-                        <Panel key={project.id} className="flex flex-col overflow-hidden group bg-[#0d1117]/80 backdrop-blur-xl border border-white/10 hover:border-cyan-500/50 transition-all duration-500 relative">
+                        <Panel key={project.id} className="flex flex-col overflow-hidden group bg-[var(--vscode-bg)]/80 backdrop-blur-xl border border-white/10 hover:border-cyan-500/50 transition-all duration-500 relative">
                             {/* Subtle Gradient Glows */}
                             <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all duration-700 pointer-events-none" />
                             <div className="absolute bottom-0 left-0 -ml-16 -mb-16 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:bg-purple-500/20 transition-all duration-700 pointer-events-none" />

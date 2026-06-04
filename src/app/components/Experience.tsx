@@ -34,7 +34,7 @@ export default function Experience() {
               {/* Accordion Header */}
               <div
                 onClick={() => toggleExpand(index)}
-                className="p-4 cursor-pointer flex items-center justify-between bg-[#0d1117]/50 hover:bg-white/5 transition-colors"
+                className="p-4 cursor-pointer flex items-center justify-between bg-[var(--vscode-bg)]/50 hover:bg-white/5 transition-colors"
               >
                 <div className="flex items-center gap-3 w-full">
                   <FaChevronRight className={`flex-shrink-0 text-[var(--vscode-text-secondary)] text-xs transition-transform duration-300 ${expandedIndex === index ? 'rotate-90' : ''}`} />
@@ -54,7 +54,7 @@ export default function Experience() {
               {/* Accordion Content */}
               <div className={`grid transition-all duration-300 ease-in-out ${expandedIndex === index ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
                 <div className="overflow-hidden">
-                  <div className="p-4 pt-0 border-t border-white/5 mt-2 space-y-3 bg-[#0d1117]/30">
+                  <div className="p-4 pt-0 border-t border-white/5 mt-2 space-y-3 bg-[var(--vscode-bg)]/30">
                     {exp.group && (
                       <div className="text-xs font-semibold text-[var(--vscode-accent)] mb-2 uppercase tracking-wider">
                         // {exp.group}
