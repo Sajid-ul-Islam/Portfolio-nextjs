@@ -1,6 +1,6 @@
 # 🤖 AI Agent Architecture & Features
 
-This document outlines the AI enhancements integrated into the VS Code Themed Portfolio. The AI chat feature provides an interactive way for visitors to query information about the portfolio and the developer using advanced LLMs and live website data.
+This document outlines the AI enhancements integrated into the VS Code Themed Portfolio. For detailed technical competencies, see [skill.md](skill.md), and for descriptions of the core modules mentioned here, see [projects.md](projects.md).
 
 ## 🧠 AI Model Selection
 
