@@ -17,6 +17,32 @@ This document details the specific projects and technical modules described in t
 - **Source URL**: `https://sajid-ul-islam.github.io/`
 - **Functionality**: Extracts raw text content from the live external profile to ensure the AI's "Website Content" mode is always current.
 
+#### Static Scraping (Cheerio)
+*Used for fast extraction of pre-rendered HTML.*
+### Implementation Example
+```typescript
+// src/app/api/site/route.ts
+import { NextResponse } from 'next/server';
+import * as cheerio from 'cheerio';
+
+export async function GET() {
+  try {
+    const targetUrl = 'https://sajid-ul-islam.github.io/';
+    const response = await fetch(targetUrl, { next: { revalidate: 3600 } });
+    const html = await response.text();
+    
+    const $ = cheerio.load(html);
+    // Remove non-text elements to reduce token noise
+    $('script, style, nav, footer, noscript').remove();
+    const rawText = $('body').text().replace(/\s+/g, ' ').trim();
+
+    return NextResponse.json({ content: rawText });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to fetch external site' }, { status: 500 });
+  }
+}
+```
+
 ## 4. Portfolio Vector Index (`portfolio-index`)
 - **Description**: A high-performance vector database hosted on **Pinecone**.
 - **Data Content**: Stores mathematically represented "embeddings" of resume details, detailed project descriptions, and blog posts.
