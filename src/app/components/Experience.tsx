@@ -57,7 +57,7 @@ export default function Experience() {
                   <div className="p-4 pt-0 border-t border-white/5 mt-2 space-y-3 bg-[var(--vscode-bg)]/30">
                     {exp.group && (
                       <div className="text-xs font-semibold text-[var(--vscode-accent)] mb-2 uppercase tracking-wider">
-                        // {exp.group}
+                        {`// ${exp.group}`}
                       </div>
                     )}
                     {exp.tasks.map((task, i) => (

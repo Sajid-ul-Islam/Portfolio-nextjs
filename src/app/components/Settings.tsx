@@ -90,7 +90,7 @@ export default function Settings() {
                 <div className="space-y-6">
                     <div>
                         <label className="text-xs font-mono uppercase tracking-widest text-[var(--vscode-accent)] mb-4 block">
-              // Workbench: Color Theme
+                            {'// Workbench: Color Theme'}
                         </label>
                         <div className="grid grid-cols-1 gap-2">
                             {themes.map((theme) => (
@@ -116,7 +116,7 @@ export default function Settings() {
                 <div className="mt-8 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-[var(--vscode-text-secondary)]">
                     <div className="flex items-center gap-2">
                         <LuTerminal size={12} />
-                        <span>&gt; settings.json updated locally.</span>
+                        <span>{'> settings.json updated locally.'}</span>
                     </div>
                 </div>
             </Panel>

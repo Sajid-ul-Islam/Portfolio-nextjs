@@ -97,13 +97,13 @@ export default function ContactForm() {
 
                 {status === "success" && (
                     <div className="p-3 bg-green-500/10 border border-green-500/20 text-green-400 rounded text-xs font-mono text-center">
-            // Request fulfilled. Message transmitted successfully.
+                        {'// Request fulfilled. Message transmitted successfully.'}
                     </div>
                 )}
 
                 {status === "error" && (
                     <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded text-xs font-mono text-center">
-            /* ERROR: Transmission failed. Please try again later. */
+                        {'/* ERROR: Transmission failed. Please try again later. */'}
                     </div>
                 )}
             </form>

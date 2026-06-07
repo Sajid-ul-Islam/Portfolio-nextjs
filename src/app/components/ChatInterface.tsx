@@ -82,7 +82,7 @@ export default function ChatInterface() {
                 ))}
                 {isLoading && (
                     <div className="text-[var(--vscode-accent)] text-xs animate-pulse font-mono">
-            > RETRIEVING_DATA...
+                        {'> RETRIEVING_DATA...'}
                     </div>
                 )}
             </div>

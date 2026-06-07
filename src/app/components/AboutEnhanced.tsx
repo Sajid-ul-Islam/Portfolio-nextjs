@@ -29,7 +29,7 @@ export default function AboutEnhanced() {
 
                     <div className="relative z-10">
                         <p className="font-mono text-xs text-cyan-400/80 mb-4 tracking-wider uppercase">
-              // IDENTITY_CONFIRMED
+                            {/* IDENTITY_CONFIRMED */}
                         </p>
                         <h1 className="text-4xl md:text-6xl font-black mb-2 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
                             {personalInfo.name}
@@ -49,7 +49,7 @@ export default function AboutEnhanced() {
 
                     <div className="relative z-10 w-full space-y-4 font-mono">
                         <p className="text-xs text-purple-400/80 mb-2 tracking-wider uppercase">
-              // ESTABLISH_CONNECTION
+                            {/* ESTABLISH_CONNECTION */}
                         </p>
 
                         <a href={personalInfo.resumeUrl} target="_blank" rel="noopener noreferrer"

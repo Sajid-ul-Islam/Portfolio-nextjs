@@ -28,7 +28,7 @@ export default function Education() {
 
               <div className="text-sm text-[var(--vscode-text-secondary)] mb-6">
                 <span className="text-[#a3e635] mr-2">degree:</span>
-                <span className="text-[var(--vscode-text-primary)]">"{edu.degree}"</span>
+                <span className="text-[var(--vscode-text-primary)]">&quot;{edu.degree}&quot;</span>
               </div>
             </div>
 
@@ -39,7 +39,7 @@ export default function Education() {
                 rel="noopener noreferrer"
                 className="text-xs text-[var(--vscode-accent)] hover:text-white transition-colors mt-auto inline-block"
               >
-                // Visit_Website
+                {'// Visit_Website'}
               </a>
             )}
           </Panel>
