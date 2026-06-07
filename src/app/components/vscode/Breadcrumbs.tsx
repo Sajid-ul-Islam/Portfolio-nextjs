@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LuChevronRight, LuHouse } from "react-icons/lu";
+import { LuChevronRight, LuHome } from "react-icons/lu";
 
 import { cn } from "../../lib/cn";
 
@@ -13,7 +13,7 @@ export default function Breadcrumbs() {
   if (segments.length === 0) {
     return (
       <div className="flex items-center gap-1 px-4 py-1 text-vscode-sm text-[var(--vscode-text-secondary)] bg-[var(--vscode-editor-background)] border-b border-[var(--vscode-border)]">
-        <LuHouse size={14} />
+        <LuHome size={14} />
         <LuChevronRight size={14} />
         <span className="text-[var(--vscode-text-primary)]">Welcome.tsx</span>
       </div>
@@ -23,7 +23,7 @@ export default function Breadcrumbs() {
   return (
     <nav className="flex items-center gap-1 px-4 py-1 text-vscode-sm text-[var(--vscode-text-secondary)] bg-[var(--vscode-editor-background)] border-b border-[var(--vscode-border)] overflow-x-auto whitespace-nowrap scrollbar-none">
       <Link href="/" className="hover:text-[var(--vscode-text-primary)] transition-colors">
-        <LuHouse size={14} />
+        <LuHome size={14} />
       </Link>
       {segments.map((segment, index) => {
         const href = `/${segments.slice(0, index + 1).join("/")}`;
