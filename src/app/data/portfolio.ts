@@ -443,6 +443,29 @@ export const projects: Project[] = [
       metrics: [{ label: "Stack", value: "HTML/CSS/JS" }],
     },
   },
+  {
+    id: "global-economics",
+    title: "Global Economics Dashboard",
+    description: "An interactive Streamlit dashboard exploring global economic indicators, trends, and country-level comparisons.",
+    image: "/img/projects/economic.png",
+    liveUrl: "https://global-economics.streamlit.app/",
+    featured: true,
+    technologies: ["Streamlit", "Python", "Economics", "Data Visualization"],
+    caseStudy: {
+      role: "Data Analyst",
+      timeline: "2025",
+      problem: "Economic data across countries is scattered and hard to compare at a glance.",
+      solution: "Built a Streamlit app aggregating global economic indicators into interactive charts and country comparisons.",
+      impact: [
+        "Simplified exploration of global economic trends.",
+        "Enabled quick country-level comparisons in one place.",
+      ],
+      metrics: [
+        { label: "Platform", value: "Streamlit" },
+        { label: "Scope", value: "Global" },
+      ],
+    },
+  },
 ];
 
 export const fileTree: FileTreeSection[] = [
@@ -614,6 +637,13 @@ export const socialLinks: SocialLink[] = [
     url: "https://share.streamlit.io/user/saajiidi",
     icon: "layout-dashboard",
     color: "#FF4B4B",
+  },
+  {
+    id: "huggingface",
+    name: "Hugging Face",
+    url: "https://huggingface.co/Sajid-ul-Islam",
+    icon: "huggingface",
+    color: "#FFD21E",
   },
 ];
 
