@@ -10,7 +10,7 @@ import {
   LuPlus, 
   LuMonitor,
   LuShare2,
-  LuLayout,
+  LuPanelTop,
   LuDownload
 } from "react-icons/lu";
 import { cn } from "../../lib/cn";
@@ -102,7 +102,7 @@ export default function PowerPointDeck() {
         <div className="flex-1 bg-[#1a1a1a] p-4 sm:p-12 flex flex-col items-center justify-center relative overflow-hidden group/stage">
           <div className="absolute top-4 right-4 hidden sm:flex items-center gap-2 z-20">
             <button className="p-2 bg-white/5 text-gray-500 hover:text-white rounded transition-all"><LuMonitor size={16} /></button>
-            <button className="p-2 bg-white/5 text-gray-500 hover:text-white rounded transition-all"><LuLayout size={16} /></button>
+            <button className="p-2 bg-white/5 text-gray-500 hover:text-white rounded transition-all"><LuPanelTop size={16} /></button>
             <button className="p-2 bg-white/5 text-gray-500 hover:text-white rounded transition-all"><LuDownload size={16} /></button>
           </div>
 

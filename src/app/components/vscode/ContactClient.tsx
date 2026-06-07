@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import { useEffect, useState } from "react";
-import { LuAlertCircle, LuCheckCircle, LuSend } from "react-icons/lu";
+import { LuCircleAlert, LuCircleCheck, LuSend } from "react-icons/lu";
 
 import Button from "./Button";
 import Input from "./Input";
@@ -167,7 +167,7 @@ export default function ContactClient() {
 
             {status === "success" ? (
               <div className="flex flex-col items-center justify-center py-12 text-center bg-[#a3e635]/5 border border-[#a3e635]/20 rounded animate-fade-in">
-                <LuCheckCircle size={48} className="text-[#a3e635] mb-4 drop-shadow-[0_0_10px_rgba(163,230,53,0.5)]" />
+                <LuCircleCheck size={48} className="text-[#a3e635] mb-4 drop-shadow-[0_0_10px_rgba(163,230,53,0.5)]" />
                 <h3 className="text-xl font-bold text-white mb-2 font-mono uppercase">
                   Uplink_Confirmed
                 </h3>
@@ -272,7 +272,7 @@ export default function ContactClient() {
 
                 {status === "error" && (
                   <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded">
-                    <LuAlertCircle size={14} className="text-red-500" />
+                    <LuCircleAlert size={14} className="text-red-500" />
                     <span className="text-[10px] text-red-500 font-bold uppercase tracking-tight">
                       {errorMessage || "TRANS_FAILURE: SIGNAL_INTERRUPTED"}
                     </span>

@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  SiCss3,
+  SiCss,
   SiHtml5,
   SiJavascript,
   SiJson,
@@ -10,11 +10,10 @@ import {
   SiReact,
   SiTypescript,
   SiR,
-  SiTableau,
   SiPostgresql,
   SiNextdotjs,
 } from "react-icons/si";
-import { LuFile, LuFileText, LuGlobe } from "react-icons/lu";
+import { LuChartBar, LuFile, LuFileText, LuGlobe } from "react-icons/lu";
 import { VscCode, VscJson, VscMarkdown } from "react-icons/vsc";
 
 import { cn } from "../../lib/cn";
@@ -70,7 +69,7 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
       return <SiHtml5 {...iconProps} />;
     case "css":
     case "scss":
-      return <SiCss3 {...iconProps} />;
+      return <SiCss {...iconProps} />;
     case "md":
     case "mdx":
       return <SiMarkdown {...iconProps} />;
@@ -79,7 +78,7 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
     case "sql":
       return <SiPostgresql {...iconProps} />;
     case "tableau":
-      return <SiTableau {...iconProps} />;
+      return <LuChartBar {...iconProps} />;
     case "go":
       return <VscCode {...iconProps} />;
     case "web":

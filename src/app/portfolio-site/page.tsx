@@ -1,13 +1,13 @@
 "use client";
 
-import { LuExternalLink, LuGlobe, LuCode2, LuBrainCircuit, LuBarChart3 } from "react-icons/lu";
+import { LuExternalLink, LuGlobe, LuCode, LuBrainCircuit, LuChartBar } from "react-icons/lu";
 
 const SITE_URL = "https://sajid-ul-islam.github.io/";
 
 const highlights = [
-  { icon: LuCode2, label: "VS Code Themed", desc: "Built to look and feel like a real IDE" },
+  { icon: LuCode, label: "VS Code Themed", desc: "Built to look and feel like a real IDE" },
   { icon: LuBrainCircuit, label: "AI Assistant", desc: "Integrated AI chat with portfolio context" },
-  { icon: LuBarChart3, label: "Data & BI Focus", desc: "Python, SQL, Tableau, Power BI projects" },
+  { icon: LuChartBar, label: "Data & BI Focus", desc: "Python, SQL, Tableau, Power BI projects" },
 ];
 
 export default function PortfolioSitePage() {

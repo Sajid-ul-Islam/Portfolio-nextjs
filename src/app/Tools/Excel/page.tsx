@@ -6,7 +6,7 @@ import {
   LuTable, 
   LuSave, 
   LuFilter, 
-  LuBarChart, 
+  LuChartBar, 
   LuTrendingUp, 
   LuChevronDown, 
   LuPlus, 
@@ -108,7 +108,7 @@ export default function ExcelGrid() {
             </button>
             <button className="p-2 hover:bg-white/10 text-white rounded transition-colors" title="Save to local Intel"><LuSave size={16} /></button>
             <button className="p-2 hover:bg-white/10 text-white rounded transition-colors" title="Secure Link Transfer"><LuShare2 size={16} /></button>
-            <button className="p-2 hover:bg-white/10 text-white rounded transition-colors" title="Visual Analytics"><LuBarChart size={16} /></button>
+            <button className="p-2 hover:bg-white/10 text-white rounded transition-colors" title="Visual Analytics"><LuChartBar size={16} /></button>
         </div>
       </div>
 
@@ -121,7 +121,7 @@ export default function ExcelGrid() {
                 </button>
             </div>
             <div className="flex items-center gap-3 text-gray-500">
-                <button className="hover:text-[#a3e635] transition-all"><LuBarChart size={14} /></button>
+                <button className="hover:text-[#a3e635] transition-all"><LuChartBar size={14} /></button>
                 <button className="hover:text-[#a3e635] transition-all"><LuTrendingUp size={14} /></button>
                 <button className="hover:text-[#a3e635] transition-all"><LuPlus size={14} /></button>
                 <button className="hover:text-[#a3e635] transition-all"><LuSearch size={14} /></button>

@@ -1,5 +1,5 @@
 import { FaPython, FaDatabase, FaChartBar, FaTable, FaReact, FaNodeJs, FaHtml5, FaCss3, FaJs, FaLaptopCode, FaChartLine, FaBrain, FaHistory, FaGlobeAmericas, FaLightbulb, FaBookOpen } from "react-icons/fa";
-import { SiTableau, SiPowerbi, SiPandas, SiNumpy, SiScikitlearn, SiPlotly, SiTensorflow, SiMicrosoftexcel, SiGoogleanalytics } from "react-icons/si";
+import { SiPandas, SiNumpy, SiScikitlearn, SiPlotly, SiTensorflow, SiGoogleanalytics } from "react-icons/si";
 
 export const personalInfo = {
     name: "Sajid Islam",
@@ -153,9 +153,9 @@ export const skills = {
     technical: [
         { name: "Python", icon: FaPython },
         { name: "SQL", icon: FaDatabase },
-        { name: "Power BI", icon: SiPowerbi },
-        { name: "Tableau", icon: SiTableau },
-        { name: "Excel", icon: SiMicrosoftexcel },
+        { name: "Power BI", icon: FaChartBar },
+        { name: "Tableau", icon: FaChartLine },
+        { name: "Excel", icon: FaTable },
         { name: "Google Analytics", icon: SiGoogleanalytics },
         { name: "Pandas", icon: SiPandas },
         { name: "NumPy", icon: SiNumpy },

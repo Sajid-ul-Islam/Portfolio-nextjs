@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { LuCheck, LuPalette, LuSettings2, LuLayout, LuTrash2, LuX } from "react-icons/lu";
+import { LuCheck, LuPalette, LuSettings2, LuPanelTop, LuTrash2, LuX } from "react-icons/lu";
 import { useTheme, type Theme } from "../../../lib/themeContext";
 import { useRecentPagesContext } from "../../../lib/recentPagesContext";
 import { useTabs } from "../../../lib/tabsContext";
@@ -79,7 +79,7 @@ export default function SettingsPanel() {
   const sections = [
     { id: "theme" as const, icon: LuPalette, label: "Color Theme" },
     { id: "workspace" as const, icon: LuSettings2, label: "Workspace" },
-    { id: "layout" as const, icon: LuLayout, label: "Layout" },
+    { id: "layout" as const, icon: LuPanelTop, label: "Layout" },
   ];
 
   return (

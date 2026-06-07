@@ -41,7 +41,7 @@ async function main() {
         const index = pinecone.index(process.env.PINECONE_INDEX_NAME || 'portfolio-index');
 
         console.log(`Uploading ${vectors.length} vectors to Pinecone...`);
-        await index.upsert(vectors);
+        await index.upsert({ records: vectors });
 
         console.log('✅ Upload complete!');
     } catch (error) {
