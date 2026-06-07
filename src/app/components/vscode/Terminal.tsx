@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useMemo } from "react";
-import { Plus, Trash2, X, ChevronRight, Terminal as TerminalIcon, AlertCircle } from "lucide-react";
+import { Trash2, X, ChevronRight } from "lucide-react";
 import { cn } from "../../lib/cn";
 
 type TerminalTab = "TERMINAL" | "DEBUG CONSOLE" | "OUTPUT" | "PROBLEMS";

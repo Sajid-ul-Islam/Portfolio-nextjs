@@ -8,8 +8,7 @@ import {
   Settings,
   User,
   MessageSquare,
-  Terminal as TerminalIcon,
-  ChevronRight
+  Terminal as TerminalIcon
 } from "lucide-react";
 
 import { cn } from "../../lib/cn";

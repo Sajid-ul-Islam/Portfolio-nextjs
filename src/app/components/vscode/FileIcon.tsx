@@ -14,7 +14,7 @@ import {
   SiNextdotjs,
 } from "react-icons/si";
 import { LuBarChart, LuFile, LuFileText, LuGlobe } from "react-icons/lu";
-import { VscCode, VscJson, VscMarkdown } from "react-icons/vsc";
+import { VscCode } from "react-icons/vsc";
 
 import { cn } from "../../lib/cn";
 

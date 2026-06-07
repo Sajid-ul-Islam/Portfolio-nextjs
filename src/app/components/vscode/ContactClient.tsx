@@ -4,11 +4,7 @@ import Script from "next/script";
 import { useEffect, useState } from "react";
 import { LuAlertCircle, LuCheckCircle, LuSend } from "react-icons/lu";
 
-import Button from "./Button";
-import Input from "./Input";
-import SectionHeader from "./SectionHeader";
 import SocialLinks from "./SocialLinks";
-import Textarea from "./Textarea";
 import { cn } from "../../lib/cn";
 
 type FormState = {

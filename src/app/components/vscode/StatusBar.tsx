@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { LuBell, LuCheck, LuGitBranch, LuTerminal, LuCpu, LuBattery, LuMusic, LuVolume2, LuVolumeX } from "react-icons/lu";
+import { LuBell, LuGitBranch, LuTerminal, LuCpu, LuBattery, LuVolume2, LuVolumeX } from "react-icons/lu";
 
 import { cn } from "../../lib/cn";
 

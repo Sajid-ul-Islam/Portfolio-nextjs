@@ -4,7 +4,6 @@ import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties }
 import { usePathname } from "next/navigation";
 
 import { cn } from "../../lib/cn";
-import { useLocalStorage } from "../../lib/useLocalStorage";
 import {
   RecentPagesProvider,
   useRecentPagesContext,
@@ -21,6 +20,8 @@ import AIChat from "./AIChat";
 import AIChatTrigger from "./AIChatTrigger";
 import IntroAnimation from "./IntroAnimation";
 import CommandPalette from "./CommandPalette";
+import { useSidebarResize } from "./hooks/useSidebarResize";
+import { useVSCodeShortcuts } from "./hooks/useVSCodeShortcuts";
 
 type VSCodeShellProps = {
   children: React.ReactNode;
@@ -54,10 +55,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [showTerminal, setShowTerminal] = useState(false);
   const [showAIChat, setShowAIChat] = useState(false);
-  const [sidebarWidth, setSidebarWidth] = useLocalStorage<number>(
-    "vscodeSidebarWidth",
-    256
-  );
+  const { sidebarWidth, isResizing, startResizing } = useSidebarResize("vscodeSidebarWidth", 256);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -74,10 +72,6 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
         setIsAudioPlaying(false);
     }
   }, []);
-  const resizeState = useRef<{ startX: number; startWidth: number } | null>(
-    null
-  );
-  const [isResizing, setIsResizing] = useState(false);
 
   useEffect(() => {
     if (isMounted && isMobile) {
@@ -139,72 +133,12 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
     }
   }, [activeActivity, activatePanel]);
 
-  useEffect(() => {
-    if (!isResizing) return;
-    const handleMove = (event: MouseEvent) => {
-      if (!resizeState.current) return;
-      const delta = event.clientX - resizeState.current.startX;
-      const nextWidth = Math.min(
-        420,
-        Math.max(200, resizeState.current.startWidth + delta)
-      );
-      setSidebarWidth(nextWidth);
-    };
-    const handleUp = () => {
-      setIsResizing(false);
-      resizeState.current = null;
-    };
-    window.addEventListener("mousemove", handleMove);
-    window.addEventListener("mouseup", handleUp);
-    return () => {
-      window.removeEventListener("mousemove", handleMove);
-      window.removeEventListener("mouseup", handleUp);
-    };
-  }, [isResizing, setSidebarWidth]);
-
-  useEffect(() => {
-    if (isMobile) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.defaultPrevented) return;
-      const target = event.target as HTMLElement | null;
-      const tag = target?.tagName?.toLowerCase();
-      const isEditable =
-        tag === "input" ||
-        tag === "textarea" ||
-        target?.isContentEditable;
-      if (isEditable) return;
-
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "b") {
-        event.preventDefault();
-        toggleExplorer();
-        return;
-      }
-      if ((event.ctrlKey || event.metaKey) && event.shiftKey) {
-        const key = event.key.toLowerCase();
-        if (key === "f") {
-          event.preventDefault();
-          activatePanel("search");
-          return;
-        }
-        if (key === "g") {
-          event.preventDefault();
-          activatePanel("git");
-          return;
-        }
-        if (key === "x") {
-          event.preventDefault();
-          activatePanel("extensions");
-          return;
-        }
-      }
-      if ((event.ctrlKey || event.metaKey) && event.key === ",") {
-        event.preventDefault();
-        activatePanel("settings");
-      }
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeActivity, isMobile, toggleExplorer, activatePanel]);
+  useVSCodeShortcuts({
+    isMobile,
+    activeActivity,
+    toggleExplorer,
+    activatePanel
+  });
 
   const shellStyle = useMemo(
     () =>
@@ -310,13 +244,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
               "col-span-1 h-full min-h-0 relative",
               "cursor-col-resize bg-[var(--vscode-border)] hover:bg-[var(--vscode-focusBorder)] transition-colors"
             )}
-            onMouseDown={(event) => {
-              resizeState.current = {
-                startX: event.clientX,
-                startWidth: sidebarWidth,
-              };
-              setIsResizing(true);
-            }}
+          onMouseDown={startResizing}
           />
         </>
       )}

@@ -7,7 +7,6 @@ import {
   LuCalendar, 
   LuTag, 
   LuHeart, 
-  LuShare2, 
   LuFacebook, 
   LuTwitter, 
   LuLinkedin, 
@@ -20,7 +19,6 @@ import {
 } from "react-icons/lu";
 import { cn } from "../../lib/cn";
 import { BlogPost } from "../../data/portfolio";
-import Badge from "./Badge";
 
 type BlogDetailModalProps = {
   post: BlogPost;

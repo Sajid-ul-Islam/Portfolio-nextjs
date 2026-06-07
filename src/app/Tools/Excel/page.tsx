@@ -3,12 +3,10 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { 
-  LuTable, 
   LuSave, 
   LuFilter, 
   LuBarChart, 
   LuTrendingUp, 
-  LuChevronDown, 
   LuPlus, 
   LuSearch,
   LuDownload,
@@ -44,6 +42,8 @@ export default function ExcelGrid() {
     const newData = [...data];
     if (!newData[r]) {
         while (newData.length <= r) newData.push([]);
+    } else {
+        newData[r] = [...newData[r]]; // Clone the inner array to avoid state mutation
     }
     newData[r][c] = value;
     setData(newData);
