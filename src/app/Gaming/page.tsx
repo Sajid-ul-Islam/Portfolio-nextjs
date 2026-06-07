@@ -259,10 +259,12 @@ export default function GamingPage() {
                           height={56}
                         />
                       ) : (
-                        <img
+                        <Image
                           src="https://via.placeholder.com/80x60?text=Game"
                           alt="Placeholder"
                           className="h-14 w-20 object-cover rounded"
+                          width={80}
+                          height={60}
                         />
                       )}
                     </div>
