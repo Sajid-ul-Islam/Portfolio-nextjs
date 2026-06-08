@@ -199,7 +199,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   return (
     <div
       className={cn(
-        "grid h-[100dvh] min-h-[100dvh] overflow-hidden bg-[var(--vscode-editor-background)]",
+        "grid h-[100dvh] min-h-[100dvh] overflow-hidden bg-[var(--vscode-editor-background)] backdrop-blur-3xl",
         "grid-rows-[var(--vscode-titlebar-height)_1fr_var(--vscode-statusbar-height)]",
         sidebarOpen
           ? "grid-cols-[var(--vscode-activitybar-width)_var(--vscode-sidebar-width)_2px_minmax(0,1fr)]"
@@ -207,7 +207,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
       )}
       style={shellStyle}
     >
-      <header className={cn("z-50", sidebarOpen ? "col-span-4" : "col-span-2")}>
+      <header className={cn("z-50 backdrop-blur-xl border-b border-white/5", sidebarOpen ? "col-span-4" : "col-span-2")}>
         <TitleBar />
       </header>
 
@@ -242,7 +242,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
         </ErrorBoundary>
       </main>
 
-      <footer className={cn("z-50", sidebarOpen ? "col-span-4" : "col-span-2")}>
+      <footer className={cn("z-50 backdrop-blur-xl border-t border-white/5", sidebarOpen ? "col-span-4" : "col-span-2")}>
         <StatusBar />
       </footer>
 

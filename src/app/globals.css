@@ -3,108 +3,79 @@
 @tailwind utilities;
 
 :root {
-  --vscode-editor-background: #1e1e1e;
-  --vscode-editor-foreground: #cccccc;
-  --vscode-sideBar-background: #252526;
-  --vscode-sideBar-foreground: #cccccc;
-  --vscode-activityBar-background: #333333;
-  --vscode-activityBar-foreground: #ffffff;
-  --vscode-activityBar-inactiveForeground: #858585;
-  --vscode-activityBar-border: #333333;
-  --vscode-activityBar-activeBorder: #ffffff;
-  --vscode-titleBar-activeBackground: #323233;
-  --vscode-titleBar-activeForeground: #cccccc;
-  --vscode-titleBar-inactiveBackground: #3c3c3c;
-  --vscode-titleBar-inactiveForeground: #999999;
-  --vscode-statusBar-background: #007acc;
-  --vscode-statusBar-foreground: #ffffff;
-  --vscode-statusBar-border: #007acc;
-  --vscode-statusBarItem-hoverBackground: hsla(0, 0%, 100%, 0.12);
-  --vscode-tab-activeBackground: #1e1e1e;
-  --vscode-tab-activeForeground: #ffffff;
-  --vscode-tab-inactiveBackground: #2d2d2d;
-  --vscode-tab-inactiveForeground: #858585;
-  --vscode-tab-border: #252526;
-  --vscode-tab-activeBorderTop: #007acc;
-  --vscode-tab-hoverBackground: #2d2d2d;
-  --vscode-list-hoverBackground: #2a2d2e;
-  --vscode-list-activeSelectionBackground: #094771;
-  --vscode-list-activeSelectionForeground: #ffffff;
-  --vscode-list-inactiveSelectionBackground: #37373d;
-  --vscode-list-inactiveSelectionForeground: #cccccc;
-  --vscode-list-focusOutline: #007fd4;
-  --vscode-input-background: #3c3c3c;
-  --vscode-input-foreground: #cccccc;
-  --vscode-input-border: #3c3c3c;
-  --vscode-input-placeholderForeground: #858585;
-  --vscode-button-background: #0e639c;
+  --vscode-editor-background: rgba(10, 10, 12, 0.4);
+  --vscode-editor-foreground: #e2e8f0;
+  --vscode-sideBar-background: rgba(15, 15, 18, 0.4);
+  --vscode-sideBar-foreground: #94a3b8;
+  --vscode-activityBar-background: rgba(8, 8, 10, 0.6);
+  --vscode-activityBar-foreground: #f8fafc;
+  --vscode-activityBar-inactiveForeground: #64748b;
+  --vscode-activityBar-border: rgba(255, 255, 255, 0.05);
+  --vscode-activityBar-activeBorder: #3b82f6;
+  --vscode-titleBar-activeBackground: rgba(15, 15, 18, 0.6);
+  --vscode-titleBar-activeForeground: #cbd5e1;
+  --vscode-titleBar-inactiveBackground: rgba(15, 15, 18, 0.3);
+  --vscode-titleBar-inactiveForeground: #64748b;
+  --vscode-statusBar-background: rgba(15, 15, 18, 0.6);
+  --vscode-statusBar-foreground: #cbd5e1;
+  --vscode-statusBar-border: rgba(255, 255, 255, 0.05);
+  --vscode-statusBarItem-hoverBackground: rgba(255, 255, 255, 0.1);
+  --vscode-tab-activeBackground: rgba(255, 255, 255, 0.05);
+  --vscode-tab-activeForeground: #f8fafc;
+  --vscode-tab-inactiveBackground: transparent;
+  --vscode-tab-inactiveForeground: #64748b;
+  --vscode-tab-border: rgba(255, 255, 255, 0.05);
+  --vscode-tab-activeBorderTop: #3b82f6;
+  --vscode-tab-hoverBackground: rgba(255, 255, 255, 0.02);
+  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.05);
+  --vscode-list-activeSelectionBackground: rgba(59, 130, 246, 0.2);
+  --vscode-list-activeSelectionForeground: #f8fafc;
+  --vscode-list-inactiveSelectionBackground: rgba(255, 255, 255, 0.02);
+  --vscode-list-inactiveSelectionForeground: #cbd5e1;
+  --vscode-list-focusOutline: #3b82f6;
+  --vscode-input-background: rgba(0, 0, 0, 0.2);
+  --vscode-input-foreground: #e2e8f0;
+  --vscode-input-border: rgba(255, 255, 255, 0.1);
+  --vscode-input-placeholderForeground: #64748b;
+  --vscode-button-background: #3b82f6;
   --vscode-button-foreground: #ffffff;
-  --vscode-button-hoverBackground: #1177bb;
-  --vscode-button-secondaryBackground: #3a3d41;
-  --vscode-button-secondaryForeground: #cccccc;
-  --vscode-button-secondaryHoverBackground: #45494e;
-  --vscode-focusBorder: #007fd4;
-  --vscode-border: #3c3c3c;
-  --vscode-panel-border: #454545;
-  --vscode-text-primary: #cccccc;
-  --vscode-text-secondary: #858585;
-  --vscode-text-muted: #6e6e6e;
-  --vscode-text-link: #3794ff;
-  --vscode-text-linkHover: #4da6ff;
-  --vscode-success: #4ec9b0;
-  --vscode-warning: #dcdcaa;
-  --vscode-error: #f14c4c;
-  --vscode-info: #75beff;
-  --vscode-scrollbar-shadow: rgba(0, 0, 0, 0.25);
-  --vscode-scrollbarSlider-background: hsla(0, 0%, 47%, 0.4);
-  --vscode-scrollbarSlider-hoverBackground: hsla(0, 0%, 47%, 0.7);
-  --vscode-scrollbarSlider-activeBackground: hsla(0, 0%, 47%, 0.9);
-  --vscode-font-family: "Segoe UI", system-ui, Segoe UI, Roboto, Ubuntu, Cantarell,
-    "Noto Sans", -apple-system, sans-serif;
-  --vscode-font-mono: "Consolas", "Monaco", "Menlo", monospace;
-  --vscode-font-size: 13px;
-  --vscode-font-size-small: 12px;
-  --vscode-font-size-large: 14px;
-  --vscode-line-height: 1.5;
-  --vscode-spacing-xs: 4px;
-  --vscode-spacing-sm: 8px;
-  --vscode-spacing-md: 12px;
-  --vscode-spacing-lg: 16px;
-  --vscode-spacing-xl: 24px;
-  --vscode-activitybar-width: 48px;
-  --vscode-sidebar-width: 256px;
-  --vscode-titlebar-height: 30px;
-  --vscode-statusbar-height: 22px;
-  --vscode-tab-height: 35px;
-  --vscode-border-radius-sm: 2px;
-  --vscode-border-radius-md: 4px;
-  --vscode-border-radius-lg: 6px;
-  --vscode-transition-fast: 0.1s ease;
-  --vscode-transition-normal: 0.2s ease;
-  --vscode-transition-slow: 0.3s ease;
-  --vscode-accent: #007acc;
+  --vscode-button-hoverBackground: #2563eb;
+  --vscode-focusBorder: #3b82f6;
+  --vscode-border: rgba(255, 255, 255, 0.05);
+  --vscode-panel-border: rgba(255, 255, 255, 0.1);
+  --vscode-text-primary: #e2e8f0;
+  --vscode-text-secondary: #94a3b8;
+  --vscode-text-link: #60a5fa;
+  --vscode-text-linkHover: #93c5fd;
 
-  /* --- Tactical HUD Aesthetic (Night Ops) --- */
-  --primary-color: #166534;
-  --primary-light: #a3e635;
-  --accent-color: #bef264;
-  --bg-page: #051410;
-  --bg-card: rgba(6, 20, 15, 0.95);
-  --text-highlight: #a3e635;
-  --font-mono: 'JetBrains Mono', 'Roboto Mono', monospace;
-  --hud-glow: 0 0 10px rgba(163, 230, 53, 0.3);
+  /* --- Premium Glassmorphism Aesthetic --- */
+  --primary-color: #3b82f6;
+  --primary-light: #60a5fa;
+  --accent-color: #8b5cf6;
+  --bg-page: #030305;
+  --bg-card: rgba(20, 20, 25, 0.4);
+  --text-highlight: #e2e8f0;
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', monospace;
+  --hud-glow: 0 0 15px rgba(59, 130, 246, 0.3);
 }
 
-/* --- HUD Overlays & Effects --- */
+/* --- Glassmorphism Overlays & Effects --- */
 .glow-text {
-  text-shadow: 0 0 10px rgba(163, 230, 53, 0.5);
+  text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
 }
 
 .hud-panel {
-  background: rgba(10, 20, 15, 0.8);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(163, 230, 53, 0.1);
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  background: rgba(15, 15, 18, 0.4);
+  backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glass-card {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes glitch {
@@ -121,33 +92,24 @@
 }
 
 @keyframes border-pulse {
-  0%, 100% { border-color: rgba(163, 230, 53, 0.1); }
-  50% { border-color: rgba(163, 230, 53, 0.4); }
+  0%, 100% { border-color: rgba(59, 130, 246, 0.1); }
+  50% { border-color: rgba(59, 130, 246, 0.4); }
 }
 
 .hud-border {
   animation: border-pulse 4s infinite;
 }
 
-.scanline-overlay {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%,
-    rgba(0, 0, 0, 0.25) 50%
-  ),
-  linear-gradient(
-    90deg,
-    rgba(255, 0, 0, 0.06),
-    rgba(0, 255, 0, 0.02),
-    rgba(0, 0, 255, 0.06)
-  );
-  background-size: 100% 2px, 3px 100%;
-  pointer-events: none;
-}
-
 body {
   margin: 0;
   color: var(--vscode-editor-foreground);
-  background: var(--vscode-editor-background);
+  background-color: var(--bg-page);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
+  background-attachment: fixed;
   overflow: hidden;
   height: 100%;
   height: 100dvh;
