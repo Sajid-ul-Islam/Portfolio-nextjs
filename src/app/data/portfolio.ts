@@ -504,20 +504,6 @@ export const fileTree: FileTreeSection[] = [
         extension: "tsx",
       },
       {
-        id: "family",
-        label: "Family",
-        href: "/Family",
-        icon: "users",
-        extension: "tsx",
-      },
-      {
-        id: "portfolio-site",
-        label: "Portfolio Site",
-        href: "/portfolio-site",
-        icon: "globe",
-        extension: "web",
-      },
-      {
         id: "contact",
         label: "Contact",
         href: "/contact",
@@ -545,60 +531,6 @@ export const fileTree: FileTreeSection[] = [
         extension: extension,
       };
     }),
-  },
-  {
-    id: "hobbies",
-    label: "HOBBIES",
-    isOpen: false,
-    items: [
-      { id: "favorites", label: "Favorites", href: "/Favorites", icon: "star", extension: "tsx" },
-      {
-        id: "gaming",
-        label: "Gaming",
-        href: "/Gaming",
-        icon: "gamepad-2",
-        extension: "tsx",
-      },
-      {
-        id: "blogs",
-        label: "Blogs",
-        href: "/Blogs",
-        icon: "book-open",
-        extension: "md",
-      },
-    ],
-  },
-  {
-    id: "mission-tools",
-    label: "TOOLS",
-    isOpen: true,
-    items: [
-      { id: "word-writer", label: "Word", href: "/Tools/Word", icon: "file-text", extension: "docx" },
-      { id: "excel-grid", label: "Excel", href: "/Tools/Excel", icon: "table", extension: "xlsx" },
-      { id: "ppt-deck", label: "PowerPoint", href: "/Tools/PowerPoint", icon: "presentation", extension: "pptx" },
-      { id: "code-editor", label: "Code Editor", href: "/Tools/CodeEditor", icon: "code", extension: "tsx" },
-    ],
-  },
-  {
-    id: "more",
-    label: "MORE",
-    isOpen: false,
-    items: [
-      {
-        id: "learning",
-        label: "Learning",
-        href: "/Learning",
-        icon: "graduation-cap",
-        extension: "tsx",
-      },
-      {
-        id: "startup",
-        label: "Startup",
-        href: "/Startup",
-        icon: "rocket",
-        extension: "tsx",
-      },
-    ],
   },
 ];
 
@@ -652,7 +584,7 @@ export const menuItems: MenuItem[] = [
   { label: "Edit", items: ["Undo", "Redo", "---", "Cut", "Copy", "Paste", "---", "Find", "Replace"] },
   { label: "Selection", items: ["Select All", "Expand Selection", "Shrink Selection"] },
   { label: "View", items: ["Explorer", "Search", "Source Control", "---", "Terminal", "AI Chat", "---", "Full Screen"] },
-  { label: "Go", items: ["Go to File", "Go to Symbol", "---", "Next Dossier", "Previous Dossier"] },
+  { label: "Go", items: ["Go to File", "Go to Symbol", "---", "Next File", "Previous File"] },
   { label: "Preferences", items: ["Color Theme", "Settings", "Keyboard Shortcuts"] },
   { label: "Help", items: ["Welcome", "Documentation", "Check for Updates", "---", "About"] },
 ];
@@ -794,176 +726,6 @@ export const experiences: Experience[] = [
   }
 ];
 
-export const favoriteMedia = [
-  {
-    id: "1",
-    title: "Kingdom of Heaven",
-    subtitle: "Movie",
-    image: "/kingdom_of_heaven.png",
-  },
-  {
-    id: "2",
-    title: "Fatih 1453",
-    subtitle: "Movie",
-    image: "/fatih_1453.png",
-  },
-  {
-    id: "3",
-    title: "The Godfather",
-    subtitle: "Novel",
-    image: "/godfather.png",
-  },
-  {
-    id: "4",
-    title: "Tom & Jerry",
-    subtitle: "Animated Series",
-    image: "/tom_jerry.png",
-  },
-  {
-    id: "5",
-    title: "Pokemon",
-    subtitle: "Animated Series",
-    image: "/pokemon.png",
-  },
-  {
-    id: "6",
-    title: "Popeye the Sailor Man",
-    subtitle: "Animated Series",
-    image: "/popeye.png",
-  },
-  {
-    id: "7",
-    title: "Powerpuff Girls",
-    subtitle: "Animated Series",
-    image: "/powerpuff_girls.png",
-  },
-  {
-    id: "8",
-    title: "The Terminator Series",
-    subtitle: "Movie Series",
-    image: "/terminator.png",
-  },
-  {
-    id: "9",
-    title: "Rambo Series",
-    subtitle: "Movie Series",
-    image: "/rambo.png",
-  },
-];
-
-export const gamingPlatforms = [{ name: "PC" }];
-
-export const favoriteGames = [
-  { name: "Valorant", category: "FPS", platform: "PC" },
-  { name: "Marvel Rivals", category: "FPS", platform: "PC" },
-  { name: "Forza Horizon 5", category: "Racing", platform: "PC" },
-  { name: "FIFA", category: "Sports", platform: "PC" },
-  { name: "Fortnite", category: "Battle Royale", platform: "PC" },
-  { name: "Need for Speed", category: "Racing", platform: "PC", image: "/img/projects/ecommerce.png", poster: "https://images.unsplash.com/photo-1549923746-c502d2e81597?auto=format&fit=crop&w=250&q=80" },
-  { name: "Asphalt", category: "Racing", platform: "PC", image: "/img/projects/scraper.png", poster: "https://images.unsplash.com/photo-1511918984145-48de785d4c4f?auto=format&fit=crop&w=250&q=80" },
-  { name: "Snake (Nokia)", category: "Classic", platform: "Nokia Mobile", image: "https://via.placeholder.com/120x80?text=Snake" },
-  { name: "Tetris", category: "Puzzle", platform: "Mobile", image: "https://via.placeholder.com/120x80?text=Tetris" },
-  { name: "Sudoku", category: "Puzzle", platform: "Mobile", image: "https://via.placeholder.com/120x80?text=Sudoku" },
-  { name: "Tic Tac Toe", category: "Classic", platform: "Mobile", image: "https://via.placeholder.com/120x80?text=Tic+Tac+Toe" },
-];
-
-export const gamingStats = [
-  { label: "Years Gaming", value: "15+" },
-  { label: "Favorite Genre", value: "Action/Adventure/Racing" },
-  { label: "Current Game", value: "Marvel Rivals" },
-];
-
-export const learningItems = [
-  { name: "Advanced System Design", category: "Architecture", progress: 70 },
-  { name: "Applied GenAI", category: "Programming", progress: 85 },
-  { name: "AI/ML Deep Dive", category: "AI", progress: 30 },
-  { name: "Product Engineering", category: "Engineering", progress: 50 },
-  { name: "Sanskrit", category: "Language", progress: 20 },
-  { name: "Storytelling/Writing", category: "Communication", progress: 40 },
-];
-
-export const blogPosts: BlogPost[] = [
-  {
-    id: "hardware-vs-software-analogy",
-    title: "Hardware Solutions vs. Software Solutions: A Systems Analogy for Structural Change",
-    excerpt: "Exploring why deep structural problems require architectural hardware solutions rather than cosmetic software patches.",
-    date: "2024-04-02",
-    url: "#",
-    tags: ["Systems", "Architecture", "Sociology"],
-  },
-  {
-    id: "men-marriage-masculinity",
-    title: "Men, Marriage, and Masculinity: Rediscovering Responsibility",
-    excerpt: "Exploring the missing foundation in modern marriage and the rediscovery of leadership grounded in responsibility and justice.",
-    date: "2024-04-01",
-    url: "#",
-    tags: ["Society", "Marriage", "Leadership"],
-  },
-  {
-    id: "modern-financial-system",
-    title: "আমেরিকা নিয়ন্ত্রিত আধুনিক অর্থব্যবস্থা",
-    excerpt: "বর্তমান বৈশ্বিক অর্থনীতির কাঠামো, ব্রেটন উডস সিস্টেম, নিক্সন শক এবং পেট্রোডলার সিস্টেমের একটি বিস্তারিত বিশ্লেষণ।",
-    date: "2024-03-31",
-    url: "#",
-    tags: ["Economy", "Finance", "History"],
-  },
-  {
-    id: "organizational-structures-rethinking",
-    title: "Rethinking Organizational Structures for Effectiveness and Sustainability",
-    excerpt: "A critical analysis of the 13 essential components required for organizational sustainability and impact in the modern era.",
-    date: "2024-03-29",
-    url: "#",
-    tags: ["Management", "Organization", "Strategy"],
-  },
-  {
-    id: "hill-tribes-bangladesh",
-    title: "Understanding the Hill Tribes of Bangladesh: History, Dynamics, and Future Directions",
-    excerpt: "A deep-dive analysis into the two major groups of hill tribes in Bangladesh, their origins, cultural dynamics, and strategic policy implications.",
-    date: "2024-03-30",
-    url: "#",
-    tags: ["Sociology", "History", "Policy"],
-  },
-  {
-    id: "learning-lion-tigers",
-    title: "Learning from Lion & Tigers: Adapting Strategy to Context",
-    excerpt: "Exploring the metaphorical strategy of the tiger versus the lion in modern tactical and business environments. A lesson in stealth and precision.",
-    date: "2024-03-30",
-    url: "/Blogs/learning-lion-tigers",
-    tags: ["Strategy", "Tactics", "Adaptability"],
-  },
-  {
-    id: "1",
-    title: "Building reliable data dashboards",
-    excerpt: "Insights on how to build reliable reporting dashboards.",
-    date: "2024-01-01",
-    url: "#",
-    tags: ["Analytics", "BI"]
-  },
-  {
-    id: "2",
-    title: "From messy data to actionable insight",
-    excerpt: "Strategy for cleaning and utilizing business data.",
-    date: "2024-02-01",
-    url: "#",
-    tags: ["Strategy", "Data"]
-  },
-  {
-    id: "3",
-    title: "Designing reporting that drives decisions",
-    excerpt: "Best practices to design reports that offer actionable insights.",
-    date: "2024-03-01",
-    url: "#",
-    tags: ["BI", "Reporting"]
-  }
-];
-
-export const startupValues = [
-  "Ship fast, iterate as per requirement",
-  "User feedback drives development",
-  "Create something either you want or someone else needs",
-  "Keep it simple",
-];
-
 export const education: Education[] = [
   {
     institution: "Academy of Business Professionals",
@@ -1002,56 +764,5 @@ export const education: Education[] = [
     description: "Science Division.",
     link: "https://uhscdhaka.edu.bd",
     logo: "https://www.google.com/s2/favicons?domain=uhscdhaka.edu.bd&sz=128",
-  },
-];
-
-export const family: FamilyMember[] = [
-  {
-    relation: "Wife",
-    name: "Infida Yesmin",
-    nameLink: "https://sajid-ul-islam.github.io/Infida-Yesmin-Meem/",
-    occupation: "Bangla and Economics Instructor of Protishruti Poribar",
-    link: "https://www.facebook.com/ProtishrutiPoribar",
-  },
-  {
-    relation: "Father",
-    name: "Shahed Chowdhury",
-    occupation: "Merchandiser, Stocklot Business",
-  },
-  {
-    relation: "Mother",
-    name: "Suraiya Haque",
-    occupation: "Former KG School Teacher, House Wife",
-  },
-  {
-    relation: "Paternal Grandfather",
-    name: "Late. Mazharul Islam Chowdhury",
-    occupation: "Former Head Master, PG Govt. High School",
-  },
-  {
-    relation: "Maternal Grandfather",
-    name: "Late. Shamsul Haque",
-    occupation: "Former Govt. Officer, Land Acquisition",
-  },
-  {
-    relation: "Paternal Uncle",
-    name: "Late. Nurul Alam Chowdhury",
-    occupation: "Lieutenant Colonel (Rtd), Bangladesh Army",
-  },
-  {
-    relation: "Maternal Uncle",
-    name: "Moazzem Hossain",
-    occupation: "Principal Officer (Rtd), Shonali Bank Ltd.",
-  },
-  {
-    relation: "Paternal Uncle",
-    name: "Farid Ahmed Chowdhury",
-    occupation: "Head of Philosophy Dept. Chittagong College",
-  },
-  {
-    relation: "Sibling (Younger)",
-    name: "Sakib Islam",
-    occupation: "Owner - Gear Master",
-    link: "https://www.facebook.com/profile.php?id=61558077623189",
   },
 ];

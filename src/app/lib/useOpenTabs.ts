@@ -14,7 +14,7 @@ export type Tab = {
   isPinned?: boolean;
 };
 
-import { fileTree, projects, blogPosts, FileTreeItem } from "../data/portfolio";
+import { fileTree, projects, FileTreeItem } from "../data/portfolio";
 
 function buildTab(path: string): Tab {
   // Find the item in the file tree to get the correct extension
@@ -38,17 +38,6 @@ function buildTab(path: string): Tab {
       item = {
         label: project.title.replace(/\s+/g, ""),
         extension: extension
-      };
-    }
-  }
-
-  // Check if it's a dynamic blog post
-  if (!item && path.startsWith("/Blogs/")) {
-    const blogId = path.split("/").pop();
-    if (blogId) {
-      item = {
-        label: blogId.replace(/-/g, "_"),
-        extension: "mdx"
       };
     }
   }

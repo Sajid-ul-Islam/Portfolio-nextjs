@@ -57,22 +57,6 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   const [showTerminal, setShowTerminal] = useState(false);
   const [showAIChat, setShowAIChat] = useState(false);
   const { sidebarWidth, isResizing, startResizing } = useSidebarResize("vscodeSidebarWidth", 256);
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  const handleAudioToggle = useCallback((active: boolean) => {
-    if (!audioRef.current) {
-        audioRef.current = new Audio("https://cdn.pixabay.com/audio/2022/02/10/audio_141a0e1b6f.mp3");
-        audioRef.current.loop = true;
-    }
-    if (active) {
-        audioRef.current.play().catch(() => console.log("Audio play blocked."));
-        setIsAudioPlaying(true);
-    } else {
-        audioRef.current.pause();
-        setIsAudioPlaying(false);
-    }
-  }, []);
 
   useEffect(() => {
     if (isMounted && isMobile) {
@@ -267,8 +251,6 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
               <ErrorBoundary fallbackMessage="Terminal module offline.">
                 <Terminal 
                   onClose={() => setShowTerminal(false)} 
-                  isAudioPlaying={isAudioPlaying}
-                  onAudioToggle={handleAudioToggle}
                 />
               </ErrorBoundary>
           </div>

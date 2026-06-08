@@ -21,36 +21,33 @@ const INITIAL_FS = {
   "/": ["home", "etc", "bin", "var"],
   "/home": ["sajid"],
   "/home/sajid": ["projects", "skills", "experience", "README.md", "identity.json"],
-  "/home/sajid/projects": ["ecommerce.tsx", "sentinel.py", "ramadan.js", "automation.sh"],
-  "/home/sajid/skills": ["tech_stack.json", "analytics_tools.txt"],
+  "/home/sajid/projects": ["deen-ops.py", "deen-bi.py", "ecommerce.tsx", "sentinel.py", "ramadan.tsx"],
+  "/home/sajid/skills": ["tech_stack.json"],
   "/home/sajid/experience": ["work_history.md"],
 };
 
 const FILE_CONTENT: Record<string, string> = {
-  "readme.md": "# SAJID_ISLAM_ARCHIVE\nOperational dossier for Sajid Islam. All data verified.\n\nWelcome to my tactical portfolio terminal. Type 'help' to begin.",
-  "identity.json": '{\n  "operative": "Sajid Islam",\n  "role": "Data Engineer / BI Strategist",\n  "clearance": "Level 5",\n  "status": "Active"\n}',
-  "ecommerce.tsx": "export default function EcomMission() {\n  return <div>Mission Critical E-Commerce Dashboard</div>;\n}",
-  "sentinel.py": "import sentinel_core\ndef analyze_security():\n    return sentinel_core.scan_vulnerability()",
-  "tech_stack.json": '{\n  "frontend": ["Next.js", "React", "Tailwind"],\n  "data": ["Python", "SQL", "Tableau", "PowerBI"],\n  "devops": ["Vercel", "Git", "GitHub Actions"]\n}',
-  "work_history.md": "### Professional Dossier\n- Data Analyst @ Pathao\n- IT Strategist @ Multiple Missions\n- Open Source Operative",
+  "readme.md": "# Sajid Islam Portfolio\nWelcome to Sajid's interactive portfolio terminal. Type 'help' to view available commands.",
+  "identity.json": '{\n  "name": "Sajid Islam",\n  "role": "Business & Data Analyst",\n  "status": "Available"\n}',
+  "ecommerce.tsx": "export default function EcomDashboard() {\n  return <div>E-Commerce Dashboard analytics</div>;\n}",
+  "sentinel.py": "def analyze_security():\n    return 'Security Incident Mapping'",
+  "tech_stack.json": '{\n  "skills": ["Python", "SQL", "Power BI", "Tableau", "React", "Next.js"]\n}',
+  "work_history.md": "### Work History\n- Business Analyst @ Deen Commerce\n- IT Executive @ NZ TEX GROUP\n- Associate @ Thriving Skills\n- Jr. Executive @ Daraz Bangladesh",
 };
 
 type TerminalProps = {
   onClose: () => void;
-  isAudioPlaying?: boolean;
-  onAudioToggle?: (active: boolean) => void;
 };
 
-export default function Terminal({ onClose, isAudioPlaying, onAudioToggle }: TerminalProps) {
+export default function Terminal({ onClose }: TerminalProps) {
   const [activeTab, setActiveTab] = useState<TerminalTab>("TERMINAL");
   const [currentDir, setCurrentDir] = useState("/home/sajid");
   const [output, setOutput] = useState<string[]>([
-    "Tactical_OS [Version 2.4.110]",
-    "(c) 2026 Sajid Intelligence Systems. All rights reserved.",
+    "Developer Shell [Version 1.0.0]",
+    "(c) 2026 Sajid Islam. All rights reserved.",
     "",
-    "Establishing secure uplink...",
-    "[SUCCESS] Connection verified. Level 5 clearance granted.",
-    "Type 'help' to see mission-critical commands.",
+    "Welcome to Sajid's interactive portfolio terminal.",
+    "Type 'help' to view available commands.",
     "",
   ]);
   const [input, setInput] = useState("");
@@ -71,8 +68,6 @@ export default function Terminal({ onClose, isAudioPlaying, onAudioToggle }: Ter
     "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "projects", "status", "clear", "exit", "mkdir", "touch", "date"
   ], []);
 
-  const [isUnlocked, setIsUnlocked] = useState(false);
-
   const handleCommand = (e: React.FormEvent) => {
     e.preventDefault();
     const cmd = input.trim();
@@ -81,80 +76,40 @@ export default function Terminal({ onClose, isAudioPlaying, onAudioToggle }: Ter
     setHistory(prev => [cmd, ...prev].slice(0, 50));
     setHistoryIdx(-1);
 
-    const fullCmd = `\u001b[32m${currentDir}\u001b[0m \u276f ${cmd}`;
+    const fullCmd = `\u001b[32m${currentDir}\u001b[0m ❯ ${cmd}`;
     const [baseCmd, ...args] = cmd.toLowerCase().split(' ');
     
     let response = "";
 
-    if (cmd === "sudo unlock_vault") {
-        setIsUnlocked(true);
-        response = "[SUCCESS] SECTOR_07_ENCRYPTION_BYPASSED. NEW_DATA_SOURCE_FOUND: secret.txt";
-    } else {
-        switch (baseCmd) {
-            case "help":
-                response = `AVAILABLE_OPS:
-  help              Display tactical assistance
-  ls                List archive contents
-  cd [dir]          Change operational directory
+    switch (baseCmd) {
+      case "help":
+        response = `AVAILABLE COMMANDS:
+  help              Display help information
+  ls                List directory contents
+  cd [dir]          Change directory
   pwd               Print working directory
-  cat [file]        Read encrypted data stream
-  neofetch          Display system specifications
-  whoami            Verification of operative identity
-  projects          Summary of active mission projects
-  status            Internal hardware diagnostics
-  audio [on/off]    Control ambient synth stream
-  mkdir [name]      Create secondary directory
-  touch [name]      Initialize new data file
-  date              Retrieve temporal coordinates
-  clear             Purge terminal buffer
-  exit              Terminate session
-  sudo unlock_vault Uncover clandestine dossiers`;
-                break;
-            case "audio":
-                const action = args[0];
-                if (action === "on") {
-                    onAudioToggle?.(true);
-                    response = "[SUCCESS] DEEP_WORK_STREAM_ACTIVE [STABLE]";
-                } else if (action === "off") {
-                    onAudioToggle?.(false);
-                    response = "[INFO] STREAM_DEACTIVATED";
-                } else {
-                    response = `AUDIO_LOG: Status: ${isAudioPlaying ? 'ACTIVE' : 'INACTIVE'}\nUse 'audio on' or 'audio off' to control.`;
-                }
-                break;
-            case "cat":
-                const file = args[0]?.toLowerCase();
-                if (file === "secret.txt") {
-                    if (isUnlocked) {
-                        response = `[CLANDESTINE_DOSSIER_OPEN]
-        
-    .--------.
-   / .------. \\
-  / /        \\ \\
-  | |        | |
- _| |________| |_
-.' |_|        |_| '.
-'._____ ____ _____.'
-|     .'    '.     |
-'-----'------'-----'
-[INTEL]: Sajid actually loves 80s synthwave and deep-sea diving.
-[LOCATION]: secret_location_0x42
-[SIGNATURE]: Mission_Accomplished`;
-                    } else {
-                        response = "cat: secret.txt: Access Denied. Sudo Clearance Required.";
-                    }
-                } else {
-                    response = FILE_CONTENT[file!] || `cat: ${file}: Unable to read sector.`;
-                }
-                break;
-            case "ls":
-                const contents = [...(fs[currentDir as keyof typeof fs] || [])];
-                if (isUnlocked && currentDir === "/home/sajid") contents.push("secret.txt");
-                response = contents.length > 0 ? contents.join("  ") : "directory is empty";
-                break;
+  cat [file]        Display file content
+  neofetch          Display system configurations
+  whoami            Print current user name
+  projects          List summary of projects
+  status            Print system status
+  mkdir [name]      Create a new directory
+  touch [name]      Create a new file
+  date              Display current system date
+  clear             Clear the terminal screen
+  exit              Close the terminal`;
+        break;
+      case "cat":
+        const file = args[0]?.toLowerCase();
+        response = FILE_CONTENT[file!] || `cat: ${file}: No such file or directory.`;
+        break;
+      case "ls":
+        const contents = [...(fs[currentDir as keyof typeof fs] || [])];
+        response = contents.length > 0 ? contents.join("  ") : "directory is empty";
+        break;
       case "mkdir":
         if (!args[0]) {
-           response = "mkdir: missing operation target";
+           response = "mkdir: missing operand";
         } else {
            const newDir = `${currentDir === "/" ? "" : currentDir}/${args[0]}`;
            setFs(prev => ({ ...prev, [newDir]: [], [currentDir]: [...(prev[currentDir as keyof typeof prev] || []), args[0]] }));
@@ -163,32 +118,28 @@ export default function Terminal({ onClose, isAudioPlaying, onAudioToggle }: Ter
         break;
       case "touch":
         if (!args[0]) {
-            response = "touch: missing file target";
+            response = "touch: missing file operand";
         } else {
             setFs(prev => ({ ...prev, [currentDir]: [...(prev[currentDir as keyof typeof prev] || []), args[0]] }));
-            response = `Initialized file: ${args[0]}`;
+            response = `Created file: ${args[0]}`;
         }
         break;
       case "date":
         response = new Date().toLocaleString();
         break;
       case "projects":
-        response = "ACTIVE_MISSION_SESSIONS (LIVE):\n[01] E-Commerce Dashboard\n[02] Sheet2WhatsApp\n[03] Sentinel Bangladesh\n[04] Ramadan Compass";
+        response = "Sajid's Featured Projects:\n- Deen Ops Dashboard (Python/Streamlit)\n- Deen Business Intel (Python/Streamlit)\n- ECommerce Dashboard (React/Analytics)\n- Sheet2WhatsApp (Python/Streamlit)\n- Sentinel Bangladesh (Python/Map Visualization)";
         break;
       case "status":
-        const batt = (window as any).batteryLevel ? `${(window as any).batteryLevel}%` : "100%";
         const mem = (performance as any).memory ? `${Math.round((performance as any).memory.usedJSHeapSize / 1048576)}MB` : "24MB";
-        response = `[DIAGNOSTICS]
-OPERATIVE: SAJID_ISLAM
-STATION: TERMINAL_0x07
-UPTIME: ${Math.floor(performance.now() / 60000)}m
-MEM_LOAD: ${mem} [OK]
-BATT_LVL: ${batt}
-UPLINK: ENCRYPTED_V5
-CORE_TEMP: 42°C [STABLE]`;
+        response = `System Status:
+User: sajidislam
+Uptime: ${Math.floor(performance.now() / 60000)}m
+Memory usage: ${mem}
+Terminal shell: bash`;
         break;
       case "whoami":
-        response = "SAJID_ISLAM // OPERATIVE_ID: 0x29A // CLEARANCE: LEVEL_5";
+        response = "sajidislam";
         break;
       case "clear":
         setOutput([]);
@@ -199,21 +150,19 @@ CORE_TEMP: 42°C [STABLE]`;
         return;
       case "neofetch":
         response = `\u001b[32m${NEO_ASCII}\u001b[0m
-  \u001b[32mOS\u001b[0m: Tactical_OS v2.4.1 [Night Ops]
-  \u001b[32mHOST\u001b[0m: Sajid-Intelligence-Station-0x7
-  \u001b[32mKERNEL\u001b[0m: 6.5.0-operative-next
+  \u001b[32mOS\u001b[0m: Portfolio OS v1.0.0
+  \u001b[32mHOST\u001b[0m: Sajid-Workspace
+  \u001b[32mKERNEL\u001b[0m: 14.2.35-next
   \u001b[32mUPTIME\u001b[0m: ${Math.floor(performance.now() / 60000)}m
-  \u001b[32mSHELL\u001b[0m: bash --operative-saj
+  \u001b[32mSHELL\u001b[0m: bash --vscode
   \u001b[32mRESOLUTION\u001b[0m: ${window.innerWidth}x${window.innerHeight}
-  \u001b[32mTHEME\u001b[0m: Midnight_Hacker_V5
-  \u001b[32mCPU\u001b[0m: Neural_Link_Core_i9 (Virtual)
-  \u001b[32mGPU\u001b[0m: RTX_Nvidia_Intelligence_Stream
+  \u001b[32mTHEME\u001b[0m: VSCode Modern Dark
+  \u001b[32mCPU\u001b[0m: Virtual Processor (Vercel)
   \u001b[32mMEMORY\u001b[0m: ${Math.round((performance as any).memory?.usedJSHeapSize / 1048576 || 24)}MB / 4096MB`;
         break;
       default:
-        response = `Term: '${cmd}' not recognized in current tactical context. Type 'help' for ops.`;
+        response = `bash: ${cmd}: command not found. Type 'help' for available commands.`;
     }
-  }
 
     setOutput(prev => [...prev, fullCmd, response, ""]);
     setInput("");
@@ -283,7 +232,7 @@ CORE_TEMP: 42°C [STABLE]`;
         <div className="flex items-center gap-3 text-gray-500">
            <div className="flex items-center gap-2 px-2 py-0.5 bg-white/5 rounded text-[9px] text-[#a3e635]/80 font-bold border border-white/5">
               <ChevronRight size={10} />
-              <span>bash --operative-saj</span>
+              <span>bash --vscode</span>
            </div>
            <Trash2 size={13} className="hover:text-white cursor-pointer" onClick={() => setOutput([])} />
            <X size={14} className="hover:text-[#a3e635] cursor-pointer" onClick={onClose} />
@@ -305,7 +254,7 @@ CORE_TEMP: 42°C [STABLE]`;
               </div>
             ))}
             <div className="flex items-center pt-1 group">
-                <span className="text-[#a3e635] font-bold mr-2">{currentDir} \u276f</span>
+                <span className="text-[#a3e635] font-bold mr-2">{currentDir} ❯</span>
                 <div className="relative flex-1">
                     <input
                         ref={inputRef}
@@ -326,7 +275,7 @@ CORE_TEMP: 42°C [STABLE]`;
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-gray-600 italic">
-            [DATA_STREAM_WAITING_FOR_UPLINK]
+            No problems or output streams active.
           </div>
         )}
       </div>

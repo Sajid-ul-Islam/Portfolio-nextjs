@@ -14,8 +14,8 @@ type ModelOption = "gemini-1.5-flash" | "gemini-1.5-pro" | "claude-3-5-sonnet";
 type ToolingMode = "portfolio" | "website" | "combined";
 
 const INITIAL_MESSAGES: ChatMessage[] = [
-  { role: "system", content: "[EXTERNAL_LINK_SECURED] PROTOCOL: G-MODEL-1.5" },
-  { role: "bot", content: "AI_INTEL_ENGINE ONLINE. I HAVE FULL ACCESS TO SAJID'S PORTFOLIO DATA. HOW CAN I ASSIST YOUR OPERATIONAL QUERY TODAY?" },
+  { role: "system", content: "GitHub Copilot Chat v1.5 Online" },
+  { role: "bot", content: "Hello! I am your AI assistant. Ask me anything about Sajid's skills, experience, or projects." },
 ];
 
 export default function AIChat({ onClose }: { onClose: () => void }) {
@@ -147,10 +147,10 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
             <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#a3e635] rounded-full border-2 border-[#111] shadow-[0_0_10px_#a3e635]"></div>
           </div>
           <div className="flex flex-col">
-            <span className="text-[#a3e635] tracking-[0.2em] font-bold text-[10px] uppercase">NEURAL_UPLINK_v1.5</span>
+            <span className="text-[#a3e635] tracking-[0.2em] font-bold text-[10px] uppercase">Copilot Chat</span>
             <div className="flex items-center gap-2">
-              <span className="w-1 h-1 bg-[#a3e635] rounded-full animate-pulse"></span>
-              <span className="text-[9px] text-white/40 font-mono tracking-tighter uppercase">SIGNAL_STRENGTH_MAX</span>
+              <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-pulse"></span>
+              <span className="text-[9px] text-white/40 font-mono tracking-tighter uppercase">Online</span>
             </div>
           </div>
         </div>
@@ -184,7 +184,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <Settings2 size={10} className="opacity-50" />
-            <span className="uppercase tracking-[1px] opacity-40">INTEL_CORE:</span>
+            <span className="uppercase tracking-[1px] opacity-40">MODEL:</span>
           </div>
           <button
             onClick={() => setShowModelSelect(!showModelSelect)}
@@ -322,14 +322,13 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               )}
               {m.role === 'user' && (
                 <div className="absolute -top-3.5 right-0 text-[8px] text-[#a3e635]/50 flex items-center gap-1 font-bold uppercase tracking-tighter">
-                  <Zap size={8} className="opacity-50" />
-                  USER_QUERY_STREAM
+                  You
                 </div>
               )}
               {m.role === 'bot' && (
                 <div className="absolute -top-3.5 left-0 text-[8px] text-white/30 flex items-center gap-1 font-bold uppercase tracking-tighter">
                   <Bot size={8} />
-                  INTEL_FETCHED // SOURCE: PORTFOLIO_DB
+                  Copilot
                 </div>
               )}
               <div className="whitespace-pre-wrap leading-relaxed tracking-tight relative z-10">
@@ -346,7 +345,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
                 <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-bounce"></span>
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-widest">ANALYZING_INTEL_STREAMS...</span>
+              <span className="text-[9px] font-bold uppercase tracking-widest">Thinking...</span>
             </div>
           </div>
         )}
@@ -375,7 +374,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={isTyping}
-              placeholder={isTyping ? "SIGNAL_PROCESSING..." : "EXECUTE_INTEL_QUERY..."}
+              placeholder={isTyping ? "Thinking..." : "Ask a question about Sajid..."}
               className="flex-1 bg-transparent border-none p-2 text-white outline-none placeholder:text-white/20 disabled:opacity-50 text-[12px]"
               aria-label="AI message input"
             />

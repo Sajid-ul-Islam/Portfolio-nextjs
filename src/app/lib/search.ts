@@ -1,4 +1,4 @@
-import { blogPosts, experiences, fileTree, projects } from "../data/portfolio";
+import { experiences, fileTree, projects } from "../data/portfolio";
 
 export type SearchItemType =
   | "file"
@@ -44,15 +44,7 @@ const baseItems: SearchItem[] = [
     type: "experience" as const,
     keywords: experience.technologies,
   })),
-  ...blogPosts.map((post) => ({
-    id: `blog-${post.id}`,
-    title: post.title,
-    subtitle: "Blog",
-    href: post.url,
-    type: "blog" as const,
-    external: true,
-    keywords: post.tags,
-  })),
+
   {
     id: "projects-index",
     title: "Projects Index",
