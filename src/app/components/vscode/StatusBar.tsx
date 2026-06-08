@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { LuBell, LuGitBranch, LuTerminal, LuCpu, LuBattery, LuVolume2, LuVolumeX } from "react-icons/lu";
 
-import { cn } from "../../lib/cn";
+import { cn } from "@/lib/cn";
 
 function StatusItem({
   children,

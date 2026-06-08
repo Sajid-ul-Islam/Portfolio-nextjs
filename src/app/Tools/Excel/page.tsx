@@ -14,7 +14,7 @@ import {
   LuSettings2,
   LuUpload
 } from "react-icons/lu";
-import { cn } from "../../lib/cn";
+import { cn } from "@/lib/cn";
 
 const INITIAL_DATA = [
   ["MISSION_ID", "CODE_NAME", "STATUS", "EFFICIENCY", "IMPACT", "RISK_LEVEL"],

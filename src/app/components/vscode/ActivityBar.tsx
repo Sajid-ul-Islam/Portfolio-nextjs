@@ -11,7 +11,7 @@ import {
   Terminal as TerminalIcon
 } from "lucide-react";
 
-import { cn } from "../../lib/cn";
+import { cn } from "@/lib/cn";
 
 const iconMap = {
   files: Folder,

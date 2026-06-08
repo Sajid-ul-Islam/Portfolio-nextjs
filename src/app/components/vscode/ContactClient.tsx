@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { LuAlertCircle, LuCheckCircle, LuSend } from "react-icons/lu";
 
 import SocialLinks from "./SocialLinks";
-import { cn } from "../../lib/cn";
+import { cn } from "@/lib/cn";
 
 type FormState = {
   name: string;

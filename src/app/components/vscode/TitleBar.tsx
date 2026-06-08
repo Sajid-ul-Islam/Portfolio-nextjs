@@ -3,8 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import { LuMenu, LuMinus, LuSquare, LuX } from "react-icons/lu";
 
-import { menuItems, siteMeta } from "../../data/portfolio";
-import { cn } from "../../lib/cn";
+import { menuItems, siteMeta } from "@/data/portfolio";
+import { cn } from "@/lib/cn";
 
 type TitleBarProps = {
   onMenuClick?: () => void;

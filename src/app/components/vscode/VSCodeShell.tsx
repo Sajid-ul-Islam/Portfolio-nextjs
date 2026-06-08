@@ -3,13 +3,13 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { usePathname } from "next/navigation";
 
-import { cn } from "../../lib/cn";
+import { cn } from "@/lib/cn";
 import {
   RecentPagesProvider,
   useRecentPagesContext,
-} from "../../lib/recentPagesContext";
-import { TabsProvider } from "../../lib/tabsContext";
-import { useViewport } from "../../lib/useViewport";
+} from "@/lib/recentPagesContext";
+import { TabsProvider } from "@/lib/tabsContext";
+import { useViewport } from "@/lib/useViewport";
 import ActivityBar from "./ActivityBar";
 import EditorShell from "./EditorShell";
 import Sidebar from "./Sidebar";
@@ -20,8 +20,9 @@ import AIChat from "./AIChat";
 import AIChatTrigger from "./AIChatTrigger";
 import IntroAnimation from "./IntroAnimation";
 import CommandPalette from "./CommandPalette";
-import { useSidebarResize } from "./hooks/useSidebarResize";
-import { useVSCodeShortcuts } from "./hooks/useVSCodeShortcuts";
+import { useSidebarResize } from "./useSidebarResize";
+import { useVSCodeShortcuts } from "./useVSCodeShortcuts";
+import ErrorBoundary from "./ErrorBoundary";
 
 type VSCodeShellProps = {
   children: React.ReactNode;
@@ -170,7 +171,9 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
           isMobile
         />
         <div className="flex-1 overflow-hidden relative">
-          <EditorShell>{children}</EditorShell>
+          <ErrorBoundary fallbackMessage="Editor module offline. Missing dependencies.">
+            <EditorShell>{children}</EditorShell>
+          </ErrorBoundary>
           
           {/* Mobile Side Drawer Overlay */}
           <div 
@@ -250,7 +253,9 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
       )}
 
       <main className={cn("h-full min-h-0 bg-transparent relative", isResizing && "cursor-col-resize")}>
-        <EditorShell>{children}</EditorShell>
+        <ErrorBoundary fallbackMessage="Editor module offline. Missing dependencies.">
+          <EditorShell>{children}</EditorShell>
+        </ErrorBoundary>
       </main>
 
       <footer className={cn("z-50", sidebarOpen ? "col-span-4" : "col-span-2")}>
@@ -259,11 +264,13 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
 
       {showTerminal && (
           <div className="absolute bottom-6 left-0 right-0 h-64 z-[1000]">
-              <Terminal 
-                onClose={() => setShowTerminal(false)} 
-                isAudioPlaying={isAudioPlaying}
-                onAudioToggle={handleAudioToggle}
-              />
+              <ErrorBoundary fallbackMessage="Terminal module offline.">
+                <Terminal 
+                  onClose={() => setShowTerminal(false)} 
+                  isAudioPlaying={isAudioPlaying}
+                  onAudioToggle={handleAudioToggle}
+                />
+              </ErrorBoundary>
           </div>
       )}
 
@@ -272,7 +279,9 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
               <div className="relative group/float">
                 {/* Floating Shadow Glow */}
                 <div className="absolute inset-0 bg-[#a3e635]/10 rounded-2xl blur-3xl opacity-30 group-hover/float:opacity-50 transition-opacity duration-1000"></div>
-                <AIChat onClose={() => setShowAIChat(false)} />
+                <ErrorBoundary fallbackMessage="AI Neural Link disconnected. Verify environment API keys.">
+                  <AIChat onClose={() => setShowAIChat(false)} />
+                </ErrorBoundary>
               </div>
           </div>
       )}

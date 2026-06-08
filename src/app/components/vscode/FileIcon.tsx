@@ -16,7 +16,7 @@ import {
 import { LuBarChart, LuFile, LuFileText, LuGlobe } from "react-icons/lu";
 import { VscCode } from "react-icons/vsc";
 
-import { cn } from "../../lib/cn";
+import { cn } from "@/lib/cn";
 
 const extensionColors: Record<string, string> = {
   tsx: "text-blue-400",

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LuChevronRight, LuHome } from "react-icons/lu";
 
-import { cn } from "../../lib/cn";
+import { cn } from "@/lib/cn";
 
 export default function Breadcrumbs() {
   const pathname = usePathname();

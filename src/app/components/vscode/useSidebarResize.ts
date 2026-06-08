@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { useLocalStorage } from "../../../lib/useLocalStorage";
+import { useLocalStorage } from "@/lib/useLocalStorage";
 
 export function useSidebarResize(storageKey: string, defaultWidth: number) {
   const [sidebarWidth, setSidebarWidth] = useLocalStorage<number>(storageKey, defaultWidth);
