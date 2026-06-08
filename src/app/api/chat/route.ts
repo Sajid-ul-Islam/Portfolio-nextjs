@@ -2,6 +2,8 @@ import { streamText, embed } from 'ai';
 import { google } from '@ai-sdk/google';
 import { Pinecone } from '@pinecone-database/pinecone';
 
+export const dynamic = 'force-dynamic';
+
 // 1. Initialize Pinecone Client
 // Ensure you have PINECONE_API_KEY and PINECONE_INDEX_NAME in your .env.local
 const pinecone = new Pinecone({
