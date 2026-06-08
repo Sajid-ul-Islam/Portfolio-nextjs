@@ -18,7 +18,7 @@ import {
   LuVolumeX
 } from "react-icons/lu";
 import { cn } from "@/lib/cn";
-import { BlogPost } from "@/data/portfolio";
+import { BlogPost } from "@/app/data/portfolio";
 
 type BlogDetailModalProps = {
   post: BlogPost;
