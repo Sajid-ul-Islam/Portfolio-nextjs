@@ -13,16 +13,15 @@ This document serves as the guide, architectural blueprint, and set of operation
 
 ## 🏗️ Folder Structure Blueprint
 - `src/app/`: The core Next.js application directory.
-- `src/app/(routes)/`: Holds the core portfolio pages:
-  - `page.tsx` (Welcome/About)
-  - `Experience/`
-  - `Skills/`
-  - `projects/` & `projects/[id]/` (Featured project views represented as code files)
-  - `Education/`
-  - `contact/`
-- `src/app/components/vscode/`: Core VS Code UI shell elements.
-- `src/app/lib/` & `src/lib/`: Custom hooks, helpers, and state contexts.
-- `src/app/data/`: Static configuration and content datasets.
+  - `page.tsx` (Welcome/About landing page)
+  - `Experience/` (Professional experience timeline)
+  - `Skills/` (Technical competencies page)
+  - `projects/` & `projects/[id]/` (Featured project views represented as code files in the IDE)
+  - `Education/` (Academic accomplishments)
+  - `contact/` (Contact feedback form page)
+- `src/app/components/vscode/`: Core VS Code UI shell elements (ActivityBar, Sidebar, Terminal, AIChat, etc.).
+- `src/app/lib/` & `src/lib/`: Custom hooks, search helpers, and state contexts (Theme, Tabs, etc.).
+- `src/app/data/`: Static configuration and content datasets (`portfolio.ts`).
 
 ---
 

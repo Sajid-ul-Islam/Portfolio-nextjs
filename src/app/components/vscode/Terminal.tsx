@@ -99,6 +99,42 @@ export default function Terminal({ onClose }: TerminalProps) {
   clear             Clear the terminal screen
   exit              Close the terminal`;
         break;
+      case "cd":
+        {
+          const targetDir = args[0];
+          if (!targetDir) {
+            setCurrentDir("/home/sajid");
+            response = "";
+          } else if (targetDir === "..") {
+            if (currentDir === "/") {
+              response = "";
+            } else {
+              const parts = currentDir.split("/");
+              parts.pop();
+              const parent = parts.join("/") || "/";
+              setCurrentDir(parent);
+              response = "";
+            }
+          } else if (targetDir === ".") {
+            response = "";
+          } else {
+            // Resolve relative or absolute path
+            let resolved = targetDir.startsWith("/") ? targetDir : `${currentDir === "/" ? "" : currentDir}/${targetDir}`;
+            if (resolved.endsWith("/") && resolved.length > 1) {
+              resolved = resolved.slice(0, -1);
+            }
+            if (resolved in fs) {
+              setCurrentDir(resolved);
+              response = "";
+            } else {
+              response = `bash: cd: ${targetDir}: No such file or directory`;
+            }
+          }
+        }
+        break;
+      case "pwd":
+        response = currentDir;
+        break;
       case "cat":
         const file = args[0]?.toLowerCase();
         response = FILE_CONTENT[file!] || `cat: ${file}: No such file or directory.`;
