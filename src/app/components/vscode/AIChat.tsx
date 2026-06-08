@@ -140,7 +140,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       <div className="bg-white/5 p-4 border-b border-white/10 flex justify-between items-center relative z-10">
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 bg-[#a3e635]/20 animate-ping rounded-full duration-[3000ms]"></div>
+            <div className="absolute inset-0 bg-[#a3e635]/20 animate-ping rounded-full [animation-duration:3000ms]"></div>
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#a3e635] to-[#65a30d] flex items-center justify-center shadow-[0_0_15px_rgba(163,230,53,0.3)]">
               <Bot size={18} className="text-black" />
             </div>

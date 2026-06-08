@@ -55,7 +55,7 @@ export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
           "relative flex items-center justify-center w-14 h-14 rounded-full transition-all duration-500",
           "bg-gradient-to-br from-[#a3e635] to-[#65a30d] shadow-[0_0_20px_rgba(163,230,53,0.4)]",
           "hover:scale-110 active:scale-95 group",
-          "before:absolute before:inset-0 before:rounded-full before:bg-[#a3e635] before:animate-ping before:opacity-20 before:duration-[2000ms]"
+          "before:absolute before:inset-0 before:rounded-full before:bg-[#a3e635] before:animate-ping before:opacity-20 before:[animation-duration:2000ms]"
         )}
       >
         <div className="absolute inset-0.5 rounded-full bg-black/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
