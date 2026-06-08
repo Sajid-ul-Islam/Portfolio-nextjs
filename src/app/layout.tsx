@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${tiroBangla.variable}`}>
+    <html lang="en" className={`${tiroBangla.variable}`} suppressHydrationWarning>
       <head>
         <style dangerouslySetInnerHTML={{
           __html: `
