@@ -1,54 +1,49 @@
-🚀 **VS Code Themed Portfolio** built with Next.js 14, TypeScript, and Tailwind CSS.
+# 💻 VS Code Themed Portfolio
 
-[![Next.js](https://img.shields.io/badge/Next.js-14.2.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+An elegant, high-fidelity developer workspace-themed portfolio built with **Next.js 14 (App Router)**, **TypeScript**, and **Tailwind CSS**. Designed for **Sajid Islam (Business & Data Analyst)**.
+
+[![Next.js](https://img.shields.io/badge/Next.js-14.2.35-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 
+---
+
 ## ✨ Features
 
-### 💻 **VS Code Interface**
-- **Activity Bar & Sidebar**: Familiar VS Code layout for navigation
-- **Editor-like Shell**: Code-inspired UI for project showcases
-- **Theme Variables**: Full support for VS Code theme colors and tokens
-- **Interactive File Tree**: Navigate through portfolio sections like a workspace
+### 💻 **VS Code IDE Interface**
+- **Activity Bar & Sidebar**: Clean navigation for files, search, and settings.
+- **Editor Tab System**: Multi-tab interface supporting pinning, closing, and tab history.
+- **Theme Variables**: Full integration of VS Code theme configurations (Dark, Light, Dracula, Monokai).
+- **Interactive File Tree**: Standard workspace explorer listing portfolio sections as files.
+- **Simulated Terminal**: Interactive bash shell terminal supporting system utilities (`ls`, `cd`, `cat`, `neofetch`, `pwd`, `status`, etc.).
 
-### 🚀 **Portfolio Sections**
-- **Experience**: Timeline of professional growth
-- **Projects**: Grid of featured work with technology badges
-- **Skills**: Categorized technical expertise
-- **Blogs**: Integrated writing section
-- **Specialized Views**: Anime, Gaming, and Startup interest pages
+### 🚀 **Portfolio Core Sections**
+- **Welcome**: Main workspace landing page showing personal summary.
+- **Experience**: Clean timeline of professional corporate roles.
+- **Skills**: Technical capabilities categorized by domain (Data Analytics, BI, Web Dev).
+- **Projects**: Grid of featured work represented as tabbed code files in the IDE.
+- **Education**: Detailed listing of academic accomplishments.
+- **Contact**: Simulated editor-like feedback form with Turnstile Captcha and Resend email transmission.
 
-### ⚡ **Performance & SEO**
-- **Next.js 14 App Router**: Utilizing the latest React features
-- **Type Safety**: Built entirely with TypeScript
-- **SEO Optimized**: Metadata and Open Graph support for every route
-- **Fast Refresh**: Optimized for a snappy development experience
+### 🤖 **AI Copilot Chat**
+- **GitHub Copilot Style Panel**: Chat panel built into the sidebar / floating triggers.
+- **Model Selector**: In-app selection between Gemini 1.5 Flash, Gemini 1.5 Pro, and Claude 3.5 Sonnet.
+- **Retrieval-Augmented Generation (RAG)**: Integrates with Vercel AI SDK and Pinecone Vector Database to answer user queries with actual data.
+- **Source Toggles**: Switch context dynamically between Local Portfolio Data and Live Scraping Snaphots.
 
-### 🤖 **AI Chat Enhancements**
-- Model selection UI (Gemini 1.5 Flash, Gemini 1.5 Pro, Claude 3.5 Sonnet)
-- **Retrieval-Augmented Generation (RAG)** using Pinecone Vector Database
-- Source mode toggle (Portfolio local data vs Website content)
-- Website scraping endpoint `/api/site` (auto extracts text from `https://sajid-ul-islam.github.io/`)
-- In-chat “Refresh Site Snapshot” button for up-to-date source content
-- API validation for allowed models + clear error response
-
-> 📖 **Read the full AI Agent Architecture & Features documentation.**
+---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: Next.js 14.2.3
+- **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS + Custom CSS
-- **Icons**: React Icons
-- **Font**: Inter (Google Fonts)
-- **Deployment**: Vercel/GitHub Pages
+- **Styling**: Tailwind CSS + Custom CSS Variables
+- **Icons**: Lucide React + React Icons
+- **Deployment**: Vercel
+
+---
 
 ## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18+ 
-- npm, yarn, pnpm, or bun
 
 ### Installation
 
@@ -61,127 +56,31 @@
 2. **Install dependencies**
    ```bash
    npm install
-   # or
-   yarn install
-   # or
-   pnpm install
    ```
 
 3. **Configure environment variables**
-   Copy `.env.example` to `.env.local` and update the values:
+   Copy `.env.example` to `.env.local` and configure:
    ```bash
    cp .env.example .env.local
    ```
-   Required for email: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`  
-   Required for AI Chat (RAG): `GOOGLE_GENERATIVE_AI_API_KEY`, `PINECONE_API_KEY`, `PINECONE_INDEX_NAME`  
-   Optional: Turnstile `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`  
-   Optional: GitHub activity `GITHUB_USERNAME`, `GITHUB_TOKEN`
+   - *Mail settings*: `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`
+   - *AI settings*: `GOOGLE_GENERATIVE_AI_API_KEY`, `PINECONE_API_KEY`, `PINECONE_INDEX_NAME`
+   - *Optional features*: `GITHUB_USERNAME`, `GITHUB_TOKEN`, `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`
 
 4. **Run the development server**
    ```bash
    npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
    ```
+   Open [http://localhost:3000](http://localhost:3000) to view the workspace.
 
-5. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+---
 
-## 📁 Project Structure
+## 🤖 AI Agent & Developer Blueprints
+For details on system rules, import path mappings, API configurations, and guidelines for future agent modifications, please review:
+- [agent.md](agent.md) — Architectural rules and guidelines.
+- [skill.md](skill.md) — Technical competencies and system dependencies.
 
-```
-src/app/
-├── (routes)/           # Page routes (Experience, Projects, etc.)
-├── components/         # React components
-│   └── vscode/         # Core VS Code themed UI components
-│       ├── ActivityBar.tsx
-│       ├── Badge.tsx
-│       ├── HomeClient.tsx
-│       └── VSCodeShell.tsx
-├── data/               # Portfolio content and project data
-├── lib/                # Shared utilities and helpers
-├── globals.css         # Global styles and theme variables
-└── layout.tsx          # Root layout with shell integration
-```
-
-## 🎨 Customization
-
-### **Colors & Theming**
-Edit CSS variables in `src/app/globals.css`:
-```css
-:root {
-  --primary-color: #3b82f6;
-  --secondary-color: #1e40af;
-  --accent-color: #f59e0b;
-  --background-dark: #0f172a;
-  --background-darker: #020617;
-}
-```
-
-### **Content Updates**
-- **Personal Info**: Update `src/app/components/AboutEnhanced.tsx`
-- **Experience**: Modify `src/app/components/Experience.tsx`
-- **Projects**: Edit `src/app/components/ProjectsEnhanced.tsx`
-- **Skills**: Update `src/app/components/SkillsEnhanced.tsx`
-
-### **SEO & Metadata**
-Update metadata in `src/app/layout.tsx`:
-```typescript
-export const metadata: Metadata = {
-  title: "Your Name - Portfolio",
-  description: "Your description here",
-  // ... other metadata
-};
-```
-
-## 🚀 Deployment
-
-### **Vercel (Recommended)**
-1. Push your code to GitHub
-2. Connect your repository to [Vercel](https://vercel.com)
-3. Deploy automatically on every push
-
-### **GitHub Pages**
-1. Update `next.config.mjs` for static export
-2. Run build and export:
-   ```bash
-   npm run build
-   npm run export
-   ```
-3. Deploy the `out` folder to GitHub Pages
-
-### **Other Platforms**
-- **Netlify**: Connect GitHub repo for automatic deployment
-- **Railway**: Deploy with one-click from GitHub
-- **Heroku**: Use buildpack for Next.js deployment
-
-## 📈 Performance
-
-- **Lighthouse Score**: 95+ on all metrics
-- **Core Web Vitals**: Optimized for LCP, FID, and CLS
-- **Bundle Size**: Optimized with code splitting
-- **Image Optimization**: Next.js Image component usage
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit changes: `git commit -m 'Add amazing feature'`
-4. Push to branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- **Next.js Team** for the amazing framework
-- **Raj Savaliya** for the inspiration and original VS Code theme design
-- **Tailwind CSS** for the utility-first CSS framework
-- **Vercel** for seamless deployment
+---
 
 ## 📞 Contact
 
@@ -189,8 +88,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 📧 Email: sajid.islam.chowdhury@gmail.com
 - 💼 LinkedIn: [sajidislamchowdhury](https://www.linkedin.com/in/sajidislamchowdhury/)
 - 🐱 GitHub: [sajid-ul-islam](https://github.com/sajid-ul-islam)
-- 🌐 Portfolio: [Live Demo](https://sajid-islam-portfolio.vercel.app/)
-
----
-
-⭐ **Star this repository if you found it helpful!**

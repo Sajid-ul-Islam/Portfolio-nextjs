@@ -1,49 +1,62 @@
-# 🤖 AI Agent Architecture & Features
+# 🤖 AI Agent Developer Blueprint & Guidelines
 
-This document outlines the AI enhancements integrated into the VS Code Themed Portfolio. For detailed technical competencies, see [skill.md](skill.md), and for descriptions of the core modules mentioned here, see [projects.md](projects.md).
-
-## 🧠 AI Model Selection
-
-The portfolio features a dynamic model selection UI, allowing users to choose the underlying language model that powers the chat responses.
-
-### Supported Models
-- **Gemini 1.5 Flash**: Optimized for speed and quick interactions.
-- **Gemini 1.5 Pro**: Advanced reasoning for more complex queries.
-- **Claude 3.5 Sonnet**: High-performance model with excellent nuanced comprehension.
-
-### Security & Validation
-- The backend implements strict API validation to ensure only the explicitly allowed models can be queried.
-- Clear error responses are returned if an invalid or unsupported model is requested.
-
-## 📚 Retrieval-Augmented Generation (RAG)
-
-The chat agent implements a sophisticated RAG architecture using the Vercel AI SDK and Pinecone Vector Database to ground the LLM's responses in actual portfolio data.
-
-### Architecture Flow
-1. **Embedding Generation**: User queries are transformed into vector embeddings using Google's `text-embedding-004` model via the Vercel AI SDK.
-2. **Similarity Search**: The embeddings are used to query a **Pinecone Vector Database** (`portfolio-index`) for the top-K most mathematically similar documents (e.g., resume details, project descriptions, blog posts).
-3. **Context Augmentation**: The retrieved metadata text is injected directly into the LLM's system prompt context window.
-4. **Streaming Generation**: The augmented prompt is sent to the selected model (e.g., `gemini-1.5-flash`), and the response is streamed back to the client interface.
-
-### Fallback & Error Handling
-- If context retrieval fails, the system gracefully degrades by informing the agent that specific context could not be found, allowing it to rely on its base knowledge where appropriate.
-
-## 🌐 Data Sources & Website Scraping
-
-To ensure the AI agent provides accurate and up-to-date information, it supports multiple data sources which can be toggled via the chat interface.
-
-### Source Mode Toggle
-Users can switch the AI's context between two primary modes:
-1. **Portfolio Local Data**: The agent uses the static content bundled within the Next.js repository (Experience, Projects, Skills, etc.).
-2. **Website Content**: The agent actively uses data scraped from the live external website.
-
-### Website Scraping Endpoint (`/api/site`)
-- A dedicated Next.js API route (`/api/site`) handles the extraction of text from the external site: `https://sajid-ul-islam.github.io/`.
-- This allows the AI to ground its answers in the most recent external profile data.
-
-### Live Refresh
-- **"Refresh Site Snapshot" Button**: An in-chat utility that allows users to manually trigger a re-scrape of the website. This ensures the source content fed to the context window is completely up to date before the AI generates its response.
+This document serves as the guide, architectural blueprint, and set of operational rules for any AI agent (including yourself) working on the **VS Code Themed Portfolio** project.
 
 ---
 
-*This documentation serves as a guide for understanding the integration between the frontend chat interface, the scraping backend, and the chosen language models.*
+## 🎯 Project Goals & Ethos
+1. **Simple & Elegant**: The portfolio is designed for **Sajid Islam (Business & Data Analyst)**. It must remain professional, clean, and elegant.
+2. **VS Code Theme Fidelity**: The interface is a high-fidelity replica of the Visual Studio Code IDE (Activity Bar, Sidebar, Title Bar, Status Bar, Editor Tabs, Breadcrumbs, and interactive Terminal).
+3. **No Bloat**: All extraneous non-portfolio features (such as Word/Excel document simulators, hobbies tabs, family trees, or blogs) are removed to keep the bundle size and user interface focused.
+
+---
+
+## 🏗️ Folder Structure Blueprint
+- `src/app/`: The core Next.js application directory.
+- `src/app/(routes)/`: Holds the core portfolio pages:
+  - `page.tsx` (Welcome/About)
+  - `Experience/`
+  - `Skills/`
+  - `projects/` & `projects/[id]/` (Featured project views represented as code files)
+  - `Education/`
+  - `contact/`
+- `src/app/components/vscode/`: Core VS Code UI shell elements.
+- `src/app/lib/` & `src/lib/`: Custom hooks, helpers, and state contexts.
+- `src/app/data/`: Static configuration and content datasets.
+
+---
+
+## ⚠️ Crucial Development Rules
+
+### 1. Casing and Path Imports
+- In [tsconfig.json](tsconfig.json), the absolute path alias `@/lib/*` is explicitly mapped to both `src/app/lib/*` and `src/lib/*`. 
+- When adding new utility files, prefer placing them in `src/app/lib` or `src/lib` and importing them using `@/lib/<filename>`.
+- Always check that imports of the data store use `@/app/data/portfolio` rather than `@/data/portfolio` which does not exist.
+
+### 2. API Routes & Prerendering
+- Any route handler under `src/app/api/.../route.ts` (such as `sendEmail` or `chat`) **must** include the dynamic directive:
+  ```typescript
+  export const dynamic = 'force-dynamic';
+  ```
+  Without this, the Next.js static build process will attempt to prerender these routes as static pages during page collection, causing compilation failures.
+
+### 3. Tailwind Ambiguity Warnings
+- Do not use class lists like `duration-[3000ms]` or `before:duration-[2000ms]` on elements that have active animations (e.g., `animate-ping`). This causes Tailwind compiler warnings because of ambiguity between transition-duration and animation-duration.
+- Instead, use explicit Tailwind arbitrary properties:
+  ```typescript
+  [animation-duration:3000ms]
+  before:[animation-duration:2000ms]
+  ```
+
+### 4. Running Commands on the Host
+- On the Windows workspace host, PowerShell resolution can fail if run from root. Always invoke terminal commands with:
+  - **Cwd**: `C:/Windows/System32/WindowsPowerShell/v1.0`
+  - **Pathing**: Use `--prefix g:/Portfolio-nextjs` or absolute paths to target files.
+  - **Do not** propose `cd` commands.
+
+---
+
+## 🤖 AI Copilot Chat Architecture
+- The AI chat uses Vercel AI SDK, Pinecone, and Google Gemini.
+- Toggles between local portfolio data and crawled live external content (`/api/site` cheerio web scraper).
+- Maintain a clean **GitHub Copilot Chat** aesthetic: avoid sci-fi/tactical terminology ("Intel", "Operative", "Secure Uplink"). Use professional assistant framing.
