@@ -15,6 +15,13 @@ const config: Config = {
         "vscode-lg": ["14px", { lineHeight: "1.5" }],
         "vscode-xl": ["16px", { lineHeight: "1.5" }],
         "vscode-3xl": ["24px", { lineHeight: "1.3" }],
+        "vscode-ui": ["13px", "18px"], // UI elements like sidebar, activity bar
+        "vscode-editor": ["14px", "21px"], // Code editor content
+      },
+      spacing: {
+        "vscode-tab": "35px", // Standard VS Code tab height
+        "vscode-activity-bar": "48px", // Standard Activity Bar width
+        "vscode-sidebar": "250px", // Default Sidebar width
       },
       colors: {
         primary: "#3b82f6", // Blue-500
