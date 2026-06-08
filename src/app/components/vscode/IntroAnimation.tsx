@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";import { Fingerprint, ShieldCheck } from "lucide-react";
-import { cn } from "../../lib/cn";
+import { useState, useEffect } from "react";
+import { Fingerprint, ShieldCheck } from "lucide-react";
+import { cn } from "@/lib/cn";
 
 type IntroAnimationProps = {
   onComplete?: () => void;

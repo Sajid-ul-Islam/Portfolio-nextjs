@@ -15,8 +15,8 @@ import {
 } from "lucide-react";
 
 import SocialLinks from "./SocialLinks";
-import { useRecentPagesContext } from "../../lib/recentPagesContext";
-import GlitchText from "../GlitchText";
+import { useRecentPagesContext } from "@/lib/recentPagesContext";
+import GlitchText from "@/app/components/GlitchText";
 
 type StartLinkProps = {
   href: string;
