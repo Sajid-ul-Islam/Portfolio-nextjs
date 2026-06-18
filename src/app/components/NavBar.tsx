@@ -75,12 +75,12 @@ const NavBar = () => {
               ></span>
             </a>
           ))}
-          <a
+          <Link
             href="/#contact"
             className="px-4 py-2 rounded-full border border-ink/20 text-ink hover:bg-ink hover:text-paper transition-all duration-300"
           >
             Let&apos;s Talk
-          </a>
+          </Link>
           <a
             href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
             target="_blank"
@@ -119,13 +119,13 @@ const NavBar = () => {
                 {item.label}
               </a>
             ))}
-            <a
+            <Link
               href="/#contact"
               className="text-ink font-bold"
               onClick={() => setIsOpen(false)}
             >
               Let&apos;s Talk
-            </a>
+            </Link>
             <a
               href="https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link"
               target="_blank"
