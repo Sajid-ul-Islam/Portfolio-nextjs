@@ -9,7 +9,7 @@
     "prebuild": "echo '⚠️ Skipping audit for urgent deploy' && exit 0",
     "export": "next export",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "test:build": "npm run lint && npm run build",
     "predeploy": "npm run test:build",
     "deploy": "gh-pages -d out"
