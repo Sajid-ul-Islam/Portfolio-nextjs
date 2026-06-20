@@ -114,67 +114,62 @@ export default function ContactClient() {
         />
       ) : null}
       <div className="mb-10 relative">
-        <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-1 h-12 bg-[#a3e635]"></div>
-        <h1 className="text-4xl font-black text-white font-mono tracking-tighter uppercase mb-2 glow-text">
-          Establish_Uplink
+        <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-1 h-12 bg-[var(--vscode-accent)]"></div>
+        <h1 className="text-4xl font-extrabold text-[var(--vscode-text-primary)] mb-2">
+          Get in Touch
         </h1>
-        <p className="text-[#a3e635]/60 text-xs font-mono uppercase tracking-widest">
-          Secure Communications Protocol // Signal Transmission
+        <p className="text-[var(--vscode-accent)] text-xs font-mono uppercase tracking-widest">
+          Let's collaborate on BI, data pipelines, and analyst tooling
         </p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <section className="lg:col-span-5 space-y-6">
-          <div className="p-6 bg-[#0a1a15]/80 backdrop-blur-md border border-[#a3e635]/10 rounded-lg relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-16 h-16 border-t border-r border-[#a3e635]/20 rounded-tr-lg"></div>
-            <h2 className="text-sm font-bold text-[#a3e635] mb-4 uppercase tracking-widest flex items-center gap-2">
-              <span className="w-2 h-2 bg-[#a3e635] animate-pulse"></span>
-              Operative_Channels
+          <div className="p-6 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 transition-all rounded-lg relative overflow-hidden group">
+            <h2 className="text-sm font-bold text-[var(--vscode-accent)] mb-4 uppercase tracking-widest flex items-center gap-2 font-mono">
+              <span className="w-2 h-2 bg-[var(--vscode-accent)] rounded-full"></span>
+              Operative Channels
             </h2>
-            <p className="text-[11px] text-gray-500 font-mono mb-6 uppercase leading-tight">
-              Direct connection nodes for immediate response. Pulse verified.
+            <p className="text-xs text-[var(--vscode-text-secondary)] mb-6 leading-relaxed">
+              Reach out through these active connection links for immediate response.
             </p>
             <div className="grid grid-cols-1 gap-2">
                <SocialLinks />
             </div>
             
-            <div className="mt-8 pt-6 border-t border-white/5 space-y-4">
-              <div className="flex items-center justify-between text-[10px] font-mono">
-                <span className="text-gray-600 uppercase">Signal_Status:</span>
-                <span className="text-[#a3e635]">STABLE [99.9%]</span>
+            <div className="mt-8 pt-6 border-t border-white/5 space-y-4 font-mono">
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="text-gray-500 uppercase">Location:</span>
+                <span className="text-[var(--vscode-text-primary)]">Dhaka, Bangladesh</span>
               </div>
-              <div className="flex items-center justify-between text-[10px] font-mono">
-                <span className="text-gray-600 uppercase">Encryption:</span>
-                <span className="text-[#a3e635]">ML_V5_RSA_4096</span>
-              </div>
-              <div className="flex items-center justify-between text-[10px] font-mono">
-                <span className="text-gray-600 uppercase">Station:</span>
-                <span className="text-[#a3e635]">DHAKA_NODE_0x1</span>
+              <div className="flex items-center justify-between text-[10px]">
+                <span className="text-gray-500 uppercase">Availability:</span>
+                <span className="text-[var(--vscode-text-primary)]">Open to Contracts & Roles</span>
               </div>
             </div>
           </div>
         </section>
 
         <section className="lg:col-span-7">
-          <div className="p-8 bg-[#0a1a15]/40 backdrop-blur-sm border border-[#a3e635]/10 rounded-lg relative">
-            <h2 className="text-sm font-bold text-white mb-6 uppercase tracking-widest font-mono">
-              [ TRANSMIT_MESSAGE ]
+          <div className="p-8 bg-[var(--vscode-sideBar-background)]/40 border border-[var(--vscode-border)] rounded-lg relative">
+            <h2 className="text-sm font-bold text-[var(--vscode-text-primary)] mb-6 uppercase tracking-widest font-mono">
+              [ Send Message ]
             </h2>
 
             {status === "success" ? (
-              <div className="flex flex-col items-center justify-center py-12 text-center bg-[#a3e635]/5 border border-[#a3e635]/20 rounded animate-fade-in">
-                <LuCheckCircle size={48} className="text-[#a3e635] mb-4 drop-shadow-[0_0_10px_rgba(163,230,53,0.5)]" />
-                <h3 className="text-xl font-bold text-white mb-2 font-mono uppercase">
-                  Uplink_Confirmed
+              <div className="flex flex-col items-center justify-center py-12 text-center bg-[var(--vscode-accent)]/5 border border-[var(--vscode-accent)]/20 rounded animate-fade-in">
+                <LuCheckCircle size={48} className="text-[var(--vscode-accent)] mb-4" />
+                <h3 className="text-xl font-bold text-[var(--vscode-text-primary)] mb-2 font-mono uppercase">
+                  Message Sent
                 </h3>
-                <p className="text-sm text-[#a3e635]/70 font-mono mb-6 uppercase tracking-tight">
-                  Message successfully integrated into archive.
+                <p className="text-sm text-[var(--vscode-text-secondary)] font-mono mb-6 uppercase tracking-tight">
+                  Your message was sent successfully. I will get back to you shortly.
                 </p>
                 <button 
                   onClick={() => setStatus("idle")}
-                  className="px-6 py-2 bg-transparent border border-[#a3e635] text-[#a3e635] font-bold text-[10px] uppercase tracking-widest hover:bg-[#a3e635] hover:text-[#051410] transition-all"
+                  className="px-6 py-2 bg-transparent border border-[var(--vscode-accent)] text-[var(--vscode-accent)] font-bold text-[10px] uppercase tracking-widest hover:bg-[var(--vscode-accent)] hover:text-white transition-all font-mono"
                 >
-                  Return_To_Comms
+                  Back to Contact Form
                 </button>
               </div>
             ) : (
@@ -191,32 +186,32 @@ export default function ContactClient() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Input_Name</label>
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Your Name</label>
                     <input
                       name="name"
-                      placeholder="IDENTIFY_YOURSELF"
+                      placeholder="Name"
                       value={form.name}
                       onChange={handleChange}
                       disabled={status === "loading"}
                       className={cn(
-                        "w-full px-4 py-3 bg-black/40 border-2 border-white/5 rounded text-white font-mono text-xs",
-                        "focus:outline-none focus:border-[#a3e635]/50 focus:bg-black/60 transition-all",
+                        "w-full px-4 py-3 bg-[var(--vscode-input-background)] border border-[var(--vscode-input-border)] rounded text-[var(--vscode-text-primary)] font-mono text-xs",
+                        "focus:outline-none focus:border-[var(--vscode-focusBorder)] transition-all",
                         errors.name && "border-red-500/50"
                       )}
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Input_Email</label>
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Your Email</label>
                     <input
                       name="email"
                       type="email"
-                      placeholder="RETURN_ADDRESS"
+                      placeholder="Email address"
                       value={form.email}
                       onChange={handleChange}
                       disabled={status === "loading"}
                       className={cn(
-                        "w-full px-4 py-3 bg-black/40 border-2 border-white/5 rounded text-white font-mono text-xs",
-                        "focus:outline-none focus:border-[#a3e635]/50 focus:bg-black/60 transition-all",
+                        "w-full px-4 py-3 bg-[var(--vscode-input-background)] border border-[var(--vscode-input-border)] rounded text-[var(--vscode-text-primary)] font-mono text-xs",
+                        "focus:outline-none focus:border-[var(--vscode-focusBorder)] transition-all",
                         errors.email && "border-red-500/50"
                       )}
                     />
@@ -224,29 +219,29 @@ export default function ContactClient() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Mission_Subject</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Subject</label>
                   <input
                     name="subject"
-                    placeholder="PROTOCOL_OBJECTIVE"
+                    placeholder="Subject line"
                     value={form.subject}
                     onChange={handleChange}
                     disabled={status === "loading"}
-                    className="w-full px-4 py-3 bg-black/40 border-2 border-white/5 rounded text-white font-mono text-xs focus:outline-none focus:border-[#a3e635]/50 focus:bg-black/60 transition-all"
+                    className="w-full px-4 py-3 bg-[var(--vscode-input-background)] border border-[var(--vscode-input-border)] rounded text-[var(--vscode-text-primary)] font-mono text-xs focus:outline-none focus:border-[var(--vscode-focusBorder)] transition-all"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Data_Stream</label>
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Message</label>
                   <textarea
                     name="message"
                     rows={5}
-                    placeholder="ENCODE_YOUR_MESSAGE_HERE..."
+                    placeholder="How can I help you?"
                     value={form.message}
                     onChange={handleChange}
                     disabled={status === "loading"}
                     className={cn(
-                      "w-full px-4 py-3 bg-black/40 border-2 border-white/5 rounded text-white font-mono text-xs resize-none",
-                      "focus:outline-none focus:border-[#a3e635]/50 focus:bg-black/60 transition-all",
+                      "w-full px-4 py-3 bg-[var(--vscode-input-background)] border border-[var(--vscode-input-border)] rounded text-[var(--vscode-text-primary)] font-mono text-xs resize-none",
+                      "focus:outline-none focus:border-[var(--vscode-focusBorder)] transition-all",
                       errors.message && "border-red-500/50"
                     )}
                   />
@@ -269,8 +264,8 @@ export default function ContactClient() {
                 {status === "error" && (
                   <div className="flex items-center gap-2 p-3 bg-red-500/10 border border-red-500/20 rounded">
                     <LuAlertCircle size={14} className="text-red-500" />
-                    <span className="text-[10px] text-red-500 font-bold uppercase tracking-tight">
-                      {errorMessage || "TRANS_FAILURE: SIGNAL_INTERRUPTED"}
+                    <span className="text-[10px] text-red-500 font-bold uppercase tracking-tight font-mono">
+                      {errorMessage || "Transmission failure: Signal Interrupted"}
                     </span>
                   </div>
                 )}
@@ -279,20 +274,18 @@ export default function ContactClient() {
                   type="submit"
                   disabled={status === "loading"}
                   className={cn(
-                    "w-full py-4 bg-[#166534] text-white font-black text-xs uppercase tracking-[0.2em] relative overflow-hidden group/btn transition-all hover:bg-[#a3e635] hover:text-[#051410] active:scale-[0.98]",
+                    "w-full py-4 bg-[var(--vscode-button-background)] text-[var(--vscode-button-foreground)] font-bold text-xs uppercase tracking-[0.2em] font-mono relative overflow-hidden group/btn transition-all hover:bg-[var(--vscode-button-hoverBackground)] active:scale-[0.98]",
                     status === "loading" && "opacity-50 cursor-not-allowed"
                   )}
                 >
                   <span className="relative z-10 flex items-center justify-center gap-3">
-                    {status === "loading" ? "Uplink_In_Progress..." : (
+                    {status === "loading" ? "Sending..." : (
                       <>
-                        Initiate_Transmission
+                        Send Message
                         <LuSend size={14} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                       </>
                     )}
                   </span>
-                  {/* Button Glitch Effect Background */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/btn:animate-loading-slide"></div>
                 </button>
               </form>
             )}

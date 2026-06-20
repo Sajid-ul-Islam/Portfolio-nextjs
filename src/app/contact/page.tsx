@@ -3,7 +3,7 @@ import ContactClient from "../components/vscode/ContactClient";
 export const metadata = {
   title: "Contact",
   description:
-    "Get in touch with Raj Savaliya. Reach out for collaborations, opportunities, or just to say hello.",
+    "Get in touch with Sajid Islam. Reach out for collaborations, analytics opportunities, or dashboard building.",
   alternates: { canonical: "/contact" },
 };
 

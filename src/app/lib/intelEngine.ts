@@ -1,4 +1,4 @@
-import { personalInfo, experience, education, skills, projects, metrics, awards, family } from "../data";
+import { personalInfo, experiences, education, skillGroups, projects, metrics, family } from "../data/portfolio";
 
 /**
  * Intelligent Local Search Engine
@@ -11,9 +11,13 @@ export function getLocalIntel(query: string): string | null {
   
   // Skills intent
   if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("know")) {
-    const tech = skills.technical.map(s => s.name).join(", ");
-    const web = skills.web.map(s => s.name).join(", ");
-    const core = skills.core.join(", ");
+    const techGroup = skillGroups.find(g => g.name.includes("Analytics"))?.skills || [];
+    const webGroup = skillGroups.find(g => g.name.includes("Web"))?.skills || [];
+    const coreGroup = skillGroups.find(g => g.name.includes("Core"))?.skills || [];
+    
+    const tech = techGroup.map(s => s.name).join(", ");
+    const web = webGroup.map(s => s.name).join(", ");
+    const core = coreGroup.map(s => s.name).join(", ");
     return `[LOCAL_INTEL]: Sajid's toolkit includes:
 - Technical: ${tech}
 - Web: ${web}
@@ -22,7 +26,7 @@ export function getLocalIntel(query: string): string | null {
 
   // Projects intent
   if (q.includes("project") || q.includes("work") || q.includes("build") || q.includes("portfolio")) {
-    const topProjects = projects.slice(0, 5).map(p => `${p.title}: ${p.desc}`).join("\n- ");
+    const topProjects = projects.slice(0, 5).map(p => `${p.title}: ${p.description}`).join("\n- ");
     return `[LOCAL_INTEL]: I've located ${projects.length} distinct projects in the archive. Some highlights:
 - ${topProjects}
 Check the /projects directory for full mission details.`;
@@ -30,7 +34,7 @@ Check the /projects directory for full mission details.`;
 
   // Experience/Work history intent
   if (q.includes("experience") || q.includes("job") || q.includes("company") || q.includes("career")) {
-    const exp = experience.map(e => `${e.role} at ${e.company}`).join("\n- ");
+    const exp = experiences.map(e => `${e.title} at ${e.company}`).join("\n- ");
     return `[LOCAL_INTEL]: Operational History:
 - ${exp}
 He has over 2 years of experience in Marketplace analysis and BI strategy.`;
@@ -57,7 +61,7 @@ He has over 2 years of experience in Marketplace analysis and BI strategy.`;
 
   // Contact
   if (q.includes("contact") || q.includes("hire") || q.includes("email") || q.includes("reach")) {
-    return `[LOCAL_INTEL]: You can establish an uplink with Sajid at ${personalInfo.email}. WhatsApp: ${personalInfo.whatsapp}`;
+    return `[LOCAL_INTEL]: You can establish connection with Sajid at ${personalInfo.email}. WhatsApp: ${personalInfo.whatsapp}`;
   }
 
   // Family (He has a family section)
@@ -68,3 +72,4 @@ He has over 2 years of experience in Marketplace analysis and BI strategy.`;
 
   return null; // No local match, proceed to AI
 }
+

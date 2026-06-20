@@ -14,7 +14,7 @@ type ModelOption = "gemini-1.5-flash" | "gemini-1.5-pro" | "claude-3-5-sonnet";
 type ToolingMode = "portfolio" | "website" | "combined";
 
 const INITIAL_MESSAGES: ChatMessage[] = [
-  { role: "system", content: "GitHub Copilot Chat v1.5 Online" },
+  { role: "system", content: "AI Portfolio Assistant Online" },
   { role: "bot", content: "Hello! I am your AI assistant. Ask me anything about Sajid's skills, experience, or projects." },
 ];
 
@@ -50,24 +50,6 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     setMessages(INITIAL_MESSAGES);
   };
 
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  const [voiceEnabled, setVoiceEnabled] = useState(false);
-
-  const speak = (text: string) => {
-    if (!voiceEnabled || typeof window === "undefined") return;
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 1.1;
-    utterance.pitch = 0.8;
-    // Find a robotic sounding voice
-    const voices = window.speechSynthesis.getVoices();
-    utterance.voice = voices.find(v => v.name.includes("Google UK English Male")) || voices[0];
-
-    utterance.onstart = () => setIsSpeaking(true);
-    utterance.onend = () => setIsSpeaking(false);
-    window.speechSynthesis.speak(utterance);
-  };
-
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isTyping) return;
@@ -82,7 +64,6 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     if (localMatch) {
       setTimeout(() => {
         setMessages(prev => [...prev, { role: "bot" as const, content: localMatch }]);
-        speak(localMatch);
         setIsTyping(false);
       }, 800);
       return;
@@ -113,58 +94,57 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
 
       const data = await response.json();
       setMessages(prev => [...prev, { role: "bot" as const, content: data.content }]);
-      speak(data.content);
     } catch (err: any) {
-      setMessages(prev => [...prev, { role: "system" as const, content: "[ERROR]: UPLINK_FAILURE" }]);
+      setMessages(prev => [...prev, { role: "system" as const, content: "[ERROR]: Connection Timeout" }]);
     } finally {
       setIsTyping(false);
     }
   };
 
   const suggestions = [
-    { label: "SHOW_DOSSUIER", prompt: "Who is Sajid Islam?" },
-    { label: "PROJECT_STATUS", prompt: "Tell me about your featured projects." },
-    { label: "TECH_OPS", prompt: "What is your primary tech stack?" },
-    { label: "EXPERIENCE_LOG", prompt: "Where have you worked before?" },
+    { label: "About Sajid", prompt: "Who is Sajid Islam?" },
+    { label: "Featured Projects", prompt: "Tell me about your featured projects." },
+    { label: "Technical Stack", prompt: "What is your primary tech stack?" },
+    { label: "Work History", prompt: "Where have you worked before?" },
   ];
 
   return (
-    <div className="w-[calc(100vw-3rem)] sm:w-[350px] md:w-[400px] h-[calc(100dvh-8rem)] sm:h-[600px] max-h-[600px] bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)] flex flex-col font-mono text-[11px] rounded-2xl overflow-hidden group/chat relative">
-      {/* Decorative HUD Elements */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#a3e635] to-transparent opacity-50"></div>
+    <div className="w-[calc(100vw-3rem)] sm:w-[350px] md:w-[400px] h-[calc(100dvh-8rem)] sm:h-[600px] max-h-[600px] bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] shadow-2xl flex flex-col font-mono text-[11px] rounded-2xl overflow-hidden group/chat relative">
+      {/* Decorative Accent Border */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--vscode-accent)] to-transparent opacity-50"></div>
       <div className="absolute top-0 right-0 p-1 opacity-20 group-hover/chat:opacity-50 transition-opacity">
-        <Sparkles size={40} className="text-[#a3e635]" />
+        <Sparkles size={40} className="text-[var(--vscode-accent)]" />
       </div>
 
       {/* Header */}
-      <div className="bg-white/5 p-4 border-b border-white/10 flex justify-between items-center relative z-10">
+      <div className="bg-white/5 p-4 border-b border-[var(--vscode-border)] flex justify-between items-center relative z-10 font-sans">
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 bg-[#a3e635]/20 animate-ping rounded-full [animation-duration:3000ms]"></div>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#a3e635] to-[#65a30d] flex items-center justify-center shadow-[0_0_15px_rgba(163,230,53,0.3)]">
-              <Bot size={18} className="text-black" />
+            <div className="absolute inset-0 bg-[var(--vscode-accent)]/20 animate-ping rounded-full [animation-duration:3000ms]"></div>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[var(--vscode-accent)] to-[var(--vscode-accent)]/80 flex items-center justify-center shadow-lg">
+              <Bot size={18} className="text-white" />
             </div>
-            <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[#a3e635] rounded-full border-2 border-[#111] shadow-[0_0_10px_#a3e635]"></div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[var(--vscode-accent)] rounded-full border-2 border-[#111]"></div>
           </div>
           <div className="flex flex-col">
-            <span className="text-[#a3e635] tracking-[0.2em] font-bold text-[10px] uppercase">Copilot Chat</span>
+            <span className="text-[var(--vscode-accent)] tracking-wider font-bold text-[11px] uppercase">AI Assistant</span>
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-pulse"></span>
-              <span className="text-[9px] text-white/40 font-mono tracking-tighter uppercase">Online</span>
+              <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-pulse"></span>
+              <span className="text-[9px] text-[var(--vscode-text-secondary)] tracking-tighter uppercase font-mono">Online</span>
             </div>
           </div>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={handleClear}
-            className="text-white/40 hover:text-[#a3e635] transition-colors p-1"
+            className="text-white/40 hover:text-[var(--vscode-accent)] transition-colors p-1"
             title="Clear Chat"
           >
             <Trash2 size={14} />
           </button>
           <button
             onClick={onClose}
-            className="text-white/40 hover:text-[#a3e635] transition-colors p-1"
+            className="text-white/40 hover:text-[var(--vscode-accent)] transition-colors p-1"
             title="Minimize"
           >
             <Minus size={18} />
@@ -180,7 +160,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* Model + Source Controls */}
-      <div className="px-4 py-2 border-b border-white/5 flex items-center justify-between bg-white/[0.02] text-[9px] text-white/30 relative z-10">
+      <div className="px-4 py-2 border-b border-[var(--vscode-border)] flex items-center justify-between bg-white/[0.02] text-[9px] text-white/30 relative z-10">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
             <Settings2 size={10} className="opacity-50" />
@@ -188,7 +168,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           </div>
           <button
             onClick={() => setShowModelSelect(!showModelSelect)}
-            className="flex items-center gap-1 text-[#a3e635] hover:bg-[#a3e635]/10 px-1.5 py-0.5 rounded border border-[#a3e635]/20 bg-[#a3e635]/5"
+            className="flex items-center gap-1 text-[var(--vscode-accent)] hover:bg-[var(--vscode-accent)]/10 px-1.5 py-0.5 rounded border border-[var(--vscode-accent)]/20 bg-[var(--vscode-accent)]/5"
           >
             {model === "gemini-1.5-flash" ? (
               <>
@@ -209,24 +189,24 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
             <ChevronDown size={8} className={`transition-transform ${showModelSelect ? 'rotate-180' : ''}`} />
           </button>
           <div className="flex items-center gap-1">
-            <span className="text-[9px] opacity-50">SOURCE:</span>
+            <span className="text-[9px] opacity-50">CONTEXT:</span>
             <button
               onClick={() => setToolingMode("portfolio")}
-              className={`px-2 py-0.5 rounded ${toolingMode === "portfolio" ? "bg-[#a3e635]/40 text-white" : "bg-white/5 text-white/50"}`}
+              className={`px-2 py-0.5 rounded ${toolingMode === "portfolio" ? "bg-[var(--vscode-accent)]/30 text-white border border-[var(--vscode-accent)]/50" : "bg-white/5 text-white/50"}`}
             >PORTFOLIO</button>
             <button
               onClick={() => setToolingMode("website")}
-              className={`px-2 py-0.5 rounded ${toolingMode === "website" ? "bg-[#a3e635]/40 text-white" : "bg-white/5 text-white/50"}`}
+              className={`px-2 py-0.5 rounded ${toolingMode === "website" ? "bg-[var(--vscode-accent)]/30 text-white border border-[var(--vscode-accent)]/50" : "bg-white/5 text-white/50"}`}
             >WEBSITE</button>
             <button
               onClick={() => setToolingMode("combined")}
-              className={`px-2 py-0.5 rounded ${toolingMode === "combined" ? "bg-[#a3e635]/40 text-white" : "bg-white/5 text-white/50"}`}
+              className={`px-2 py-0.5 rounded ${toolingMode === "combined" ? "bg-[var(--vscode-accent)]/30 text-white border border-[var(--vscode-accent)]/50" : "bg-white/5 text-white/50"}`}
             >COMBINED</button>
           </div>
         </div>
         <div className="flex items-center gap-3">
           <div className="h-4 w-[1px] bg-white/10"></div>
-          <div className="flex items-center gap-2 text-[#a3e635]/60 hover:text-[#a3e635] cursor-help">
+          <div className="flex items-center gap-2 text-[var(--vscode-accent)]/60 hover:text-[var(--vscode-accent)] cursor-help">
             <Zap size={10} className="animate-pulse" />
             <span className="uppercase tracking-widest font-bold">READY</span>
           </div>
@@ -239,7 +219,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               onClick={() => { setModel("gemini-1.5-flash"); setShowModelSelect(false); }}
               className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 ${model === "gemini-1.5-flash" ? 'bg-white/5' : ''}`}
             >
-              <div className="flex items-center gap-2 text-[#a3e635]">
+              <div className="flex items-center gap-2 text-[var(--vscode-accent)]">
                 <Zap size={10} />
                 <span className="font-bold">Gemini 1.5 Flash</span>
               </div>
@@ -269,12 +249,12 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         )}
       </div>
 
-      <div className="px-4 py-1 border-b border-white/10 text-[8px] text-white/40 flex items-center justify-between gap-2">
+      <div className="px-4 py-1 border-b border-[var(--vscode-border)] text-[8px] text-white/40 flex items-center justify-between gap-2">
         <span>
           {toolingMode === "website"
             ? siteSnapshot
-              ? "Website snapshot loaded"
-              : "Website snapshot not loaded"
+              ? "Website context loaded"
+              : "Website context not loaded"
             : toolingMode === "combined"
               ? siteSnapshot
                 ? "Combined context active (website + portfolio)"
@@ -306,32 +286,26 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
 
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-6 scrollbar-thin scrollbar-thumb-white/10 custom-chat-scroll relative z-10">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in slide-in-from-bottom-2 duration-300`}>
-            <div className={`max-w-[85%] p-3 rounded-xl border relative transition-all duration-300 shadow-2xl hover:shadow-[#a3e635]/10 ${m.role === 'user'
-              ? 'bg-gradient-to-br from-[#a3e635] to-[#65a30d] text-black border-[#a3e635]/30 rounded-tr-none'
+            <div className={`max-w-[85%] p-3 rounded-xl border relative transition-all duration-300 shadow-lg ${m.role === 'user'
+              ? 'bg-[var(--vscode-accent)] text-white border-[var(--vscode-accent)]/30 rounded-tr-none'
               : m.role === 'system'
                 ? 'border-none italic text-white/20 text-[9px] uppercase tracking-widest text-center w-full bg-white/5 py-1 rounded'
                 : 'bg-white/10 backdrop-blur-md text-white border-white/10 rounded-tl-none overflow-hidden'
               }`}>
-              {m.role === 'bot' && (
-                <div className="absolute top-0 right-0 p-1 opacity-5">
-                  <Sparkles size={30} />
-                </div>
-              )}
               {m.role === 'user' && (
-                <div className="absolute -top-3.5 right-0 text-[8px] text-[#a3e635]/50 flex items-center gap-1 font-bold uppercase tracking-tighter">
+                <div className="absolute -top-3.5 right-0 text-[8px] text-[var(--vscode-accent)]/80 flex items-center gap-1 font-bold uppercase tracking-tighter">
                   You
                 </div>
               )}
               {m.role === 'bot' && (
-                <div className="absolute -top-3.5 left-0 text-[8px] text-white/30 flex items-center gap-1 font-bold uppercase tracking-tighter">
+                <div className="absolute -top-3.5 left-0 text-[8px] text-white/40 flex items-center gap-1 font-bold uppercase tracking-tighter font-sans">
                   <Bot size={8} />
-                  Copilot
+                  Assistant
                 </div>
               )}
-              <div className="whitespace-pre-wrap leading-relaxed tracking-tight relative z-10">
+              <div className="whitespace-pre-wrap leading-relaxed tracking-tight relative z-10 font-sans">
                 {m.content}
               </div>
             </div>
@@ -339,27 +313,27 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         ))}
         {isTyping && (
           <div className="flex justify-start animate-pulse">
-            <div className="p-3 bg-white/5 border border-white/10 text-[#a3e635] flex items-center gap-3 italic rounded-xl rounded-tl-none">
+            <div className="p-3 bg-white/5 border border-white/10 text-[var(--vscode-accent)] flex items-center gap-3 italic rounded-xl rounded-tl-none">
               <div className="flex gap-1.5">
-                <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                <span className="w-1.5 h-1.5 bg-[#a3e635] rounded-full animate-bounce"></span>
+                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce"></span>
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-widest">Thinking...</span>
+              <span className="text-[9px] font-bold uppercase tracking-widest font-mono">Thinking...</span>
             </div>
           </div>
         )}
       </div>
 
       {/* Input & Suggestions */}
-      <div className="p-4 border-t border-white/10 bg-[#0a0a0a] relative z-10">
+      <div className="p-4 border-t border-[var(--vscode-border)] bg-[#0a0a0a] relative z-10 font-sans">
         {!isTyping && messages.length < 5 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {suggestions.map((s) => (
               <button
                 key={s.label}
                 onClick={() => { setInput(s.prompt); handleSend({ preventDefault: () => { } } as any); }}
-                className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] text-[#a3e635] hover:bg-[#a3e635]/10 hover:border-[#a3e635]/30 transition-all uppercase tracking-wider font-bold"
+                className="px-2.5 py-1 bg-white/5 border border-white/10 rounded-full text-[9px] text-[var(--vscode-accent)] hover:bg-[var(--vscode-accent)]/10 hover:border-[var(--vscode-accent)]/30 transition-all uppercase tracking-wider font-bold"
               >
                 {s.label}
               </button>
@@ -368,7 +342,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         )}
 
         <form onSubmit={handleSend} className="relative group">
-          <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl overflow-hidden p-1.5 focus-within:border-[#a3e635]/50 focus-within:bg-white/10 group-hover:border-[#a3e635]/30 transition-all shadow-[inset_0_0_20px_rgba(0,0,0,0.5)]">
+          <div className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl overflow-hidden p-1.5 focus-within:border-[var(--vscode-focusBorder)]/50 focus-within:bg-white/10 group-hover:border-[var(--vscode-focusBorder)]/30 transition-all">
             <input
               type="text"
               value={input}
@@ -381,7 +355,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
             <button
               type="submit"
               disabled={!input.trim() || isTyping}
-              className="w-10 h-10 flex items-center justify-center bg-[#a3e635] hover:bg-[#bef264] text-black disabled:bg-white/10 disabled:text-white/20 rounded-lg transition-all shadow-lg active:scale-95"
+              className="w-10 h-10 flex items-center justify-center bg-[var(--vscode-accent)] hover:bg-[var(--vscode-accent)]/90 text-white disabled:bg-white/10 disabled:text-white/20 rounded-lg transition-all active:scale-95"
             >
               <Send size={18} />
             </button>
@@ -401,7 +375,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           border-radius: 10px;
         }
         .custom-chat-scroll::-webkit-scrollbar-thumb:hover {
-          background: rgba(163,230,53,0.3);
+          background: var(--vscode-accent);
         }
       `}</style>
     </div>

@@ -8,7 +8,6 @@ import {
   MessageSquare,
   Star,
   ChevronRight,
-  Sparkles,
   BookOpen,
   Terminal as TerminalIcon,
   Bot
@@ -17,7 +16,8 @@ import { motion } from "framer-motion";
 
 import SocialLinks from "./SocialLinks";
 import { useRecentPagesContext } from "@/lib/recentPagesContext";
-import GlitchText from "@/app/components/GlitchText";
+import { personalInfo } from "../../data/portfolio";
+import { useLayout } from "../../lib/layoutContext";
 
 type StartLinkProps = {
   href: string;
@@ -30,19 +30,19 @@ function StartLink({ href, icon, label, desc }: StartLinkProps) {
   return (
     <Link href={href} className="block w-full">
       <motion.div 
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
-        className="group flex flex-col gap-2 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/5 hover:border-white/20"
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
+        className="group flex flex-col gap-2 p-4 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] transition-all border border-white/5 hover:border-[var(--vscode-accent)]/30"
       >
-        <div className="flex items-center justify-between text-[#60a5fa] group-hover:text-[#93c5fd] transition-colors">
-          <div className="p-2 rounded-lg bg-[#3b82f6]/10 group-hover:bg-[#3b82f6]/20">
+        <div className="flex items-center justify-between text-[var(--vscode-accent)]">
+          <div className="p-2 rounded-lg bg-[var(--vscode-accent)]/10 group-hover:bg-[var(--vscode-accent)]/20">
             {icon}
           </div>
           <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
         </div>
         <div className="flex flex-col mt-2">
-          <span className="font-semibold text-sm text-[#e2e8f0]">{label}</span>
-          {desc && <span className="text-xs text-[#94a3b8] mt-1">{desc}</span>}
+          <span className="font-semibold text-sm text-[var(--vscode-text-primary)]">{label}</span>
+          {desc && <span className="text-xs text-[var(--vscode-text-secondary)] mt-1">{desc}</span>}
         </div>
       </motion.div>
     </Link>
@@ -53,24 +53,25 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 }
+    transition: { staggerChildren: 0.08 }
   }
 };
 
 const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { y: 15, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15 }
+    transition: { type: "spring", stiffness: 120, damping: 18 }
   }
 };
 
 export default function HomeClient() {
   const { recentPages } = useRecentPagesContext();
+  const { setShowTerminal, setShowAIChat } = useLayout();
 
   return (
-    <div className="max-w-6xl mx-auto p-6 lg:p-10">
+    <div className="max-w-6xl mx-auto p-6 lg:p-10 font-sans">
       <motion.div 
         variants={containerVariants}
         initial="hidden"
@@ -79,26 +80,24 @@ export default function HomeClient() {
       >
         {/* Header Section */}
         <motion.header variants={itemVariants} className="relative z-10">
-          <div className="absolute -top-24 -left-24 w-64 h-64 bg-[#3b82f6]/20 rounded-full blur-[100px] -z-10"></div>
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 rounded-3xl glass-card relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-[#3b82f6]/10 to-transparent pointer-events-none"></div>
-            <div className="z-10">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 rounded-3xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 transition-all duration-300 relative overflow-hidden">
+            <div className="z-10 max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
-                <span className="px-2 py-1 rounded-md bg-[#3b82f6]/20 text-[#60a5fa] text-[10px] uppercase font-bold tracking-widest border border-[#3b82f6]/30">
-                  System Active
-                </span>
-                <span className="text-[10px] uppercase tracking-widest text-[#94a3b8] font-mono">
-                  v2.0 Premium Build
+                <span className="px-2.5 py-0.5 rounded-full bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] text-[10px] font-bold tracking-wider border border-[var(--vscode-accent)]/20 uppercase font-mono">
+                  Welcome to my portfolio workspace
                 </span>
               </div>
-              <h1 className="text-5xl lg:text-6xl font-black text-white mb-3 tracking-tight">
-                <GlitchText text="Sajid Islam" delay={600} speed={40} />
+              <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--vscode-text-primary)] mb-2 tracking-tight">
+                {personalInfo.name}
               </h1>
-              <p className="text-xl text-[#94a3b8] font-mono">
-                Business & Data Analyst // <span className="text-[#60a5fa]">BI Architect</span>
+              <p className="text-lg text-[var(--vscode-accent)] font-semibold font-mono mb-4">
+                {personalInfo.title}
+              </p>
+              <p className="text-sm md:text-base text-[var(--vscode-text-secondary)] leading-relaxed">
+                {personalInfo.bio}
               </p>
             </div>
-            <div className="z-10 flex flex-col items-end gap-4">
+            <div className="z-10 flex flex-col items-end gap-4 flex-shrink-0">
               <SocialLinks />
             </div>
           </div>
@@ -108,51 +107,49 @@ export default function HomeClient() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           
           {/* Main Navigation (Bento Box) */}
-          <motion.div variants={itemVariants} className="md:col-span-8 glass-card p-8 rounded-3xl relative overflow-hidden group">
-            <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-[#8b5cf6]/20 rounded-full blur-[80px] -z-10 transition-opacity group-hover:opacity-100 opacity-50"></div>
-            
+          <motion.div variants={itemVariants} className="md:col-span-8 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-8 rounded-3xl relative overflow-hidden group transition-all duration-300">
             <div className="flex items-center gap-3 mb-8">
-              <div className="p-2.5 bg-gradient-to-br from-[#3b82f6] to-[#8b5cf6] rounded-xl shadow-lg shadow-[#3b82f6]/20">
-                <Zap size={22} className="text-white" />
+              <div className="p-2.5 bg-[var(--vscode-accent)]/10 rounded-xl">
+                <Zap size={22} className="text-[var(--vscode-accent)]" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-white tracking-wide">Quick Launch</h3>
-                <p className="text-xs text-[#94a3b8]">Select a module to proceed</p>
+                <h3 className="text-base font-bold text-[var(--vscode-text-primary)] tracking-wide">Quick Launch</h3>
+                <p className="text-xs text-[var(--vscode-text-secondary)]">Navigate to different dossier sections</p>
               </div>
             </div>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10">
-              <StartLink href="/Skills" icon={<Code size={20} />} label="Toolkit Specs" desc="Python, SQL, Tools" />
-              <StartLink href="/projects" icon={<Folder size={20} />} label="Project Archives" desc="Data & Analytics Portfolios" />
-              <StartLink href="/Experience" icon={<BookOpen size={20} />} label="Service History" desc="Professional Background" />
-              <StartLink href="/contact" icon={<MessageSquare size={20} />} label="Secure Uplink" desc="Contact & Comm Channels" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10 font-sans">
+              <StartLink href="/Skills" icon={<Code size={20} />} label="Skills Dossier" desc="Python, SQL, Power BI, Tableau" />
+              <StartLink href="/projects" icon={<Folder size={20} />} label="Project Archive" desc="Analytics, dashboards & modeling" />
+              <StartLink href="/Experience" icon={<BookOpen size={20} />} label="Professional Experience" desc="Operational & BI analyst history" />
+              <StartLink href="/contact" icon={<MessageSquare size={20} />} label="Contact Node" desc="Get in touch for collaborations" />
             </div>
           </motion.div>
 
-          {/* Recent Intel / Sidebar */}
-          <motion.div variants={itemVariants} className="md:col-span-4 glass-card p-6 rounded-3xl flex flex-col">
+          {/* Recent Pages / Sidebar */}
+          <motion.div variants={itemVariants} className="md:col-span-4 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] p-6 rounded-3xl flex flex-col">
             <div className="flex items-center gap-2 mb-6">
-              <Star size={18} className="text-[#60a5fa]" />
-              <h3 className="text-sm font-bold uppercase tracking-wider text-[#e2e8f0]">Recent Intel</h3>
+              <Star size={18} className="text-[var(--vscode-accent)]" />
+              <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--vscode-text-primary)] font-mono">Recent Pages</h3>
             </div>
             
             <div className="flex-1 flex flex-col gap-2">
               {recentPages.length === 0 ? (
-                <div className="flex-1 flex items-center justify-center border border-dashed border-white/10 rounded-xl bg-black/20">
-                  <p className="text-xs text-[#64748b] italic">No intel streams found</p>
+                <div className="flex-1 flex items-center justify-center border border-dashed border-[var(--vscode-border)] rounded-xl bg-black/10 py-8">
+                  <p className="text-xs text-[var(--vscode-text-secondary)] italic">No recent pages visited</p>
                 </div>
               ) : (
                 recentPages.map((path) => (
                   <Link
                     key={path}
                     href={path}
-                    className="flex flex-col gap-1 p-3 rounded-xl hover:bg-white/5 transition-all border border-transparent hover:border-white/10 group"
+                    className="flex flex-col gap-1 p-3 rounded-xl hover:bg-white/5 transition-all border border-transparent hover:border-[var(--vscode-border)] group"
                   >
-                    <div className="flex items-center gap-2 text-[#94a3b8] group-hover:text-[#60a5fa]">
+                    <div className="flex items-center gap-2 text-[var(--vscode-text-secondary)] group-hover:text-[var(--vscode-accent)]">
                       <ChevronRight size={14} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-                      <span className="font-semibold text-sm">{path === "/" ? "Root Hub" : path.slice(1).charAt(0).toUpperCase() + path.slice(2)}</span>
+                      <span className="font-semibold text-sm">{path === "/" ? "Welcome" : path.slice(1).charAt(0).toUpperCase() + path.slice(2)}</span>
                     </div>
-                    <span className="text-[10px] text-[#64748b] pl-6 font-mono">
+                    <span className="text-[10px] text-[var(--vscode-text-secondary)]/50 pl-6 font-mono">
                       ~{path}
                     </span>
                   </Link>
@@ -161,38 +158,45 @@ export default function HomeClient() {
             </div>
           </motion.div>
 
-          {/* Feature Highlight 1 */}
-          <motion.div variants={itemVariants} className="md:col-span-4 glass-card p-6 rounded-3xl hover:border-[#3b82f6]/30 transition-colors group">
+          {/* Feature Highlight 1 - Terminal */}
+          <motion.button 
+            onClick={() => setShowTerminal(true)}
+            variants={itemVariants} 
+            className="md:col-span-4 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-6 rounded-3xl transition-all duration-300 text-left cursor-pointer group"
+          >
             <div className="flex items-center justify-between mb-4">
-              <div className="p-2 bg-[#3b82f6]/10 rounded-lg group-hover:bg-[#3b82f6]/20 transition-colors">
-                <TerminalIcon size={20} className="text-[#60a5fa]" />
+              <div className="p-2 bg-[var(--vscode-accent)]/10 rounded-lg group-hover:bg-[var(--vscode-accent)]/20 transition-colors">
+                <TerminalIcon size={20} className="text-[var(--vscode-accent)]" />
               </div>
-              <span className="flex h-2 w-2 rounded-full bg-[#60a5fa] animate-pulse"></span>
+              <span className="text-[9px] font-mono tracking-widest text-[var(--vscode-accent)] uppercase">Open Terminal</span>
             </div>
-            <h3 className="text-sm font-bold text-white mb-2">Integrated Terminal</h3>
-            <p className="text-xs text-[#94a3b8] leading-relaxed">
-              Execute commands directly in the lower buffer. Fully integrated with the application state.
+            <h3 className="text-sm font-bold text-[var(--vscode-text-primary)] mb-2">Integrated Terminal</h3>
+            <p className="text-xs text-[var(--vscode-text-secondary)] leading-relaxed">
+              Interact with a custom bash simulator directly inside the workspace to query files, check neofetch specs, or view project lists.
             </p>
-          </motion.div>
+          </motion.button>
 
-          {/* Feature Highlight 2 */}
-          <motion.div variants={itemVariants} className="md:col-span-8 glass-card p-6 rounded-3xl hover:border-[#8b5cf6]/30 transition-colors relative overflow-hidden group">
-            <div className="absolute right-0 top-0 h-full w-1/3 bg-gradient-to-l from-[#8b5cf6]/10 to-transparent"></div>
+          {/* Feature Highlight 2 - AI assistant */}
+          <motion.button 
+            onClick={() => setShowAIChat(true)}
+            variants={itemVariants} 
+            className="md:col-span-8 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-6 rounded-3xl transition-all duration-300 text-left cursor-pointer relative overflow-hidden group"
+          >
             <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
-              <div className="p-3 bg-gradient-to-br from-[#3b82f6] to-[#8b5cf6] rounded-2xl shadow-lg group-hover:scale-105 transition-transform">
-                <Bot size={32} className="text-white" />
+              <div className="p-3 bg-[var(--vscode-accent)]/10 rounded-2xl group-hover:scale-105 transition-transform flex-shrink-0">
+                <Bot size={32} className="text-[var(--vscode-accent)]" />
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="text-lg font-bold text-white">Neural Insight Engine</h3>
-                  <div className="px-2 py-0.5 rounded text-[9px] font-bold bg-[#8b5cf6]/20 text-[#c4b5fd] uppercase">Online</div>
+                  <h3 className="text-base font-bold text-[var(--vscode-text-primary)]">AI Assistant</h3>
+                  <div className="px-2 py-0.5 rounded text-[9px] font-bold bg-[var(--vscode-accent)]/15 text-[var(--vscode-accent)] uppercase tracking-wider font-mono">Ready</div>
                 </div>
-                <p className="text-sm text-[#94a3b8] leading-relaxed max-w-lg">
-                  Real-time technical and business analysis powered by advanced AI integrations to augment decision making workflows.
+                <p className="text-xs text-[var(--vscode-text-secondary)] leading-relaxed max-w-lg">
+                  Need quick insights? Chat with the RAG-enabled AI Assistant in the bottom right corner for real-time answers about my background, technical stack, or analytics accomplishments.
                 </p>
               </div>
             </div>
-          </motion.div>
+          </motion.button>
 
         </div>
       </motion.div>

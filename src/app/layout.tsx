@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Tiro_Bangla } from "next/font/google"; // For Bengali excellence
+import { Tiro_Bangla, Inter } from "next/font/google"; // For Bengali and modern sans-serif excellence
 import "./globals.css";
 import VSCodeShell from "./components/vscode/VSCodeShell";
 import { siteMeta } from "./data/portfolio";
@@ -9,6 +9,11 @@ const tiroBangla = Tiro_Bangla({
   weight: "400",
   subsets: ["bengali"],
   variable: "--font-tiro-bangla",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${tiroBangla.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${tiroBangla.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
         <style dangerouslySetInnerHTML={{
           __html: `
@@ -82,11 +87,12 @@ export default function RootLayout({
           }
         `}} />
       </head>
-      <body className="antialiased font-mono">
+      <body className="antialiased font-sans">
         <ThemeProvider>
           <VSCodeShell>{children}</VSCodeShell>
         </ThemeProvider>
       </body>
     </html>
   );
+
 }

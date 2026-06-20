@@ -23,6 +23,8 @@ import CommandPalette from "./CommandPalette";
 import { useSidebarResize } from "./useSidebarResize";
 import { useVSCodeShortcuts } from "./useVSCodeShortcuts";
 import ErrorBoundary from "./ErrorBoundary";
+import { LayoutProvider, useLayout } from "../../lib/layoutContext";
+
 
 type VSCodeShellProps = {
   children: React.ReactNode;
@@ -50,12 +52,17 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   const { isMobile, isMounted } = useViewport();
   const pathname = usePathname();
   const { addPage } = useRecentPagesContext();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const {
+    sidebarOpen,
+    setSidebarOpen,
+    showTerminal,
+    setShowTerminal,
+    showAIChat,
+    setShowAIChat,
+  } = useLayout();
   const [activeActivity, setActiveActivity] =
     useState<ActivityId>("explorer");
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-  const [showTerminal, setShowTerminal] = useState(false);
-  const [showAIChat, setShowAIChat] = useState(false);
   const { sidebarWidth, isResizing, startResizing } = useSidebarResize("vscodeSidebarWidth", 256);
 
   useEffect(() => {
@@ -278,7 +285,9 @@ export default function VSCodeShell({ children }: VSCodeShellProps) {
   return (
     <RecentPagesProvider>
       <TabsProvider>
-        <VSCodeShellContent>{children}</VSCodeShellContent>
+        <LayoutProvider>
+          <VSCodeShellContent>{children}</VSCodeShellContent>
+        </LayoutProvider>
       </TabsProvider>
     </RecentPagesProvider>
   );

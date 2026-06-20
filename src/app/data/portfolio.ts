@@ -591,40 +591,45 @@ export const menuItems: MenuItem[] = [
 
 export const skillGroups: SkillGroup[] = [
   {
-    name: "Data Analytics & BI",
+    name: "Forecasting & Machine Learning",
     skills: [
       { name: "Python", category: "Data", icon: "https://img.icons8.com/color/48/null/python--v1.png" },
-      { name: "SQL (MySQL, PostgreSQL, BigQuery)", category: "Data", icon: "https://img.icons8.com/ios-filled/100/000000/sql.png" },
-      { name: "Power BI (DAX, Modeling)", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png" },
-      { name: "Tableau", category: "BI", icon: "https://img.icons8.com/color/48/000000/tableau-software.png" },
-      { name: "Analytics (R, Excel)", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png" },
-      { name: "Google Analytics", category: "Data", icon: "https://img.icons8.com/color/48/000000/google-analytics.png" },
       { name: "Pandas", category: "Data", icon: "https://img.icons8.com/color/48/000000/pandas.png" },
       { name: "NumPy", category: "Data", icon: "https://img.icons8.com/color/48/000000/numpy.png" },
       { name: "Scikit-learn", category: "Data", icon: "https://img.icons8.com/color/48/000000/python.png" }
     ]
   },
   {
-    name: "Web Development",
+    name: "BI & Dashboards",
+    skills: [
+      { name: "Power BI (DAX, Modeling)", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png" },
+      { name: "Tableau", category: "BI", icon: "https://img.icons8.com/color/48/000000/tableau-software.png" },
+      { name: "Google Analytics", category: "Data", icon: "https://img.icons8.com/color/48/000000/google-analytics.png" }
+    ]
+  },
+  {
+    name: "Data Engineering & Core Operations",
+    skills: [
+      { name: "SQL (MySQL, PostgreSQL, BigQuery)", category: "Data", icon: "https://img.icons8.com/ios-filled/100/000000/sql.png" },
+      { name: "Analytics (R, Excel)", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png" },
+      { name: "End-to-End Analytics Pipelines", category: "Core" },
+      { name: "Data-Driven Decision Making", category: "Core" },
+      { name: "Business Intelligence", category: "Core" },
+      { name: "Data Analysis", category: "Core" },
+      { name: "Marketplace Analysis", category: "Core" },
+      { name: "Strategic Planning", category: "Core" },
+      { name: "Cross Functional Teams", category: "Core" },
+      { name: "Agile Development & Scrum", category: "Core" }
+    ]
+  },
+  {
+    name: "Web & Automation Engineering",
     skills: [
       { name: "React", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/react-native.png" },
       { name: "Node.js", category: "Backend", icon: "https://img.icons8.com/fluency/144/000000/node-js.png" },
       { name: "JavaScript", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/javascript--v1.png" },
       { name: "HTML5", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/html-5--v1.png" },
       { name: "CSS3", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/css3.png" }
-    ]
-  },
-  {
-    name: "Core Competencies",
-    skills: [
-      { name: "Business Intelligence", category: "Core" },
-      { name: "Data Analysis", category: "Core" },
-      { name: "Marketplace Analysis", category: "Core" },
-      { name: "Strategic Planning", category: "Core" },
-      { name: "Cross Functional Teams", category: "Core" },
-      { name: "Agile Development & Scrum", category: "Core" },
-      { name: "Data-Driven Decision Making", category: "Core" },
-      { name: "End-to-End Analytics Pipelines", category: "Core" }
     ]
   }
 ];
@@ -766,3 +771,71 @@ export const education: Education[] = [
     logo: "https://www.google.com/s2/favicons?domain=uhscdhaka.edu.bd&sz=128",
   },
 ];
+
+export const personalInfo = {
+  name: "Sajid Islam",
+  title: "Business & Data Analyst",
+  email: "sajid.islam.chowdhury@gmail.com",
+  whatsapp: "https://wa.me/+8801824526054?text=",
+  resumeUrl: "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
+  bio: "Business Analyst and Data Analyst with 2+ years of experience in marketplace analysis, business intelligence, and data-driven decision making. Specialized in Python, SQL, and Advanced Analytics with a proven track record of delivering actionable insights for e-commerce platforms like Daraz (Alibaba Group). Currently advancing expertise in machine learning and statistical modeling through postgraduate studies in Data Science & Business Analytics.",
+};
+
+export const metrics = [
+  { label: "Years Experience", value: "2+", sub: "Analytics & BI" },
+  { label: "Projects Delivered", value: "15+", sub: "Data & Web" },
+  { label: "Dashboards Built", value: "10+", sub: "Decision Support" },
+  { label: "Domains", value: "5+", sub: "E-commerce, BI, Security" },
+];
+
+export const family = [
+  {
+    relation: "Wife",
+    name: "Infida Yesmin",
+    nameLink: "https://saajiidi.github.io/Infida-Yesmin-Meem/",
+    occupation: "Bangla and Economics Instructor of Protishruti Poribar",
+    link: "https://www.facebook.com/ProtishrutiPoribar",
+  },
+  {
+    relation: "Father",
+    name: "Shahed Chowdhury",
+    occupation: "Merchandiser, Stocklot Business",
+  },
+  {
+    relation: "Mother",
+    name: "Suraiya Haque",
+    occupation: "Former KG School Teacher, House Wife",
+  },
+  {
+    relation: "Paternal Grandfather",
+    name: "Late. Mazharul Islam Chowdhury",
+    occupation: "Former Head Master, PG Govt. High School",
+  },
+  {
+    relation: "Maternal Grandfather",
+    name: "Late. Shamsul Haque",
+    occupation: "Former Govt. Officer, Land Acquisition",
+  },
+  {
+    relation: "Paternal Uncle",
+    name: "Late. Nurul Alam Chowdhury",
+    occupation: "Lieutenant Colonel (Rtd), Bangladesh Army",
+  },
+  {
+    relation: "Maternal Uncle",
+    name: "Moazzem Hossain",
+    occupation: "Principal Officer (Rtd), Shonali Bank Ltd.",
+  },
+  {
+    relation: "Paternal Uncle",
+    name: "Farid Ahmed Chowdhury",
+    occupation: "Head of Philosophy Dept. Chittagong College",
+  },
+  {
+    relation: "Sibling (Younger)",
+    name: "Sakib Islam",
+    occupation: "Owner - Gear Master",
+    link: "https://www.facebook.com/profile.php?id=61558077623189",
+  },
+];
+

@@ -3,143 +3,72 @@
 @tailwind utilities;
 
 :root {
-  --vscode-editor-background: rgba(10, 10, 12, 0.4);
-  --vscode-editor-foreground: #e2e8f0;
-  --vscode-sideBar-background: rgba(15, 15, 18, 0.4);
-  --vscode-sideBar-foreground: #94a3b8;
-  --vscode-activityBar-background: rgba(8, 8, 10, 0.6);
-  --vscode-activityBar-foreground: #f8fafc;
-  --vscode-activityBar-inactiveForeground: #64748b;
-  --vscode-activityBar-border: rgba(255, 255, 255, 0.05);
-  --vscode-activityBar-activeBorder: #3b82f6;
-  --vscode-titleBar-activeBackground: rgba(15, 15, 18, 0.6);
-  --vscode-titleBar-activeForeground: #cbd5e1;
-  --vscode-titleBar-inactiveBackground: rgba(15, 15, 18, 0.3);
-  --vscode-titleBar-inactiveForeground: #64748b;
-  --vscode-statusBar-background: rgba(15, 15, 18, 0.6);
-  --vscode-statusBar-foreground: #cbd5e1;
-  --vscode-statusBar-border: rgba(255, 255, 255, 0.05);
+  /* VS Code Dark+ Default Theme Colors */
+  --vscode-editor-background: #1e1e1e;
+  --vscode-editor-foreground: #d4d4d4;
+  --vscode-sideBar-background: #252526;
+  --vscode-sideBar-foreground: #cccccc;
+  --vscode-activityBar-background: #333333;
+  --vscode-activityBar-foreground: #ffffff;
+  --vscode-activityBar-inactiveForeground: #858585;
+  --vscode-activityBar-border: #2d2d2d;
+  --vscode-activityBar-activeBorder: #007acc;
+  --vscode-titleBar-activeBackground: #3c3c3c;
+  --vscode-titleBar-activeForeground: #cccccc;
+  --vscode-titleBar-inactiveBackground: #3c3c3c;
+  --vscode-titleBar-inactiveForeground: #858585;
+  --vscode-statusBar-background: #007acc;
+  --vscode-statusBar-foreground: #ffffff;
+  --vscode-statusBar-border: #2d2d2d;
   --vscode-statusBarItem-hoverBackground: rgba(255, 255, 255, 0.1);
-  --vscode-tab-activeBackground: rgba(255, 255, 255, 0.05);
-  --vscode-tab-activeForeground: #f8fafc;
-  --vscode-tab-inactiveBackground: transparent;
-  --vscode-tab-inactiveForeground: #64748b;
-  --vscode-tab-border: rgba(255, 255, 255, 0.05);
-  --vscode-tab-activeBorderTop: #3b82f6;
-  --vscode-tab-hoverBackground: rgba(255, 255, 255, 0.02);
-  --vscode-list-hoverBackground: rgba(255, 255, 255, 0.05);
-  --vscode-list-activeSelectionBackground: rgba(59, 130, 246, 0.2);
-  --vscode-list-activeSelectionForeground: #f8fafc;
-  --vscode-list-inactiveSelectionBackground: rgba(255, 255, 255, 0.02);
-  --vscode-list-inactiveSelectionForeground: #cbd5e1;
-  --vscode-list-focusOutline: #3b82f6;
-  --vscode-input-background: rgba(0, 0, 0, 0.2);
-  --vscode-input-foreground: #e2e8f0;
-  --vscode-input-border: rgba(255, 255, 255, 0.1);
-  --vscode-input-placeholderForeground: #64748b;
-  --vscode-button-background: #3b82f6;
+  --vscode-tab-activeBackground: #1e1e1e;
+  --vscode-tab-activeForeground: #ffffff;
+  --vscode-tab-inactiveBackground: #2d2d2d;
+  --vscode-tab-inactiveForeground: #858585;
+  --vscode-tab-border: #252526;
+  --vscode-tab-activeBorderTop: #007acc;
+  --vscode-tab-hoverBackground: #2a2a2a;
+  
+  --vscode-list-hoverBackground: #2a2d2e;
+  --vscode-list-activeSelectionBackground: #04395e;
+  --vscode-list-activeSelectionForeground: #ffffff;
+  --vscode-list-inactiveSelectionBackground: #2d2d2d;
+  --vscode-list-inactiveSelectionForeground: #cccccc;
+  --vscode-list-focusOutline: #007acc;
+  
+  --vscode-input-background: #3c3c3c;
+  --vscode-input-foreground: #cccccc;
+  --vscode-input-border: #3c3c3c;
+  --vscode-input-placeholderForeground: #a6a6a6;
+  
+  --vscode-button-background: #007acc;
   --vscode-button-foreground: #ffffff;
-  --vscode-button-hoverBackground: #2563eb;
-  --vscode-focusBorder: #3b82f6;
-  --vscode-border: rgba(255, 255, 255, 0.05);
-  --vscode-panel-border: rgba(255, 255, 255, 0.1);
-  --vscode-text-primary: #e2e8f0;
-  --vscode-text-secondary: #94a3b8;
-  --vscode-text-link: #60a5fa;
-  --vscode-text-linkHover: #93c5fd;
+  --vscode-button-hoverBackground: #0062a3;
+  
+  --vscode-focusBorder: #007acc;
+  --vscode-border: #2d2d2d;
+  --vscode-panel-border: #2d2d2d;
+  
+  --vscode-text-primary: #d4d4d4;
+  --vscode-text-secondary: #858585;
+  --vscode-text-link: #3794ff;
+  --vscode-text-linkHover: #58a6ff;
 
-  /* --- Premium Glassmorphism Aesthetic --- */
-  --primary-color: #3b82f6;
-  --primary-light: #60a5fa;
-  --accent-color: #8b5cf6;
-  --bg-page: #030305;
-  --bg-card: rgba(20, 20, 25, 0.4);
-  --text-highlight: #e2e8f0;
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', monospace;
+  /* Accent Color Token */
+  --vscode-accent: #007acc;
 
-  /* --- VS Code Base Scaling --- */
-  --vscode-font-family: "Segoe WPC", "Segoe UI", sans-serif;
+  /* Base Spacing & Scaling */
+  --vscode-font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  --vscode-font-mono: var(--font-mono), 'JetBrains Mono', monospace;
   --vscode-font-size: 13px;
   --vscode-font-size-small: 11px;
   --vscode-line-height: 1.4;
-  --hud-glow: 0 0 15px rgba(59, 130, 246, 0.3);
-}
-
-/* --- Glassmorphism Overlays & Effects --- */
-.glow-text {
-  text-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
-}
-
-.hud-panel {
-  background: rgba(15, 15, 18, 0.4);
-  backdrop-filter: blur(12px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
-
-.glass-card {
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-@keyframes glitch {
-  0% {
-    transform: translate(0);
-  }
-
-  20% {
-    transform: translate(-2px, 2px);
-  }
-
-  40% {
-    transform: translate(-2px, -2px);
-  }
-
-  60% {
-    transform: translate(2px, 2px);
-  }
-
-  80% {
-    transform: translate(2px, -2px);
-  }
-
-  100% {
-    transform: translate(0);
-  }
-}
-
-.glitch:hover {
-  animation: glitch 0.2s infinite;
-}
-
-@keyframes border-pulse {
-
-  0%,
-  100% {
-    border-color: rgba(59, 130, 246, 0.1);
-  }
-
-  50% {
-    border-color: rgba(59, 130, 246, 0.4);
-  }
-}
-
-.hud-border {
-  animation: border-pulse 4s infinite;
 }
 
 body {
   margin: 0;
   color: var(--vscode-editor-foreground);
-  background-color: var(--bg-page);
-  background-image:
-    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.1) 0px, transparent 50%),
-    radial-gradient(at 0% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
-  background-attachment: fixed;
+  background-color: var(--vscode-editor-background);
   overflow: hidden;
   height: 100%;
   height: 100dvh;
@@ -158,7 +87,7 @@ html {
 a {
   color: var(--vscode-text-link);
   text-decoration: none;
-  transition: color var(--vscode-transition-fast);
+  transition: color 0.15s ease;
 }
 
 a:hover {
@@ -170,11 +99,7 @@ code {
   font-size: var(--vscode-font-size-small);
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -185,22 +110,22 @@ img {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--vscode-scrollbarSlider-background);
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--vscode-scrollbarSlider-hoverBackground);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: var(--vscode-scrollbarSlider-activeBackground);
+  background: var(--vscode-accent);
 }
 
 @supports (scrollbar-color: auto) {
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--vscode-scrollbarSlider-background) transparent;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
   }
 }
 
@@ -215,11 +140,10 @@ img {
 }
 
 @keyframes fadeIn {
-  0% {
+  from {
     opacity: 0;
   }
-
-  100% {
+  to {
     opacity: 1;
   }
 }
@@ -238,92 +162,11 @@ img {
   display: none;
 }
 
-.line-clamp-1 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  line-clamp: 1;
-}
-
-.line-clamp-2 {
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-}
-
-@layer utilities {
-  .text-balance {
-    @supports (text-wrap: balance) {
-      text-wrap: balance;
-    }
-  }
-}
-
-/* --- HUD Overlays --- */
-.scanlines {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to bottom,
-      rgba(255, 255, 255, 0) 50%,
-      rgba(0, 0, 0, .05) 50%);
-  background-size: 100% 4px;
-  z-index: 9999;
-  pointer-events: none;
-  opacity: 0.1;
-  animation: scanlineScroll 10s linear infinite;
-}
-
-@keyframes loading-slide {
-  0% {
-    transform: translateX(-100%);
-  }
-
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-loading-slide {
-  animation: loading-slide 1.5s infinite linear;
-}
-
-@keyframes scan-line {
-  0% {
-    top: 0%;
-  }
-
-  100% {
-    top: 100%;
-  }
-}
-
-.animate-scan-line {
-  animation: scan-line 2s linear infinite;
-}
-
-@keyframes scanlineScroll {
-  0% {
-    background-position: 0 0;
-  }
-
-  100% {
-    background-position: 0 100%;
-  }
-}
-
+/* Terminal Cursor */
 @keyframes blink {
-
-  0%,
-  100% {
+  0%, 100% {
     opacity: 1;
   }
-
   50% {
     opacity: 0;
   }
@@ -333,7 +176,21 @@ img {
   display: inline-block;
   width: 8px;
   height: 15px;
-  background: var(--primary-light);
+  background: var(--vscode-accent);
   margin-left: 4px;
   animation: blink 1s step-end infinite;
+}
+
+/* Bento Card Style */
+.bento-card {
+  background-color: #252526;
+  border: 1px solid #2d2d2d;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease-in-out;
+}
+
+.bento-card:hover {
+  border-color: var(--vscode-accent);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }

@@ -9,7 +9,7 @@ import { cn } from "../lib/cn";
 export const metadata = {
   title: "Experience",
   description:
-    "Professional experience and career journey of Raj Savaliya as a Software Development Engineer.",
+    "Professional experience and career journey of Sajid Islam as a Business Analyst and Data Analyst.",
   alternates: { canonical: "/Experience" },
 };
 
