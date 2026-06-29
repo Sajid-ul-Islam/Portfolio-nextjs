@@ -14,14 +14,15 @@ const config: Config = {
         "vscode-base": ["13px", { lineHeight: "1.5" }],
         "vscode-lg": ["14px", { lineHeight: "1.5" }],
         "vscode-xl": ["16px", { lineHeight: "1.5" }],
+        "vscode-2xl": ["20px", { lineHeight: "1.4" }],
         "vscode-3xl": ["24px", { lineHeight: "1.3" }],
-        "vscode-ui": ["13px", "18px"], // UI elements like sidebar, activity bar
-        "vscode-editor": ["14px", "21px"], // Code editor content
+        "vscode-ui": ["13px", "18px"],
+        "vscode-editor": ["14px", "21px"],
       },
       spacing: {
-        "vscode-tab": "35px", // Standard VS Code tab height
-        "vscode-activity-bar": "48px", // Standard Activity Bar width
-        "vscode-sidebar": "250px", // Default Sidebar width
+        "vscode-tab": "35px",
+        "vscode-activity-bar": "48px",
+        "vscode-sidebar": "250px",
       },
       colors: {
         primary: "#3b82f6", // Blue-500

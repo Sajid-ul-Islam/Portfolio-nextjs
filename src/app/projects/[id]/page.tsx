@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Code } from "lucide-react";
+import { ArrowLeft, ExternalLink, Code, Calendar, User, ChevronLeft, ChevronRight } from "lucide-react";
 
 import Badge from "../../components/vscode/Badge";
 import Button from "../../components/vscode/Button";
@@ -159,18 +159,18 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               Case Study
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Panel className="p-6">
+              <Panel className="p-6 glass-card rounded-xl">
                 <h3 className="text-vscode-sm font-bold text-[var(--vscode-text-primary)] mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                  <span className="w-2 h-2 rounded-full bg-red-500 shadow-lg shadow-red-500/30" />
                   THE CHALLENGE
                 </h3>
                 <p className="text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed">
                   {caseStudy.problem}
                 </p>
               </Panel>
-              <Panel className="p-6">
+              <Panel className="p-6 glass-card rounded-xl">
                 <h3 className="text-vscode-sm font-bold text-[var(--vscode-text-primary)] mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/30" />
                   THE SOLUTION
                 </h3>
                 <p className="text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed">
@@ -230,15 +230,21 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             </h3>
             <div className="space-y-4">
               {caseStudy.role && (
-                <div>
-                  <div className="text-vscode-xs text-[var(--vscode-text-muted)] mb-1">Role</div>
-                  <div className="text-vscode-sm text-[var(--vscode-text-primary)] font-medium">{caseStudy.role}</div>
+                <div className="flex items-start gap-3">
+                  <User size={14} className="text-[var(--vscode-accent)] mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-vscode-xs text-[var(--vscode-text-muted)] mb-0.5">Role</div>
+                    <div className="text-vscode-sm text-[var(--vscode-text-primary)] font-medium">{caseStudy.role}</div>
+                  </div>
                 </div>
               )}
               {caseStudy.timeline && (
-                <div>
-                  <div className="text-vscode-xs text-[var(--vscode-text-muted)] mb-1">Timeline</div>
-                  <div className="text-vscode-sm text-[var(--vscode-text-primary)] font-medium">{caseStudy.timeline}</div>
+                <div className="flex items-start gap-3">
+                  <Calendar size={14} className="text-[var(--vscode-accent)] mt-0.5 flex-shrink-0" />
+                  <div>
+                    <div className="text-vscode-xs text-[var(--vscode-text-muted)] mb-0.5">Timeline</div>
+                    <div className="text-vscode-sm text-[var(--vscode-text-primary)] font-medium">{caseStudy.timeline}</div>
+                  </div>
                 </div>
               )}
             </div>
@@ -291,30 +297,36 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         </aside>
       </div>
 
-      <div className="mt-20 pt-8 border-t border-[var(--vscode-border)] flex items-center justify-between gap-6">
+      <div className="mt-20 pt-8 border-t border-[var(--vscode-border)] grid grid-cols-2 gap-6">
         {prevProject ? (
           <Link
             href={`/projects/${prevProject.id}`}
-            className="group flex-1 p-4 rounded-lg border border-[var(--vscode-border)] hover:bg-[var(--vscode-list-hoverBackground)] transition-all"
+            className="group p-4 rounded-xl border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/30 hover:bg-[var(--vscode-list-hoverBackground)] transition-all flex items-center gap-3"
           >
-            <div className="text-vscode-xs text-[var(--vscode-text-muted)] mb-1">Previous Project</div>
-            <div className="text-vscode-sm font-semibold text-[var(--vscode-text-primary)] group-hover:text-[var(--vscode-text-link)] transition-colors">
-              {prevProject.title}
+            <ChevronLeft size={18} className="text-[var(--vscode-text-secondary)] group-hover:text-[var(--vscode-accent)] transition-colors flex-shrink-0" />
+            <div className="min-w-0">
+              <div className="text-vscode-xs text-[var(--vscode-text-muted)] mb-1 uppercase font-mono">Previous</div>
+              <div className="text-vscode-sm font-semibold text-[var(--vscode-text-primary)] group-hover:text-[var(--vscode-text-link)] transition-colors truncate">
+                {prevProject.title}
+              </div>
             </div>
           </Link>
-        ) : <div className="flex-1" />}
+        ) : <div />}
         
         {nextProject ? (
           <Link
             href={`/projects/${nextProject.id}`}
-            className="group flex-1 p-4 rounded-lg border border-[var(--vscode-border)] hover:bg-[var(--vscode-list-hoverBackground)] transition-all text-right"
+            className="group p-4 rounded-xl border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/30 hover:bg-[var(--vscode-list-hoverBackground)] transition-all flex items-center justify-end gap-3 text-right"
           >
-            <div className="text-vscode-xs text-[var(--vscode-text-muted)] mb-1">Next Project</div>
-            <div className="text-vscode-sm font-semibold text-[var(--vscode-text-primary)] group-hover:text-[var(--vscode-text-link)] transition-colors">
-              {nextProject.title}
+            <div className="min-w-0">
+              <div className="text-vscode-xs text-[var(--vscode-text-muted)] mb-1 uppercase font-mono">Next</div>
+              <div className="text-vscode-sm font-semibold text-[var(--vscode-text-primary)] group-hover:text-[var(--vscode-text-link)] transition-colors truncate">
+                {nextProject.title}
+              </div>
             </div>
+            <ChevronRight size={18} className="text-[var(--vscode-text-secondary)] group-hover:text-[var(--vscode-accent)] transition-colors flex-shrink-0" />
           </Link>
-        ) : <div className="flex-1" />}
+        ) : <div />}
       </div>
     </div>
   );

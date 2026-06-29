@@ -51,11 +51,28 @@
   
   --vscode-text-primary: #d4d4d4;
   --vscode-text-secondary: #858585;
+  --vscode-text-muted: #6e6e6e;
   --vscode-text-link: #3794ff;
   --vscode-text-linkHover: #58a6ff;
 
   /* Accent Color Token */
   --vscode-accent: #007acc;
+
+  /* Badge Tokens */
+  --vscode-badge-background: #4d4d4d;
+  --vscode-badge-foreground: #cccccc;
+
+  /* Border Radius Tokens */
+  --vscode-border-radius-sm: 4px;
+  --vscode-border-radius-md: 8px;
+  --vscode-border-radius-lg: 12px;
+  --vscode-border-radius-xl: 16px;
+
+  /* Layout Sizing */
+  --vscode-titlebar-height: 38px;
+  --vscode-statusbar-height: 24px;
+  --vscode-tab-height: 35px;
+  --vscode-activitybar-width: 48px;
 
   /* Base Spacing & Scaling */
   --vscode-font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
@@ -139,18 +156,72 @@ code {
   outline-offset: -1px;
 }
 
+/* ─── Animations ─── */
+
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .animate-fade-in {
   animation: fadeIn 0.2s ease-in-out;
 }
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-count-up {
+  animation: countUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 122, 204, 0); }
+  50% { box-shadow: 0 0 20px 4px rgba(0, 122, 204, 0.15); }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Staggered children animation */
+.stagger-children > * {
+  animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 60ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 120ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 180ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 240ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(7) { animation-delay: 360ms; }
+.stagger-children > *:nth-child(8) { animation-delay: 420ms; }
+.stagger-children > *:nth-child(9) { animation-delay: 480ms; }
+.stagger-children > *:nth-child(10) { animation-delay: 540ms; }
+.stagger-children > *:nth-child(11) { animation-delay: 600ms; }
+.stagger-children > *:nth-child(12) { animation-delay: 660ms; }
 
 @supports (scrollbar-width: none) {
   .scrollbar-none {
@@ -164,12 +235,8 @@ code {
 
 /* Terminal Cursor */
 @keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
 .terminal-cursor {
@@ -181,16 +248,133 @@ code {
   animation: blink 1s step-end infinite;
 }
 
-/* Bento Card Style */
+/* ─── Card Styles ─── */
+
 .bento-card {
   background-color: #252526;
   border: 1px solid #2d2d2d;
   border-radius: 12px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bento-card:hover {
   border-color: var(--vscode-accent);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Project card glow on hover */
+.project-card-glow {
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--vscode-accent), transparent 60%);
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.project-card-glow:hover::before {
+  opacity: 0.15;
+}
+
+.project-card-glow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.4), 0 0 0 1px var(--vscode-accent);
+}
+
+/* Loading slide animation */
+@keyframes loadingSlide {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.animate-loading-slide {
+  animation: loadingSlide 1.5s ease-in-out infinite;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--vscode-accent), #58a6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(37, 37, 38, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card:hover {
+  background: rgba(37, 37, 38, 0.85);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Timeline connector */
+.timeline-connector {
+  position: relative;
+}
+
+.timeline-connector::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 24px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    var(--vscode-accent),
+    var(--vscode-border) 30%,
+    var(--vscode-border) 70%,
+    transparent
+  );
+}
+
+.timeline-connector:last-child::before {
+  display: none;
+}
+
+/* Availability pulse */
+@keyframes availabilityPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+  50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+}
+
+.availability-pulse {
+  animation: availabilityPulse 2s ease-in-out infinite;
+}
+
+/* Progress bar fill animation */
+@keyframes progressFill {
+  from { width: 0%; }
+}
+
+.animate-progress-fill {
+  animation: progressFill 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Accordion smooth transition */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-content[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-content > div {
+  overflow: hidden;
 }

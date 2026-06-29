@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import {
   Zap,
   Code,
@@ -10,13 +11,17 @@ import {
   ChevronRight,
   BookOpen,
   Terminal as TerminalIcon,
-  Bot
+  Bot,
+  BarChart3,
+  Briefcase,
+  Layers,
+  Globe,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 import SocialLinks from "./SocialLinks";
 import { useRecentPagesContext } from "@/lib/recentPagesContext";
-import { personalInfo } from "../../data/portfolio";
+import { personalInfo, metrics, projects } from "../../data/portfolio";
 import { useLayout } from "../../lib/layoutContext";
 
 type StartLinkProps = {
@@ -24,9 +29,10 @@ type StartLinkProps = {
   icon: React.ReactNode;
   label: string;
   desc?: string;
+  shortcut?: string;
 };
 
-function StartLink({ href, icon, label, desc }: StartLinkProps) {
+function StartLink({ href, icon, label, desc, shortcut }: StartLinkProps) {
   return (
     <Link href={href} className="block w-full">
       <motion.div 
@@ -35,10 +41,17 @@ function StartLink({ href, icon, label, desc }: StartLinkProps) {
         className="group flex flex-col gap-2 p-4 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] transition-all border border-white/5 hover:border-[var(--vscode-accent)]/30"
       >
         <div className="flex items-center justify-between text-[var(--vscode-accent)]">
-          <div className="p-2 rounded-lg bg-[var(--vscode-accent)]/10 group-hover:bg-[var(--vscode-accent)]/20">
+          <div className="p-2 rounded-lg bg-[var(--vscode-accent)]/10 group-hover:bg-[var(--vscode-accent)]/20 transition-colors">
             {icon}
           </div>
-          <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
+          <div className="flex items-center gap-2">
+            {shortcut && (
+              <span className="text-[9px] font-mono text-[var(--vscode-text-secondary)] opacity-0 group-hover:opacity-100 transition-opacity bg-white/5 px-1.5 py-0.5 rounded">
+                {shortcut}
+              </span>
+            )}
+            <ChevronRight size={16} className="opacity-0 group-hover:opacity-100 transition-all -translate-x-2 group-hover:translate-x-0" />
+          </div>
         </div>
         <div className="flex flex-col mt-2">
           <span className="font-semibold text-sm text-[var(--vscode-text-primary)]">{label}</span>
@@ -48,6 +61,32 @@ function StartLink({ href, icon, label, desc }: StartLinkProps) {
     </Link>
   );
 }
+
+function StatCard({ label, value, sub, icon, delay }: { label: string; value: string; sub: string; icon: React.ReactNode; delay: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="flex items-center gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[var(--vscode-accent)]/20 transition-all group"
+    >
+      <div className="p-2 rounded-lg bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] group-hover:bg-[var(--vscode-accent)]/20 transition-colors flex-shrink-0">
+        {icon}
+      </div>
+      <div className="flex flex-col min-w-0">
+        <span className="text-xl font-extrabold text-[var(--vscode-text-primary)] gradient-text">{value}</span>
+        <span className="text-[10px] text-[var(--vscode-text-secondary)] uppercase tracking-wider font-mono truncate">{label}</span>
+      </div>
+    </motion.div>
+  );
+}
+
+const statIcons = [
+  <Briefcase size={18} key="briefcase" />,
+  <Layers size={18} key="layers" />,
+  <BarChart3 size={18} key="barchart" />,
+  <Globe size={18} key="globe" />,
+];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -70,6 +109,8 @@ export default function HomeClient() {
   const { recentPages } = useRecentPagesContext();
   const { setShowTerminal, setShowAIChat } = useLayout();
 
+  const featuredProjects = projects.filter(p => p.featured).slice(0, 4);
+
   return (
     <div className="max-w-6xl mx-auto p-6 lg:p-10 font-sans">
       <motion.div 
@@ -80,7 +121,9 @@ export default function HomeClient() {
       >
         {/* Header Section */}
         <motion.header variants={itemVariants} className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 rounded-3xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 transition-all duration-300 relative overflow-hidden">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 rounded-3xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 transition-all duration-300 relative overflow-hidden group animate-pulse-glow">
+            {/* Subtle gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             <div className="z-10 max-w-3xl">
               <div className="flex items-center gap-2 mb-3">
                 <span className="px-2.5 py-0.5 rounded-full bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] text-[10px] font-bold tracking-wider border border-[var(--vscode-accent)]/20 uppercase font-mono">
@@ -103,6 +146,20 @@ export default function HomeClient() {
           </div>
         </motion.header>
 
+        {/* Stats Row */}
+        <motion.div variants={itemVariants} className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {metrics.map((metric, i) => (
+            <StatCard
+              key={metric.label}
+              label={metric.label}
+              value={metric.value}
+              sub={metric.sub}
+              icon={statIcons[i]}
+              delay={0.2 + i * 0.1}
+            />
+          ))}
+        </motion.div>
+
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           
@@ -119,10 +176,10 @@ export default function HomeClient() {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10 font-sans">
-              <StartLink href="/Skills" icon={<Code size={20} />} label="Skills Dossier" desc="Python, SQL, Power BI, Tableau" />
-              <StartLink href="/projects" icon={<Folder size={20} />} label="Project Archive" desc="Analytics, dashboards & modeling" />
-              <StartLink href="/Experience" icon={<BookOpen size={20} />} label="Professional Experience" desc="Operational & BI analyst history" />
-              <StartLink href="/contact" icon={<MessageSquare size={20} />} label="Contact Node" desc="Get in touch for collaborations" />
+              <StartLink href="/Skills" icon={<Code size={20} />} label="Skills Dossier" desc="Python, SQL, Power BI, Tableau" shortcut="Ctrl+1" />
+              <StartLink href="/projects" icon={<Folder size={20} />} label="Project Archive" desc="Analytics, dashboards & modeling" shortcut="Ctrl+2" />
+              <StartLink href="/Experience" icon={<BookOpen size={20} />} label="Professional Experience" desc="Operational & BI analyst history" shortcut="Ctrl+3" />
+              <StartLink href="/contact" icon={<MessageSquare size={20} />} label="Contact Node" desc="Get in touch for collaborations" shortcut="Ctrl+4" />
             </div>
           </motion.div>
 
@@ -155,6 +212,43 @@ export default function HomeClient() {
                   </Link>
                 ))
               )}
+            </div>
+          </motion.div>
+
+          {/* Featured Projects Mini-Gallery */}
+          <motion.div variants={itemVariants} className="md:col-span-12 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-6 rounded-3xl transition-all duration-300">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2">
+                <Folder size={18} className="text-[var(--vscode-accent)]" />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--vscode-text-primary)] font-mono">Featured Projects</h3>
+              </div>
+              <Link
+                href="/projects"
+                className="text-[10px] font-mono uppercase tracking-widest text-[var(--vscode-accent)] hover:text-[var(--vscode-text-linkHover)] transition-colors flex items-center gap-1"
+              >
+                View All <ChevronRight size={12} />
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {featuredProjects.map((project, i) => (
+                <Link
+                  key={project.id}
+                  href={`/projects/${project.id}`}
+                  className="group relative aspect-video rounded-xl overflow-hidden border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/40 transition-all"
+                >
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
+                  <div className="absolute bottom-0 left-0 right-0 p-3">
+                    <p className="text-white text-[11px] font-bold truncate">{project.title}</p>
+                    <p className="text-white/60 text-[9px] font-mono truncate">{project.technologies.slice(0, 2).join(" · ")}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </motion.div>
 

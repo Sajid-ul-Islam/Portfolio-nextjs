@@ -114,20 +114,26 @@ export default function ContactClient() {
         />
       ) : null}
       <div className="mb-10 relative">
-        <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-1 h-12 bg-[var(--vscode-accent)]"></div>
+        <div className="absolute -left-6 top-1/2 -translate-y-1/2 w-1 h-12 bg-gradient-to-b from-[var(--vscode-accent)] to-transparent rounded-full"></div>
         <h1 className="text-4xl font-extrabold text-[var(--vscode-text-primary)] mb-2">
           Get in Touch
         </h1>
-        <p className="text-[var(--vscode-accent)] text-xs font-mono uppercase tracking-widest">
-          Let's collaborate on BI, data pipelines, and analyst tooling
-        </p>
+        <div className="flex items-center gap-3 mt-2">
+          <p className="text-[var(--vscode-accent)] text-xs font-mono uppercase tracking-widest">
+            Let&apos;s collaborate on BI, data pipelines, and analyst tooling
+          </p>
+          <span className="flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full availability-pulse" />
+            <span className="text-[9px] font-mono text-emerald-400 uppercase font-bold tracking-wider">Available</span>
+          </span>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <section className="lg:col-span-5 space-y-6">
-          <div className="p-6 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 transition-all rounded-lg relative overflow-hidden group">
+          <div className="p-6 glass-card rounded-xl relative overflow-hidden group hover:border-[var(--vscode-accent)]/20 transition-all">
             <h2 className="text-sm font-bold text-[var(--vscode-accent)] mb-4 uppercase tracking-widest flex items-center gap-2 font-mono">
-              <span className="w-2 h-2 bg-[var(--vscode-accent)] rounded-full"></span>
+              <span className="w-2 h-2 bg-[var(--vscode-accent)] rounded-full animate-pulse"></span>
               Operative Channels
             </h2>
             <p className="text-xs text-[var(--vscode-text-secondary)] mb-6 leading-relaxed">
@@ -151,9 +157,10 @@ export default function ContactClient() {
         </section>
 
         <section className="lg:col-span-7">
-          <div className="p-8 bg-[var(--vscode-sideBar-background)]/40 border border-[var(--vscode-border)] rounded-lg relative">
-            <h2 className="text-sm font-bold text-[var(--vscode-text-primary)] mb-6 uppercase tracking-widest font-mono">
-              [ Send Message ]
+          <div className="p-8 glass-card rounded-xl relative">
+            <h2 className="text-sm font-bold text-[var(--vscode-text-primary)] mb-6 uppercase tracking-widest font-mono flex items-center gap-2">
+              <span className="w-1 h-4 bg-[var(--vscode-accent)] rounded-full"></span>
+              Send Message
             </h2>
 
             {status === "success" ? (

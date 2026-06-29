@@ -1,4 +1,4 @@
-export type FileTreeItem = {
+﻿export type FileTreeItem = {
   id: string;
   label: string;
   href: string;
@@ -113,6 +113,9 @@ export const siteMeta = {
 };
 
 export const projects: Project[] = [
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // TIER 1 â€” Active Business & Current Role
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
   {
     id: "deen-ops",
     title: "Deen Ops Dashboard",
@@ -148,6 +151,33 @@ export const projects: Project[] = [
     },
   },
   {
+    id: "global-economics",
+    title: "Global Economics Dashboard",
+    description: "An interactive Streamlit dashboard exploring global economic indicators, trends, and country-level comparisons.",
+    image: "/img/projects/economic.png",
+    liveUrl: "https://global-economics.streamlit.app/",
+    featured: true,
+    technologies: ["Streamlit", "Python", "Economics", "Data Visualization"],
+    caseStudy: {
+      role: "Data Analyst",
+      timeline: "2025",
+      problem: "Economic data across countries is scattered and hard to compare at a glance.",
+      solution: "Built a Streamlit app aggregating global economic indicators into interactive charts and country comparisons.",
+      impact: [
+        "Simplified exploration of global economic trends.",
+        "Enabled quick country-level comparisons in one place.",
+      ],
+      metrics: [
+        { label: "Platform", value: "Streamlit" },
+        { label: "Scope", value: "Global" },
+      ],
+    },
+  },
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // TIER 2 â€” Flagship Analytics & ML
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  {
     id: "1",
     title: "ECommerce Dashboard",
     description: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value.",
@@ -157,116 +187,16 @@ export const projects: Project[] = [
     technologies: ["Dashboard", "React", "Analytics", "E-commerce"],
     caseStudy: {
       role: "Data Analyst & Dashboard Builder",
-      timeline: "2021–2025 dataset",
+      timeline: "2021â€“2025 dataset",
       problem: "Stakeholders needed a single view of revenue, orders, customers, and AOV trends.",
-      solution: "Built a KPI dashboard consolidating 2021–2025 sales data into a unified view.",
+      solution: "Built a KPI dashboard consolidating 2021â€“2025 sales data into a unified view.",
       impact: [
         "Improved visibility into marketplace performance trends.",
         "Standardized KPI definitions for recurring reviews.",
       ],
       metrics: [
-        { label: "Time Range", value: "2021–2025" },
+        { label: "Time Range", value: "2021â€“2025" },
         { label: "Core KPIs", value: "4" },
-      ],
-    },
-  },
-  {
-    id: "2",
-    title: "Sheet2WhatsApp",
-    description: "Automates WhatsApp link generation from Excel/CSV files.",
-    image: "/img/projects/whatsapp.png",
-    liveUrl: "https://sheet2whatsapp.streamlit.app/",
-    featured: true,
-    technologies: ["Streamlit", "Python", "Pandas", "Vercel"],
-    caseStudy: {
-      role: "Builder",
-      timeline: "2024",
-      problem: "Creating WhatsApp links from spreadsheets was manual and error-prone.",
-      solution: "Streamlit app that converts CSV/Excel rows into share-ready WhatsApp links.",
-      impact: [
-        "Reduced copy/paste effort for outreach.",
-        "Improved accuracy of contact links.",
-      ],
-      metrics: [
-        { label: "Input", value: "CSV/Excel" },
-        { label: "Output", value: "WhatsApp links" },
-      ],
-    },
-  },
-  {
-    id: "3",
-    title: "Sentinel Bangladesh",
-    description: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking.",
-    image: "/img/projects/sentinel.png",
-    liveUrl: "https://sentinelbangladesh.streamlit.app/",
-    featured: true,
-    technologies: ["Streamlit", "Python", "Data Visualization", "Security Analysis"],
-    caseStudy: {
-      role: "Data Visualization",
-      timeline: "2024",
-      problem: "Security incidents needed spatial insight at scale.",
-      solution: "Interactive map with clustering, heatmaps, and drill-down incident details.",
-      impact: [
-        "Faster pattern discovery across regions.",
-        "Clearer communication of incident density.",
-      ],
-      metrics: [{ label: "Map Layers", value: "Clusters + Heatmap + Points" }],
-    },
-  },
-  {
-    id: "4",
-    title: "Order Process Automation",
-    description: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
-    image: "/img/projects/automation.png",
-    liveUrl: "https://order-process-automation.streamlit.app/",
-    featured: true,
-    technologies: ["Streamlit", "Python", "Automation", "Data Processing"],
-    caseStudy: {
-      role: "Automation Engineer",
-      timeline: "2024",
-      problem: "Order sheets required manual consolidation and formatting.",
-      solution: "Automated ingestion, cleaning, and categorization of Excel orders.",
-      impact: ["Faster order preparation.", "Consistent output formatting."],
-      metrics: [
-        { label: "Input", value: "Excel" },
-        { label: "Output", value: "Formatted sheets" },
-      ],
-    },
-  },
-  {
-    id: "5",
-    title: "Air Passenger Forecasting",
-    description: "Time series analysis comparing multiple forecasting models (ARIMA, Exponential Smoothing) for airline passenger prediction.",
-    image: "/img/projects/air_passengers.png",
-    liveUrl: "https://sajid-ul-islam.github.io/Air_Passengers_Forecasting_Models/",
-    featured: true,
-    technologies: ["Machine Learning", "Time Series", "Python"],
-    caseStudy: {
-      role: "Data Scientist",
-      timeline: "2023",
-      problem: "Forecast air passenger demand using multiple time-series models.",
-      solution: "Compared ARIMA and Exponential Smoothing forecasts.",
-      impact: ["Enabled model comparison for planning scenarios."],
-      metrics: [{ label: "Models", value: "ARIMA, Exp. Smoothing" }],
-    },
-  },
-  {
-    id: "6",
-    title: "Ramadan Compass",
-    description: "A comprehensive Ramadan companion app featuring prayer times, Qibla compass, and daily goals tracking. Built with Next.js.",
-    image: "/img/projects/ramadan.png",
-    liveUrl: "https://ramadancompass.vercel.app/",
-    featured: true,
-    technologies: ["Next.js", "Ramadan", "Prayer Times", "React", "PWA"],
-    caseStudy: {
-      role: "Frontend Engineer",
-      timeline: "2024",
-      problem: "Users needed prayer times, Qibla, and daily goals in one place.",
-      solution: "Next.js PWA combining daily utilities and reminders.",
-      impact: ["Simplified daily Ramadan routines in a single app."],
-      metrics: [
-        { label: "Platform", value: "PWA" },
-        { label: "Core Features", value: "Prayer times + Qibla" },
       ],
     },
   },
@@ -291,6 +221,26 @@ export const projects: Project[] = [
     },
   },
   {
+    id: "3",
+    title: "Sentinel Bangladesh",
+    description: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking.",
+    image: "/img/projects/sentinel.png",
+    liveUrl: "https://sentinelbangladesh.streamlit.app/",
+    featured: true,
+    technologies: ["Streamlit", "Python", "Data Visualization", "Security Analysis"],
+    caseStudy: {
+      role: "Data Visualization",
+      timeline: "2024",
+      problem: "Security incidents needed spatial insight at scale.",
+      solution: "Interactive map with clustering, heatmaps, and drill-down incident details.",
+      impact: [
+        "Faster pattern discovery across regions.",
+        "Clearer communication of incident density.",
+      ],
+      metrics: [{ label: "Map Layers", value: "Clusters + Heatmap + Points" }],
+    },
+  },
+  {
     id: "security-map",
     title: "Security Map Visualization",
     description: "Interactive map-based visualization of security events developed using R, Folium, and Leaflet with temporal sliders.",
@@ -308,12 +258,100 @@ export const projects: Project[] = [
     },
   },
   {
+    id: "5",
+    title: "Air Passenger Forecasting",
+    description: "Time series analysis comparing multiple forecasting models (ARIMA, Exponential Smoothing) for airline passenger prediction.",
+    image: "/img/projects/air_passengers.png",
+    liveUrl: "https://sajid-ul-islam.github.io/Air_Passengers_Forecasting_Models/",
+    featured: true,
+    technologies: ["Machine Learning", "Time Series", "Python"],
+    caseStudy: {
+      role: "Data Scientist",
+      timeline: "2023",
+      problem: "Forecast air passenger demand using multiple time-series models.",
+      solution: "Compared ARIMA and Exponential Smoothing forecasts.",
+      impact: ["Enabled model comparison for planning scenarios."],
+      metrics: [{ label: "Models", value: "ARIMA, Exp. Smoothing" }],
+    },
+  },
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // TIER 3 â€” Utilities & Automation
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  {
+    id: "2",
+    title: "Sheet2WhatsApp",
+    description: "Automates WhatsApp link generation from Excel/CSV files.",
+    image: "/img/projects/whatsapp.png",
+    liveUrl: "https://sheet2whatsapp.streamlit.app/",
+    featured: false,
+    technologies: ["Streamlit", "Python", "Pandas", "Vercel"],
+    caseStudy: {
+      role: "Builder",
+      timeline: "2024",
+      problem: "Creating WhatsApp links from spreadsheets was manual and error-prone.",
+      solution: "Streamlit app that converts CSV/Excel rows into share-ready WhatsApp links.",
+      impact: [
+        "Reduced copy/paste effort for outreach.",
+        "Improved accuracy of contact links.",
+      ],
+      metrics: [
+        { label: "Input", value: "CSV/Excel" },
+        { label: "Output", value: "WhatsApp links" },
+      ],
+    },
+  },
+  {
+    id: "4",
+    title: "Order Process Automation",
+    description: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
+    image: "/img/projects/automation.png",
+    liveUrl: "https://order-process-automation.streamlit.app/",
+    featured: false,
+    technologies: ["Streamlit", "Python", "Automation", "Data Processing"],
+    caseStudy: {
+      role: "Automation Engineer",
+      timeline: "2024",
+      problem: "Order sheets required manual consolidation and formatting.",
+      solution: "Automated ingestion, cleaning, and categorization of Excel orders.",
+      impact: ["Faster order preparation.", "Consistent output formatting."],
+      metrics: [
+        { label: "Input", value: "Excel" },
+        { label: "Output", value: "Formatted sheets" },
+      ],
+    },
+  },
+  {
+    id: "6",
+    title: "Ramadan Compass",
+    description: "A comprehensive Ramadan companion app featuring prayer times, Qibla compass, and daily goals tracking. Built with Next.js.",
+    image: "/img/projects/ramadan.png",
+    liveUrl: "https://ramadancompass.vercel.app/",
+    featured: false,
+    technologies: ["Next.js", "Ramadan", "Prayer Times", "React", "PWA"],
+    caseStudy: {
+      role: "Frontend Engineer",
+      timeline: "2024",
+      problem: "Users needed prayer times, Qibla, and daily goals in one place.",
+      solution: "Next.js PWA combining daily utilities and reminders.",
+      impact: ["Simplified daily Ramadan routines in a single app."],
+      metrics: [
+        { label: "Platform", value: "PWA" },
+        { label: "Core Features", value: "Prayer times + Qibla" },
+      ],
+    },
+  },
+
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // TIER 4 â€” Archive / Older Work
+  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  {
     id: "gdp-debt",
     title: "Economic Analysis",
     description: "Analysis of GDP vs Debt Correlation across global economies.",
     image: "/img/projects/economic.png",
     liveUrl: "https://sajid-ul-islam.github.io/Economic-Analysis-GDP-vs-Debt-Correlation/",
-    featured: true,
+    featured: false,
     technologies: ["Data Analysis", "Economics", "Python"],
     caseStudy: {
       role: "Analyst",
@@ -443,30 +481,9 @@ export const projects: Project[] = [
       metrics: [{ label: "Stack", value: "HTML/CSS/JS" }],
     },
   },
-  {
-    id: "global-economics",
-    title: "Global Economics Dashboard",
-    description: "An interactive Streamlit dashboard exploring global economic indicators, trends, and country-level comparisons.",
-    image: "/img/projects/economic.png",
-    liveUrl: "https://global-economics.streamlit.app/",
-    featured: true,
-    technologies: ["Streamlit", "Python", "Economics", "Data Visualization"],
-    caseStudy: {
-      role: "Data Analyst",
-      timeline: "2025",
-      problem: "Economic data across countries is scattered and hard to compare at a glance.",
-      solution: "Built a Streamlit app aggregating global economic indicators into interactive charts and country comparisons.",
-      impact: [
-        "Simplified exploration of global economic trends.",
-        "Enabled quick country-level comparisons in one place.",
-      ],
-      metrics: [
-        { label: "Platform", value: "Streamlit" },
-        { label: "Scope", value: "Global" },
-      ],
-    },
-  },
 ];
+
+
 
 export const fileTree: FileTreeSection[] = [
   {
@@ -669,7 +686,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "thrivingskills",
-    title: "Associate – Online Sales & Customer Supports",
+    title: "Associate â€“ Online Sales & Customer Supports",
     company: "Thriving Skills",
     location: "Gulshan, Dhaka",
     startDate: "Oct 2023",
@@ -685,7 +702,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "daraz",
-    title: "Jr. Executive – Marketplace",
+    title: "Jr. Executive â€“ Marketplace",
     company: "Daraz Bangladesh Ltd.",
     location: "Banani, Dhaka",
     startDate: "Jan 2020",
@@ -701,7 +718,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "hungrynaki",
-    title: "Associate – Home Kitchen & Street Food",
+    title: "Associate â€“ Home Kitchen & Street Food",
     company: "HungryNaki (Sister concern of Daraz)",
     location: "Banani, Dhaka",
     startDate: "Jul 2021",
