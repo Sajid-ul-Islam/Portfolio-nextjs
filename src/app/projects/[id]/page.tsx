@@ -8,6 +8,8 @@ import Button from "../../components/vscode/Button";
 import Panel from "../../components/vscode/Panel";
 import AIInsightButton from "../../components/vscode/AIInsightButton";
 import MissionReplay from "../../components/vscode/MissionReplay";
+import RunProjectButton from "../../components/vscode/RunProjectButton";
+import GitDiffViewer from "../../components/vscode/GitDiffViewer";
 import { projects } from "../../data/portfolio";
 
 type ProjectPageProps = {
@@ -107,6 +109,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       </div>
 
       <div className="flex flex-wrap gap-4 mb-12">
+        <RunProjectButton 
+          projectId={project.id} 
+          isPython={project.technologies.includes("Python")} 
+        />
         {project.liveUrl ? (
           <Button asChild className="bg-[#a3e635] text-black hover:bg-[#bef264] border-none px-6 py-4 h-auto text-sm font-bold uppercase tracking-tight">
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
@@ -153,6 +159,19 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               ]} 
             />
           </section>
+
+          {project.gitDiff && (
+            <section>
+              <h2 className="text-vscode-2xl font-semibold text-[var(--vscode-text-primary)] mb-4">
+                Source Control Diff
+              </h2>
+              <GitDiffViewer 
+                filename={project.gitDiff.filename}
+                oldCode={project.gitDiff.oldCode}
+                newCode={project.gitDiff.newCode}
+              />
+            </section>
+          )}
 
           <section>
             <h2 className="text-vscode-2xl font-semibold text-[var(--vscode-text-primary)] mb-6">

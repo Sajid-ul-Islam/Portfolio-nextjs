@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/cn";
 import {
@@ -21,6 +21,7 @@ import AIChatTrigger from "./AIChatTrigger";
 import IntroAnimation from "./IntroAnimation";
 import CommandPalette from "./CommandPalette";
 import { useSidebarResize } from "./useSidebarResize";
+import { useTerminalResize } from "./useTerminalResize";
 import { useVSCodeShortcuts } from "./useVSCodeShortcuts";
 import ErrorBoundary from "./ErrorBoundary";
 import OnboardingTooltip from "./OnboardingTooltip";
@@ -50,6 +51,7 @@ const mobileItems = [
 function VSCodeShellContent({ children }: VSCodeShellProps) {
   const { isMobile, isMounted } = useViewport();
   const pathname = usePathname();
+  const router = useRouter();
   const { addPage } = useRecentPagesContext();
   const {
     sidebarOpen,
@@ -63,6 +65,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
     useState<ActivityId>("explorer");
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const { sidebarWidth, isResizing, startResizing } = useSidebarResize("vscodeSidebarWidth", 256);
+  const { terminalHeight, isResizing: isTerminalResizing, startResizing: startTerminalResizing } = useTerminalResize("vscodeTerminalHeight", 256);
 
   useEffect(() => {
     if (isMounted && isMobile) {
@@ -84,6 +87,13 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
   }, [isMobile, pathname]);
 
   const handleActivityClick = (id: ActivityId) => {
+    if (id === 'settings') {
+      setActiveActivity(id);
+      router.push('/settings.json');
+      if (isMobile) setMobileDrawerOpen(false);
+      return;
+    }
+
     if (isMobile) {
       if (activeActivity === id) {
         setMobileDrawerOpen((open) => !open);
@@ -254,25 +264,39 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
         </>
       )}
 
-      <main className={cn("h-full min-h-0 bg-transparent relative", isResizing && "cursor-col-resize")}>
-        <ErrorBoundary fallbackMessage="Editor module offline. Missing dependencies.">
-          <EditorShell>{children}</EditorShell>
-        </ErrorBoundary>
+      <main className={cn("h-full min-h-0 bg-transparent relative flex flex-col", (isResizing || isTerminalResizing) && "cursor-row-resize")}>
+        <div className="flex-1 overflow-hidden relative">
+          <ErrorBoundary fallbackMessage="Editor module offline. Missing dependencies.">
+            <EditorShell>{children}</EditorShell>
+          </ErrorBoundary>
+        </div>
+
+        {showTerminal && (
+          <>
+            <div
+              className={cn(
+                "h-[2px] w-full relative z-[1001]",
+                "cursor-row-resize bg-[var(--vscode-border)] hover:bg-[var(--vscode-focusBorder)] transition-colors"
+              )}
+              onMouseDown={startTerminalResizing}
+            />
+            <div 
+              className="w-full z-[1000] relative"
+              style={{ height: `${terminalHeight}px` }}
+            >
+                <ErrorBoundary fallbackMessage="Terminal module offline.">
+                  <Terminal 
+                    onClose={() => setShowTerminal(false)} 
+                  />
+                </ErrorBoundary>
+            </div>
+          </>
+        )}
       </main>
 
       <footer className={cn("z-50 backdrop-blur-xl border-t border-white/5", sidebarOpen ? "col-span-4" : "col-span-2")}>
         <StatusBar />
       </footer>
-
-      {showTerminal && (
-          <div className="absolute bottom-6 left-0 right-0 h-64 z-[1000]">
-              <ErrorBoundary fallbackMessage="Terminal module offline.">
-                <Terminal 
-                  onClose={() => setShowTerminal(false)} 
-                />
-              </ErrorBoundary>
-          </div>
-      )}
 
       {showAIChat && (
           <div className="fixed bottom-12 md:bottom-28 right-6 md:right-12 z-[2000] animate-in slide-in-from-bottom-8 zoom-in-95 duration-500 ease-out">

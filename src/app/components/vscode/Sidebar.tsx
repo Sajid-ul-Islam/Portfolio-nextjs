@@ -6,7 +6,6 @@ import { cn } from "../../lib/cn";
 import AccountPanel from "./panels/AccountPanel";
 import ExplorerPanel from "./panels/ExplorerPanel";
 import SearchPanel from "./panels/SearchPanel";
-import SettingsPanel from "./panels/SettingsPanel";
 import SourceControlPanel from "./panels/SourceControlPanel";
 
 type SidebarProps = {
@@ -45,8 +44,6 @@ export default function Sidebar({
         return <SourceControlPanel />;
       case "account":
         return <AccountPanel />;
-      case "settings":
-        return <SettingsPanel />;
       case "explorer":
       default:
         return <ExplorerPanel onClose={onClose} />;

@@ -65,13 +65,12 @@ export default function Terminal({ onClose }: TerminalProps) {
   }, [output, activeTab]);
 
   const availableCommands = useMemo(() => [
-    "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "projects", "status", "clear", "exit", "mkdir", "touch", "date"
+    "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "projects", "status", "clear", "exit", "mkdir", "touch", "date", "hire", "sudo", "npm"
   ], []);
 
-  const handleCommand = (e: React.FormEvent) => {
-    e.preventDefault();
-    const cmd = input.trim();
-    if (!input) return;
+  const executeCommand = (cmdStr: string) => {
+    const cmd = cmdStr.trim();
+    if (!cmd) return;
 
     setHistory(prev => [cmd, ...prev].slice(0, 50));
     setHistoryIdx(-1);
@@ -196,13 +195,56 @@ Terminal shell: bash`;
   \u001b[32mCPU\u001b[0m: Virtual Processor (Vercel)
   \u001b[32mMEMORY\u001b[0m: ${Math.round((performance as any).memory?.usedJSHeapSize / 1048576 || 24)}MB / 4096MB`;
         break;
+      case "hire":
+        response = `\u001b[32m🎉 Success!\u001b[0m Sajid has been notified of your interest. 
+He is available for immediate hire. Please reach out to sajid.islam.9977@gmail.com!`;
+        break;
+      case "sudo":
+        response = `sajidislam is not in the sudoers file. This incident will be reported.`;
+        break;
+      case "npm":
+        if (args[0] === "run" && args[1] === "dev") {
+          response = `> Portfolio-nextjs@0.1.0 dev
+> next dev
+
+▲ Next.js 14.2.35
+- Local:        http://localhost:3000
+- Environments: .env
+
+ ✓ Starting...
+ ✓ Ready in 1250ms`;
+        } else {
+          response = `npm: command not found`;
+        }
+        break;
       default:
-        response = `bash: ${cmd}: command not found. Type 'help' for available commands.`;
+        // Handle "python" simulated run
+        if (baseCmd === "python" || baseCmd === "python3") {
+           response = `Executing ${args[0] || 'script'}...
+[SUCCESS] Pipeline completed in 1.42s
+Data successfully processed and output generated.`;
+        } else {
+           response = `bash: ${cmd}: command not found. Type 'help' for available commands.`;
+        }
     }
 
     setOutput(prev => [...prev, fullCmd, response, ""]);
+  };
+
+  const handleCommand = (e: React.FormEvent) => {
+    e.preventDefault();
+    executeCommand(input);
     setInput("");
   };
+
+  useEffect(() => {
+    const handleTerminalRun = (e: CustomEvent<string>) => {
+      executeCommand(e.detail);
+    };
+
+    window.addEventListener('terminal-run', handleTerminalRun as EventListener);
+    return () => window.removeEventListener('terminal-run', handleTerminalRun as EventListener);
+  }, [currentDir, fs]); // Dependencies needed for executeCommand closures
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowUp") {

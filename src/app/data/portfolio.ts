@@ -48,6 +48,11 @@ export type Project = {
   technologies: string[];
   liveUrl?: string;
   githubUrl?: string;
+  gitDiff?: {
+    filename: string;
+    oldCode: string;
+    newCode: string;
+  };
   featured?: boolean;
   caseStudy?: {
     role?: string;
@@ -132,15 +137,33 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const projects: Project[] = [
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
   // TIER 1 â€” Active Business & Current Role
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
   {
     id: "deen-ops",
     title: "Deen Ops Dashboard",
     description: "An operational dashboard built to track and manage day-to-day business metrics and CRM growth.",
     image: "/img/projects/automation.png",
     liveUrl: "https://deen-ops.streamlit.app/",
+    githubUrl: "https://github.com/Sajid-ul-Islam/Deen-Ops",
+    gitDiff: {
+      filename: "data_pipeline.py",
+      oldCode: `# Old manual pipeline
+def process_data(file_path):
+    data = pd.read_csv(file_path)
+    # Manual cleaning steps repeated daily
+    data.dropna(inplace=True)
+    return data`,
+      newCode: `# New automated Streamlit pipeline
+@st.cache_data
+def process_data(file_path):
+    # Automated ingestion & validation
+    data = pd.read_csv(file_path)
+    cleaned_data = DataValidator.clean(data)
+    DashboardState.update_metrics(cleaned_data)
+    return cleaned_data`
+    },
     featured: true,
     technologies: ["Streamlit", "Python", "Operations", "Data Analysis"],
     caseStudy: {
@@ -193,9 +216,9 @@ export const projects: Project[] = [
     },
   },
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
   // TIER 2 â€” Flagship Analytics & ML
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
   {
     id: "1",
     title: "ECommerce Dashboard",
@@ -545,6 +568,13 @@ export const fileTree: FileTreeSection[] = [
         href: "/contact",
         icon: "mail",
         extension: "tsx",
+      },
+      {
+        id: "settings",
+        label: "settings",
+        href: "/settings.json",
+        icon: "settings",
+        extension: "json",
       },
     ],
   },
