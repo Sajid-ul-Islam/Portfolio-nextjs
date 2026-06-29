@@ -87,7 +87,7 @@ export default function ActivityBar<T extends string = string>({
               ) : null}
               <Icon size={20} strokeWidth={isActive ? 2 : 1.5} />
               {!isHorizontal && (
-                <span className="absolute left-full ml-3 px-2 py-1 text-[10px] font-bold bg-[#1e1e1e] border border-white/10 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-all scale-95 group-hover:scale-100 group">
+                <span className="absolute left-full ml-3 px-2 py-1 text-[10px] font-bold bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-all scale-95 group-hover:scale-100 group">
                     {item.label}
                 </span>
               )}
@@ -112,7 +112,7 @@ export default function ActivityBar<T extends string = string>({
                 title={item.label}
               >
                 <Icon size={20} strokeWidth={1.5} />
-                <span className="absolute left-full ml-3 px-2 py-1 text-[10px] font-bold bg-[#1e1e1e] border border-white/10 rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-all scale-95 group-hover:scale-100">
+                <span className="absolute left-full ml-3 px-2 py-1 text-[10px] font-bold bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50 transition-all scale-95 group-hover:scale-100">
                   {item.label}
                 </span>
               </button>

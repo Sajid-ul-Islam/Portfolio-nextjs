@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { LuMenu, LuMinus, LuSquare, LuX } from "react-icons/lu";
+import { LuMenu, LuMinus, LuSearch, LuSquare, LuX } from "react-icons/lu";
 
 import { menuItems, siteMeta } from "@/app/data/portfolio";
 import { cn } from "@/lib/cn";
@@ -57,13 +57,15 @@ export default function TitleBar({ onMenuClick, isMobile }: TitleBarProps) {
     <header className="flex items-center justify-between h-[var(--vscode-titlebar-height)] bg-[var(--vscode-titleBar-activeBackground)] select-none relative z-[100]">
       <div className="flex items-center h-full" ref={menuRef}>
         {isMobile ? (
-          <button
-            onClick={onMenuClick}
-            className="flex items-center justify-center w-12 h-full hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
-            aria-label="Toggle menu"
-          >
-            <LuMenu size={18} className="text-[var(--vscode-titleBar-activeForeground)]" />
-          </button>
+          <div className="flex items-center h-full">
+            <button
+              onClick={onMenuClick}
+              className="flex items-center justify-center w-12 h-full hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
+              aria-label="Toggle menu"
+            >
+              <LuMenu size={18} className="text-[var(--vscode-titleBar-activeForeground)]" />
+            </button>
+          </div>
         ) : (
           <>
             <div className="flex items-center justify-center w-10 h-full">
@@ -142,7 +144,17 @@ export default function TitleBar({ onMenuClick, isMobile }: TitleBarProps) {
             <LuX size={16} className="text-[var(--vscode-titleBar-activeForeground)] group-hover:text-white" />
           </button>
         </div>
-      ) : null}
+      ) : (
+        <div className="flex items-center h-full">
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+            className="flex items-center justify-center w-10 h-full hover:bg-[var(--vscode-list-hoverBackground)] transition-colors"
+            aria-label="Search"
+          >
+            <LuSearch size={16} className="text-[var(--vscode-titleBar-activeForeground)]" />
+          </button>
+        </div>
+      )}
     </header>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { LuBell, LuGitBranch, LuTerminal, LuCpu, LuBattery } from "react-icons/lu";
+import { LuBell, LuGitBranch, LuTerminal, LuCpu, LuBattery, LuDownload } from "react-icons/lu";
 
 import { cn } from "@/lib/cn";
+import { personalInfo } from "@/app/data/portfolio";
 
 type StatusItemProps = {
   children: React.ReactNode;
@@ -107,6 +108,16 @@ export default function StatusBar() {
         )}
 
         <StatusItem className="bg-black/20 font-semibold px-3 text-white/95">{time}</StatusItem>
+        <a
+          href={personalInfo.resumeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <StatusItem className="bg-[var(--vscode-accent)] text-white font-bold px-3 hidden sm:flex hover:opacity-90 transition-opacity">
+            <LuDownload size={11} />
+            <span>Resume</span>
+          </StatusItem>
+        </a>
         <StatusItem>
           <LuBell size={12} className="text-white/80" />
         </StatusItem>

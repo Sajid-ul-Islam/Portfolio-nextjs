@@ -16,12 +16,14 @@ import {
   Briefcase,
   Layers,
   Globe,
+  Download,
+  Quote,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 import SocialLinks from "./SocialLinks";
 import { useRecentPagesContext } from "@/lib/recentPagesContext";
-import { personalInfo, metrics, projects } from "../../data/portfolio";
+import { personalInfo, metrics, projects, testimonials } from "../../data/portfolio";
 import { useLayout } from "../../lib/layoutContext";
 
 type StartLinkProps = {
@@ -121,27 +123,52 @@ export default function HomeClient() {
       >
         {/* Header Section */}
         <motion.header variants={itemVariants} className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-8 rounded-3xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 transition-all duration-300 relative overflow-hidden group animate-pulse-glow">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 p-4 md:p-8 rounded-3xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 transition-all duration-300 relative overflow-hidden group animate-pulse-glow">
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-            <div className="z-10 max-w-3xl">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="px-2.5 py-0.5 rounded-full bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] text-[10px] font-bold tracking-wider border border-[var(--vscode-accent)]/20 uppercase font-mono">
-                  Welcome to my portfolio workspace
-                </span>
+            <div className="z-10 flex items-start gap-4 md:gap-6 flex-1 min-w-0">
+              {/* Profile Photo */}
+              <div className="relative flex-shrink-0">
+                <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-[var(--vscode-accent)]/30 shadow-lg shadow-[var(--vscode-accent)]/10">
+                  <Image
+                    src="/img/profile.jpg"
+                    alt={personalInfo.name}
+                    width={80}
+                    height={80}
+                    className="object-cover w-full h-full"
+                    priority
+                  />
+                </div>
+                <span className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-emerald-400 rounded-full border-2 border-[var(--vscode-sideBar-background)] availability-pulse" />
               </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-[var(--vscode-text-primary)] mb-2 tracking-tight">
-                {personalInfo.name}
-              </h1>
-              <p className="text-lg text-[var(--vscode-accent)] font-semibold font-mono mb-4">
-                {personalInfo.title}
-              </p>
-              <p className="text-sm md:text-base text-[var(--vscode-text-secondary)] leading-relaxed">
-                {personalInfo.bio}
-              </p>
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] text-[10px] font-bold tracking-wider border border-[var(--vscode-accent)]/20 uppercase font-mono">
+                    Welcome to my portfolio workspace
+                  </span>
+                </div>
+                <h1 className="text-2xl md:text-4xl lg:text-5xl font-extrabold text-[var(--vscode-text-primary)] mb-1 tracking-tight">
+                  {personalInfo.name}
+                </h1>
+                <p className="text-sm md:text-lg text-[var(--vscode-accent)] font-semibold font-mono mb-3">
+                  {personalInfo.title}
+                </p>
+                <p className="text-xs md:text-sm text-[var(--vscode-text-secondary)] leading-relaxed line-clamp-3 md:line-clamp-none">
+                  {personalInfo.bio}
+                </p>
+              </div>
             </div>
-            <div className="z-10 flex flex-col items-end gap-4 flex-shrink-0">
+            <div className="z-10 flex flex-col items-start md:items-end gap-3 flex-shrink-0">
               <SocialLinks />
+              <a
+                href={personalInfo.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-[var(--vscode-accent)] text-white font-bold text-xs uppercase tracking-widest font-mono rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-lg shadow-[var(--vscode-accent)]/20 group/resume"
+              >
+                <Download size={14} className="group-hover/resume:-translate-y-0.5 transition-transform" />
+                Download Resume
+              </a>
             </div>
           </div>
         </motion.header>
@@ -229,7 +256,7 @@ export default function HomeClient() {
                 View All <ChevronRight size={12} />
               </Link>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
               {featuredProjects.map((project, i) => (
                 <Link
                   key={project.id}
@@ -251,6 +278,34 @@ export default function HomeClient() {
               ))}
             </div>
           </motion.div>
+
+          {/* Testimonials */}
+          {testimonials && testimonials.length > 0 && (
+            <motion.div variants={itemVariants} className="md:col-span-12 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-4 md:p-6 rounded-3xl transition-all duration-300">
+              <div className="flex items-center gap-2 mb-5">
+                <Quote size={18} className="text-[var(--vscode-accent)]" />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--vscode-text-primary)] font-mono">Testimonials</h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {testimonials.map((t, i) => (
+                  <div key={i} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[var(--vscode-accent)]/20 transition-all">
+                    <p className="text-xs text-[var(--vscode-text-secondary)] leading-relaxed italic mb-3">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-full bg-[var(--vscode-accent)]/10 flex items-center justify-center">
+                        <span className="text-[9px] font-bold text-[var(--vscode-accent)]">{t.name.charAt(0)}</span>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-[var(--vscode-text-primary)]">{t.name}</p>
+                        <p className="text-[9px] text-[var(--vscode-text-secondary)] font-mono">{t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* Feature Highlight 1 - Terminal */}
           <motion.button 

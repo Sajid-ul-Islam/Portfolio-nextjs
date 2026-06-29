@@ -23,6 +23,7 @@ import CommandPalette from "./CommandPalette";
 import { useSidebarResize } from "./useSidebarResize";
 import { useVSCodeShortcuts } from "./useVSCodeShortcuts";
 import ErrorBoundary from "./ErrorBoundary";
+import OnboardingTooltip from "./OnboardingTooltip";
 import { LayoutProvider, useLayout } from "../../lib/layoutContext";
 
 
@@ -199,6 +200,18 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
           onItemClick={handleActivityClick}
         />
         <StatusBar />
+
+        {/* Mobile AI Chat */}
+        {showAIChat && (
+          <div className="fixed inset-0 z-[2000] bg-black/60 flex items-end justify-center p-2 animate-in fade-in duration-200">
+            <div className="w-full max-w-md max-h-[85vh] relative">
+              <ErrorBoundary fallbackMessage="AI Neural Link disconnected. Verify environment API keys.">
+                <AIChat onClose={() => setShowAIChat(false)} />
+              </ErrorBoundary>
+            </div>
+          </div>
+        )}
+        <AIChatTrigger isOpen={showAIChat} onClick={() => setShowAIChat(true)} />
       </div>
     );
   }
@@ -277,6 +290,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
       <AIChatTrigger isOpen={showAIChat} onClick={() => setShowAIChat(true)} />
       <IntroAnimation />
       <CommandPalette />
+      <OnboardingTooltip />
     </div>
   );
 }

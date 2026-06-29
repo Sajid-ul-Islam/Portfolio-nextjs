@@ -1,4 +1,4 @@
-﻿export type FileTreeItem = {
+export type FileTreeItem = {
   id: string;
   label: string;
   href: string;
@@ -103,6 +103,12 @@ export type FamilyMember = {
   link?: string;
 };
 
+export type Testimonial = {
+  name: string;
+  role: string;
+  quote: string;
+};
+
 export const siteMeta = {
   name: "Sajid Islam",
   title: "Sajid Islam | Business & Data Analyst",
@@ -111,6 +117,19 @@ export const siteMeta = {
   url: "https://sajid-ul-islam.github.io/example-app-nextjs/",
   ogImage: "/img/profile.jpg",
 };
+
+export const testimonials: Testimonial[] = [
+  {
+    name: "Daraz BD Team Lead",
+    role: "Marketplace Operations, Daraz Bangladesh",
+    quote: "Sajid's data-driven approach to partner acquisition directly contributed to a 50% increase in our vendor network. His dashboards became the go-to tool for weekly performance reviews.",
+  },
+  {
+    name: "NZ TEX R&D Manager",
+    role: "Research & Development, NZ TEX GROUP",
+    quote: "His ability to translate complex data into clear, actionable presentations for buyers and stakeholders was exceptional. Sajid consistently delivered insights that drove product innovation.",
+  },
+];
 
 export const projects: Project[] = [
   // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•

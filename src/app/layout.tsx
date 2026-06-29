@@ -44,6 +44,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${tiroBangla.variable} ${inter.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://img.icons8.com" />
         <style dangerouslySetInnerHTML={{
           __html: `
           :root[data-theme="vscode-dark"] {

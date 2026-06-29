@@ -247,9 +247,9 @@ Terminal shell: bash`;
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#080808] border-t border-white/10 text-[#cccccc] font-mono text-[11px] select-text">
+    <div className="flex flex-col h-full bg-[var(--vscode-editor-background)] border-t border-[var(--vscode-border)] text-[var(--vscode-editor-foreground)] font-mono text-[11px] select-text">
       {/* Tab Bar */}
-      <div className="flex items-center justify-between px-3 bg-[#111111] h-8 border-b border-white/5">
+      <div className="flex items-center justify-between px-3 bg-[var(--vscode-sideBar-background)] h-8 border-b border-[var(--vscode-border)]">
         <div className="flex items-center gap-4 h-full">
           {["PROBLEMS", "OUTPUT", "DEBUG CONSOLE", "TERMINAL"].reverse().map((tab) => (
             <button
@@ -266,7 +266,7 @@ Terminal shell: bash`;
         </div>
         
         <div className="flex items-center gap-3 text-gray-500">
-           <div className="flex items-center gap-2 px-2 py-0.5 bg-white/5 rounded text-[9px] text-[#a3e635]/80 font-bold border border-white/5">
+           <div className="flex items-center gap-2 px-2 py-0.5 bg-[var(--vscode-accent)]/10 rounded text-[9px] text-[var(--vscode-accent)] font-bold border border-[var(--vscode-border)]">
               <ChevronRight size={10} />
               <span>bash --vscode</span>
            </div>

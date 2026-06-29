@@ -26,14 +26,14 @@ export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
   if (isOpen) return null;
 
   return (
-    <div className="fixed bottom-12 right-6 z-[2500] flex flex-col items-end gap-3 group">
+    <div className="fixed bottom-20 md:bottom-12 right-6 z-[2500] flex flex-col items-end gap-3 group">
       {/* Greeting Bubble */}
       {showGreeting && (
         <div className="relative animate-in slide-in-from-bottom-4 fade-in duration-500">
-          <div className="bg-[#1a1a1a] border border-[#a3e635]/30 p-3 rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.5)] max-w-[200px] text-[11px] text-gray-200 leading-relaxed relative">
+          <div className="bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-accent)]/30 p-3 rounded-lg shadow-[0_10px_30px_rgba(0,0,0,0.5)] max-w-[200px] text-[11px] text-[var(--vscode-text-primary)] leading-relaxed relative">
             <button 
               onClick={(e) => { e.stopPropagation(); setShowGreeting(false); }}
-              className="absolute -top-2 -right-2 w-5 h-5 bg-[#222] border border-white/10 rounded-full flex items-center justify-center text-gray-400 hover:text-white transition-colors"
+              className="absolute -top-2 -right-2 w-5 h-5 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded-full flex items-center justify-center text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-text-primary)] transition-colors"
             >
               <X size={10} />
             </button>
@@ -44,7 +44,7 @@ export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
             Hi! Ask me anything about Sajid&apos;s skills, experience, or projects. <span className="text-[#a3e635] font-bold underline cursor-pointer" onClick={onClick}>Chat now!</span>
           </div>
           {/* Arrow */}
-          <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-[#1a1a1a] border-r border-b border-[#a3e635]/30 rotate-45"></div>
+          <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-[var(--vscode-sideBar-background)] border-r border-b border-[var(--vscode-accent)]/30 rotate-45"></div>
         </div>
       )}
 
