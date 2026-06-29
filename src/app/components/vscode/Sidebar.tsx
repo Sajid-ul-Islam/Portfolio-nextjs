@@ -5,7 +5,6 @@ import { LuX } from "react-icons/lu";
 import { cn } from "../../lib/cn";
 import AccountPanel from "./panels/AccountPanel";
 import ExplorerPanel from "./panels/ExplorerPanel";
-import ExtensionsPanel from "./panels/ExtensionsPanel";
 import SearchPanel from "./panels/SearchPanel";
 import SettingsPanel from "./panels/SettingsPanel";
 import SourceControlPanel from "./panels/SourceControlPanel";
@@ -13,7 +12,7 @@ import SourceControlPanel from "./panels/SourceControlPanel";
 type SidebarProps = {
   isOpen?: boolean;
   onClose?: () => void;
-  activePanel?: "explorer" | "search" | "git" | "extensions" | "account" | "settings" | "terminal" | "chat";
+  activePanel?: "explorer" | "search" | "git" | "account" | "settings" | "terminal" | "chat";
   variant?: "default" | "drawer";
 };
 
@@ -24,7 +23,6 @@ const panelLabels: Record<
   explorer: "Explorer",
   search: "Search",
   git: "Source Control",
-  extensions: "Extensions",
   account: "Account",
   settings: "Settings",
   terminal: "Terminal",
@@ -45,8 +43,6 @@ export default function Sidebar({
         return <SearchPanel />;
       case "git":
         return <SourceControlPanel />;
-      case "extensions":
-        return <ExtensionsPanel />;
       case "account":
         return <AccountPanel />;
       case "settings":

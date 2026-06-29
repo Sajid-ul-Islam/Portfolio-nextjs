@@ -35,7 +35,6 @@ type ActivityId =
   | "explorer"
   | "search"
   | "git"
-  | "extensions"
   | "account"
   | "settings"
   | "terminal"
@@ -45,7 +44,6 @@ const mobileItems = [
   { id: "explorer", icon: "files", label: "Explorer" },
   { id: "search", icon: "search", label: "Search" },
   { id: "git", icon: "git-branch", label: "Source Control" },
-  { id: "extensions", icon: "blocks", label: "Extensions" },
   { id: "settings", icon: "settings", label: "Settings" },
 ] as const;
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-type ActivityId = "explorer" | "search" | "git" | "extensions" | "account" | "settings" | "terminal" | "chat";
+type ActivityId = "explorer" | "search" | "git" | "account" | "settings" | "terminal" | "chat";
 
 type UseVSCodeShortcutsProps = {
   isMobile: boolean;

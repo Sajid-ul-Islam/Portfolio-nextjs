@@ -182,7 +182,6 @@ export default function SettingsPanel() {
                 { key: "Ctrl + B", desc: "Toggle Explorer sidebar" },
                 { key: "Ctrl + Shift + F", desc: "Open Search panel" },
                 { key: "Ctrl + Shift + G", desc: "Open Source Control panel" },
-                { key: "Ctrl + Shift + X", desc: "Open Extensions panel" },
                 { key: "Ctrl + ,", desc: "Open Settings panel" },
               ].map(({ key, desc }) => (
                 <div
