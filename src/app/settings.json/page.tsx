@@ -50,8 +50,8 @@ export default function SettingsJsonPage() {
   };
 
   return (
-    <div className="flex flex-col h-full bg-[var(--vscode-editor-background)] animate-in fade-in duration-500">
-      <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--vscode-border)] bg-[var(--vscode-sideBar-background)]">
+    <div className="flex flex-col h-full bg-black/20 animate-in fade-in duration-500 relative">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 glass-card !rounded-none !border-x-0 !border-t-0 z-10">
         <div className="flex items-center gap-2 text-vscode-sm text-[var(--vscode-text-secondary)]">
           <span className="text-[var(--vscode-accent)] font-medium">settings.json</span>
           <span className="text-[var(--vscode-text-muted)]">— User Settings</span>
@@ -59,11 +59,11 @@ export default function SettingsJsonPage() {
         <div className="flex items-center gap-2">
           {error && <span className="text-red-400 text-vscode-xs mr-2">{error}</span>}
           {isSaved && <span className="text-[#a3e635] text-vscode-xs mr-2">Saved!</span>}
-          <Button variant="secondary" className="px-3 py-1 h-7 text-vscode-xs gap-1" onClick={handleReset}>
+          <Button variant="secondary" className="px-3 py-1.5 h-auto text-vscode-xs gap-1 rounded-lg hover:shadow-lg" onClick={handleReset}>
             <LuRefreshCw size={12} />
             Reset
           </Button>
-          <Button className="px-3 py-1 h-7 text-vscode-xs gap-1" onClick={handleSave}>
+          <Button className="px-3 py-1.5 h-auto text-vscode-xs gap-1 rounded-lg hover:shadow-lg shadow-lg shadow-[var(--vscode-accent)]/20 bg-[var(--vscode-accent)] text-white" onClick={handleSave}>
             <LuSave size={12} />
             Save (Ctrl+S)
           </Button>
@@ -72,7 +72,7 @@ export default function SettingsJsonPage() {
       
       <div className="flex-1 relative font-mono text-[13px] leading-relaxed p-4">
         {/* Line numbers mock */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 bg-[var(--vscode-editor-background)] border-r border-[var(--vscode-border)] text-right pr-2 pt-4 text-[var(--vscode-text-muted)] select-none">
+        <div className="absolute left-0 top-0 bottom-0 w-12 bg-white/[0.01] border-r border-white/5 text-right pr-2 pt-4 text-[var(--vscode-text-muted)] select-none">
           {[...Array(15)].map((_, i) => (
             <div key={i}>{i + 1}</div>
           ))}

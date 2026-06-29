@@ -38,9 +38,9 @@ function ExperienceItem({ experience, index }: { experience: (typeof experiences
 
       {/* Card */}
       <div className={cn(
-        "glass-card rounded-xl p-5 transition-all duration-300",
-        "hover:shadow-lg hover:shadow-black/10",
-        experience.current && "border-[var(--vscode-accent)]/20"
+        "glass-card p-5",
+        "hover:shadow-2xl hover:shadow-black/20",
+        experience.current && "border-[var(--vscode-accent)]/40 shadow-lg shadow-[var(--vscode-accent)]/10"
       )}>
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
           <div className="flex gap-4 items-start">

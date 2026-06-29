@@ -21,7 +21,7 @@ export default function RunProjectButton({ projectId, isPython = false }: { proj
   return (
     <Button 
       onClick={handleRun}
-      className="bg-[var(--vscode-accent)] text-white hover:bg-[var(--vscode-button-hoverBackground)] border-none px-6 py-4 h-auto text-sm font-bold uppercase tracking-tight shadow-lg shadow-[var(--vscode-accent)]/20"
+      className="bg-[var(--vscode-accent)] text-white hover:bg-[var(--vscode-button-hoverBackground)] border-none px-6 py-4 h-auto text-sm font-bold uppercase tracking-tight shadow-xl shadow-[var(--vscode-accent)]/30 rounded-xl"
     >
       <LuPlay size={18} />
       RUN_SCRIPT

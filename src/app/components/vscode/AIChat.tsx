@@ -109,7 +109,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   ];
 
   return (
-    <div className="w-[calc(100vw-3rem)] sm:w-[350px] md:w-[400px] h-[calc(100dvh-8rem)] sm:h-[600px] max-h-[600px] bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] shadow-2xl flex flex-col font-mono text-[11px] rounded-2xl overflow-hidden group/chat relative">
+    <div className="w-[calc(100vw-3rem)] sm:w-[350px] md:w-[400px] h-[calc(100dvh-8rem)] sm:h-[600px] max-h-[600px] glass-panel shadow-2xl flex flex-col font-mono text-[11px] overflow-hidden group/chat relative">
       {/* Decorative Accent Border */}
       <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[var(--vscode-accent)] to-transparent opacity-50"></div>
       <div className="absolute top-0 right-0 p-1 opacity-20 group-hover/chat:opacity-50 transition-opacity">
@@ -214,7 +214,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
 
         {/* Model Dropdown */}
         {showModelSelect && (
-          <div className="absolute top-[35px] left-4 bg-[#111] border border-white/10 rounded shadow-2xl z-20 w-56 overflow-hidden animate-in zoom-in-95 duration-100 backdrop-blur-md">
+          <div className="absolute top-[35px] left-4 glass-card shadow-2xl z-20 w-56 overflow-hidden animate-in zoom-in-95 duration-100">
             <button
               onClick={() => { setModel("gemini-1.5-flash"); setShowModelSelect(false); }}
               className={`w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 ${model === "gemini-1.5-flash" ? 'bg-white/5' : ''}`}
@@ -292,7 +292,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               ? 'bg-[var(--vscode-accent)] text-white border-[var(--vscode-accent)]/30 rounded-tr-none'
               : m.role === 'system'
                 ? 'border-none italic text-white/20 text-[9px] uppercase tracking-widest text-center w-full bg-white/5 py-1 rounded'
-                : 'bg-white/10 backdrop-blur-md text-white border-white/10 rounded-tl-none overflow-hidden'
+                : 'glass-card text-white !rounded-tl-none overflow-hidden'
               }`}>
               {m.role === 'user' && (
                 <div className="absolute -top-3.5 right-0 text-[8px] text-[var(--vscode-accent)]/80 flex items-center gap-1 font-bold uppercase tracking-tighter">
@@ -326,7 +326,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* Input & Suggestions */}
-      <div className="p-4 border-t border-[var(--vscode-border)] bg-[#0a0a0a] relative z-10 font-sans">
+      <div className="p-4 border-t border-[var(--vscode-border)] bg-black/20 relative z-10 font-sans">
         {!isTyping && messages.length < 5 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {suggestions.map((s) => (

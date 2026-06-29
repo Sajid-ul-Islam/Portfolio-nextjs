@@ -123,7 +123,7 @@ export default function HomeClient() {
       >
         {/* Header Section */}
         <motion.header variants={itemVariants} className="relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 p-4 md:p-8 rounded-3xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 transition-all duration-300 relative overflow-hidden group animate-pulse-glow">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6 p-4 md:p-8 glass-panel project-card-glow transition-all duration-300 relative overflow-hidden group animate-pulse-glow">
             {/* Subtle gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             <div className="z-10 flex items-start gap-4 md:gap-6 flex-1 min-w-0">
@@ -191,7 +191,7 @@ export default function HomeClient() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
           
           {/* Main Navigation (Bento Box) */}
-          <motion.div variants={itemVariants} className="md:col-span-8 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-8 rounded-3xl relative overflow-hidden group transition-all duration-300">
+          <motion.div variants={itemVariants} className="md:col-span-8 glass-panel project-card-glow p-8 relative overflow-hidden group transition-all duration-300">
             <div className="flex items-center gap-3 mb-8">
               <div className="p-2.5 bg-[var(--vscode-accent)]/10 rounded-xl">
                 <Zap size={22} className="text-[var(--vscode-accent)]" />
@@ -211,7 +211,7 @@ export default function HomeClient() {
           </motion.div>
 
           {/* Recent Pages / Sidebar */}
-          <motion.div variants={itemVariants} className="md:col-span-4 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] p-6 rounded-3xl flex flex-col">
+          <motion.div variants={itemVariants} className="md:col-span-4 glass-panel project-card-glow p-6 flex flex-col transition-all duration-300">
             <div className="flex items-center gap-2 mb-6">
               <Star size={18} className="text-[var(--vscode-accent)]" />
               <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--vscode-text-primary)] font-mono">Recent Pages</h3>
@@ -243,7 +243,7 @@ export default function HomeClient() {
           </motion.div>
 
           {/* Featured Projects Mini-Gallery */}
-          <motion.div variants={itemVariants} className="md:col-span-12 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-6 rounded-3xl transition-all duration-300">
+          <motion.div variants={itemVariants} className="md:col-span-12 glass-panel project-card-glow p-6 transition-all duration-300">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2">
                 <Folder size={18} className="text-[var(--vscode-accent)]" />
@@ -281,7 +281,7 @@ export default function HomeClient() {
 
           {/* Testimonials */}
           {testimonials && testimonials.length > 0 && (
-            <motion.div variants={itemVariants} className="md:col-span-12 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-4 md:p-6 rounded-3xl transition-all duration-300">
+            <motion.div variants={itemVariants} className="md:col-span-12 glass-panel project-card-glow p-4 md:p-6 transition-all duration-300">
               <div className="flex items-center gap-2 mb-5">
                 <Quote size={18} className="text-[var(--vscode-accent)]" />
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--vscode-text-primary)] font-mono">Testimonials</h3>
@@ -311,7 +311,7 @@ export default function HomeClient() {
           <motion.button 
             onClick={() => setShowTerminal(true)}
             variants={itemVariants} 
-            className="md:col-span-4 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-6 rounded-3xl transition-all duration-300 text-left cursor-pointer group"
+            className="md:col-span-4 glass-panel project-card-glow p-6 transition-all duration-300 text-left cursor-pointer group"
           >
             <div className="flex items-center justify-between mb-4">
               <div className="p-2 bg-[var(--vscode-accent)]/10 rounded-lg group-hover:bg-[var(--vscode-accent)]/20 transition-colors">
@@ -329,7 +329,7 @@ export default function HomeClient() {
           <motion.button 
             onClick={() => setShowAIChat(true)}
             variants={itemVariants} 
-            className="md:col-span-8 bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/20 p-6 rounded-3xl transition-all duration-300 text-left cursor-pointer relative overflow-hidden group"
+            className="md:col-span-8 glass-panel project-card-glow p-6 transition-all duration-300 text-left cursor-pointer relative overflow-hidden group"
           >
             <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-6">
               <div className="p-3 bg-[var(--vscode-accent)]/10 rounded-2xl group-hover:scale-105 transition-transform flex-shrink-0">
