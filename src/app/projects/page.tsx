@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LuArrowLeft, LuExternalLink, LuGithub, LuLayoutGrid, LuFilter } from "react-icons/lu";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -196,6 +196,20 @@ function ChevronRightIcon() {
 export default function ProjectsPage() {
   const [showAll, setShowAll] = useState(false);
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>("all");
+  const [gitRepos, setGitRepos] = useState<{name: string, url: string, description: string | null, stars: number, language: string | null}[]>([]);
+  const [gitLoading, setGitLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/github")
+      .then(res => res.json())
+      .then(data => {
+        if (data.ok && data.topRepos) {
+          setGitRepos(data.topRepos);
+        }
+      })
+      .catch(() => {})
+      .finally(() => setGitLoading(false));
+  }, []);
 
   const topProjects = projects.filter((p) => TOP_PROJECT_IDS.includes(p.id));
   const otherProjects = projects.filter((p) => !TOP_PROJECT_IDS.includes(p.id));
@@ -299,6 +313,56 @@ export default function ProjectsPage() {
             >
               {showAll ? "Show Featured Only" : `Explore All Projects (${otherProjects.length + topProjects.length})`}
             </button>
+          </motion.div>
+        )}
+
+        {/* Live GitHub Repositories Section */}
+        {!gitLoading && gitRepos.length > 0 && (
+          <motion.div variants={itemVariants} className="mt-16 pt-10 border-t border-white/5 space-y-6">
+            <div>
+              <h2 className="text-xl font-bold text-[var(--vscode-text-primary)] mb-1">
+                Live GitHub Repositories
+              </h2>
+              <p className="text-vscode-sm text-[var(--vscode-text-secondary)]">
+                Dynamic repositories fetched directly from @saajiidi
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {gitRepos.map((repo) => (
+                <a
+                  key={repo.name}
+                  href={repo.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block p-5 rounded-2xl glass-panel border border-[var(--vscode-border)] bg-white/[0.01] hover:border-[var(--vscode-accent)]/30 hover:bg-white/[0.03] transition-all duration-300 relative shadow-sm"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                  
+                  <div className="flex items-center justify-between gap-3 mb-2 relative z-10">
+                    <h3 className="text-vscode-base font-bold text-[var(--vscode-text-primary)] group-hover:text-white transition-colors truncate">
+                      {repo.name}
+                    </h3>
+                    <span className="text-[10px] text-yellow-400 font-bold font-mono bg-yellow-400/10 px-2 py-0.5 rounded-full border border-yellow-400/20 flex-shrink-0 flex items-center gap-1">
+                      ★ {repo.stars}
+                    </span>
+                  </div>
+                  
+                  {repo.description && (
+                    <p className="text-vscode-xs text-[var(--vscode-text-secondary)] leading-relaxed line-clamp-2 mb-4 font-sans h-8">
+                      {repo.description}
+                    </p>
+                  )}
+                  
+                  {repo.language && (
+                    <div className="flex items-center gap-1.5 mt-2 relative z-10 font-mono text-[9px]">
+                      <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-pulse" />
+                      <span className="text-[var(--vscode-text-secondary)]">{repo.language}</span>
+                    </div>
+                  )}
+                </a>
+              ))}
+            </div>
           </motion.div>
         )}
       </motion.div>
