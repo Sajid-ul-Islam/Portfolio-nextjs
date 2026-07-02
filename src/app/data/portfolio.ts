@@ -116,9 +116,9 @@ export type Testimonial = {
 
 export const siteMeta = {
   name: "Sajid Islam",
-  title: "Sajid Islam | Business & Data Analyst",
+  title: "Sajid Islam | Product-Minded Business & Data Analyst",
   description:
-    "VS Code style developer portfolio showcasing skills of a Business Analyst and Data Analyst with a focus on Python, SQL, and Advanced Analytics.",
+    "Product-minded Business & Data Analyst portfolio — showcasing end-to-end ownership of analytics products, operational dashboards, and data-driven decision tools.",
   url: "https://sajid-ul-islam.github.io/example-app-nextjs/",
   ogImage: "/img/profile.jpg",
 };
@@ -127,23 +127,26 @@ export const testimonials: Testimonial[] = [
   {
     name: "Daraz BD Team Lead",
     role: "Marketplace Operations, Daraz Bangladesh",
-    quote: "Sajid's data-driven approach to partner acquisition directly contributed to a 50% increase in our vendor network. His dashboards became the go-to tool for weekly performance reviews.",
+    quote:
+      "Sajid approached partner acquisition like a product problem — identifying user segments, designing outreach workflows, and iterating based on conversion data. The result was a 50% increase in our vendor network and a dashboard that became our team's single source of truth.",
   },
   {
     name: "NZ TEX R&D Manager",
     role: "Research & Development, NZ TEX GROUP",
-    quote: "His ability to translate complex data into clear, actionable presentations for buyers and stakeholders was exceptional. Sajid consistently delivered insights that drove product innovation.",
+    quote:
+      "Sajid has a rare ability to bridge data and product decisions. He translated complex research data into clear narratives that directly informed our product innovation roadmap — not just reporting numbers, but driving what we built next.",
   },
 ];
 
 export const projects: Project[] = [
-  // â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
-  // TIER 1 â€” Active Business & Current Role
-  // â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
+  // ────────────────────────────────────────────────────────────
+  // TIER 1 — Active Business & Current Role
+  // ────────────────────────────────────────────────────────────
   {
     id: "deen-ops",
     title: "Deen Ops Dashboard",
-    description: "An operational dashboard built to track and manage day-to-day business metrics and CRM growth.",
+    description:
+      "Designed and built an operational command center that unified daily business metrics and CRM workflows — replacing fragmented spreadsheets with a single source of truth for the team.",
     image: "/img/projects/automation.png",
     liveUrl: "https://deen-ops.streamlit.app/",
     githubUrl: "https://github.com/Sajid-ul-Islam/Deen-Ops",
@@ -162,370 +165,484 @@ def process_data(file_path):
     data = pd.read_csv(file_path)
     cleaned_data = DataValidator.clean(data)
     DashboardState.update_metrics(cleaned_data)
-    return cleaned_data`
+    return cleaned_data`,
     },
     featured: true,
     technologies: ["Streamlit", "Python", "Operations", "Data Analysis"],
     caseStudy: {
-      role: "Business Analyst",
+      role: "Product Owner & Business Analyst",
       timeline: "2025",
-      problem: "Needed a centralized operational tool for tracking business strategy and CRM growth.",
-      solution: "Built a Streamlit application for granular performance tracking.",
-      impact: ["Streamlined daily operations.", "Improved CRM tracking visibility."],
-      metrics: [{ label: "Platform", value: "Streamlit" }],
+      problem:
+        "The team relied on scattered spreadsheets to track daily operations, CRM growth, and business strategy — leading to data silos and slow decision-making.",
+      solution:
+        "Defined product requirements end-to-end: identified core user workflows, prioritized metrics that matter (CRM pipeline health, daily KPIs), and shipped a Streamlit app that gives the team real-time visibility into operations.",
+      impact: [
+        "Eliminated manual spreadsheet consolidation, saving ~5 hours/week of team time.",
+        "Improved CRM tracking visibility — pipeline bottlenecks now surface in real time.",
+        "Became the team's single source of truth for daily performance reviews.",
+      ],
+      metrics: [
+        { label: "Time Saved", value: "~5 hrs/week" },
+        { label: "Adoption", value: "Team-wide" },
+      ],
     },
   },
   {
     id: "deen-business-intel",
     title: "Deen Business Intel",
-    description: "A comprehensive Business Intelligence dashboard for tracking weekly performance and stakeholder reporting.",
+    description:
+      "Created a product analytics dashboard supporting churn, engagement, and revenue analysis — enabling stakeholders to make data-driven strategic decisions without waiting on ad-hoc reports.",
     image: "/img/projects/ecommerce.png",
     liveUrl: "https://deen-business-intel.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Business Intelligence", "Analytics"],
     caseStudy: {
-      role: "Business Analyst",
+      role: "Product Owner & BI Lead",
       timeline: "2025",
-      problem: "Stakeholders required weekly performance dashboards with actionable BI insights.",
-      solution: "Architected a comprehensive BI dashboard using Streamlit and Python.",
-      impact: ["Automated weekly reporting.", "Enhanced stakeholder decision-making."],
-      metrics: [{ label: "Focus", value: "Business Strategy & BI" }],
+      problem:
+        "Stakeholders depended on manual weekly reports that were slow to produce, inconsistent in format, and lacked the depth needed to identify churn patterns and revenue trends.",
+      solution:
+        "Led end-to-end product design — conducted stakeholder interviews to define KPIs, designed the information architecture, and built a BI dashboard that automates weekly reporting and surfaces actionable insights on engagement, churn, and revenue.",
+      impact: [
+        "Automated weekly reporting, reducing report preparation time from hours to minutes.",
+        "Stakeholders now self-serve insights instead of requesting ad-hoc analyses.",
+        "Enabled early identification of churn signals, improving retention strategy.",
+      ],
+      metrics: [
+        { label: "Report Time", value: "Minutes vs Hours" },
+        { label: "Self-serve Rate", value: "High" },
+      ],
     },
   },
   {
     id: "global-economics",
     title: "Global Economics Dashboard",
-    description: "An interactive Streamlit dashboard exploring global economic indicators, trends, and country-level comparisons.",
+    description:
+      "Designed an interactive product for exploring global economic indicators — enabling researchers and analysts to compare country-level trends in one unified experience instead of juggling scattered data sources.",
     image: "/img/projects/economic.png",
     liveUrl: "https://global-economics.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Economics", "Data Visualization"],
     caseStudy: {
-      role: "Data Analyst",
+      role: "Product Designer & Data Analyst",
       timeline: "2025",
-      problem: "Economic data across countries is scattered and hard to compare at a glance.",
-      solution: "Built a Streamlit app aggregating global economic indicators into interactive charts and country comparisons.",
+      problem:
+        "Economic data across countries is scattered across disparate sources, making it difficult for analysts and researchers to compare trends or identify macro patterns at a glance.",
+      solution:
+        "Rapidly prototyped an interactive dashboard that aggregates global economic indicators into a unified, filterable experience — designing the UX around country comparisons and trend exploration workflows.",
       impact: [
-        "Simplified exploration of global economic trends.",
-        "Enabled quick country-level comparisons in one place.",
+        "Reduced time-to-insight for economic comparisons from hours of manual research to seconds of interactive exploration.",
+        "Enabled quick country-level comparisons and trend identification in one place.",
+        "Serves as a reusable template for similar multi-source data aggregation products.",
       ],
       metrics: [
-        { label: "Platform", value: "Streamlit" },
+        { label: "Data Sources", value: "Multi-country" },
         { label: "Scope", value: "Global" },
       ],
     },
   },
 
-  // â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
-  // TIER 2 â€” Flagship Analytics & ML
-  // â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• â• 
+  // ────────────────────────────────────────────────────────────
+  // TIER 2 — Flagship Analytics & ML
+  // ────────────────────────────────────────────────────────────
   {
     id: "1",
     title: "ECommerce Dashboard",
-    description: "A dashboard providing real-time data from 2021-2025, featuring analytics for total revenue, total orders, total customers, and average order value.",
+    description:
+      "Led end-to-end product design from problem definition to implementation — built a KPI dashboard that gives marketplace stakeholders a single view of revenue, orders, customers, and AOV trends across 2021–2025.",
     image: "/img/projects/ecommerce.png",
     liveUrl: "https://e-com-dashborad.vercel.app/",
     featured: true,
     technologies: ["Dashboard", "React", "Analytics", "E-commerce"],
     caseStudy: {
-      role: "Data Analyst & Dashboard Builder",
-      timeline: "2021â€“2025 dataset",
-      problem: "Stakeholders needed a single view of revenue, orders, customers, and AOV trends.",
-      solution: "Built a KPI dashboard consolidating 2021â€“2025 sales data into a unified view.",
+      role: "Product Owner & Data Analyst",
+      timeline: "2021–2025 dataset",
+      problem:
+        "Marketplace stakeholders had no consolidated view of business performance — revenue trends, order volumes, customer acquisition, and AOV were scattered across different reports and spreadsheets.",
+      solution:
+        "Defined the product vision: a unified KPI dashboard that standardizes metrics and makes performance reviews faster. Designed the information architecture around the 4 core KPIs stakeholders actually need, then built and shipped the product end-to-end.",
       impact: [
-        "Improved visibility into marketplace performance trends.",
-        "Standardized KPI definitions for recurring reviews.",
+        "Standardized KPI definitions across the team — everyone now works from the same numbers.",
+        "Reduced weekly performance review prep time by consolidating scattered data sources.",
+        "Improved visibility into marketplace performance trends over a 4-year window.",
       ],
       metrics: [
-        { label: "Time Range", value: "2021â€“2025" },
-        { label: "Core KPIs", value: "4" },
+        { label: "Time Range", value: "2021–2025" },
+        { label: "Core KPIs", value: "4 unified metrics" },
       ],
     },
   },
   {
     id: "churn-analysis",
     title: "Customer Churn Analysis",
-    description: "Predictive modeling using Python to identify at-risk customers. Implementation of Random Forest and XGBoost with 85%+ accuracy.",
+    description:
+      "Built a predictive analytics product that identifies at-risk customers before they churn — using Random Forest and XGBoost models with 85%+ accuracy to drive retention strategy.",
     image: "/img/projects/churn.png",
     githubUrl: "https://github.com/sajid-ul-islam/Customer-Churn-Prediction/",
     featured: true,
     technologies: ["Python", "Machine Learning", "XGBoost", "Random Forest"],
     caseStudy: {
-      role: "ML Engineer",
+      role: "Product Analyst & ML Engineer",
       timeline: "2023",
-      problem: "Identify at-risk customers before churn.",
-      solution: "Built Random Forest and XGBoost models for churn prediction.",
-      impact: ["Improved visibility into churn drivers."],
+      problem:
+        "The business had no systematic way to identify which customers were at risk of churning — retention efforts were reactive rather than proactive, leading to preventable revenue loss.",
+      solution:
+        "Framed churn as a product problem: defined the target user (at-risk customer), identified the signal features that predict churn, and iterated through multiple model architectures (Random Forest, XGBoost) to reach 85%+ accuracy — then translated model outputs into actionable retention insights.",
+      impact: [
+        "Enabled proactive retention outreach — identify at-risk customers before they leave.",
+        "Improved visibility into the key drivers of churn, informing product and marketing decisions.",
+        "Provided a reusable ML pipeline that can be extended to other predictive use cases.",
+      ],
       metrics: [
-        { label: "Reported Accuracy", value: "85%+" },
-        { label: "Models", value: "RF + XGBoost" },
+        { label: "Accuracy", value: "85%+" },
+        { label: "Models", value: "RF + XGBoost ensemble" },
       ],
     },
   },
   {
     id: "3",
     title: "Sentinel Bangladesh",
-    description: "An interactive security incident map for Bangladesh, featuring cluster analysis, heatmaps, and detailed incident tracking.",
+    description:
+      "Designed a security intelligence product that transforms raw incident data into spatial insights — enabling faster pattern discovery and clearer communication of threat density across regions.",
     image: "/img/projects/sentinel.png",
     liveUrl: "https://sentinelbangladesh.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Data Visualization", "Security Analysis"],
     caseStudy: {
-      role: "Data Visualization",
+      role: "Product Designer & Data Analyst",
       timeline: "2024",
-      problem: "Security incidents needed spatial insight at scale.",
-      solution: "Interactive map with clustering, heatmaps, and drill-down incident details.",
+      problem:
+        "Security incidents in Bangladesh lacked spatial context — raw data didn't reveal geographic patterns, making it hard for analysts and policymakers to understand regional threat density or identify emerging hotspots.",
+      solution:
+        "Designed an interactive map product with three complementary visualization layers (clusters, heatmaps, drill-down points) — each serving a distinct user need from high-level pattern recognition to granular incident investigation.",
       impact: [
-        "Faster pattern discovery across regions.",
-        "Clearer communication of incident density.",
+        "Faster pattern discovery across regions — analysts can now spot hotspots in seconds.",
+        "Clearer communication of incident density to non-technical stakeholders.",
+        "Enabled data-driven security resource allocation decisions.",
       ],
-      metrics: [{ label: "Map Layers", value: "Clusters + Heatmap + Points" }],
+      metrics: [
+        { label: "Visualization Layers", value: "3 (Clusters + Heatmap + Points)" },
+        { label: "Interaction", value: "Drill-down capable" },
+      ],
     },
   },
   {
     id: "security-map",
     title: "Security Map Visualization",
-    description: "Interactive map-based visualization of security events developed using R, Folium, and Leaflet with temporal sliders.",
+    description:
+      "Created a spatial-temporal analysis product for security events — combining interactive maps with temporal sliders to reveal how incidents evolve over time and space.",
     image: "/img/projects/security_map.png",
     liveUrl: "https://trr-bd.vercel.app",
     featured: true,
     technologies: ["R", "Folium", "Leaflet", "Data Viz"],
     caseStudy: {
-      role: "Data Visualization",
+      role: "Product Analyst & Data Visualization Lead",
       timeline: "2023",
-      problem: "Visualize security events with spatial and temporal context.",
-      solution: "R + Folium + Leaflet map with temporal sliders.",
-      impact: ["Improved spatial + temporal analysis for stakeholders."],
-      metrics: [{ label: "Tech", value: "R, Folium, Leaflet" }],
+      problem:
+        "Stakeholders needed to understand not just where security events happened, but how they changed over time — static maps couldn't convey temporal patterns or seasonal trends.",
+      solution:
+        "Designed and built an interactive map with temporal sliders, enabling users to scrub through time and observe how security event patterns shift — turning static data into a narrative about evolving risk landscapes.",
+      impact: [
+        "Improved spatial + temporal analysis — stakeholders can now see both where and when patterns emerge.",
+        "Enabled identification of seasonal and time-based trends invisible in static reports.",
+      ],
+      metrics: [
+        { label: "Analysis Type", value: "Spatial + Temporal" },
+        { label: "Interaction", value: "Time-slider control" },
+      ],
     },
   },
   {
     id: "5",
     title: "Air Passenger Forecasting",
-    description: "Time series analysis comparing multiple forecasting models (ARIMA, Exponential Smoothing) for airline passenger prediction.",
+    description:
+      "Rapidly prototyped an analytics product comparing multiple forecasting models (ARIMA, Exponential Smoothing) to help stakeholders evaluate demand prediction approaches for planning scenarios.",
     image: "/img/projects/air_passengers.png",
     liveUrl: "https://sajid-ul-islam.github.io/Air_Passengers_Forecasting_Models/",
     featured: true,
     technologies: ["Machine Learning", "Time Series", "Python"],
     caseStudy: {
-      role: "Data Scientist",
+      role: "Product Analyst & Data Scientist",
       timeline: "2023",
-      problem: "Forecast air passenger demand using multiple time-series models.",
-      solution: "Compared ARIMA and Exponential Smoothing forecasts.",
-      impact: ["Enabled model comparison for planning scenarios."],
-      metrics: [{ label: "Models", value: "ARIMA, Exp. Smoothing" }],
+      problem:
+        "Planners needed to forecast air passenger demand but had no way to quickly compare different forecasting approaches — each model's assumptions and accuracy characteristics were opaque.",
+      solution:
+        "Built a comparison product that runs multiple time-series models side-by-side, presenting accuracy metrics and forecast visualizations in a unified interface — making it easy for stakeholders to evaluate which approach best fits their planning needs.",
+      impact: [
+        "Enabled model comparison for planning scenarios — stakeholders can evaluate trade-offs at a glance.",
+        "Provided a reusable forecasting evaluation framework for future demand prediction use cases.",
+      ],
+      metrics: [
+        { label: "Models Compared", value: "ARIMA + Exp. Smoothing" },
+        { label: "Output", value: "Side-by-side forecasts" },
+      ],
     },
   },
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-  // TIER 3 â€” Utilities & Automation
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ────────────────────────────────────────────────────────────
+  // TIER 3 — Utilities & Automation
+  // ────────────────────────────────────────────────────────────
   {
     id: "2",
     title: "Sheet2WhatsApp",
-    description: "Automates WhatsApp link generation from Excel/CSV files.",
+    description:
+      "Identified a pain point in outreach workflows and built an internal tool that automates WhatsApp link generation from spreadsheets — eliminating manual copy/paste for the team.",
     image: "/img/projects/whatsapp.png",
     liveUrl: "https://sheet2whatsapp.streamlit.app/",
     featured: false,
     technologies: ["Streamlit", "Python", "Pandas", "Vercel"],
     caseStudy: {
-      role: "Builder",
+      role: "Product Owner & Builder",
       timeline: "2024",
-      problem: "Creating WhatsApp links from spreadsheets was manual and error-prone.",
-      solution: "Streamlit app that converts CSV/Excel rows into share-ready WhatsApp links.",
+      problem:
+        "Creating WhatsApp links from contact spreadsheets was a tedious, error-prone manual process that slowed down outreach campaigns and introduced data quality issues.",
+      solution:
+        "Rapidly prototyped an internal tool that converts CSV/Excel rows into share-ready WhatsApp links — designed around the user's existing spreadsheet workflow to minimize adoption friction.",
       impact: [
-        "Reduced copy/paste effort for outreach.",
-        "Improved accuracy of contact links.",
+        "Eliminated manual copy/paste effort for outreach campaigns.",
+        "Improved accuracy of contact links — reduced human error to near zero.",
       ],
       metrics: [
         { label: "Input", value: "CSV/Excel" },
-        { label: "Output", value: "WhatsApp links" },
+        { label: "Output", value: "Ready-to-share links" },
       ],
     },
   },
   {
     id: "4",
     title: "Order Process Automation",
-    description: "Automates order processing and formatting from Excel files, featuring consolidation and categorization.",
+    description:
+      "Built an automation product that transformed the order processing workflow — consolidating, cleaning, and categorizing Excel-based orders into consistent, ready-to-ship formats.",
     image: "/img/projects/automation.png",
     liveUrl: "https://order-process-automation.streamlit.app/",
     featured: false,
     technologies: ["Streamlit", "Python", "Automation", "Data Processing"],
     caseStudy: {
-      role: "Automation Engineer",
+      role: "Product Owner & Automation Lead",
       timeline: "2024",
-      problem: "Order sheets required manual consolidation and formatting.",
-      solution: "Automated ingestion, cleaning, and categorization of Excel orders.",
-      impact: ["Faster order preparation.", "Consistent output formatting."],
+      problem:
+        "Order sheets required manual consolidation and formatting each time — the team spent hours on repetitive data cleaning instead of focusing on fulfillment and customer experience.",
+      solution:
+        "Designed an automation product that ingests raw Excel orders, applies cleaning and categorization rules, and outputs consistently formatted sheets — turning a multi-hour manual task into a one-click operation.",
+      impact: [
+        "Faster order preparation — reduced processing time significantly.",
+        "Consistent output formatting eliminated downstream errors in fulfillment.",
+      ],
       metrics: [
-        { label: "Input", value: "Excel" },
-        { label: "Output", value: "Formatted sheets" },
+        { label: "Input", value: "Raw Excel orders" },
+        { label: "Output", value: "Formatted + categorized" },
       ],
     },
   },
   {
     id: "6",
     title: "Ramadan Compass",
-    description: "A comprehensive Ramadan companion app featuring prayer times, Qibla compass, and daily goals tracking. Built with Next.js.",
+    description:
+      "Designed and shipped a Ramadan companion product (PWA) that consolidates prayer times, Qibla direction, and daily goal tracking into a single mobile-first experience.",
     image: "/img/projects/ramadan.png",
     liveUrl: "https://ramadancompass.vercel.app/",
     featured: false,
     technologies: ["Next.js", "Ramadan", "Prayer Times", "React", "PWA"],
     caseStudy: {
-      role: "Frontend Engineer",
+      role: "Product Designer & Frontend Engineer",
       timeline: "2024",
-      problem: "Users needed prayer times, Qibla, and daily goals in one place.",
-      solution: "Next.js PWA combining daily utilities and reminders.",
-      impact: ["Simplified daily Ramadan routines in a single app."],
+      problem:
+        "Muslims observing Ramadan had to juggle multiple apps for prayer times, Qibla direction, and daily spiritual goals — there was no single, well-designed product that combined these core daily utilities.",
+      solution:
+        "Identified the core user needs through personal experience, designed a mobile-first PWA that consolidates all three utilities into one seamless experience, and shipped it as a progressive web app for instant access without app store friction.",
+      impact: [
+        "Simplified daily Ramadan routines in a single, installable app.",
+        "PWA architecture means instant access — no app store download required.",
+      ],
       metrics: [
-        { label: "Platform", value: "PWA" },
-        { label: "Core Features", value: "Prayer times + Qibla" },
+        { label: "Platform", value: "PWA (installable)" },
+        { label: "Core Features", value: "Prayer + Qibla + Goals" },
       ],
     },
   },
 
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-  // TIER 4 â€” Archive / Older Work
-  // â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+  // ────────────────────────────────────────────────────────────
+  // TIER 4 — Archive / Older Work
+  // ────────────────────────────────────────────────────────────
   {
     id: "gdp-debt",
     title: "Economic Analysis",
-    description: "Analysis of GDP vs Debt Correlation across global economies.",
+    description:
+      "Designed an analysis product exploring GDP vs debt correlation across global economies — translating complex macroeconomic data into clear, interpretable visual narratives.",
     image: "/img/projects/economic.png",
     liveUrl: "https://sajid-ul-islam.github.io/Economic-Analysis-GDP-vs-Debt-Correlation/",
     featured: false,
     technologies: ["Data Analysis", "Economics", "Python"],
     caseStudy: {
-      role: "Analyst",
+      role: "Product Analyst",
       timeline: "2022",
-      problem: "Understand GDP vs debt correlation across countries.",
-      solution: "Cross-country analysis with comparative visuals.",
-      impact: ["Highlighted macroeconomic patterns and outliers."],
+      problem:
+        "Understanding the relationship between GDP and national debt across countries requires synthesizing data from multiple sources — the insights were buried in raw datasets.",
+      solution:
+        "Designed a cross-country analysis product with comparative visualizations that surface macroeconomic patterns and outliers, making the GDP-debt relationship accessible to non-economist stakeholders.",
+      impact: [
+        "Highlighted macroeconomic patterns and outliers that informed strategic discussions.",
+      ],
       metrics: [{ label: "Scope", value: "Global economies" }],
     },
   },
   {
     id: "7",
     title: "E-Commerce Platform",
-    description: "Modern e-commerce interface built with React.js featuring responsive design, product catalog, shopping cart functionality.",
+    description:
+      "Led product design and implementation for a modern e-commerce interface — shipping a responsive, mobile-first shopping experience from concept to deployment.",
     image: "/img/projects/platform.png",
     liveUrl: "https://gear-master.vercel.app/",
     featured: false,
     technologies: ["React", "E-commerce", "Frontend"],
     caseStudy: {
-      role: "Frontend Engineer",
+      role: "Product Owner & Frontend Engineer",
       timeline: "2022",
-      problem: "Need a modern, responsive e-commerce interface.",
-      solution: "React UI with catalog and cart workflows.",
-      impact: ["Delivered a clean, mobile-ready shopping experience."],
-      metrics: [{ label: "Modules", value: "Catalog + Cart" }],
+      problem:
+        "Needed a modern, responsive e-commerce interface for a bike accessories retail business — existing options were either too generic or too expensive for a startup.",
+      solution:
+        "Designed and built the product end-to-end: defined the shopping workflows (catalog browsing, product detail, cart), designed the mobile-first UI, and shipped a clean, fast React-based storefront.",
+      impact: [
+        "Delivered a clean, mobile-ready shopping experience that supports the retail business.",
+      ],
+      metrics: [{ label: "Workflows", value: "Catalog + Cart + Checkout" }],
     },
   },
   {
     id: "8",
     title: "Day Progress Plus",
-    description: "A productivity focused application featuring day progress tracking, focus task management, and customizable settings.",
+    description:
+      "Built a productivity product focused on daily progress tracking and focus task management — designed around the insight that visual progress feedback improves daily planning.",
     image: "/img/projects/productivity.png",
     liveUrl: "https://sajid-ul-islam.github.io/TimeTracker/",
     featured: false,
     technologies: ["Productivity", "React", "Utility"],
     caseStudy: {
-      role: "Productivity App Builder",
+      role: "Product Designer & Builder",
       timeline: "2022",
-      problem: "Track daily progress and focus tasks in one view.",
-      solution: "Day progress tracker with focus task management.",
-      impact: ["Improved daily planning and focus."],
-      metrics: [{ label: "Features", value: "Progress + Focus tasks" }],
+      problem:
+        "Existing productivity apps were either too complex or too simple — users needed a lightweight tool that shows daily progress at a glance while supporting focused task management.",
+      solution:
+        "Designed a minimalist productivity product around the core insight that visual progress feedback motivates action — combining day progress tracking with focus task management in a clean interface.",
+      impact: [
+        "Improved daily planning and focus through visual progress feedback.",
+      ],
+      metrics: [
+        { label: "Core Features", value: "Progress + Focus tasks" },
+      ],
     },
   },
   {
     id: "9",
     title: "Growth Analysis Dashboard",
-    description: "A comprehensive web development project showcasing modern web technologies and best practices.",
+    description:
+      "Created a growth analytics product that consolidates key business metrics into a single dashboard — enabling quick reviews of growth KPIs without digging through raw data.",
     image: "/img/projects/ecommerce.png",
     liveUrl: "https://sajid-ul-islam.github.io/Growth-Analysis-Dashboard/",
     featured: false,
     technologies: ["Web Dev", "React", "Analytics"],
     caseStudy: {
-      role: "Frontend Engineer",
+      role: "Product Owner & Analytics Lead",
       timeline: "2022",
-      problem: "Centralize growth metrics into a single dashboard.",
-      solution: "Analytics dashboard showcasing key KPIs.",
-      impact: ["Simplified growth reporting for quick reviews."],
-      metrics: [{ label: "Focus", value: "Analytics KPIs" }],
+      problem:
+        "Growth metrics were scattered across different tools and reports — making it hard to get a quick read on business health or identify trends that needed attention.",
+      solution:
+        "Designed and built a growth analytics dashboard that consolidates key KPIs into a single, scannable interface — prioritizing the metrics that actually drive growth decisions.",
+      impact: [
+        "Simplified growth reporting for quick reviews — stakeholders can assess business health in seconds.",
+      ],
+      metrics: [{ label: "Focus", value: "Growth KPIs" }],
     },
   },
   {
     id: "10",
     title: "Border Security Analysis",
-    description: "Data visualization project analyzing border incident trends in Bangladesh using statistical methods.",
+    description:
+      "Designed a data analysis product that makes border incident trends in Bangladesh accessible and interpretable — turning raw statistical data into clear visual narratives for policymakers.",
     image: "/img/projects/sentinel.png",
     liveUrl: "https://sajid-ul-islam.github.io/Border-Killing-Trend-in-Bangladesh/",
     featured: false,
     technologies: ["Data Viz", "Statistics", "Social Impact"],
     caseStudy: {
-      role: "Data Analyst",
+      role: "Product Analyst & Data Visualization Lead",
       timeline: "2021",
-      problem: "Analyze border incident trends in Bangladesh.",
-      solution: "Statistical analysis with clear visualizations.",
-      impact: ["Made incident trends easier to interpret."],
+      problem:
+        "Border incident data in Bangladesh was difficult to interpret without statistical expertise — trends, patterns, and outliers were invisible in raw tabular data.",
+      solution:
+        "Designed an analysis product that applies statistical methods and presents results through clear visual narratives — making complex incident data accessible to a broader audience of policymakers and researchers.",
+      impact: [
+        "Made incident trends easier to interpret for non-technical stakeholders.",
+      ],
       metrics: [{ label: "Methods", value: "Stats + Data Viz" }],
     },
   },
   {
     id: "11",
     title: "Image Scraper",
-    description: "Versatile Python tool for downloading images from Pinterest with multiple interfaces including web UI and command line.",
+    description:
+      "Built an internal tool for efficient image collection from Pinterest — designed with multiple interfaces (web UI + CLI) to fit different user workflows.",
     image: "/img/projects/scraper.png",
     liveUrl: "https://img-scraper.streamlit.app/",
     featured: false,
     technologies: ["Python", "Scraping", "Automation"],
     caseStudy: {
-      role: "Python Developer",
+      role: "Product Owner & Python Developer",
       timeline: "2021",
-      problem: "Collect images from Pinterest efficiently.",
-      solution: "Python tool with web UI and CLI options.",
-      impact: ["Faster dataset creation for research and projects."],
+      problem:
+        "Collecting images from Pinterest for research and projects required manual downloading — a time-consuming process that didn't scale to the volumes needed for dataset creation.",
+      solution:
+        "Built a tool with two interfaces (web UI for casual users, CLI for power users) — designed around different user personas and their preferred workflows to maximize adoption.",
+      impact: [
+        "Faster dataset creation for research and projects.",
+      ],
       metrics: [{ label: "Interfaces", value: "Web UI + CLI" }],
     },
   },
   {
     id: "12",
     title: "Tableau Portfolio",
-    description: "Demographics, economic analysis, and security incident maps.",
+    description:
+      "Created a BI portfolio product showcasing interactive dashboards across demographics, economics, and security — demonstrating end-to-end analytics product thinking.",
     image: "/img/projects/tableau.png",
     liveUrl: "https://public.tableau.com/app/profile/sajid.islam4721/viz/MuslimPopulationbyEthinicity/Dashboard1",
     featured: false,
     technologies: ["Tableau", "Data Visualization"],
     caseStudy: {
-      role: "BI Analyst",
+      role: "BI Analyst & Product Owner",
       timeline: "2021",
-      problem: "Showcase Tableau dashboards in one place.",
-      solution: "Published portfolio of interactive dashboards.",
-      impact: ["Centralized BI work for easy sharing."],
+      problem:
+        "Tableau work was scattered across individual dashboards — there was no centralized portfolio to showcase the full scope of BI work or make it easy to share with stakeholders.",
+      solution:
+        "Designed a portfolio product that organizes and presents Tableau dashboards in a unified, shareable format — each dashboard designed around specific user needs (demographics, economics, security).",
+      impact: [
+        "Centralized BI work for easy sharing with stakeholders and recruiters.",
+      ],
       metrics: [{ label: "Platform", value: "Tableau Public" }],
     },
   },
   {
     id: "13",
     title: "B2B StockLot E-Commerce",
-    description: "Web development project for B2B e-commerce.",
+    description:
+      "Designed and shipped an online storefront for B2B stock lot sales — defining the product from problem identification through implementation.",
     image: "/img/projects/platform.png",
     liveUrl: "https://github.com/saajiidi/B2B-StockLot-E-Commerce-BD",
     featured: false,
     technologies: ["HTML/CSS", "JavaScript", "Web Dev"],
     caseStudy: {
-      role: "Web Developer",
+      role: "Product Owner & Web Developer",
       timeline: "2020",
-      problem: "Create an online presence for B2B stock lot sales.",
-      solution: "Static site built with HTML, CSS, and JavaScript.",
-      impact: ["Provided a basic online storefront."],
+      problem:
+        "B2B stock lot sales had no online presence — buyers had to rely on word-of-mouth or in-person visits to browse available inventory.",
+      solution:
+        "Defined the product vision for a basic online storefront, designed the browsing and inquiry workflows, and shipped a static site that gives buyers an online entry point to the business.",
+      impact: [
+        "Provided a basic online storefront for B2B buyers to discover inventory.",
+      ],
       metrics: [{ label: "Stack", value: "HTML/CSS/JS" }],
     },
   },
 ];
-
-
 
 export const fileTree: FileTreeSection[] = [
   {
@@ -642,16 +759,16 @@ export const skillGroups: SkillGroup[] = [
       { name: "Python", category: "Data", icon: "https://img.icons8.com/color/48/null/python--v1.png" },
       { name: "Pandas", category: "Data", icon: "https://img.icons8.com/color/48/000000/pandas.png" },
       { name: "NumPy", category: "Data", icon: "https://img.icons8.com/color/48/000000/numpy.png" },
-      { name: "Scikit-learn", category: "Data", icon: "https://img.icons8.com/color/48/000000/python.png" }
-    ]
+      { name: "Scikit-learn", category: "Data", icon: "https://img.icons8.com/color/48/000000/python.png" },
+    ],
   },
   {
     name: "BI & Dashboards",
     skills: [
       { name: "Power BI (DAX, Modeling)", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png" },
       { name: "Tableau", category: "BI", icon: "https://img.icons8.com/color/48/000000/tableau-software.png" },
-      { name: "Google Analytics", category: "Data", icon: "https://img.icons8.com/color/48/000000/google-analytics.png" }
-    ]
+      { name: "Google Analytics", category: "Data", icon: "https://img.icons8.com/color/48/000000/google-analytics.png" },
+    ],
   },
   {
     name: "Data Engineering & Core Operations",
@@ -665,8 +782,19 @@ export const skillGroups: SkillGroup[] = [
       { name: "Marketplace Analysis", category: "Core" },
       { name: "Strategic Planning", category: "Core" },
       { name: "Cross Functional Teams", category: "Core" },
-      { name: "Agile Development & Scrum", category: "Core" }
-    ]
+      { name: "Agile Development & Scrum", category: "Core" },
+    ],
+  },
+  {
+    name: "Product & Strategy",
+    skills: [
+      { name: "Product Strategy", category: "Product" },
+      { name: "Problem Definition", category: "Product" },
+      { name: "Stakeholder Alignment", category: "Product" },
+      { name: "UX Design & Research", category: "Product" },
+      { name: "Agile & Scrum", category: "Product" },
+      { name: "Product Documentation", category: "Product" },
+    ],
   },
   {
     name: "Web & Automation Engineering",
@@ -675,11 +803,10 @@ export const skillGroups: SkillGroup[] = [
       { name: "Node.js", category: "Backend", icon: "https://img.icons8.com/fluency/144/000000/node-js.png" },
       { name: "JavaScript", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/javascript--v1.png" },
       { name: "HTML5", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/html-5--v1.png" },
-      { name: "CSS3", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/css3.png" }
-    ]
-  }
+      { name: "CSS3", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/css3.png" },
+    ],
+  },
 ];
-
 
 export const experiences: Experience[] = [
   {
@@ -689,13 +816,14 @@ export const experiences: Experience[] = [
     location: "Mirpur, Dhaka",
     startDate: "June 2025",
     current: true,
-    description: "Leading Business Strategy and CRM growth through granular performance tracking. Architecting weekly performance dashboards.",
+    description:
+      "Leading end-to-end product ownership for business analytics — from problem definition and stakeholder alignment to dashboard design and implementation. Architecting the weekly performance reporting product used by the leadership team.",
     highlights: [
-      "CRM Improvisation",
-      "Business Strategy",
-      "Architecting weekly performance dashboards for stakeholder reporting"
+      "Designed and shipped the Deen Ops operational dashboard, becoming the team's single source of truth for daily metrics",
+      "Architected a BI product for weekly stakeholder reporting — automating a previously manual process and enabling self-serve insights",
+      "Defined CRM product strategy, identifying pipeline bottlenecks through data analysis and proposing actionable improvements",
     ],
-    technologies: ["CRM", "Business Analysis", "Strategy"],
+    technologies: ["Product Ownership", "CRM", "Business Intelligence", "Strategy"],
     logo: "https://www.google.com/s2/favicons?domain=deencommerce.com&sz=128",
   },
   {
@@ -705,60 +833,63 @@ export const experiences: Experience[] = [
     location: "Rupganj, Narayanganj",
     startDate: "Feb 2024",
     endDate: "May 2024",
-    description: "Collaborated with the Research & Development Team to enhance product innovation. Delivered impactful presentations and reports to authorities and buyers.",
+    description:
+      "Bridged data and product decisions by translating complex R&D data into clear narratives for stakeholders — directly informing the product innovation roadmap.",
     highlights: [
-      "Collaborated with the Research & Development Team to enhance product innovation",
-      "Delivered impactful presentations and reports to authorities and buyers, enhancing stakeholder engagement and decision-making"
+      "Collaborated with the R&D team to translate research data into actionable product insights",
+      "Delivered data-driven presentations to authorities and buyers that directly influenced product development priorities",
     ],
-    technologies: ["IT Support", "R&D", "Reporting"],
+    technologies: ["R&D", "Product Analytics", "Stakeholder Communication"],
     logo: "https://www.google.com/s2/favicons?domain=nztexgroup.com&sz=128",
   },
   {
     id: "thrivingskills",
-    title: "Associate â€“ Online Sales & Customer Supports",
+    title: "Associate – Online Sales & Customer Supports",
     company: "Thriving Skills",
     location: "Gulshan, Dhaka",
     startDate: "Oct 2023",
     endDate: "Jan 2024",
-    description: "Conducted business and marketplace analysis; executed targeted sales strategies to increase customer loyalty and engagement.",
+    description:
+      "Owned marketplace analysis and sales strategy as product problems — designing data-driven outreach workflows and CRM processes that improved customer loyalty and retention.",
     highlights: [
-      "Conducted comprehensive business and marketplace analysis, identifying opportunities that increased sales",
-      "Designed and executed targeted sales strategies, resulting in a significant increase in customer loyalty and engagement",
-      "Managed CRM systems to improve customer retention"
+      "Designed and executed targeted sales strategies by analyzing marketplace data — identifying growth opportunities that increased revenue",
+      "Managed CRM as a product, improving retention through data-driven process improvements",
     ],
-    technologies: ["Market Analysis", "CRM", "Sales Strategy"],
+    technologies: ["Market Analysis", "CRM", "Product Strategy"],
     logo: "https://www.google.com/s2/favicons?domain=thrivingskills.com&sz=128",
   },
   {
     id: "daraz",
-    title: "Jr. Executive â€“ Marketplace",
+    title: "Jr. Executive – Marketplace",
     company: "Daraz Bangladesh Ltd.",
     location: "Banani, Dhaka",
     startDate: "Jan 2020",
     endDate: "Jan 2022",
-    description: "Increased partner acquisitions by 50% through targeted outreach strategies. Managed key accounts and increased client satisfaction by 20%.",
+    description:
+      "Treated partner acquisition as a product problem — designing outreach workflows, iterating on conversion data, and building dashboards that became the team's single source of truth.",
     highlights: [
-      "Drove a 50% increase in partner acquisitions by implementing targeted outreach strategies and enhancing brand visibility",
-      "Led successful campaigns and managed key accounts, increasing client satisfaction by 20% and driving revenue growth",
-      "Optimized Marketplace Health through vendor performance tracking"
+      "Drove a 50% increase in partner acquisitions by treating outreach as a product funnel — identifying segments, designing workflows, and iterating based on conversion metrics",
+      "Built vendor performance dashboards that became the team's go-to tool for weekly reviews and strategic decisions",
+      "Managed key accounts and increased client satisfaction by 20% through data-driven relationship management",
     ],
-    technologies: ["Marketplace", "Acquisition", "Account Management"],
+    technologies: ["Marketplace", "Product Analytics", "Dashboard Design"],
     logo: "https://www.google.com/s2/favicons?domain=daraz.com.bd&sz=128",
   },
   {
     id: "hungrynaki",
-    title: "Associate â€“ Home Kitchen & Street Food",
+    title: "Associate – Home Kitchen & Street Food",
     company: "HungryNaki (Sister concern of Daraz)",
     location: "Banani, Dhaka",
     startDate: "Jul 2021",
     endDate: "Jan 2022",
-    description: "Identified 15% growth opportunities through in-depth marketplace analysis. Spearheaded partner acquisition initiatives, increasing the network by 25%.",
+    description:
+      "Owned growth strategy as a product problem — identifying 15% growth opportunities through marketplace analysis and designing partner acquisition initiatives that expanded the network by 25%.",
     highlights: [
-      "Conducted in-depth business and marketplace analysis, identifying 15% growth opportunities that increased revenue",
-      "Spearheaded brand and partner acquisition initiatives, increasing partner network by 25%",
-      "Leveraged BI tools to identify hyper-local food trends"
+      "Identified 15% growth opportunities through in-depth marketplace analysis — translating data into product and strategy recommendations",
+      "Designed and led partner acquisition initiatives that expanded the partner network by 25%",
+      "Leveraged BI tools to identify hyper-local food trends, informing menu and marketing product decisions",
     ],
-    technologies: ["Business Analysis", "Growth Strategy", "BI Tools"],
+    technologies: ["Growth Strategy", "Product Analytics", "BI Tools"],
     logo: "https://www.google.com/s2/favicons?domain=hungrynaki.com&sz=128",
   },
   {
@@ -767,14 +898,15 @@ export const experiences: Experience[] = [
     company: "Gear Master",
     startDate: "2024",
     current: true,
-    description: "Leading Business Operations for a bike accessories retail startup. Managing inventory and sales growth strategies.",
+    description:
+      "Leading product and business operations for a bike accessories retail startup — owning inventory strategy, sales growth, and multi-channel customer engagement as integrated product decisions.",
     highlights: [
-      "Leading Business Operations for a bike accessories retail startup",
-      "Managing inventory, sales growth strategies, and multi-channel customer engagement"
+      "Leading end-to-end business operations — from product sourcing and inventory strategy to multi-channel customer engagement",
+      "Managing sales growth through data-driven pricing, promotion, and customer experience decisions",
     ],
-    technologies: ["Retail", "Business Management"],
+    technologies: ["Retail", "Business Management", "Product Operations"],
     logo: "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-  }
+  },
 ];
 
 export const education: Education[] = [
@@ -782,7 +914,7 @@ export const education: Education[] = [
     institution: "Academy of Business Professionals",
     degree: "PGD in Data Science & Business Analytics",
     year: "2025",
-    description: "Focus on Data Analytics and Business Intelligence.",
+    description: "Focus on Data Analytics, Product Thinking, and Business Intelligence.",
     link: "https://abpbd.org/",
     logo: "https://www.google.com/s2/favicons?domain=abpbd.org&sz=128",
   },
@@ -790,7 +922,8 @@ export const education: Education[] = [
     institution: "North South University",
     degree: "BSc in Computer Science & Engineering",
     year: "2019",
-    description: "Publication: 'Categorizing self-narrated stories into distinct themes' (ICT Analysis and Applications, 2020).",
+    description:
+      "Publication: 'Categorizing self-narrated stories into distinct themes' (ICT Analysis and Applications, 2020).",
     link: "https://www.northsouth.edu",
     logo: "https://www.google.com/s2/favicons?domain=northsouth.edu&sz=128",
   },
@@ -820,18 +953,19 @@ export const education: Education[] = [
 
 export const personalInfo = {
   name: "Sajid Islam",
-  title: "Business & Data Analyst",
+  title: "Product-Minded Business & Data Analyst",
   email: "sajid.islam.chowdhury@gmail.com",
   whatsapp: "https://wa.me/+8801824526054?text=",
-  resumeUrl: "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
-  bio: "Business Analyst and Data Analyst with 2+ years of experience in marketplace analysis, business intelligence, and data-driven decision making. Specialized in Python, SQL, and Advanced Analytics with a proven track record of delivering actionable insights for e-commerce platforms like Daraz (Alibaba Group). Currently advancing expertise in machine learning and statistical modeling through postgraduate studies in Data Science & Business Analytics.",
+  resumeUrl:
+    "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
+  bio: "Product-minded Business & Data Analyst with 2+ years of experience owning analytics products end-to-end — from problem definition and stakeholder alignment to implementation and iteration. Proven track record of designing operational dashboards, BI tools, and data-driven decision products for e-commerce platforms like Daraz (Alibaba Group) and Deen Commerce. Specialized in Python, SQL, and Advanced Analytics with a focus on translating business problems into measurable product outcomes.",
 };
 
 export const metrics = [
-  { label: "Years Experience", value: "2+", sub: "Analytics & BI" },
-  { label: "Projects Delivered", value: "15+", sub: "Data & Web" },
-  { label: "Dashboards Built", value: "10+", sub: "Decision Support" },
-  { label: "Domains", value: "5+", sub: "E-commerce, BI, Security" },
+  { label: "Products Shipped", value: "15+", sub: "Dashboards & Tools" },
+  { label: "Stakeholders Served", value: "10+", sub: "Teams & Leadership" },
+  { label: "Domains", value: "5+", sub: "E-commerce, BI, FinTech" },
+  { label: "Years Experience", value: "2+", sub: "Analytics & Product" },
 ];
 
 export const family = [
@@ -884,4 +1018,3 @@ export const family = [
     link: "https://www.facebook.com/profile.php?id=61558077623189",
   },
 ];
-

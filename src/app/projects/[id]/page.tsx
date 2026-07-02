@@ -81,7 +81,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
       <div className="mb-2 flex items-center gap-2">
         <div className="w-2 h-2 bg-[#a3e635] shadow-[0_0_8px_#a3e635] rounded-full animate-pulse"></div>
-        <span className="text-[10px] text-[#a3e635] font-bold uppercase tracking-widest">DEPLOYMENT_REPORT</span>
+        <span className="text-[10px] text-[#a3e635] font-bold uppercase tracking-widest">PRODUCT CASE STUDY</span>
       </div>
       <h1 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tighter uppercase">
         {project.title}
@@ -175,13 +175,13 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
           <section>
             <h2 className="text-vscode-2xl font-semibold text-[var(--vscode-text-primary)] mb-6">
-              Case Study
+              Product Thinking
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <Panel className="p-6 glass-card rounded-xl">
                 <h3 className="text-vscode-sm font-bold text-[var(--vscode-text-primary)] mb-3 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-red-500 shadow-lg shadow-red-500/30" />
-                  THE CHALLENGE
+                  THE PROBLEM
                 </h3>
                 <p className="text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed">
                   {caseStudy.problem}
@@ -190,7 +190,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
               <Panel className="p-6 glass-card rounded-xl">
                 <h3 className="text-vscode-sm font-bold text-[var(--vscode-text-primary)] mb-3 flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-lg shadow-emerald-500/30" />
-                  THE SOLUTION
+                  THE APPROACH
                 </h3>
                 <p className="text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed">
                   {caseStudy.solution}
@@ -201,7 +201,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             {caseStudy.impact && caseStudy.impact.length > 0 && (
               <div className="mt-8">
                 <h3 className="text-vscode-lg font-semibold text-[var(--vscode-text-primary)] mb-4">
-                  Key Outcomes & Impact
+                  Impact & Outcomes
                 </h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {caseStudy.impact.map((item) => (

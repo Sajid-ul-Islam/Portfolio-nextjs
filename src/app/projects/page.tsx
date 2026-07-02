@@ -185,8 +185,8 @@ export default function ProjectsPage() {
   return (
     <div className="space-y-6">
       <SectionHeader
-        title="Projects & Case Studies"
-        description="A curated list of analytics dashboards, modeling pipelines, and tools — ordered by impact."
+        title="Products & Case Studies"
+        description="End-to-end product ownership — from problem definition to shipped analytics dashboards, ML pipelines, and operational tools."
       />
 
       {/* Category Filters */}
