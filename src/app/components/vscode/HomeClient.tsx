@@ -429,7 +429,7 @@ export default function HomeClient() {
                   </div>
                 </div>
                 <p className="text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed">
-                  Need quick answers? Chat with the RAG-enabled AI Copilot in the bottom right corner for instant answers
+                  Need quick answers? Chat with the RAG-enabled AI Assistant in the bottom right corner for instant answers
                   regarding skills, background, or data accomplishments.
                 </p>
               </div>
