@@ -650,7 +650,7 @@ export const fileTree: FileTreeSection[] = [
     label: "PORTFOLIO",
     isOpen: true,
     items: [
-      { id: "home", label: "Welcome", href: "/", icon: "home", extension: "md" },
+      { id: "home", label: "Welcome", href: "/", icon: "home", extension: "tsx" },
       {
         id: "experience",
         label: "Experience",
@@ -684,7 +684,7 @@ export const fileTree: FileTreeSection[] = [
         label: "Contact",
         href: "/contact",
         icon: "mail",
-        extension: "html",
+        extension: "jsx",
       },
       {
         id: "settings",

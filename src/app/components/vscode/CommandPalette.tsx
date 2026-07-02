@@ -51,7 +51,7 @@ export default function CommandPalette() {
     }));
 
     const getFilename = (path: string) => {
-      if (path === "/") return "Welcome.md";
+      if (path === "/") return "Welcome.tsx";
       for (const section of fileTree) {
         const item = section.items.find(i => i.href.toLowerCase() === path.toLowerCase());
         if (item) return `${item.label}.${item.extension}`;

@@ -13,7 +13,7 @@ export default function Breadcrumbs() {
   const segments = pathname.split("/").filter(Boolean);
 
   const getExtension = (path: string) => {
-    if (path === "/" || path === "") return "md";
+    if (path === "/" || path === "") return "tsx";
     for (const section of fileTree) {
       const item = section.items.find(i => i.href.toLowerCase() === path.toLowerCase());
       if (item) return item.extension;
@@ -26,7 +26,7 @@ export default function Breadcrumbs() {
       <div className="flex items-center gap-1 px-4 py-1 text-vscode-sm text-[var(--vscode-text-secondary)] bg-[var(--vscode-editor-background)] border-b border-[var(--vscode-border)]">
         <LuHome size={14} />
         <LuChevronRight size={14} />
-        <span className="text-[var(--vscode-text-primary)]">Welcome.md</span>
+        <span className="text-[var(--vscode-text-primary)]">Welcome.tsx</span>
       </div>
     );
   }
