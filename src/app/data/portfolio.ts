@@ -670,7 +670,7 @@ export const fileTree: FileTreeSection[] = [
         label: "Projects",
         href: "/projects",
         icon: "folder",
-        extension: "tsx",
+        extension: "py",
       },
       {
         id: "education",
