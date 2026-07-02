@@ -31,6 +31,7 @@ type GithubEvent = {
 async function fetchGitHub<T>(url: string, token?: string) {
   const headers: HeadersInit = {
     Accept: "application/vnd.github+json",
+    "User-Agent": "Portfolio-NextJS-App",
   };
   if (token) {
     headers.Authorization = `Bearer ${token}`;

@@ -13,6 +13,10 @@ import { cn } from "../lib/cn";
 
 // Top-tier project IDs matching the strategic reordering
 const TOP_PROJECT_IDS = [
+  "agentic-rag",
+  "rag-system",
+  "telegram-chatbot",
+  "whatsapp-chatbot",
   "deen-ops",
   "deen-business-intel",
   "global-economics",

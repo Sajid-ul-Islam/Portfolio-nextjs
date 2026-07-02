@@ -9,19 +9,21 @@ export function getLocalIntel(query: string): string | null {
 
   // 1. Identify intent
   
-  // Skills intent
   if (q.includes("skill") || q.includes("tech") || q.includes("stack") || q.includes("know")) {
-    const techGroup = skillGroups.find(g => g.name.includes("Analytics"))?.skills || [];
-    const webGroup = skillGroups.find(g => g.name.includes("Web"))?.skills || [];
-    const coreGroup = skillGroups.find(g => g.name.includes("Core"))?.skills || [];
+    const techGroup = skillGroups[0]?.skills || [];
+    const biGroup = skillGroups[1]?.skills || [];
+    const coreGroup = skillGroups[2]?.skills || [];
+    const aiGroup = skillGroups[4]?.skills || [];
     
     const tech = techGroup.map(s => s.name).join(", ");
-    const web = webGroup.map(s => s.name).join(", ");
+    const bi = biGroup.map(s => s.name).join(", ");
     const core = coreGroup.map(s => s.name).join(", ");
+    const ai = aiGroup.map(s => s.name).join(", ");
     return `[LOCAL_INTEL]: Sajid's toolkit includes:
-- Technical: ${tech}
-- Web: ${web}
-- Core: ${core}`;
+- Machine Learning & Forecasting: ${tech}
+- BI & Dashboards: ${bi}
+- Core Operations: ${core}
+- AI Systems & Source Control: ${ai}`;
   }
 
   // Projects intent

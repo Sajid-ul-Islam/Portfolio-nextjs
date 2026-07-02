@@ -139,6 +139,136 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    id: "agentic-rag",
+    title: "Agentic RAG Pipeline",
+    description:
+      "An intelligent search and retrieval-augmented generation agent utilizing semantic search, hierarchical chunking, and multi-step reasoning models.",
+    image: "/img/projects/ai_assistant.png",
+    githubUrl: "https://github.com/Sajid-ul-Islam/Agentic-RAG",
+    gitDiff: {
+      filename: "agent.py",
+      oldCode: `# Basic text completion
+response = model.generate(prompt)`,
+      newCode: `# Agentic multi-step reasoning
+context = vector_db.semantic_search(query)
+reasoning_path = agent.reason(query, context)
+response = model.generate(reasoning_path)`,
+    },
+    featured: true,
+    technologies: ["Python", "RAG", "LLM", "Vector DB", "Agentic AI"],
+    caseStudy: {
+      role: "Lead AI Engineer",
+      timeline: "2026",
+      problem:
+        "Traditional search engines and basic RAG architectures suffer from context fragmentation and hallucination when dealing with complex queries.",
+      solution:
+        "Implemented an agentic workflow that plans searches, executes semantic lookups using hierarchical chunking, and reviews output relevance before generation.",
+      impact: [
+        "Reduced hallucination rates in system validation testing.",
+        "Improved search precision for deep multi-step queries.",
+      ],
+    },
+  },
+  {
+    id: "rag-system",
+    title: "Enterprise RAG Platform",
+    description:
+      "A production-ready Retrieval-Augmented Generation pipeline integrated with custom data ingestion and embedding models.",
+    image: "/img/projects/automation.png",
+    githubUrl: "https://github.com/Sajid-ul-Islam/RAG-System",
+    gitDiff: {
+      filename: "rag_pipeline.py",
+      oldCode: `# Static query retrieval
+chunks = db.query(raw_text)`,
+      newCode: `# Hybrid keyword + semantic retrieval
+chunks = hybrid_retriever.retrieve(query)
+context = reranker.rank(chunks)`,
+    },
+    featured: true,
+    technologies: ["Python", "RAG", "Embeddings", "FastAPI"],
+    caseStudy: {
+      role: "Backend & AI Developer",
+      timeline: "2025",
+      problem:
+        "Need a reliable way to query massive internal document databases with low latency and highly relevant context retrieval.",
+      solution:
+        "Designed a FastAPI microservice combining dense semantic retrieval with sparse keyword queries and a cross-encoder reranker.",
+      impact: [
+        "Optimized retrieval context relevance scores.",
+        "Fast response retrieval times under high loads.",
+      ],
+    },
+  },
+  {
+    id: "telegram-chatbot",
+    title: "Automated Telegram Bot",
+    description:
+      "An interactive assistant bot hosted on Telegram providing server health statistics, remote command executions, and notification integrations.",
+    image: "/img/projects/scraping.png",
+    githubUrl: "https://github.com/Sajid-ul-Islam/Telegram-Chatbot",
+    gitDiff: {
+      filename: "bot.py",
+      oldCode: `# Simple command receiver
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    bot.reply_to(message, 'Hello')`,
+      newCode: `# Async stateful dialog handler
+@bot.message_handler(func=lambda m: True)
+async def chat_handler(message):
+    state = await state_manager.get(message.chat.id)
+    response = await assistant.process(message.text, state)
+    await bot.reply(message.chat.id, response)`,
+    },
+    featured: true,
+    technologies: ["Python", "Telegram API", "Webhooks", "Asynchronous"],
+    caseStudy: {
+      role: "Software Developer",
+      timeline: "2025",
+      problem:
+        "Lack of a fast, mobile-friendly interface for querying database stats, system health, and getting real-time business alerts.",
+      solution:
+        "Built an asynchronous python chatbot integrated with system APIs and stateful conversation flows via Telegram webhook handlers.",
+      impact: [
+        "Enabled on-the-go workspace administration and analytics monitoring.",
+        "Consolidated notification alert system into a single stream.",
+      ],
+    },
+  },
+  {
+    id: "whatsapp-chatbot",
+    title: "WhatsApp Support Bot",
+    description:
+      "An automated WhatsApp Business assistant integrated with natural language processing models to resolve customer service queries.",
+    image: "/img/projects/scraping.png",
+    githubUrl: "https://github.com/Sajid-ul-Islam/WhatsApp-Chatbot",
+    gitDiff: {
+      filename: "app.py",
+      oldCode: `# Simple auto-responder
+def respond(message):
+    return 'We will get back to you.'`,
+      newCode: `# NLP message processing & webhook integration
+def webhook_listener(request):
+    incoming_msg = request.values.get('Body', '')
+    intent = nlp_model.predict_intent(incoming_msg)
+    reply = dialog_flow.get_response(intent)
+    whatsapp_client.send_message(to=request.values.get('From'), body=reply)`,
+    },
+    featured: true,
+    technologies: ["Python", "Twilio API", "NLP", "Flask"],
+    caseStudy: {
+      role: "AI Product Developer",
+      timeline: "2025",
+      problem:
+        "Support teams overwhelmed with repetitive inquiries regarding business services, timings, and custom status updates.",
+      solution:
+        "Shipped a Flask webhook system integrated with Twilio WhatsApp API and an intent classification model to handle queries automatically.",
+      impact: [
+        "Automated standard customer support queries.",
+        "Reduced average user wait times from hours to milliseconds.",
+      ],
+    },
+  },
   // ────────────────────────────────────────────────────────────
   // TIER 1 — Active Business & Current Role
   // ────────────────────────────────────────────────────────────
@@ -797,13 +927,13 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    name: "Web & Automation Engineering",
+    name: "AI Systems & Source Control",
     skills: [
-      { name: "React", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/react-native.png" },
-      { name: "Node.js", category: "Backend", icon: "https://img.icons8.com/fluency/144/000000/node-js.png" },
-      { name: "JavaScript", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/javascript--v1.png" },
-      { name: "HTML5", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/html-5--v1.png" },
-      { name: "CSS3", category: "Frontend", icon: "https://img.icons8.com/color/144/000000/css3.png" },
+      { name: "Agentic RAG", category: "AI", icon: "https://img.icons8.com/color/48/null/bot.png" },
+      { name: "RAG Pipelines", category: "AI", icon: "https://img.icons8.com/color/48/null/data-configuration.png" },
+      { name: "Telegram Chatbots", category: "AI", icon: "https://img.icons8.com/color/48/null/telegram-app.png" },
+      { name: "WhatsApp Chatbots", category: "AI", icon: "https://img.icons8.com/color/48/null/whatsapp.png" },
+      { name: "Source Control (Git & GitHub)", category: "Core", icon: "https://img.icons8.com/color/48/null/git.png" },
     ],
   },
 ];
