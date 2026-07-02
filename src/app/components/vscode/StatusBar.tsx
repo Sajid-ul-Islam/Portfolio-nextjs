@@ -91,6 +91,12 @@ export default function StatusBar() {
           <LuGitBranch size={12} />
           <span>main</span>
         </StatusItem>
+        <StatusItem
+          onClick={() => window.dispatchEvent(new CustomEvent('open-command-palette'))}
+          className="text-[var(--vscode-accent)] font-semibold border border-[var(--vscode-accent)]/20 hover:bg-[var(--vscode-accent)] hover:text-white transition-all"
+        >
+          <span>Command Palette</span>
+        </StatusItem>
         {memory && (
           <StatusItem className="text-white/80 hidden sm:flex">
             <LuCpu size={12} />

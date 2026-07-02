@@ -654,14 +654,14 @@ export const fileTree: FileTreeSection[] = [
       {
         id: "experience",
         label: "Experience",
-        href: "/Experience",
+        href: "/experience",
         icon: "briefcase",
         extension: "tsx",
       },
       {
         id: "skills",
         label: "Skills",
-        href: "/Skills",
+        href: "/skills",
         icon: "code",
         extension: "json",
       },
@@ -675,7 +675,7 @@ export const fileTree: FileTreeSection[] = [
       {
         id: "education",
         label: "Education",
-        href: "/Education",
+        href: "/education",
         icon: "graduation-cap",
         extension: "tsx",
       },

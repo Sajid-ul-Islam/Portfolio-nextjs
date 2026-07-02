@@ -53,7 +53,7 @@ export default function AIInsightButton({ projectTitle, projectDescription, tech
           </div>
           <div>
             <h4 className="text-sm font-bold text-white tracking-tight uppercase">AI Deep Insight Engine</h4>
-            <p className="text-[10px] text-[#a3e635]/50 font-mono">NEURAL_NET_V1.5 // DATA_CORRELATION_ACTIVE</p>
+            <p className="text-[10px] text-[#a3e635]/85 font-mono">NEURAL_NET_V1.5 // DATA_CORRELATION_ACTIVE</p>
           </div>
         </div>
         {!insight && !loading && (
@@ -69,20 +69,20 @@ export default function AIInsightButton({ projectTitle, projectDescription, tech
       {(loading || insight) && (
         <div className="mt-4 pt-4 border-t border-[#a3e635]/10 animate-in fade-in duration-500">
            {loading ? (
-             <div className="flex items-center gap-3 text-gray-500 italic text-xs animate-pulse">
+             <div className="flex items-center gap-3 text-gray-400 italic text-xs animate-pulse">
                 <Loader2 size={14} className="animate-spin" />
                 EXTRACTING_BUSINESS_VAL_METRICS...
              </div>
            ) : (
              <div className="space-y-2">
-                <div className="flex items-center gap-1.5 text-[9px] font-bold text-[#a3e635]/70 uppercase tracking-widest">
+                <div className="flex items-center gap-1.5 text-[9px] font-bold text-[#a3e635]/90 uppercase tracking-widest">
                    <Info size={10} />
                    Security Clearanced Analysis
                 </div>
                 <p className="text-sm text-gray-300 leading-relaxed font-mono">
                   {insight}
                 </p>
-                <div className="text-[8px] text-gray-600 uppercase text-right">
+                <div className="text-[8px] text-gray-400 uppercase text-right">
                   System: Gemini Pro // Source: Neural_Buffer_09
                 </div>
              </div>

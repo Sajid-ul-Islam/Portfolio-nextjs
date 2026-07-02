@@ -10,7 +10,7 @@ export const metadata = {
   title: "Experience",
   description:
     "Professional experience and career journey of Sajid Islam as a Business Analyst and Data Analyst.",
-  alternates: { canonical: "/Experience" },
+  alternates: { canonical: "/experience" },
 };
 
 function ExperienceItem({ experience, index }: { experience: (typeof experiences)[number]; index: number }) {

@@ -8,7 +8,7 @@ import { cn } from "../lib/cn";
 export const metadata = {
   title: "Education",
   description: "Educational background and academic qualifications of Sajid Islam.",
-  alternates: { canonical: "/Education" },
+  alternates: { canonical: "/education" },
 };
 
 function EducationItem({ item }: { item: (typeof education)[number] }) {

@@ -78,7 +78,7 @@ export default function MissionReplay({ title, logs }: MissionReplayProps) {
               </div>
               <button 
                 onClick={() => setIsOpen(false)}
-                className="text-[#a3e635]/60 hover:text-white transition-colors"
+                className="text-[#a3e635]/85 hover:text-white transition-colors"
               >
                 <X size={18} />
               </button>
@@ -88,7 +88,7 @@ export default function MissionReplay({ title, logs }: MissionReplayProps) {
             <div ref={scrollRef} className="flex-1 p-6 font-mono text-[11px] overflow-y-auto space-y-2 bg-[#050505] selection:bg-[#a3e635]/30 custom-scroll">
               {logs.slice(0, visibleLines).map((log, i) => (
                 <div key={i} className="flex gap-3">
-                  <span className="text-gray-600">[{new Date().toLocaleTimeString()}]</span>
+                  <span className="text-gray-400">[{new Date().toLocaleTimeString()}]</span>
                   <span className={cn(
                     "flex-1",
                     log.startsWith(">>") ? "text-[#a3e635] font-bold" : 
@@ -110,7 +110,7 @@ export default function MissionReplay({ title, logs }: MissionReplayProps) {
             {/* Footer */}
             {!isReplaying && (
               <div className="p-3 border-t border-[#a3e635]/10 bg-black/40 flex justify-end gap-4 items-center">
-                <span className="text-[9px] text-[#a3e635]/40 font-bold uppercase tracking-widest">TRANSMISSION_COMPLETE</span>
+                <span className="text-[9px] text-[#a3e635]/70 font-bold uppercase tracking-widest">TRANSMISSION_COMPLETE</span>
                 <button 
                   onClick={startReplay}
                   className="flex items-center gap-2 px-3 py-1 bg-[#a3e635]/10 border border-[#a3e635]/20 rounded text-[9px] font-bold text-[#a3e635] hover:bg-[#a3e635]/20 transition-all font-mono"

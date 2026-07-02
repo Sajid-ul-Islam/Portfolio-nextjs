@@ -2,6 +2,15 @@
 
 import React, { createContext, useContext, useState } from "react";
 
+export type ActivityId =
+  | "explorer"
+  | "search"
+  | "git"
+  | "account"
+  | "settings"
+  | "terminal"
+  | "chat";
+
 type LayoutContextType = {
   showTerminal: boolean;
   setShowTerminal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,6 +18,10 @@ type LayoutContextType = {
   setShowAIChat: React.Dispatch<React.SetStateAction<boolean>>;
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  workspaceState: "active" | "minimized" | "closed";
+  setWorkspaceState: React.Dispatch<React.SetStateAction<"active" | "minimized" | "closed">>;
+  activeActivity: ActivityId;
+  setActiveActivity: React.Dispatch<React.SetStateAction<ActivityId>>;
 };
 
 const LayoutContext = createContext<LayoutContextType | null>(null);
@@ -17,6 +30,8 @@ export function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [showTerminal, setShowTerminal] = useState(false);
   const [showAIChat, setShowAIChat] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [workspaceState, setWorkspaceState] = useState<"active" | "minimized" | "closed">("active");
+  const [activeActivity, setActiveActivity] = useState<ActivityId>("explorer");
 
   return (
     <LayoutContext.Provider
@@ -27,6 +42,10 @@ export function LayoutProvider({ children }: { children: React.ReactNode }) {
         setShowAIChat,
         sidebarOpen,
         setSidebarOpen,
+        workspaceState,
+        setWorkspaceState,
+        activeActivity,
+        setActiveActivity,
       }}
     >
       {children}

@@ -40,7 +40,7 @@ const baseItems: SearchItem[] = [
     id: `experience-${experience.id}`,
     title: `${experience.title} · ${experience.company}`,
     subtitle: "Experience",
-    href: "/Experience",
+    href: "/experience",
     type: "experience" as const,
     keywords: experience.technologies,
   })),

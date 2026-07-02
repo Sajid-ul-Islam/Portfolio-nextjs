@@ -25,21 +25,12 @@ import { useTerminalResize } from "./useTerminalResize";
 import { useVSCodeShortcuts } from "./useVSCodeShortcuts";
 import ErrorBoundary from "./ErrorBoundary";
 import OnboardingTooltip from "./OnboardingTooltip";
-import { LayoutProvider, useLayout } from "../../lib/layoutContext";
+import { LayoutProvider, useLayout, type ActivityId } from "../../lib/layoutContext";
 
 
 type VSCodeShellProps = {
   children: React.ReactNode;
 };
-
-type ActivityId =
-  | "explorer"
-  | "search"
-  | "git"
-  | "account"
-  | "settings"
-  | "terminal"
-  | "chat";
 
 const mobileItems = [
   { id: "explorer", icon: "files", label: "Explorer" },
@@ -60,9 +51,11 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
     setShowTerminal,
     showAIChat,
     setShowAIChat,
+    workspaceState,
+    setWorkspaceState,
+    activeActivity,
+    setActiveActivity,
   } = useLayout();
-  const [activeActivity, setActiveActivity] =
-    useState<ActivityId>("explorer");
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const { sidebarWidth, isResizing, startResizing } = useSidebarResize("vscodeSidebarWidth", 256);
   const { terminalHeight, isResizing: isTerminalResizing, startResizing: startTerminalResizing } = useTerminalResize("vscodeTerminalHeight", 256);
@@ -151,6 +144,61 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
 
   if (!isMounted) {
     return <div className="h-screen bg-[var(--vscode-editor-background)]" />;
+  }
+
+  if (workspaceState === "closed") {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-[#0d0f12] text-white font-mono relative overflow-hidden select-none">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(163,230,53,0.03)_0%,transparent_70%)] pointer-events-none" />
+        <div className="z-10 text-center space-y-6 max-w-md p-8 bg-black/40 border border-white/5 rounded-2xl backdrop-blur-md shadow-2xl relative">
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-red-500/20 to-orange-500/20 rounded-2xl blur opacity-30 pointer-events-none" />
+          <div className="w-16 h-16 rounded-full border border-red-500/30 flex items-center justify-center mx-auto bg-red-500/10 text-red-500 animate-pulse relative">
+            <span className="w-2.5 h-2.5 bg-red-500 rounded-full" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold uppercase tracking-widest text-red-400">Workspace Offline</h1>
+            <p className="text-xs text-gray-400 mt-3 leading-relaxed">
+              Environment safely suspended. Click the button below to reactivate your workspace session.
+            </p>
+          </div>
+          <button
+            onClick={() => setWorkspaceState("active")}
+            className="w-full py-3.5 bg-red-600 hover:bg-red-500 text-white active:scale-[0.98] transition-all text-xs font-bold uppercase tracking-widest rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-red-900/30"
+          >
+            <span>Reboot Workspace</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (workspaceState === "minimized") {
+    return (
+      <div 
+        className="flex flex-col items-center justify-between h-screen bg-[#0d0f12] text-white font-mono relative overflow-hidden bg-cover bg-center select-none"
+        style={{ backgroundImage: "url('/background.png')" }}
+      >
+        <div className="absolute inset-0 bg-black/60 backdrop-blur-md pointer-events-none" />
+        <div className="m-auto text-center z-10 space-y-4">
+          <p className="text-vscode-xs text-gray-400 uppercase tracking-widest font-semibold">Workspace Status: Suspended</p>
+          <h2 className="text-3xl font-black gradient-text">Sajid Islam Portfolio</h2>
+        </div>
+        <div className="w-[90%] max-w-md p-4 bg-[var(--vscode-titleBar-activeBackground)] border border-[var(--vscode-border)] rounded-t-2xl z-20 flex items-center justify-between shadow-2xl transition-transform duration-300">
+          <div className="flex items-center gap-3">
+            <svg className="w-5 h-5 text-[#007acc]" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M23.984 6.27a.545.545 0 0 0-.333-.186L17.82.2a.548.548 0 0 0-.655.132L12.38 5.17l-3.32-2.5a.546.546 0 0 0-.616-.017L.6 8.163a.546.546 0 0 0-.022.909l5.068 4.398L.58 17.868a.546.546 0 0 0 .022.91l7.813 5.51a.546.546 0 0 0 .616-.016l3.32-2.5 4.77 4.839a.548.548 0 0 0 .656.132l5.82-5.885a.546.546 0 0 0 .333-.185.539.539 0 0 0 .09-.364V6.634a.539.539 0 0 0-.09-.364zM18.064 12l-4.526 3.447V8.553L18.064 12zm.05-5.218l4.526 4.161-4.526 4.593V6.782zM1.385 8.67l7.009 6.082 3.844-2.927-3.844-2.927L1.385 8.67zm12.153 6.777l4.526-3.447v7.838l-4.526-4.391z"/>
+            </svg>
+            <span className="text-vscode-xs font-bold tracking-wide">Workspace Environment</span>
+          </div>
+          <button
+            onClick={() => setWorkspaceState("active")}
+            className="px-4 py-2 bg-[var(--vscode-accent)] text-white hover:opacity-90 active:scale-[0.96] transition-all text-vscode-xs font-bold uppercase tracking-wider rounded-lg shadow-md shadow-[var(--vscode-accent)]/20"
+          >
+            Restore
+          </button>
+        </div>
+      </div>
+    );
   }
 
   if (isMobile) {

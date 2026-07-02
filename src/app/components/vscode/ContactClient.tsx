@@ -145,11 +145,11 @@ export default function ContactClient() {
             
             <div className="mt-8 pt-6 border-t border-white/5 space-y-4 font-mono">
               <div className="flex items-center justify-between text-[10px]">
-                <span className="text-gray-500 uppercase">Location:</span>
+                <span className="text-gray-400 uppercase">Location:</span>
                 <span className="text-[var(--vscode-text-primary)]">Dhaka, Bangladesh</span>
               </div>
               <div className="flex items-center justify-between text-[10px]">
-                <span className="text-gray-500 uppercase">Availability:</span>
+                <span className="text-gray-400 uppercase">Availability:</span>
                 <span className="text-[var(--vscode-text-primary)]">Open to Contracts & Roles</span>
               </div>
             </div>
@@ -193,8 +193,9 @@ export default function ContactClient() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Your Name</label>
+                    <label htmlFor="form-name" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 font-mono">Your Name</label>
                     <input
+                      id="form-name"
                       name="name"
                       placeholder="Name"
                       value={form.name}
@@ -208,8 +209,9 @@ export default function ContactClient() {
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Your Email</label>
+                    <label htmlFor="form-email" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 font-mono">Your Email</label>
                     <input
+                      id="form-email"
                       name="email"
                       type="email"
                       placeholder="Email address"
@@ -226,8 +228,9 @@ export default function ContactClient() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Subject</label>
+                  <label htmlFor="form-subject" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 font-mono">Subject</label>
                   <input
+                    id="form-subject"
                     name="subject"
                     placeholder="Subject line"
                     value={form.subject}
@@ -238,8 +241,9 @@ export default function ContactClient() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest ml-1 font-mono">Message</label>
+                  <label htmlFor="form-message" className="text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 font-mono">Message</label>
                   <textarea
+                    id="form-message"
                     name="message"
                     rows={5}
                     placeholder="How can I help you?"

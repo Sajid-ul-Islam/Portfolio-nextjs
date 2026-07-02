@@ -39,7 +39,7 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
 
     return (
         <div className="max-w-4xl mx-auto p-8 font-mono animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <Link href="/Blogs" className="flex items-center gap-2 text-[#a3e635]/60 hover:text-[#a3e635] text-xs mb-8 transition-colors">
+            <Link href="/blogs" className="flex items-center gap-2 text-[#a3e635]/85 hover:text-[#a3e635] text-xs mb-8 transition-colors">
                 <LuChevronLeft size={14} />
                 BACK_TO_ARCHIVE
             </Link>
@@ -49,7 +49,7 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
                 <h1 className="text-4xl font-black text-white tracking-tighter uppercase mb-4 glow-text leading-tight">
                     {frontmatter.title}
                 </h1>
-                <div className="flex flex-wrap items-center gap-6 text-[10px] text-gray-500 uppercase tracking-widest">
+                <div className="flex flex-wrap items-center gap-6 text-[10px] text-gray-400 uppercase tracking-widest">
                     <div className="flex items-center gap-2">
                         <LuCalendar size={12} className="text-[#a3e635]" />
                         <span>DATA_ENTRY: {frontmatter.date || "UNKNOWN"}</span>
@@ -81,9 +81,9 @@ export default async function BlogPostPage({ params }: { params: { id: string } 
                 </article>
 
                 <section className="pt-10 border-t border-white/5 text-center">
-                    <p className="text-[10px] text-gray-500 uppercase tracking-widest mb-6">SIGNAL_ARCHIVE_END // SAJID_ISLAM</p>
+                    <p className="text-[10px] text-gray-400 uppercase tracking-widest mb-6">SIGNAL_ARCHIVE_END // SAJID_ISLAM</p>
                     <Link
-                        href="/Blogs"
+                        href="/blogs"
                         className="px-8 py-3 bg-[#166534] text-white font-black text-xs uppercase tracking-widest hover:bg-[#a3e635] hover:text-black transition-all"
                     >
                         Return_To_Intel_Stream

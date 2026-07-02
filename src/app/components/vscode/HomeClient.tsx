@@ -203,9 +203,9 @@ export default function HomeClient() {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-10 font-sans">
-              <StartLink href="/Skills" icon={<Code size={20} />} label="Skills Dossier" desc="Python, SQL, Power BI, Tableau" shortcut="Ctrl+1" />
+              <StartLink href="/skills" icon={<Code size={20} />} label="Skills Dossier" desc="Python, SQL, Power BI, Tableau" shortcut="Ctrl+1" />
               <StartLink href="/projects" icon={<Folder size={20} />} label="Project Archive" desc="Analytics, dashboards & modeling" shortcut="Ctrl+2" />
-              <StartLink href="/Experience" icon={<BookOpen size={20} />} label="Professional Experience" desc="Operational & BI analyst history" shortcut="Ctrl+3" />
+              <StartLink href="/experience" icon={<BookOpen size={20} />} label="Professional Experience" desc="Operational & BI analyst history" shortcut="Ctrl+3" />
               <StartLink href="/contact" icon={<MessageSquare size={20} />} label="Contact Node" desc="Get in touch for collaborations" shortcut="Ctrl+4" />
             </div>
           </motion.div>

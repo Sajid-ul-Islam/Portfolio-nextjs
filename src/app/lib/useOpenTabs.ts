@@ -17,6 +17,16 @@ export type Tab = {
 import { fileTree, projects, FileTreeItem } from "../data/portfolio";
 
 function buildTab(path: string): Tab {
+  if (path === "/untitled") {
+    return {
+      id: "/untitled",
+      label: "Untitled.txt",
+      href: "/untitled",
+      isActive: false,
+      isPinned: false,
+    };
+  }
+
   // Find the item in the file tree to get the correct extension
   let item: FileTreeItem | { label: string; extension: string } | null = null;
   for (const section of fileTree) {
