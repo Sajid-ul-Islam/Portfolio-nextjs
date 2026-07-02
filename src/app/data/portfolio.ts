@@ -838,7 +838,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: "github",
     name: "GitHub",
-    url: "https://github.com/sajid-ul-islam",
+    url: "https://github.com/Sajid-ul-Islam?tab=repositories",
     icon: "github",
     color: "#333333",
   },
