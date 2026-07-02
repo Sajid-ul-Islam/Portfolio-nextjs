@@ -935,13 +935,7 @@ export const education: Education[] = [
     link: "https://bafsd.edu.bd",
     logo: "https://www.google.com/s2/favicons?domain=bafsd.edu.bd&sz=128",
   },
-  {
-    institution: "University of Dhaka",
-    degree: "Management Information System",
-    description: "Reflects specialized study in MIS.",
-    link: "https://www.du.ac.bd",
-    logo: "https://www.google.com/s2/favicons?domain=du.ac.bd&sz=128",
-  },
+
   {
     institution: "Uttara High School & College",
     degree: "Secondary School Certificate (SSC)",
