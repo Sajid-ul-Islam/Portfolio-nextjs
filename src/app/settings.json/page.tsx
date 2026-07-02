@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "../lib/themeContext";
-import { LuSave, LuRefreshCw, LuSliders, LuCode, LuCheck, LuEye } from "react-icons/lu";
+import { LuSave, LuRefreshCw, LuSliders, LuCode, LuCheck } from "react-icons/lu";
 import Button from "../components/vscode/Button";
 import { cn } from "@/lib/cn";
 
@@ -48,21 +48,25 @@ export default function SettingsJsonPage() {
       "telemetry.telemetryLevel": "off"
     };
     setGuiSettings(defaultSettings);
-    setJsonText(JSON.stringify(defaultSettings, null, 2));
+    setJsonText(`export default ${JSON.stringify(defaultSettings, null, 2)};`);
     setError(null);
   }, [theme]);
 
-  // Sync GUI fields to JSON text
+  // Sync GUI fields to JS Module text
   const updateGuiSettings = (key: keyof SettingsData, value: any) => {
     const updated = { ...guiSettings, [key]: value };
     setGuiSettings(updated);
-    setJsonText(JSON.stringify(updated, null, 2));
+    setJsonText(`export default ${JSON.stringify(updated, null, 2)};`);
     setError(null);
   };
 
   const handleSave = () => {
     try {
-      const parsed = JSON.parse(jsonText);
+      const match = jsonText.match(/\{[\s\S]*\}/);
+      if (!match) {
+        throw new Error("No object configuration found");
+      }
+      const parsed = JSON.parse(match[0]);
       const newTheme = parsed["workbench.colorTheme"];
       const validThemes = THEMES.map(t => t.id);
       
@@ -82,7 +86,7 @@ export default function SettingsJsonPage() {
         setTimeout(() => setIsSaved(false), 2000);
       }
     } catch (e) {
-      setError("Invalid JSON format. Please check your syntax.");
+      setError("Invalid Javascript Module. Make sure it matches 'export default { ... };' enclosing valid JSON.");
     }
   };
 
@@ -99,7 +103,7 @@ export default function SettingsJsonPage() {
             Preference Editor
           </span>
           <div className="flex items-center gap-1.5 text-vscode-sm text-[var(--vscode-text-secondary)]">
-            <span className="text-[var(--vscode-accent)] font-bold">settings.json</span>
+            <span className="text-[var(--vscode-accent)] font-bold">settings.mjs</span>
             <span className="text-[var(--vscode-text-muted)] text-vscode-xs">— Workspace Settings</span>
           </div>
         </div>
@@ -230,11 +234,11 @@ export default function SettingsJsonPage() {
           </div>
         </div>
 
-        {/* Right Side: Raw JSON Code Editor */}
+        {/* Right Side: Raw mjs Code Editor */}
         <div className="flex-1 flex flex-col h-full bg-[#181d19]/40 backdrop-blur-xl relative">
           <div className="flex items-center gap-2 px-4 py-2 border-b border-[var(--vscode-border)] bg-black/10 text-vscode-xs text-white/40 font-mono">
             <LuCode size={12} className="text-[var(--vscode-accent)]" />
-            <span>RAW_SETTINGS_VIEW</span>
+            <span>RAW_ES_MODULE_VIEW</span>
           </div>
 
           <div className="flex-1 relative font-mono text-vscode-sm leading-relaxed p-4 overflow-hidden">
@@ -259,7 +263,7 @@ export default function SettingsJsonPage() {
               }}
               className="w-full h-full bg-transparent text-[var(--vscode-editor-foreground)] outline-none resize-none pl-14 pt-0 font-mono text-[12px] leading-[22px] tracking-tight placeholder:text-white/10"
               spellCheck={false}
-              aria-label="Raw settings JSON input"
+              aria-label="Raw settings ES module input"
             />
           </div>
         </div>

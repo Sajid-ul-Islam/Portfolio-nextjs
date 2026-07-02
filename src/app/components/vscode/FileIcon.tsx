@@ -23,6 +23,7 @@ const extensionColors: Record<string, string> = {
   jsx: "text-blue-400",
   ts: "text-blue-500",
   js: "text-yellow-400",
+  mjs: "text-yellow-400",
   json: "text-yellow-500",
   css: "text-blue-300",
   scss: "text-pink-400",
@@ -60,6 +61,7 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
     case "ts":
       return <SiTypescript {...iconProps} />;
     case "js":
+    case "mjs":
       return <SiJavascript {...iconProps} />;
     case "py":
       return <SiPython {...iconProps} />;

@@ -691,7 +691,7 @@ export const fileTree: FileTreeSection[] = [
         label: "settings",
         href: "/settings.json",
         icon: "settings",
-        extension: "json",
+        extension: "mjs",
       },
     ],
   },
