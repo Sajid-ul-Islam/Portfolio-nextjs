@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { LuCornerDownLeft, LuSearch } from "react-icons/lu";
 import { Command } from "cmdk";
+import * as Dialog from "@radix-ui/react-dialog";
 
 import { cn } from "../../lib/cn";
 import { filterSearchItems, getSearchItems } from "../../lib/search";
@@ -156,6 +157,7 @@ export default function CommandPalette() {
       shouldFilter={false} // Uses your custom filterSearchItems instead
       className="fixed inset-0 z-[60] flex items-start justify-center bg-black/50 pt-24 p-4"
     >
+      <Dialog.Title className="sr-only">Global Command Palette</Dialog.Title>
       <div
         className="w-full max-w-2xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded-[var(--vscode-border-radius-md)] shadow-2xl overflow-hidden flex flex-col"
       >
