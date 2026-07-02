@@ -46,7 +46,7 @@ async function fetchGitHub<T>(url: string, token?: string) {
 }
 
 export async function GET() {
-  const username = process.env.GITHUB_USERNAME ?? "saajiidi";
+  const username = process.env.GITHUB_USERNAME ?? "Sajid-ul-Islam";
   const token = process.env.GITHUB_TOKEN;
 
   const [user, repos, events] = await Promise.all([

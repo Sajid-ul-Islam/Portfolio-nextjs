@@ -324,7 +324,7 @@ export default function ProjectsPage() {
                 Live GitHub Repositories
               </h2>
               <p className="text-vscode-sm text-[var(--vscode-text-secondary)]">
-                Dynamic repositories fetched directly from @saajiidi
+                Dynamic repositories fetched directly from @Sajid-ul-Islam
               </p>
             </div>
             
