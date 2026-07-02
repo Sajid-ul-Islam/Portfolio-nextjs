@@ -37,19 +37,28 @@ export default function SettingsJsonPage() {
   const [error, setError] = useState<string | null>(null);
   const [isSaved, setIsSaved] = useState(false);
 
-  // Initial sync from active theme
+  // Load initial settings from localStorage on mount
   useEffect(() => {
-    const defaultSettings: SettingsData = {
-      "workbench.colorTheme": theme,
-      "editor.fontSize": 13,
-      "editor.fontFamily": "var(--font-sans), system-ui, sans-serif",
-      "terminal.integrated.fontSize": 11,
-      "window.zoomLevel": 0,
-      "telemetry.telemetryLevel": "off"
-    };
-    setGuiSettings(defaultSettings);
-    setJsonText(`export default ${JSON.stringify(defaultSettings, null, 2)};`);
-    setError(null);
+    if (typeof window === "undefined") return;
+    try {
+      const stored = localStorage.getItem("vscode-settings");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setGuiSettings(parsed);
+        setJsonText(`export default ${JSON.stringify(parsed, null, 2)};`);
+      } else {
+        const defaultSettings: SettingsData = {
+          "workbench.colorTheme": theme,
+          "editor.fontSize": 13,
+          "editor.fontFamily": "var(--font-sans), system-ui, sans-serif",
+          "terminal.integrated.fontSize": 11,
+          "window.zoomLevel": 0,
+          "telemetry.telemetryLevel": "off"
+        };
+        setGuiSettings(defaultSettings);
+        setJsonText(`export default ${JSON.stringify(defaultSettings, null, 2)};`);
+      }
+    } catch (e) {}
   }, [theme]);
 
   // Sync GUI fields to JS Module text
@@ -74,6 +83,8 @@ export default function SettingsJsonPage() {
         if (validThemes.includes(newTheme)) {
           setTheme(newTheme);
           setGuiSettings(parsed);
+          localStorage.setItem("vscode-settings", JSON.stringify(parsed));
+          window.dispatchEvent(new Event("vscode-settings-changed"));
           setError(null);
           setIsSaved(true);
           setTimeout(() => setIsSaved(false), 2000);
@@ -82,6 +93,8 @@ export default function SettingsJsonPage() {
         }
       } else {
         setGuiSettings(parsed);
+        localStorage.setItem("vscode-settings", JSON.stringify(parsed));
+        window.dispatchEvent(new Event("vscode-settings-changed"));
         setIsSaved(true);
         setTimeout(() => setIsSaved(false), 2000);
       }
@@ -91,7 +104,22 @@ export default function SettingsJsonPage() {
   };
 
   const handleReset = () => {
+    const defaultSettings: SettingsData = {
+      "workbench.colorTheme": "tactical-dark",
+      "editor.fontSize": 13,
+      "editor.fontFamily": "var(--font-sans), system-ui, sans-serif",
+      "terminal.integrated.fontSize": 11,
+      "window.zoomLevel": 0,
+      "telemetry.telemetryLevel": "off"
+    };
     setTheme("tactical-dark");
+    setGuiSettings(defaultSettings);
+    setJsonText(`export default ${JSON.stringify(defaultSettings, null, 2)};`);
+    localStorage.setItem("vscode-settings", JSON.stringify(defaultSettings));
+    window.dispatchEvent(new Event("vscode-settings-changed"));
+    setError(null);
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 2000);
   };
 
   return (

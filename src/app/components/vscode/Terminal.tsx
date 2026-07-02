@@ -289,7 +289,10 @@ Data successfully processed and output generated.`;
   };
 
   return (
-    <div className="flex flex-col h-full bg-[var(--vscode-editor-background)] border-t border-[var(--vscode-border)] text-[var(--vscode-editor-foreground)] font-mono text-[11px] select-text">
+    <div 
+      style={{ fontSize: "var(--terminal-font-size, 11px)" }}
+      className="flex flex-col h-full bg-[var(--vscode-editor-background)] border-t border-[var(--vscode-border)] text-[var(--vscode-editor-foreground)] font-mono select-text"
+    >
       {/* Tab Bar */}
       <div className="flex items-center justify-between px-3 bg-[var(--vscode-sideBar-background)] h-8 border-b border-[var(--vscode-border)]">
         <div className="flex items-center gap-4 h-full">

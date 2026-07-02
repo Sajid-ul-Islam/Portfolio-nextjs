@@ -77,8 +77,8 @@
   /* Base Spacing & Scaling */
   --vscode-font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   --vscode-font-mono: var(--font-mono), 'JetBrains Mono', monospace;
-  --vscode-font-size: 13px;
-  --vscode-font-size-small: 11px;
+  --vscode-font-size: var(--editor-font-size, 13px);
+  --vscode-font-size-small: var(--terminal-font-size, 11px);
   --vscode-line-height: 1.4;
 }
 

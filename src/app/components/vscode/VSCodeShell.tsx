@@ -133,12 +133,47 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
     activatePanel
   });
 
+  const [settings, setSettings] = useState({
+    "editor.fontSize": 13,
+    "terminal.integrated.fontSize": 11,
+    "window.zoomLevel": 0
+  });
+
+  const loadSettings = useCallback(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const stored = localStorage.getItem("vscode-settings");
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        setSettings({
+          "editor.fontSize": parsed["editor.fontSize"] ?? 13,
+          "terminal.integrated.fontSize": parsed["terminal.integrated.fontSize"] ?? 11,
+          "window.zoomLevel": parsed["window.zoomLevel"] ?? 0
+        });
+      }
+    } catch (e) {}
+  }, []);
+
+  useEffect(() => {
+    loadSettings();
+    window.addEventListener("vscode-settings-changed", loadSettings);
+    return () => window.removeEventListener("vscode-settings-changed", loadSettings);
+  }, [loadSettings]);
+
   const shellStyle = useMemo(
-    () =>
-      ({
+    () => {
+      const scale = 1 + settings["window.zoomLevel"] * 0.1;
+      return {
         "--vscode-sidebar-width": `${sidebarWidth}px`,
-      }) as CSSProperties,
-    [sidebarWidth]
+        "--editor-font-size": `${settings["editor.fontSize"]}px`,
+        "--terminal-font-size": `${settings["terminal.integrated.fontSize"]}px`,
+        transform: settings["window.zoomLevel"] !== 0 ? `scale(${scale})` : undefined,
+        transformOrigin: "top left",
+        width: settings["window.zoomLevel"] !== 0 ? `${100 / scale}%` : "100%",
+        height: settings["window.zoomLevel"] !== 0 ? `${100 / scale}%` : "100%",
+      } as CSSProperties;
+    },
+    [sidebarWidth, settings]
   );
 
   if (!isMounted) {
