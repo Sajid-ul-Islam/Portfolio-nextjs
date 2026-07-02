@@ -10,6 +10,7 @@ import { filterSearchItems, getSearchItems } from "../../lib/search";
 import { useRecentPagesContext } from "../../lib/recentPagesContext";
 import { useTabs } from "../../lib/tabsContext";
 import { useTheme } from "../../lib/themeContext";
+import { fileTree } from "../../data/portfolio";
 
 type PaletteItem = {
   id: string;
@@ -49,6 +50,19 @@ export default function CommandPalette() {
       },
     }));
 
+    const getFilename = (path: string) => {
+      if (path === "/") return "Welcome.md";
+      for (const section of fileTree) {
+        const item = section.items.find(i => i.href.toLowerCase() === path.toLowerCase());
+        if (item) return `${item.label}.${item.extension}`;
+      }
+      if (path.startsWith("/projects/")) {
+        const pId = path.split("/").pop();
+        return `${pId}.py`;
+      }
+      return path.slice(1);
+    };
+
     const recentItems: PaletteItem[] = recentPages
       .filter((path) => {
         if (!normalized) return true;
@@ -57,7 +71,7 @@ export default function CommandPalette() {
       .slice(0, 5)
       .map((path) => ({
         id: `recent-${path}`,
-        title: path === "/" ? "Welcome.tsx" : path.slice(1),
+        title: getFilename(path),
         subtitle: "Recent",
         typeLabel: "RECENT",
         onSelect: () => router.push(path),
