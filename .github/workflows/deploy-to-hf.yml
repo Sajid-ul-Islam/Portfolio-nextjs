@@ -3,7 +3,7 @@ name: Deploy to Hugging Face Space
 on:
   push:
     branches:
-      - main
+      - master
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -21,4 +21,4 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push --force https://sajid-ul-islam:$HF_TOKEN@huggingface.co/spaces/Sajid-ul-Islam/Portfolio main:main
+          git push --force https://sajid-ul-islam:$HF_TOKEN@huggingface.co/spaces/Sajid-ul-Islam/Portfolio master:main

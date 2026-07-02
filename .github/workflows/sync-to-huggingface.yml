@@ -1,7 +1,7 @@
 name: Sync to Hugging Face hub
 on:
   push:
-    branches: [main] # Set this to your default branch (main or master)
+    branches: [master] # Set this to your default branch (main or master)
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -17,4 +17,4 @@ jobs:
       - name: Push to hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-        run: git push https://Sajid-ui-Islam:$HF_TOKEN@huggingface.co/spaces/Sajid-ui-Islam/portfolio main
+        run: git push --force https://sajid-ul-islam:$HF_TOKEN@huggingface.co/spaces/Sajid-ul-Islam/Portfolio master:main
