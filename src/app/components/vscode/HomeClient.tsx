@@ -158,11 +158,11 @@ export default function HomeClient() {
       >
         {/* Header Section */}
         <motion.header variants={itemVariants} className="relative z-10">
-          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-6 sm:p-8 glass-panel border border-[var(--vscode-border)] rounded-2xl relative overflow-hidden group shadow-xl">
+          <div className="flex flex-col gap-6 p-6 sm:p-8 glass-panel border border-[var(--vscode-border)] rounded-2xl relative overflow-hidden group shadow-xl">
             {/* Hover overlay glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
-            <div className="z-10 flex flex-col sm:flex-row items-start gap-5 sm:gap-6 flex-1 min-w-0">
+            <div className="z-10 flex flex-col sm:flex-row items-start gap-5 sm:gap-6 w-full min-w-0">
               {/* Profile Avatar */}
               <div className="relative flex-shrink-0">
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-2 border-[var(--vscode-accent)]/30 shadow-lg shadow-[var(--vscode-accent)]/10">
@@ -193,8 +193,8 @@ export default function HomeClient() {
                     {personalInfo.title}
                   </p>
                 </div>
-                {/* Properly structured paragraph blocks */}
-                <div className="space-y-3 text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed max-w-3xl">
+                {/* Properly structured paragraph blocks - full width */}
+                <div className="space-y-3 text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed w-full">
                   {bioParagraphs.map((para, idx) => (
                     <p key={idx}>{para}</p>
                   ))}
@@ -202,9 +202,11 @@ export default function HomeClient() {
               </div>
             </div>
 
-            {/* Quick Link Actions */}
-            <div className="z-10 flex flex-row lg:flex-col items-center lg:items-end gap-3 flex-wrap lg:flex-nowrap mt-4 lg:mt-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-white/5">
-              <SocialLinks />
+            {/* Quick Link Actions - placed at the bottom */}
+            <div className="z-10 flex flex-row items-center justify-between gap-4 flex-wrap mt-2 pt-6 border-t border-white/5 w-full">
+              <div className="flex items-center gap-3">
+                <SocialLinks />
+              </div>
               <a
                 href={personalInfo.resumeUrl}
                 target="_blank"
