@@ -24,7 +24,6 @@ import { useSidebarResize } from "./useSidebarResize";
 import { useTerminalResize } from "./useTerminalResize";
 import { useVSCodeShortcuts } from "./useVSCodeShortcuts";
 import ErrorBoundary from "./ErrorBoundary";
-import OnboardingTooltip from "./OnboardingTooltip";
 import { LayoutProvider, useLayout, type ActivityId } from "../../lib/layoutContext";
 
 
@@ -360,7 +359,6 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
       <AIChatTrigger isOpen={showAIChat} onClick={() => setShowAIChat(true)} />
       <IntroAnimation />
       <CommandPalette />
-      <OnboardingTooltip />
     </div>
   );
 }
