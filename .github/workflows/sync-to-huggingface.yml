@@ -21,4 +21,4 @@ jobs:
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
-          git push --force https://sajid-ul-islam:$HF_TOKEN@huggingface.co/spaces/Sajid-ul-Islam/Portfolio master:main
+          git push --force https://sajid-ul-islam:$HF_TOKEN@huggingface.co/spaces/Sajid-ul-Islam/Portfolio HEAD:main
