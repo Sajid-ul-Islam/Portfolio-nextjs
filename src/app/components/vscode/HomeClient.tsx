@@ -23,6 +23,7 @@ import {
 import { motion } from "framer-motion";
 
 import SocialLinks from "./SocialLinks";
+import GitHubFeed from "./GitHubFeed";
 import { useRecentPagesContext } from "@/lib/recentPagesContext";
 import { personalInfo, metrics, projects, testimonials, type Project, type Testimonial } from "../../data/portfolio";
 import { useLayout } from "../../lib/layoutContext";
@@ -305,6 +306,11 @@ export default function HomeClient() {
             </div>
           </motion.div>
         </div>
+
+        {/* GitHub Activity Feed */}
+        <motion.div variants={itemVariants} className="h-96">
+          <GitHubFeed />
+        </motion.div>
 
         {/* Featured Projects Mini-Gallery */}
         <motion.div

@@ -88,7 +88,8 @@ export default function RootLayout({
             --vscode-tab-inactiveBackground: #1e1f1c;
             --vscode-tab-activeBackground: #272822;
           }
-        `}} />
+          `
+        }} />
       </head>
       <body className="antialiased font-sans" suppressHydrationWarning>
         <ThemeProvider>
