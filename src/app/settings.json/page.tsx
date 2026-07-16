@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { useTheme } from "../lib/themeContext";
-import { LuSave, LuRefreshCw, LuSliders, LuCode, LuCheck } from "react-icons/lu";
+import { useAccent, ACCENT_PRESETS } from "../lib/accentContext";
+import { LuSave, LuRefreshCw, LuSliders, LuCode, LuCheck, LuPalette } from "react-icons/lu";
 import Button from "../components/vscode/Button";
 import { cn } from "@/lib/cn";
 
@@ -25,6 +26,7 @@ const THEMES = [
 
 export default function SettingsJsonPage() {
   const { theme, setTheme } = useTheme();
+  const { accent, setAccent, setCustomAccent } = useAccent();
   const [jsonText, setJsonText] = useState("");
   const [guiSettings, setGuiSettings] = useState<SettingsData>({
     "workbench.colorTheme": "tactical-dark",
@@ -198,6 +200,46 @@ export default function SettingsJsonPage() {
                   </button>
                 );
               })}
+            </div>
+          </div>
+
+          {/* Accent Color Picker */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <LuPalette className="text-[var(--vscode-accent)]" size={14} />
+              <label className="text-vscode-sm font-bold text-[var(--vscode-text-secondary)]">Accent Color</label>
+            </div>
+            <div className="grid grid-cols-5 sm:grid-cols-10 gap-2">
+              {ACCENT_PRESETS.map((c) => (
+                <button
+                  key={c.value}
+                  onClick={() => setAccent(c)}
+                  className={cn(
+                    "w-8 h-8 rounded-full border-2 transition-all duration-200 hover:scale-110 relative",
+                    accent.value === c.value
+                      ? "border-white shadow-lg scale-110"
+                      : "border-transparent hover:border-white/40"
+                  )}
+                  style={{ backgroundColor: c.value }}
+                  title={c.name}
+                >
+                  {accent.value === c.value && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <LuCheck size={14} className="text-white drop-shadow-md" />
+                    </div>
+                  )}
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center gap-3 mt-2">
+              <label className="text-vscode-xs text-[var(--vscode-text-muted)]">Custom:</label>
+              <input
+                type="color"
+                value={accent.value}
+                onChange={(e) => setCustomAccent(e.target.value)}
+                className="w-8 h-8 rounded cursor-pointer border-0 bg-transparent"
+              />
+              <span className="text-vscode-xs font-mono text-[var(--vscode-text-secondary)]">{accent.value}</span>
             </div>
           </div>
 

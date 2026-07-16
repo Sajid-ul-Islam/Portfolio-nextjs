@@ -4,6 +4,7 @@ import "./globals.css";
 import VSCodeShell from "./components/vscode/VSCodeShell";
 import { siteMeta } from "./data/portfolio";
 import { ThemeProvider } from "./lib/themeContext";
+import { AccentProvider } from "./lib/accentContext";
 
 const tiroBangla = Tiro_Bangla({
   weight: "400",
@@ -93,7 +94,9 @@ export default function RootLayout({
       </head>
       <body className="antialiased font-sans" suppressHydrationWarning>
         <ThemeProvider>
-          <VSCodeShell>{children}</VSCodeShell>
+          <AccentProvider>
+            <VSCodeShell>{children}</VSCodeShell>
+          </AccentProvider>
         </ThemeProvider>
       </body>
     </html>
