@@ -119,7 +119,7 @@ export const siteMeta = {
   title: "Sajid Islam | Product-Minded Business & Data Analyst",
   description:
     "Product-minded Business & Data Analyst portfolio — showcasing end-to-end ownership of analytics products, operational dashboards, and data-driven decision tools.",
-  url: "https://sajid-ul-islam.github.io/example-app-nextjs/",
+  url: "https://sajid-ul-islam.vercel.app",
   ogImage: "/img/profile.jpg",
 };
 
