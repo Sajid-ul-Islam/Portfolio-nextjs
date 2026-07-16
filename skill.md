@@ -1,48 +1,59 @@
-# 🛠️ Technical Competencies & Blueprint
+# Technical Competencies & Blueprint
 
 This document outlines the core technical competencies, dependencies, and configuration blueprint required to maintain and build upon the VS Code-themed portfolio.
 
 ---
 
-## 🤖 1. AI Integration & Orchestration
-- **Model Routing**: Utilizes the **Vercel AI SDK** (`ai` package) to stream responses. Supports switching between:
-  - Google Gemini (`@ai-sdk/google`)
-  - Anthropic Claude (`@ai-sdk/anthropic`)
-- **RAG (Retrieval-Augmented Generation)**: Grounded chat completions using vector search.
-  - **Pinecone**: Vector database (`portfolio-index`) storing chunked document embeddings.
-  - **Embeddings**: Google's `text-embedding-004` model generates query vectors.
-- **Dynamic Context Ingestion**: Uses a Cheerio scraping endpoint (`/api/site`) to scrape the live portfolio website and inject it into the AI context window dynamically.
+## 1. AI Integration & Orchestration
+- **Model Routing**: Vercel AI SDK (`ai` package) with support for:
+  - Google Gemini (`@ai-sdk/google`) - Flash and Pro models
+  - Anthropic Claude (`@anthropic-ai/sdk`) - 3.5 Sonnet
+- **RAG (Retrieval-Augmented Generation)**: Vector search using Pinecone (`portfolio-index`).
+- **Dynamic Context Ingestion**: Cheerio scraper (`/api/site`) fetches live content from `sajid-ul-islam.github.io`.
 
 ---
 
-## 🌐 2. Next.js App Router Architecture
-- **Static Page Generation**: The portfolio is optimized for static rendering. Route files under the `src/app/` tree must be kept clean of server-only modules unless defined as dynamic.
-- **Dynamic API Directives**: Since this project compiles to static assets, API route files *must* explicitly opt out of static prerendering:
-  ```typescript
-  export const dynamic = 'force-dynamic';
-  ```
-- **Shared States**: State for open tabs, active explorer files, active sidebar, and current pathname is shared via:
-  - `src/app/lib/tabsContext.tsx`
-  - `src/app/lib/recentPagesContext.tsx`
-  - `src/app/lib/themeContext.tsx`
+## 2. Next.js App Router Architecture
+- **Static Page Generation**: Portfolio optimized for static rendering.
+- **Dynamic API Routes**: Must include `export const dynamic = 'force-dynamic';`
+- **Shared Contexts**:
+  - `src/app/lib/tabsContext.tsx` - Open tabs state
+  - `src/app/lib/recentPagesContext.tsx` - Navigation history
+  - `src/app/lib/themeContext.tsx` - Theme provider (next-themes)
+  - `src/app/lib/accentContext.tsx` - Accent color provider
+  - `src/app/lib/layoutContext.tsx` - Layout state (sidebar, terminal, AI chat)
+  - `src/app/lib/useViewport.ts` - Responsive breakpoint detection
 
 ---
 
-## 🎨 3. Styling & Modern UI Tokens
-- **Theme Variables**: Custom styling is handled through CSS custom properties (variables) defined in [globals.css](src/app/globals.css).
-- **Tailwind CSS**: Utility classes must map directly to VS Code's standard tokens:
+## 3. Styling & UI Tokens
+- **Theme Variables**: CSS custom properties in `globals.css`.
+- **Tailwind CSS**: Utility classes map to VS Code tokens:
   - Backgrounds: `bg-[var(--vscode-editor-background)]`
   - Borders: `border-[var(--vscode-border)]`
-  - Text: `text-[var(--vscode-foreground)]`
-- **Ambiguity Checks**: Tailwind utilities must not conflict. Avoid using plain `duration-[...]` properties on elements containing animations; use exact property mappings (e.g. `[animation-duration:...]`).
+  - Text: `text-[var(--vscode-text-primary)]`
+- **Accent Colors**: Dynamic via `--vscode-accent` variable, set by `accentContext.tsx`.
+- **Custom Scrollbars**: Styled via CSS in `globals.css`.
 
 ---
 
-## ⚙️ 4. Build & Environment Configurations
-- **Environment Keys**: The following keys must be set in `.env.local` for full capability:
-  - `GOOGLE_GENERATIVE_AI_API_KEY` (Gemini model access)
-  - `PINECONE_API_KEY` & `PINECONE_INDEX_NAME` (RAG database)
-  - `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` (Contact mailer)
+## 4. Build & Environment Configuration
+- **Environment Variables** (`.env.local`):
+  - `GOOGLE_GENERATIVE_AI_API_KEY` - Gemini model access
+  - `ANTHROPIC_API_KEY` - Claude model access
+  - `PINECONE_API_KEY` & `PINECONE_INDEX_NAME` - RAG database
+  - `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` - Contact form
+  - `GITHUB_USERNAME`, `GITHUB_TOKEN` - GitHub feed API
 - **Path Mappings**:
-  - `@/lib/*` mapped to `src/app/lib/*` and `src/lib/*`
-  - `@/*` mapped to `src/*`
+  - `@/lib/*` -> `src/app/lib/*` and `src/lib/*`
+  - `@/*` -> `src/*`
+
+---
+
+## 5. Key Components
+- **VSCodeShell**: Main layout wrapper, manages workspace state (active/minimized/closed).
+- **AIChat**: Chatbot with WhatsApp/Telegram quick-connect links.
+- **GitHubFeed**: Real-time commit feed from GitHub Events API with fallback data.
+- **CommandPalette**: `Ctrl+P` palette for theme switching, navigation, and actions.
+- **Settings Page**: GUI editor for themes, accent colors, font sizes, and zoom.
+- **Embedded Browser**: `/github-pages` route renders `sajid-ul-islam.github.io` in an iframe.

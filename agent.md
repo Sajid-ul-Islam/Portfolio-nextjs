@@ -1,61 +1,62 @@
-# 🤖 AI Agent Developer Blueprint & Guidelines
+# AI Agent Developer Blueprint & Guidelines
 
-This document serves as the guide, architectural blueprint, and set of operational rules for any AI agent (including yourself) working on the **VS Code Themed Portfolio** project.
+This document serves as the guide, architectural blueprint, and set of operational rules for any AI agent working on the **VS Code Themed Portfolio** project.
 
 ---
 
-## 🎯 Project Goals & Ethos
-1. **Simple & Elegant**: The portfolio is designed for **Sajid Islam (Business & Data Analyst)**. It must remain professional, clean, and elegant.
+## Project Goals & Ethos
+1. **Simple & Elegant**: The portfolio is designed for **Sajid Islam (Product-Minded Business & Data Analyst)**. It must remain professional, clean, and elegant.
 2. **VS Code Theme Fidelity**: The interface is a high-fidelity replica of the Visual Studio Code IDE (Activity Bar, Sidebar, Title Bar, Status Bar, Editor Tabs, Breadcrumbs, and interactive Terminal).
-3. **No Bloat**: All extraneous non-portfolio features (such as Word/Excel document simulators, hobbies tabs, family trees, or blogs) are removed to keep the bundle size and user interface focused.
+3. **No Bloat**: All extraneous non-portfolio features are removed to keep the bundle size and user interface focused.
 
 ---
 
-## 🏗️ Folder Structure Blueprint
+## Folder Structure Blueprint
 - `src/app/`: The core Next.js application directory.
   - `page.tsx` (Welcome/About landing page)
-  - `Experience/` (Professional experience timeline)
-  - `Skills/` (Technical competencies page)
-  - `projects/` & `projects/[id]/` (Featured project views represented as code files in the IDE)
-  - `Education/` (Academic accomplishments)
+  - `experience/` (Professional experience timeline)
+  - `skills/` (Technical competencies page)
+  - `projects/` & `projects/[id]/` (Featured project views as code files in the IDE)
+  - `education/` (Academic accomplishments)
   - `contact/` (Contact feedback form page)
+  - `github-pages/` (Embedded browser for sajid-ul-islam.github.io)
+  - `settings.json/` (Theme and accent color settings)
 - `src/app/components/vscode/`: Core VS Code UI shell elements (ActivityBar, Sidebar, Terminal, AIChat, etc.).
-- `src/app/lib/` & `src/lib/`: Custom hooks, search helpers, and state contexts (Theme, Tabs, etc.).
+- `src/app/lib/` & `src/lib/`: Custom hooks, search helpers, and state contexts (Theme, Tabs, Layout, Accent, RecentPages).
 - `src/app/data/`: Static configuration and content datasets (`portfolio.ts`).
+- `src/app/api/`: API routes for AI chat, GitHub feed, email, and site scraping.
 
 ---
 
-## ⚠️ Crucial Development Rules
+## Crucial Development Rules
 
 ### 1. Casing and Path Imports
-- In [tsconfig.json](tsconfig.json), the absolute path alias `@/lib/*` is explicitly mapped to both `src/app/lib/*` and `src/lib/*`. 
-- When adding new utility files, prefer placing them in `src/app/lib` or `src/lib` and importing them using `@/lib/<filename>`.
-- Always check that imports of the data store use `@/app/data/portfolio` rather than `@/data/portfolio` which does not exist.
+- In `tsconfig.json`, the absolute path alias `@/lib/*` is mapped to both `src/app/lib/*` and `src/lib/*`.
+- Prefer placing utilities in `src/app/lib` and importing via `@/lib/<filename>`.
+- Data store imports use `@/app/data/portfolio`.
 
 ### 2. API Routes & Prerendering
-- Any route handler under `src/app/api/.../route.ts` (such as `sendEmail` or `chat`) **must** include the dynamic directive:
+- API route handlers under `src/app/api/.../route.ts` must include:
   ```typescript
   export const dynamic = 'force-dynamic';
   ```
-  Without this, the Next.js static build process will attempt to prerender these routes as static pages during page collection, causing compilation failures.
 
 ### 3. Tailwind Ambiguity Warnings
-- Do not use class lists like `duration-[3000ms]` or `before:duration-[2000ms]` on elements that have active animations (e.g., `animate-ping`). This causes Tailwind compiler warnings because of ambiguity between transition-duration and animation-duration.
-- Instead, use explicit Tailwind arbitrary properties:
+- Do not use `duration-[3000ms]` on elements with active animations. Use:
   ```typescript
   [animation-duration:3000ms]
   before:[animation-duration:2000ms]
   ```
 
-### 4. Running Commands on the Host
-- On the Windows workspace host, PowerShell resolution can fail if run from root. Always invoke terminal commands with:
-  - **Cwd**: `C:/Windows/System32/WindowsPowerShell/v1.0`
-  - **Pathing**: Use `--prefix g:/Portfolio-nextjs` or absolute paths to target files.
-  - **Do not** propose `cd` commands.
+### 4. Theme & Accent System
+- **Themes**: Managed via `next-themes` in `themeContext.tsx`. Supports: tactical-dark, vscode-dark, vscode-light, dracula, monokai.
+- **Accent Colors**: Managed via `accentContext.tsx`. 10 presets + custom picker. Persists in localStorage as `vscode-accent`.
+- Theme switching: Command Palette (`Ctrl+P`) or Settings page (`/settings.json`).
 
 ---
 
-## 🤖 AI Copilot Chat Architecture
-- The AI chat uses Vercel AI SDK, Pinecone, and Google Gemini.
-- Toggles between local portfolio data and crawled live external content (`/api/site` cheerio web scraper).
-- Maintain a clean **GitHub Copilot Chat** aesthetic: avoid sci-fi/tactical terminology ("Intel", "Operative", "Secure Uplink"). Use professional assistant framing.
+## AI Copilot Chat Architecture
+- Uses Vercel AI SDK, Pinecone, and Google Gemini / Anthropic Claude.
+- Toggles between local portfolio data and crawled live external content (`/api/site`).
+- WhatsApp and Telegram quick-connect links are embedded inside the chatbot UI.
+- Maintain a clean **GitHub Copilot Chat** aesthetic.

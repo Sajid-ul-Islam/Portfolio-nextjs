@@ -1,61 +1,71 @@
 # Project Summary: VS Code Themed Portfolio
 
-This project, titled "VS Code Themed Portfolio," is an elegant, high-fidelity developer workspace-themed portfolio built with **Next.js 14 (App Router)**, **TypeScript**, and **Tailwind CSS**. It is designed for **Sajid Islam (Business & Data Analyst)**.
+An elegant, high-fidelity developer workspace-themed portfolio built with **Next.js 16 (App Router)**, **TypeScript**, and **Tailwind CSS**. Designed for **Sajid Islam (Product-Minded Business & Data Analyst)**.
+
+**Live URL**: [sajid-ul-islam.vercel.app](https://sajid-ul-islam.vercel.app)
+
+---
 
 ## Key Features
 
 ### VS Code IDE Interface
-*   **Activity Bar & Sidebar**: Provides clean navigation for files, search, and settings.
-*   **Editor Tab System**: Supports multi-tab interface with pinning, closing, and tab history.
-*   **Theme Variables**: Integrates full VS Code theme configurations (Dark, Light, Dracula, Monokai).
-*   **Interactive File Tree**: Lists portfolio sections as files in a standard workspace explorer.
-*   **Simulated Terminal**: Offers an interactive bash shell terminal supporting system utilities like `ls`, `cd`, `cat`, `neofetch`, `pwd`, and `status`.
+- **Activity Bar & Sidebar**: Clean navigation for files, search, and settings.
+- **Editor Tab System**: Multi-tab interface with pinning, closing, and tab history.
+- **Theme System**: 5 themes (Tactical Dark, VS Code Dark+, Light+, Dracula, Monokai) with Command Palette switching.
+- **Accent Color Picker**: 10 preset colors + custom color picker in Settings.
+- **Interactive File Tree**: Portfolio sections as files in the workspace explorer.
+- **Simulated Terminal**: Interactive bash shell with system utilities.
+- **Embedded Browser**: View sajid-ul-islam.github.io inside the app.
 
 ### Portfolio Core Sections
-*   **Welcome**: The main workspace landing page displaying a personal summary.
-*   **Experience**: A clean timeline of professional corporate roles.
-*   **Skills**: Categorizes technical capabilities by domain (Data Analytics, BI, Web Dev).
-*   **Projects**: Presents a grid of featured work as tabbed code files within the IDE.
-*   **Education**: Details academic accomplishments.
-*   **Contact**: A simulated editor-like feedback form with Turnstile Captcha and Resend email transmission.
+- **Welcome**: Main workspace landing page with personal summary and metrics.
+- **Experience**: Professional corporate role timeline.
+- **Skills**: Technical capabilities by domain (Data Analytics, BI, AI, Product).
+- **Projects**: Featured work with case studies, git diffs, and live links.
+- **Education**: Academic accomplishments.
+- **Contact**: Contact form with Turnstile Captcha and email integration.
 
 ### AI Copilot Chat
-*   **GitHub Copilot Style Panel**: A chat panel integrated into the sidebar or floating triggers.
-*   **Model Selector**: Allows in-app selection between Gemini 1.5 Flash, Gemini 1.5 Pro, and Claude 3.5 Sonnet.
-*   **Retrieval-Augmented Generation (RAG)**: Integrates with Vercel AI SDK and Pinecone Vector Database to answer user queries with actual data.
-*   **Source Toggles**: Enables dynamic context switching between Local Portfolio Data and Live Scraping Snapshots.
+- **Multi-Model Support**: Gemini 1.5 Flash, Gemini 1.5 Pro, Claude 3.5 Sonnet.
+- **RAG Integration**: Vercel AI SDK + Pinecone for grounded responses.
+- **Source Toggles**: Portfolio Data, Live Website Scraping, or Combined.
+- **Quick Connect**: WhatsApp and Telegram links for direct messaging.
+
+### Live GitHub Feed
+- Real-time commit activity from GitHub Events API.
+- Fallback data when API is unavailable.
+- Auto-refresh every 60 seconds.
+
+---
 
 ## Tech Stack
 
-*   **Framework**: Next.js 14 (App Router)
-*   **Language**: TypeScript
-*   **Styling**: Tailwind CSS + Custom CSS Variables
-*   **Icons**: Lucide React + React Icons
-*   **Deployment**: Vercel
+- **Framework**: Next.js 16 (App Router, Turbopack)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + Custom CSS Variables
+- **Animation**: Framer Motion
+- **Icons**: Lucide React + React Icons
+- **AI**: Vercel AI SDK, Google Gemini, Anthropic Claude, Pinecone
+- **Deployment**: Vercel
 
 ## Dependencies
 
-The project utilizes a range of dependencies for various functionalities, including:
-
-*   **AI/ML**: `@ai-sdk/google`, `@anthropic-ai/sdk`, `@google/generative-ai`, `@pinecone-database/pinecone`, `ai`
-*   **UI/UX & Animation**: `framer-motion`, `lucide-react`, `react-icons`, `tailwindcss-animate`
-*   **Data Handling**: `cheerio`, `gray-matter`, `next-mdx-remote`
-*   **Utilities**: `clsx`, `cmdk`, `dotenv-vault`, `tailwind-merge`
-*   **Email**: `@emailjs/browser`
-*   **Next.js Specific**: `next`, `next-themes`
+- **AI/ML**: `@ai-sdk/google`, `@anthropic-ai/sdk`, `@google/generative-ai`, `@pinecone-database/pinecone`, `ai`
+- **UI/UX**: `framer-motion`, `lucide-react`, `react-icons`, `tailwindcss-animate`, `cmdk`, `next-themes`
+- **Data**: `cheerio`, `gray-matter`, `next-mdx-remote`
+- **Utilities**: `clsx`, `tailwind-merge`, `dotenv-vault`
+- **Email**: `@emailjs/browser`
 
 ## Development Scripts
 
-*   `dev`: Starts the development server.
-*   `build`: Builds the Next.js application for production.
-*   `prebuild`: Skips audit for urgent deploy.
-*   `export`: Exports the Next.js application to static HTML.
-*   `start`: Starts the production server.
-*   `lint`: Runs ESLint for code quality checks.
-*   `test:build`: Runs lint and build.
-*   `predeploy`: Runs `test:build` before deployment.
-*   `deploy`: Deploys the `out` directory using `gh-pages`.
+- `npm run dev` - Start development server
+- `npm run build` - Production build
+- `npm run start` - Start production server
+- `npm run lint` - ESLint checks
+- `npm run test:build` - Lint + build
 
 ## Configuration
 
-The `next.config.mjs` file configures Next.js, including remote image patterns for `https://via.placeholder.com` and `https://img.icons8.com`.
+- `next.config.mjs` - Next.js config with remote image patterns
+- `tailwind.config.ts` - Custom VS Code font sizes, spacing, colors, and animations
+- `tsconfig.json` - Path aliases (`@/lib/*`, `@/*`)

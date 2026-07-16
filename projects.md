@@ -1,25 +1,25 @@
-# 🚀 Portfolio Projects & AI Modules
+# Portfolio Projects & AI Modules
 
-This document details the specific projects and technical modules described in the AI Agent architecture. These components serve as both functional features and the primary data sources for the RAG (Retrieval-Augmented Generation) system.
+This document details the specific projects and technical modules described in the AI Agent architecture.
 
 ## 1. VS Code Themed Portfolio
-- **Description**: A Next.js-based interactive developer portfolio designed to replicate the Visual Studio Code interface.
-- **Role in AI Agent**: Acts as the primary "Local Data" source. The agent retrieves context from the Experience, Projects, and Skills sections bundled within this repository.
-- **Key Technologies**: Next.js 14, TypeScript, Tailwind CSS.
+- **Description**: Next.js interactive developer portfolio replicating the Visual Studio Code interface.
+- **URL**: [sajid-ul-islam.vercel.app](https://sajid-ul-islam.vercel.app)
+- **Role in AI Agent**: Primary "Local Data" source for RAG context.
+- **Key Technologies**: Next.js 16, TypeScript, Tailwind CSS, Framer Motion.
 
 ## 2. AI Chat Agent (RAG Implementation)
-- **Description**: An intelligent conversational interface integrated directly into the portfolio.
-- **Capabilities**: Grounded query responses using Pinecone, streaming text generation, and dynamic model switching.
-- **Integration**: Built using the **Vercel AI SDK** and supports models from Google (Gemini) and Anthropic (Claude).
+- **Description**: Conversational interface integrated into the portfolio.
+- **Capabilities**: Grounded responses via Pinecone, streaming text, model switching.
+- **Models**: Gemini 1.5 Flash, Gemini 1.5 Pro, Claude 3.5 Sonnet.
+- **Integration**: Vercel AI SDK with Google and Anthropic providers.
 
 ## 3. Website Content Scraper (`/api/site`)
-- **Description**: A dedicated API utility used to ingest data from external sources.
+- **Description**: API utility for ingesting external content.
 - **Source URL**: `https://sajid-ul-islam.github.io/`
-- **Functionality**: Extracts raw text content from the live external profile to ensure the AI's "Website Content" mode is always current.
+- **Functionality**: Extracts raw text from the live GitHub Pages profile for AI context.
 
-#### Static Scraping (Cheerio)
-*Used for fast extraction of pre-rendered HTML.*
-### Implementation Example
+### Implementation
 ```typescript
 // src/app/api/site/route.ts
 import { NextResponse } from 'next/server';
@@ -32,7 +32,6 @@ export async function GET() {
     const html = await response.text();
     
     const $ = cheerio.load(html);
-    // Remove non-text elements to reduce token noise
     $('script, style, nav, footer, noscript').remove();
     const rawText = $('body').text().replace(/\s+/g, ' ').trim();
 
@@ -44,10 +43,19 @@ export async function GET() {
 ```
 
 ## 4. Portfolio Vector Index (`portfolio-index`)
-- **Description**: A high-performance vector database hosted on **Pinecone**.
-- **Data Content**: Stores mathematically represented "embeddings" of resume details, detailed project descriptions, and blog posts.
-- **Search Logic**: Uses semantic similarity to find the most relevant context for any user query.
+- **Description**: Vector database hosted on Pinecone.
+- **Data**: Embeddings of resume details, project descriptions, and skills.
+- **Search**: Semantic similarity for grounding AI responses.
 
-## 5. Metadata Context Engine
-- **Description**: The system responsible for injecting retrieved text metadata into the LLM system prompt.
-- **Fallback Mechanism**: Ensures the agent can still provide helpful, general information even if a specific similarity search returns low-confidence results.
+## 5. GitHub Feed API (`/api/github`)
+- **Description**: Fetches real-time commit activity from GitHub Events API.
+- **Fallback**: Returns curated commit data when the API is unavailable or rate-limited.
+- **Features**: Auto-refresh every 60s, handles PushEvent, CreateEvent, ForkEvent, WatchEvent, etc.
+
+## 6. Embedded Browser (`/github-pages`)
+- **Description**: Iframe viewer that renders `sajid-ul-islam.github.io` inside the app.
+- **Features**: Fullscreen toggle, external open link, loading state, status bar.
+
+## 7. Metadata Context Engine
+- **Description**: Injects retrieved text metadata into the LLM system prompt.
+- **Fallback**: Provides general portfolio information when similarity search returns low-confidence results.

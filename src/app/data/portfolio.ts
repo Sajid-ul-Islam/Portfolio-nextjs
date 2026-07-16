@@ -823,6 +823,13 @@ export const fileTree: FileTreeSection[] = [
         icon: "settings",
         extension: "mjs",
       },
+      {
+        id: "github-pages",
+        label: "GitHub Pages",
+        href: "/github-pages",
+        icon: "globe",
+        extension: "html",
+      },
     ],
   },
 ];
