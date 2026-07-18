@@ -79,7 +79,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       if ((toolingMode === "website" || toolingMode === "combined") && !siteContext) {
         const siteResp = await fetch("/api/site");
         const siteData = await siteResp.json();
-        siteContext = siteData.content || "";
+        siteContext = siteData.data || "";
         setSiteSnapshot(siteContext);
       }
       const promptContext = (toolingMode === "website" || toolingMode === "combined") && siteContext
@@ -265,7 +265,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               try {
                 const result = await fetch("/api/site");
                 const data = await result.json();
-                if (data.content) setSiteSnapshot(data.content);
+                if (data.data) setSiteSnapshot(data.data);
                 else setSiteSnapshot("");
               } catch {
                 setSiteSnapshot("");

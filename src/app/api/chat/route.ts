@@ -1,4 +1,4 @@
-import { streamText, embed } from 'ai';
+import { generateText, embed } from 'ai';
 import { google } from '@ai-sdk/google';
 import { Pinecone } from '@pinecone-database/pinecone';
 
@@ -51,7 +51,7 @@ export async function POST(req: Request) {
     const context = await retrieveContext(lastUserMessage.content);
 
     // 4. AUGMENT & GENERATE (The 'A' and 'G' in RAG)
-    const result = await streamText({
+    const result = await generateText({
       model: google(model),
       system: `You are a helpful AI assistant integrated into Sajid Islam's VS Code-themed developer portfolio.
       Use the following retrieved context to answer the user's query accurately. 
@@ -64,8 +64,8 @@ export async function POST(req: Request) {
       messages,
     });
 
-    // Return the streaming response to the frontend client
-    return result.toTextStreamResponse();
+    // Return the JSON response with the content to the frontend client
+    return Response.json({ content: result.text });
   } catch (error) {
     console.error("Chat API Error:", error);
     return new Response("Internal Server Error", { status: 500 });
