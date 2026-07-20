@@ -43,25 +43,27 @@ export default function SourceControlPanel() {
     "loading"
   );
 
+  const [lastRefreshed, setLastRefreshed] = useState<Date | null>(null);
+
+  const fetchGitHubData = async () => {
+    try {
+      const response = await fetch("/api/github");
+      const payload = await response.json();
+      setData(payload);
+      setStatus(payload.ok ? "ready" : "error");
+      setLastRefreshed(new Date());
+    } catch (err) {
+      setStatus("error");
+    }
+  };
+
   useEffect(() => {
-    let isMounted = true;
-    fetch("/api/github")
-      .then((response) => response.json())
-      .then((payload) => {
-        if (!isMounted) return;
-        setData(payload);
-        setStatus(payload.ok ? "ready" : "error");
-      })
-      .catch(() => {
-        if (!isMounted) return;
-        setStatus("error");
-      });
-    return () => {
-      isMounted = false;
-    };
+    fetchGitHubData();
+    const intervalId = setInterval(fetchGitHubData, 60000);
+    return () => clearInterval(intervalId);
   }, []);
 
-  if (status === "loading") {
+  if (status === "loading" && !data) {
     return (
       <div className="p-4 text-vscode-sm text-[var(--vscode-text-secondary)]">
         Loading GitHub activity...
@@ -157,9 +159,17 @@ export default function SourceControlPanel() {
       </Panel>
 
       <Panel>
-        <h3 className="text-vscode-sm font-semibold text-[var(--vscode-text-primary)] mb-2">
-          Recent Commits
-        </h3>
+        <div className="flex items-center justify-between mb-2">
+          <h3 className="text-vscode-sm font-semibold text-[var(--vscode-text-primary)] flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-pulse" />
+            Live Commits Feed
+          </h3>
+          {lastRefreshed && (
+            <span className="text-[9px] text-[var(--vscode-text-muted)]" title="Auto-refreshes every 60s">
+              Updated {lastRefreshed.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            </span>
+          )}
+        </div>
         <div className="space-y-2">
           {data.recentCommits && data.recentCommits.length > 0 ? (
             data.recentCommits.map((commit, index) => (
@@ -168,10 +178,12 @@ export default function SourceControlPanel() {
                 href={commit.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block p-2 rounded border border-[var(--vscode-border)] hover:border-[var(--vscode-focusBorder)] transition-colors"
+                className="block p-2 rounded border border-[var(--vscode-border)] hover:border-[var(--vscode-focusBorder)] hover:bg-[var(--vscode-list-hoverBackground)] transition-all"
               >
-                <div className="text-vscode-xs text-[var(--vscode-text-secondary)]">
-                  {commit.repo}
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <div className="text-vscode-xs font-semibold text-[var(--vscode-text-secondary)] truncate">
+                    {commit.repo}
+                  </div>
                 </div>
                 <div className="text-vscode-sm text-[var(--vscode-text-primary)] line-clamp-2">
                   {commit.message}

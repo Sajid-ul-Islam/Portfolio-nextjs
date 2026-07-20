@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { ExternalLink, RefreshCw, Maximize2, Minimize2 } from "lucide-react";
 import { cn } from "@/lib/cn";
 
@@ -8,10 +9,24 @@ const EMBED_URL = "https://sajid-ul-islam.github.io/";
 
 export default function GitHubPagesPage() {
   const [isLoading, setIsLoading] = useState(true);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(true); // Fullscreen by default inside the app
+  const [mounted, setMounted] = useState(false);
 
-  return (
-    <div className="flex flex-col h-full bg-[var(--vscode-editor-background)]">
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
+
+  const content = (
+    <div 
+      className={cn(
+        "flex flex-col bg-[var(--vscode-editor-background)]",
+        isFullscreen ? "fixed inset-0 z-[99999] w-[100vw] h-[100dvh]" : "flex-1 h-full w-full"
+      )}
+    >
       {/* Toolbar */}
       <div className="flex items-center justify-between px-4 py-2 border-b border-[var(--vscode-border)] bg-black/10">
         <div className="flex items-center gap-2">
@@ -24,7 +39,7 @@ export default function GitHubPagesPage() {
         </div>
         <div className="flex items-center gap-1.5">
           <button
-            onClick={() => setIsFullscreen(!isFullscreen)}
+            onClick={toggleFullscreen}
             className="flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-mono font-bold text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-text-primary)] bg-white/5 border border-white/5 rounded-md hover:bg-white/10 transition-colors"
           >
             {isFullscreen ? <Minimize2 size={11} /> : <Maximize2 size={11} />}
@@ -43,10 +58,7 @@ export default function GitHubPagesPage() {
       </div>
 
       {/* Iframe Container */}
-      <div className={cn(
-        "flex-1 relative",
-        isFullscreen && "fixed inset-0 z-[9999] top-0 bg-[var(--vscode-editor-background)]"
-      )}>
+      <div className="flex-1 relative w-full h-full bg-[var(--vscode-editor-background)]">
         {isLoading && (
           <div className="absolute inset-0 flex flex-col items-center justify-center bg-[var(--vscode-editor-background)] z-10">
             <div className="flex gap-1.5 mb-3">
@@ -76,4 +88,10 @@ export default function GitHubPagesPage() {
       </div>
     </div>
   );
+
+  if (isFullscreen && mounted) {
+    return createPortal(content, document.body);
+  }
+
+  return content;
 }
