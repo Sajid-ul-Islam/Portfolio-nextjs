@@ -1,27 +1,27 @@
 "use client";
 
 import {
-  SquareStack,
-  Folder,
-  GitBranch,
-  Search,
-  Settings,
-  User,
-  MessageSquare,
-  Terminal as TerminalIcon
-} from "lucide-react";
+  VscFiles,
+  VscSearch,
+  VscSourceControl,
+  VscCommentDiscussion,
+  VscTerminal,
+  VscAccount,
+  VscSettingsGear,
+  VscExtensions,
+} from "react-icons/vsc";
 
 import { cn } from "@/lib/cn";
 
 const iconMap = {
-  files: Folder,
-  search: Search,
-  "git-branch": GitBranch,
-  blocks: SquareStack,
-  user: User,
-  settings: Settings,
-  chat: MessageSquare,
-  terminal: TerminalIcon,
+  files: VscFiles,
+  search: VscSearch,
+  "git-branch": VscSourceControl,
+  blocks: VscExtensions,
+  user: VscAccount,
+  settings: VscSettingsGear,
+  chat: VscCommentDiscussion,
+  terminal: VscTerminal,
 };
 
 const mainItems = [

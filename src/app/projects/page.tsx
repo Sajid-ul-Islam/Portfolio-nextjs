@@ -13,6 +13,7 @@ import { cn } from "../lib/cn";
 
 // Top-tier project IDs matching the strategic reordering
 const TOP_PROJECT_IDS = [
+  "desco-telegram-bot",
   "agentic-rag",
   "rag-system",
   "telegram-chatbot",

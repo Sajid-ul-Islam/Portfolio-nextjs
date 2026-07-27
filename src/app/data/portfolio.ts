@@ -140,6 +140,57 @@ export const testimonials: Testimonial[] = [
 
 export const projects: Project[] = [
   {
+    id: "desco-telegram-bot",
+    title: "DESCO Electricity Usage Assistant",
+    description:
+      "An automated Telegram chatbot acting as a DESCO electricity usage assistant — providing instant bill queries, consumption tracking, and customer utility assistance.",
+    longDescription:
+      "DESCO Electricity Usage Assistant is an automated Telegram chatbot designed to help electricity consumers easily check their usage statistics, bill details, prepaid/postpaid balance, and account information directly through Telegram (@descoTGbot). Built with Python and Telegram Bot API, it bridges utility data services with a seamless mobile chat interface.",
+    image: "/img/projects/automation.png",
+    liveUrl: "https://t.me/descoTGbot",
+    githubUrl: "https://github.com/Sajid-ul-Islam/descoiunfobot",
+    gitDiff: {
+      filename: "desco_bot.py",
+      oldCode: `# Manual web lookup
+def check_balance(account_no):
+    response = requests.get(DESCO_WEB_URL + account_no)
+    return parse_html(response.text)`,
+      newCode: `# Async Telegram handler with real-time DESCO API integration
+@bot.message_handler(commands=['balance', 'usage'])
+async def handle_desco_query(message):
+    account_id = extract_account(message.text)
+    usage_data = await desco_client.get_realtime_metrics(account_id)
+    await bot.reply_to(message, format_usage_report(usage_data))`,
+    },
+    featured: true,
+    technologies: ["Python", "Telegram API", "DESCO API", "Webhooks", "Chatbot", "Automation"],
+    caseStudy: {
+      role: "Lead Developer & Creator",
+      timeline: "2026",
+      problem:
+        "DESCO electricity consumers in Bangladesh lacked a quick, real-time mobile interface to monitor power usage, check bill balances, and get automated utility assistance without dealing with complex websites.",
+      solution:
+        "Developed @descoTGbot on Telegram — a high-performance Python chatbot connecting directly to utility data services to deliver instant consumption stats, balance updates, and automated alerts.",
+      impact: [
+        "Automated electricity usage and bill queries for DESCO consumers directly within Telegram.",
+        "Reduced friction by replacing cumbersome web portal login workflows with interactive chat.",
+        "Delivered real-time automated usage breakdowns and bill alerts.",
+      ],
+      metrics: [
+        { label: "Platform", value: "Telegram (@descoTGbot)" },
+        { label: "Response Time", value: "<500ms" },
+        { label: "Utility Service", value: "DESCO Electricity" },
+      ],
+    },
+    missionLogs: [
+      ">> Initializing @descoTGbot service node...",
+      ">> Connecting DESCO utility data API integration...",
+      ">> Registering stateful Telegram webhook handlers...",
+      ">> Active balance & consumption analysis engine operational.",
+      ">> Deployment complete. Telegram Bot live at t.me/descoTGbot.",
+    ],
+  },
+  {
     id: "agentic-rag",
     title: "Agentic RAG Pipeline",
     description:
@@ -781,6 +832,13 @@ export const fileTree: FileTreeSection[] = [
     isOpen: true,
     items: [
       { id: "home", label: "Welcome", href: "/", icon: "home", extension: "tsx" },
+      {
+        id: "desco-bot",
+        label: "DESCO_Bot",
+        href: "/projects/desco-telegram-bot",
+        icon: "bot",
+        extension: "py",
+      },
       {
         id: "experience",
         label: "Experience",

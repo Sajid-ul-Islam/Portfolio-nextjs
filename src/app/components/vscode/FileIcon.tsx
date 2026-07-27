@@ -12,31 +12,47 @@ import {
   SiR,
   SiPostgresql,
   SiNextdotjs,
+  SiGo,
+  SiTableau,
+  SiTelegram,
+  SiTailwindcss,
+  SiSass,
+  SiDocker,
+  SiYaml,
+  SiStreamlit,
 } from "react-icons/si";
-import { LuBarChart, LuFile, LuFileText, LuGlobe } from "react-icons/lu";
-import { VscCode } from "react-icons/vsc";
+import { LuFile, LuFileText, LuGlobe } from "react-icons/lu";
+import { VscTerminal, VscJson } from "react-icons/vsc";
 
 import { cn } from "@/lib/cn";
 
 const extensionColors: Record<string, string> = {
-  tsx: "text-blue-400",
-  jsx: "text-blue-400",
-  ts: "text-blue-500",
-  js: "text-yellow-400",
-  mjs: "text-yellow-400",
-  json: "text-yellow-500",
-  css: "text-blue-300",
-  scss: "text-pink-400",
-  html: "text-orange-500",
-  md: "text-gray-400",
-  mdx: "text-yellow-300",
-  py: "text-blue-400",
-  go: "text-cyan-400",
-  r: "text-blue-600",
-  sql: "text-orange-400",
-  tw: "text-teal-400",
-  tableau: "text-blue-700",
-  web: "text-blue-400",
+  tsx: "text-[#61DAFB]",
+  jsx: "text-[#61DAFB]",
+  ts: "text-[#3178C6]",
+  js: "text-[#F7DF1E]",
+  mjs: "text-[#F7DF1E]",
+  json: "text-[#F1E05A]",
+  css: "text-[#1572B6]",
+  scss: "text-[#CC6699]",
+  html: "text-[#E34F26]",
+  md: "text-[#38BDF8]",
+  mdx: "text-[#38BDF8]",
+  py: "text-[#3776AB]",
+  go: "text-[#00ADD8]",
+  r: "text-[#276DC3]",
+  sql: "text-[#4169E1]",
+  tw: "text-[#06B6D4]",
+  tableau: "text-[#E97627]",
+  web: "text-[#38BDF8]",
+  bot: "text-[#26A5E4]",
+  telegram: "text-[#26A5E4]",
+  sh: "text-[#4EAA25]",
+  bash: "text-[#4EAA25]",
+  yml: "text-[#CB171E]",
+  yaml: "text-[#CB171E]",
+  docker: "text-[#2496ED]",
+  streamlit: "text-[#FF4B4B]",
 };
 
 type FileIconProps = {
@@ -64,14 +80,18 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
     case "mjs":
       return <SiJavascript {...iconProps} />;
     case "py":
+      if (filename.toLowerCase().includes("bot") || filename.toLowerCase().includes("desco")) {
+        return <SiTelegram {...iconProps} />;
+      }
       return <SiPython {...iconProps} />;
     case "json":
-      return <SiJson {...iconProps} />;
+      return <VscJson {...iconProps} />;
     case "html":
       return <SiHtml5 {...iconProps} />;
     case "css":
-    case "scss":
       return <SiCss3 {...iconProps} />;
+    case "scss":
+      return <SiSass {...iconProps} />;
     case "md":
     case "mdx":
       return <SiMarkdown {...iconProps} />;
@@ -80,9 +100,24 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
     case "sql":
       return <SiPostgresql {...iconProps} />;
     case "tableau":
-      return <LuBarChart {...iconProps} />;
+      return <SiTableau {...iconProps} />;
     case "go":
-      return <VscCode {...iconProps} />;
+      return <SiGo {...iconProps} />;
+    case "tw":
+      return <SiTailwindcss {...iconProps} />;
+    case "streamlit":
+      return <SiStreamlit {...iconProps} />;
+    case "bot":
+    case "telegram":
+      return <SiTelegram {...iconProps} />;
+    case "sh":
+    case "bash":
+      return <VscTerminal {...iconProps} />;
+    case "yml":
+    case "yaml":
+      return <SiYaml {...iconProps} />;
+    case "docker":
+      return <SiDocker {...iconProps} />;
     case "web":
       return <LuGlobe {...iconProps} />;
     default:
