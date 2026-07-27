@@ -14,16 +14,9 @@ import { cn } from "../../lib/cn";
 // Inline SVG for Hugging Face (no react-icons entry)
 function HuggingFaceIcon({ size = 16, className = "" }: { size?: number; className?: string }) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 1.5a8.5 8.5 0 1 1 0 17 8.5 8.5 0 0 1 0-17zM8.5 9a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-7.3 4.5c.28 1.63 1.62 2.75 3.8 2.75s3.52-1.12 3.8-2.75H8.2z" />
-    </svg>
+    <span style={{ fontSize: `${size}px`, lineHeight: 1 }} className={className} role="img" aria-label="Hugging Face">
+      🤗
+    </span>
   );
 }
 
@@ -53,13 +46,13 @@ export default function SocialLinks({ className }: SocialLinksProps) {
             rel="noopener noreferrer"
             className={cn(
               "flex items-center gap-2 px-3 py-1.5",
-              "bg-white/5 border border-white/10",
-              "rounded-md hover:bg-[#a3e635]/10 hover:border-[#a3e635]/30 group transition-all"
+              "bg-[var(--vscode-card-bg)] border border-[var(--vscode-border)]",
+              "rounded-lg hover:bg-[var(--vscode-accent)]/15 hover:border-[var(--vscode-accent)]/40 group transition-all"
             )}
             title={link.name}
           >
-            <Icon size={16} className="text-white group-hover:text-[#a3e635]" />
-            <span className="text-[10px] font-bold text-gray-400 group-hover:text-white uppercase tracking-tighter">
+            <Icon size={16} className="text-[var(--vscode-text-primary)] group-hover:text-[var(--vscode-accent)] transition-colors" />
+            <span className="text-[10px] font-bold text-[var(--vscode-text-secondary)] group-hover:text-[var(--vscode-text-primary)] uppercase tracking-tighter transition-colors">
               {link.name}
             </span>
           </a>

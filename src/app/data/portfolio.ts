@@ -1246,10 +1246,14 @@ export const personalInfo = {
   title: "Product-Minded Business & Data Analyst",
   email: "sajid.islam.chowdhury@gmail.com",
   whatsapp: "https://wa.me/+8801824526054?text=",
+  github: "https://github.com/Sajid-ul-Islam",
+  huggingface: "https://huggingface.co/Sajid-ul-Islam",
   resumeUrl:
     "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
   bio: "Product-minded Business & Data Analyst with 2+ years of experience owning analytics products end-to-end — from problem definition and stakeholder alignment to implementation and iteration. Proven track record of designing operational dashboards, BI tools, and data-driven decision products for e-commerce platforms like Daraz (Alibaba Group) and Deen Commerce. Specialized in Python, SQL, and Advanced Analytics with a focus on translating business problems into measurable product outcomes.",
 };
+
+
 
 export const metrics = [
   { label: "Products Shipped", value: "15+", sub: "Dashboards & Tools" },

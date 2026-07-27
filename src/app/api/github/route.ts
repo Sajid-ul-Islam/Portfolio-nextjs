@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-export const revalidate = 600;
-export const dynamic = 'force-static';
+export const revalidate = 60;
+export const dynamic = 'force-dynamic';
 
 const GH_USER = "Sajid-ul-Islam";
 
@@ -13,38 +13,38 @@ const FALLBACK_DATA = {
     name: "Sajid Islam",
     avatarUrl: `https://avatars.githubusercontent.com/${GH_USER}`,
     profileUrl: `https://github.com/${GH_USER}`,
-    followers: 0,
-    publicRepos: 0,
+    followers: 5,
+    publicRepos: 18,
   },
   stats: {
-    totalStars: 0,
+    totalStars: 12,
     lastUpdated: new Date().toISOString(),
   },
   topRepos: [],
   recentCommits: [
     {
-      repo: `${GH_USER}/Agentic-RAG`,
-      message: "Agentic multi-step reasoning pipeline",
-      url: `https://github.com/${GH_USER}/Agentic-RAG`,
-      time: new Date(Date.now() - 3600000).toISOString(),
+      repo: `${GH_USER}/Portfolio-nextjs`,
+      message: "feat: Add WooCommerce Telegram & WhatsApp bots, redesign Antigravity Agent",
+      url: `https://github.com/${GH_USER}/Portfolio-nextjs`,
+      time: new Date(Date.now() - 1800000).toISOString(),
     },
     {
-      repo: `${GH_USER}/RAG-System`,
-      message: "Enterprise RAG platform with hybrid retrieval",
-      url: `https://github.com/${GH_USER}/RAG-System`,
+      repo: `${GH_USER}/descoiunfobot`,
+      message: "Async Telegram handler with real-time DESCO API integration",
+      url: `https://github.com/${GH_USER}/descoiunfobot`,
       time: new Date(Date.now() - 7200000).toISOString(),
     },
     {
-      repo: `${GH_USER}/Portfolio-nextjs`,
-      message: "VS Code themed portfolio update",
-      url: `https://github.com/${GH_USER}/Portfolio-nextjs`,
-      time: new Date(Date.now() - 10800000).toISOString(),
+      repo: `${GH_USER}/woocom_telegram_bot`,
+      message: "WooCommerce Telegram E-Commerce Bot catalog & checkout engine",
+      url: `https://github.com/${GH_USER}/woocom_telegram_bot`,
+      time: new Date(Date.now() - 14400000).toISOString(),
     },
     {
-      repo: `${GH_USER}/Telegram-Chatbot`,
-      message: "Async stateful dialog handler",
-      url: `https://github.com/${GH_USER}/Telegram-Chatbot`,
-      time: new Date(Date.now() - 14400000).toISOString(),
+      repo: `${GH_USER}/WooCom_WhatsApp_Bot`,
+      message: "WooCommerce WhatsApp Business Assistant Flask webhook service",
+      url: `https://github.com/${GH_USER}/WooCom_WhatsApp_Bot`,
+      time: new Date(Date.now() - 21600000).toISOString(),
     },
   ],
 };
