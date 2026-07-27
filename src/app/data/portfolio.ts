@@ -4,6 +4,7 @@ export type FileTreeItem = {
   href: string;
   icon: string;
   extension: string;
+  indent?: boolean;
 };
 
 export type FileTreeSection = {
@@ -833,13 +834,6 @@ export const fileTree: FileTreeSection[] = [
     items: [
       { id: "home", label: "Welcome", href: "/", icon: "home", extension: "tsx" },
       {
-        id: "desco-bot",
-        label: "DESCO_Bot",
-        href: "/projects/desco-telegram-bot",
-        icon: "bot",
-        extension: "py",
-      },
-      {
         id: "experience",
         label: "Experience",
         href: "/experience",
@@ -859,6 +853,14 @@ export const fileTree: FileTreeSection[] = [
         href: "/projects",
         icon: "folder",
         extension: "py",
+      },
+      {
+        id: "desco-bot",
+        label: "desco_bot",
+        href: "/projects/desco-telegram-bot",
+        icon: "bot",
+        extension: "py",
+        indent: true,
       },
       {
         id: "education",

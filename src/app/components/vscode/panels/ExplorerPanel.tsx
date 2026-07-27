@@ -58,15 +58,19 @@ export default function ExplorerPanel({ onClose }: ExplorerPanelProps) {
                       href={item.href}
                       onClick={onClose}
                       className={cn(
-                        "flex items-center gap-2 px-4 py-[5px] pl-6",
-                        "text-vscode-sm text-[var(--vscode-sideBar-foreground)]",
+                        "flex items-center gap-2 px-4 py-[5px] relative",
+                        item.indent ? "pl-9 text-vscode-xs" : "pl-6 text-vscode-sm",
+                        "text-[var(--vscode-sideBar-foreground)]",
                         "hover:bg-[var(--vscode-list-hoverBackground)] transition-colors",
                         "cursor-pointer",
                         isActive &&
                           "bg-[var(--vscode-list-inactiveSelectionBackground)]"
                       )}
                     >
-                      <FileIcon filename={filename} size={16} />
+                      {item.indent && (
+                        <span className="absolute left-7 top-0 bottom-0 w-[1px] bg-white/10" />
+                      )}
+                      <FileIcon filename={filename} size={item.indent ? 14 : 16} />
                       <span className="truncate">{filename}</span>
                     </Link>
                   );

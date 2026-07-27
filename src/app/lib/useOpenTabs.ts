@@ -94,6 +94,8 @@ export function useOpenTabs() {
 
   const closeTab = useCallback(
     (id: string, force = true) => {
+      let targetHref: string | null = null;
+
       setTabs((prev) => {
         const index = prev.findIndex((tab) => tab.id === id);
         const target = prev[index];
@@ -105,44 +107,60 @@ export function useOpenTabs() {
         if (id === activeTab) {
           if (nextTabs.length > 0) {
             const nextIndex = Math.min(index, nextTabs.length - 1);
-            router.push(nextTabs[nextIndex].href);
+            targetHref = nextTabs[nextIndex].href;
           } else {
-            router.push("/");
+            targetHref = "/";
           }
         }
 
         return nextTabs;
       });
+
+      if (targetHref) {
+        router.push(targetHref);
+      }
     },
     [activeTab, router, setTabs]
   );
 
   const closeOtherTabs = useCallback(
     (id: string) => {
+      let targetHref: string | null = null;
+
       setTabs((prev) => {
         const nextTabs = prev.filter(
           (tab) => tab.id === id || tab.isPinned
         );
         const stillActive = nextTabs.some((tab) => tab.id === activeTab);
         if (!stillActive) {
-          router.push(nextTabs[0]?.href ?? "/");
+          targetHref = nextTabs[0]?.href ?? "/";
         }
         return nextTabs;
       });
+
+      if (targetHref) {
+        router.push(targetHref);
+      }
     },
     [activeTab, router, setTabs]
   );
 
   const closeAllTabs = useCallback(() => {
+    let targetHref: string | null = null;
+
     setTabs((prev) => {
       const nextTabs = prev.filter((tab) => tab.isPinned);
       if (nextTabs.length === 0) {
-        router.push("/");
+        targetHref = "/";
       } else if (!nextTabs.some((tab) => tab.id === activeTab)) {
-        router.push(nextTabs[0].href);
+        targetHref = nextTabs[0]?.href ?? "/";
       }
       return nextTabs;
     });
+
+    if (targetHref) {
+      router.push(targetHref);
+    }
   }, [activeTab, router, setTabs]);
 
   const togglePin = useCallback(

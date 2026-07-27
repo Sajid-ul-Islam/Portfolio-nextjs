@@ -13,28 +13,30 @@ import GitDiffViewer from "../../components/vscode/GitDiffViewer";
 import { projects } from "../../data/portfolio";
 
 type ProjectPageProps = {
-  params: { id: string };
+  params: Promise<{ id: string }> | { id: string };
 };
 
 export function generateStaticParams() {
   return projects.map((project) => ({ id: project.id }));
 }
 
-export function generateMetadata({ params }: ProjectPageProps) {
-  const project = projects.find((item) => item.id === params.id);
+export async function generateMetadata({ params }: ProjectPageProps) {
+  const resolvedParams = await params;
+  const project = projects.find((item) => item.id === resolvedParams.id);
   if (!project) {
-    return { title: "Project" };
+    return { title: "Project Not Found" };
   }
   return {
-    title: project.title,
+    title: `${project.title} | Portfolio`,
     description: project.description,
     alternates: { canonical: `/projects/${project.id}` },
     openGraph: project.image ? { images: [project.image] } : undefined,
   };
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const currentIndex = projects.findIndex((item) => item.id === params.id);
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const resolvedParams = await params;
+  const currentIndex = projects.findIndex((item) => item.id === resolvedParams.id);
   const project = projects[currentIndex];
   
   if (!project) notFound();
@@ -47,17 +49,19 @@ export default function ProjectPage({ params }: ProjectPageProps) {
     solution: project.longDescription ?? project.description,
   };
 
+  const isTelegramBot = project.liveUrl?.includes("t.me");
+
   return (
-    <div className="max-w-4xl mx-auto p-6 md:p-10 animate-in fade-in duration-700">
+    <div className="max-w-4xl mx-auto p-6 md:p-10 animate-in fade-in duration-700 font-sans">
       <nav className="mb-8 flex items-center justify-between border-b border-white/5 pb-4">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-2 text-vscode-sm text-[var(--vscode-text-link)] hover:text-[var(--vscode-text-linkHover)] transition-all hover:-translate-x-1"
+          className="inline-flex items-center gap-2 text-vscode-sm font-mono text-[var(--vscode-text-link)] hover:text-[var(--vscode-text-linkHover)] transition-all hover:-translate-x-1"
         >
           <ArrowLeft size={16} />
           <span>PORTFOLIO_ROOT</span>
         </Link>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 font-mono">
           {prevProject && (
             <Link
               href={`/projects/${prevProject.id}`}
@@ -81,13 +85,13 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
       <div className="mb-2 flex items-center gap-2">
         <div className="w-2 h-2 bg-[#a3e635] shadow-[0_0_8px_#a3e635] rounded-full animate-pulse"></div>
-        <span className="text-[10px] text-[#a3e635] font-bold uppercase tracking-widest">PRODUCT CASE STUDY</span>
+        <span className="text-[10px] text-[#a3e635] font-bold uppercase tracking-widest font-mono">PRODUCT CASE STUDY</span>
       </div>
-      <h1 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tighter uppercase">
+      <h1 className="text-3xl md:text-5xl font-black text-white mb-6 tracking-tight uppercase">
         {project.title}
       </h1>
 
-      <div className="relative aspect-video rounded-xl overflow-hidden mb-10 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group">
+      <div className="relative aspect-video rounded-2xl overflow-hidden mb-10 border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] group">
         {project.image ? (
           <Image
             src={project.image}
@@ -98,7 +102,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           />
         ) : (
           <div className="w-full h-full bg-[#0a0a0a] flex flex-col items-center justify-center text-[var(--vscode-text-secondary)]">
-            <span className="text-xs uppercase tracking-[0.4em] mb-2 opacity-50">
+            <span className="text-xs uppercase tracking-[0.4em] mb-2 opacity-50 font-mono">
               MISSION_ASSET_NULL
             </span>
             <div className="w-12 h-1 bg-white/5 relative overflow-hidden backdrop-blur-sm">
@@ -108,26 +112,39 @@ export default function ProjectPage({ params }: ProjectPageProps) {
         )}
       </div>
 
-      <div className="flex flex-wrap gap-4 mb-12">
+      {/* Prominent Action Bar */}
+      <div className="flex flex-wrap items-center gap-4 mb-10 p-4 rounded-2xl bg-white/[0.02] border border-white/10 backdrop-blur-sm">
         <RunProjectButton 
           projectId={project.id} 
           isPython={project.technologies.includes("Python")} 
         />
+
         {project.liveUrl ? (
-          <Button asChild className="bg-[#a3e635] text-black hover:bg-[#bef264] border-none px-6 py-4 h-auto text-sm font-bold uppercase tracking-tight">
+          <Button asChild className="bg-[#a3e635] text-black hover:bg-[#bef264] border-none px-6 py-3.5 h-auto text-xs font-mono font-extrabold uppercase tracking-wide rounded-xl shadow-lg shadow-[#a3e635]/20">
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink size={18} />
-              EXECUTE_LIVE_DASHBOARD
+              <ExternalLink size={16} />
+              {isTelegramBot ? "OPEN TELEGRAM BOT (@descoTGbot)" : "LAUNCH LIVE DEMO"}
             </a>
           </Button>
         ) : null}
+
         {project.githubUrl ? (
-          <Button asChild variant="secondary" className="px-6 py-4 h-auto text-sm font-bold border-white/10 hover:bg-white/5 uppercase tracking-tight">
-            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-              <Code size={18} />
-              OPEN_SOURCE_REPO
+          <>
+            <Button asChild variant="secondary" className="px-5 py-3.5 h-auto text-xs font-mono font-bold border-white/10 hover:bg-white/10 uppercase tracking-wide rounded-xl">
+              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                <Code size={16} />
+                GITHUB REPOSITORY
+              </a>
+            </Button>
+            <a
+              href={`${project.githubUrl}#readme`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-vscode-xs font-mono text-[var(--vscode-text-secondary)] hover:text-white underline underline-offset-4 transition-colors"
+            >
+              View README.md &rarr;
             </a>
-          </Button>
+          </>
         ) : null}
       </div>
 
