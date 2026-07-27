@@ -155,18 +155,18 @@ export default function SettingsJsonPage() {
   return (
     <div className="flex flex-col h-full bg-[#141815]/40 animate-in fade-in duration-500 relative font-sans">
       {/* Top Navbar */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--vscode-border)] bg-[#191d1a]/80 backdrop-blur-xl z-10">
+      <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 border-b border-[var(--vscode-border)] bg-[#191d1a]/80 backdrop-blur-xl z-10">
         <div className="flex items-center gap-2.5">
           <span className="px-2 py-0.5 rounded bg-[var(--vscode-accent)]/15 text-[var(--vscode-accent)] text-[9px] font-bold tracking-wider uppercase font-mono border border-[var(--vscode-accent)]/10">
             Preference Editor
           </span>
           <div className="flex items-center gap-1.5 text-vscode-sm text-[var(--vscode-text-secondary)]">
             <span className="text-[var(--vscode-accent)] font-bold">settings.mjs</span>
-            <span className="text-[var(--vscode-text-muted)] text-vscode-xs">— Workspace Settings</span>
+            <span className="text-[var(--vscode-text-muted)] text-vscode-xs hidden sm:inline">— Workspace Settings</span>
           </div>
         </div>
         
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
           {error && <span className="text-red-400 text-vscode-xs font-mono mr-2 bg-red-400/10 px-2 py-1 rounded border border-red-400/20">{error}</span>}
           {isSaved && <span className="text-emerald-400 text-vscode-xs font-mono mr-2 bg-emerald-400/10 px-2.5 py-1 rounded border border-emerald-400/20 animate-pulse font-bold flex items-center gap-1">
             <LuCheck size={12} /> Saved
