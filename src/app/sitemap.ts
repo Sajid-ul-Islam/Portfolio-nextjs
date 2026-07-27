@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 
+export const dynamic = "force-static";
+
 const BASE_URL = "https://sajid-ul-islam.vercel.app";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -14,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const projectPages = [
+    "desco-telegram-bot",
     "agentic-rag",
     "rag-system",
     "telegram-chatbot",

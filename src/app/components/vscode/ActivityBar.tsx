@@ -63,7 +63,7 @@ export default function ActivityBar<T extends string = string>({
     >
       <div className={cn(isHorizontal ? "flex items-center gap-1 w-full" : "flex flex-col")}>
         {topItems.map((item) => {
-          const Icon = iconMap[item.icon as keyof typeof iconMap] || Folder;
+          const Icon = iconMap[item.icon as keyof typeof iconMap] || VscFiles;
           const isActive = activeItem === item.id;
           return (
             <button
@@ -98,7 +98,7 @@ export default function ActivityBar<T extends string = string>({
       {!isHorizontal ? (
         <div className="flex flex-col">
           {bottomItems.map((item) => {
-            const Icon = iconMap[item.icon as keyof typeof iconMap] || User;
+            const Icon = iconMap[item.icon as keyof typeof iconMap] || VscAccount;
             return (
               <button
                 key={item.id}

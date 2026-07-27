@@ -3,7 +3,7 @@ import * as cheerio from 'cheerio';
 
 const TARGET_URL = 'https://sajid-ul-islam.github.io/';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
 
 export async function GET() {
   try {

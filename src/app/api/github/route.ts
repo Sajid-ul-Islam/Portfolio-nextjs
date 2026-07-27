@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 export const revalidate = 600;
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
 
 const GH_USER = "Sajid-ul-Islam";
 
