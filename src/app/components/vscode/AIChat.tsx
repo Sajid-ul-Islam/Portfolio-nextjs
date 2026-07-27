@@ -191,11 +191,11 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--vscode-accent)] via-[#38bdf8] to-[#a855f7] opacity-80" />
 
       {/* Agent Header */}
-      <div className="px-4 py-3.5 bg-black/30 border-b border-[var(--vscode-border)] flex justify-between items-center relative z-10 backdrop-blur-md">
+      <div className="px-4 py-3.5 bg-[var(--vscode-sideBar-background)] border-b border-[var(--vscode-border)] flex justify-between items-center relative z-10 backdrop-blur-md">
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 bg-[var(--vscode-accent)]/20 animate-ping rounded-full [animation-duration:2500ms]" />
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--vscode-accent)]/20 via-black to-[#38bdf8]/20 border border-[var(--vscode-accent)]/40 flex items-center justify-center shadow-lg">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--vscode-accent)]/20 via-[var(--vscode-sideBar-background)] to-[#38bdf8]/20 border border-[var(--vscode-accent)]/40 flex items-center justify-center shadow-lg">
               <LuCpu size={18} className="text-[var(--vscode-accent)] animate-pulse" />
             </div>
             <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[var(--vscode-accent)] rounded-full border-2 border-[var(--vscode-sideBar-background)] shadow-[0_0_8px_var(--vscode-accent)]" />
@@ -222,21 +222,21 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         <div className="flex items-center gap-1">
           <button
             onClick={handleClear}
-            className="text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-accent)] transition-colors p-1.5 rounded-lg hover:bg-white/5"
+            className="text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-accent)] transition-colors p-1.5 rounded-lg hover:bg-[var(--vscode-accent)]/10"
             title="Clear Chat History"
           >
             <LuTrash2 size={14} />
           </button>
           <button
             onClick={onClose}
-            className="text-[var(--vscode-text-secondary)] hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5"
+            className="text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-text-primary)] transition-colors p-1.5 rounded-lg hover:bg-[var(--vscode-accent)]/10"
             title="Minimize"
           >
             <LuMinus size={15} />
           </button>
           <button
             onClick={onClose}
-            className="text-[var(--vscode-text-secondary)] hover:text-white transition-colors hover:rotate-90 duration-300 p-1.5 rounded-lg hover:bg-white/5"
+            className="text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-text-primary)] transition-colors hover:rotate-90 duration-300 p-1.5 rounded-lg hover:bg-[var(--vscode-accent)]/10"
             title="Close Chat"
           >
             <LuX size={15} />
@@ -245,7 +245,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       </div>
 
       {/* Model & Source Bar */}
-      <div className="px-4 py-2 border-b border-[var(--vscode-border)] flex items-center justify-between bg-black/40 text-[9px] font-mono text-[var(--vscode-text-secondary)] relative z-10">
+      <div className="px-4 py-2 border-b border-[var(--vscode-border)] flex items-center justify-between bg-[var(--vscode-sideBar-background)]/90 text-[9px] font-mono text-[var(--vscode-text-secondary)] relative z-10">
         <div className="flex items-center gap-2">
           <span className="text-[var(--vscode-text-muted)] font-bold uppercase">MODEL:</span>
           <button
@@ -281,7 +281,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               "px-2 py-0.5 rounded-md text-[8px] font-bold border transition-all",
               toolingMode === "portfolio"
                 ? "bg-[var(--vscode-accent)]/20 text-[var(--vscode-accent)] border-[var(--vscode-accent)]/40"
-                : "bg-white/5 text-[var(--vscode-text-secondary)] border-transparent hover:text-white"
+                : "bg-[var(--vscode-card-bg)] text-[var(--vscode-text-secondary)] border-transparent hover:text-[var(--vscode-text-primary)]"
             )}
           >
             PORTFOLIO
@@ -292,7 +292,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               "px-2 py-0.5 rounded-md text-[8px] font-bold border transition-all",
               toolingMode === "website"
                 ? "bg-[var(--vscode-accent)]/20 text-[var(--vscode-accent)] border-[var(--vscode-accent)]/40"
-                : "bg-white/5 text-[var(--vscode-text-secondary)] border-transparent hover:text-white"
+                : "bg-[var(--vscode-card-bg)] text-[var(--vscode-text-secondary)] border-transparent hover:text-[var(--vscode-text-primary)]"
             )}
           >
             WEB
@@ -308,8 +308,8 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 setShowModelSelect(false);
               }}
               className={cn(
-                "w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 transition-colors",
-                model === "gemini-3.6-flash" && "bg-white/5"
+                "w-full text-left p-3 hover:bg-[var(--vscode-accent)]/10 flex flex-col gap-0.5 transition-colors",
+                model === "gemini-3.6-flash" && "bg-[var(--vscode-accent)]/10"
               )}
             >
               <div className="flex items-center gap-1.5 text-yellow-400 font-bold">
@@ -324,8 +324,8 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 setShowModelSelect(false);
               }}
               className={cn(
-                "w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-[var(--vscode-border)] transition-colors",
-                model === "gemini-1.5-pro" && "bg-white/5"
+                "w-full text-left p-3 hover:bg-[var(--vscode-accent)]/10 flex flex-col gap-0.5 border-t border-[var(--vscode-border)] transition-colors",
+                model === "gemini-1.5-pro" && "bg-[var(--vscode-accent)]/10"
               )}
             >
               <div className="flex items-center gap-1.5 text-purple-400 font-bold">
@@ -340,8 +340,8 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 setShowModelSelect(false);
               }}
               className={cn(
-                "w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-[var(--vscode-border)] transition-colors",
-                model === "claude-3-5-sonnet" && "bg-white/5"
+                "w-full text-left p-3 hover:bg-[var(--vscode-accent)]/10 flex flex-col gap-0.5 border-t border-[var(--vscode-border)] transition-colors",
+                model === "claude-3-5-sonnet" && "bg-[var(--vscode-accent)]/10"
               )}
             >
               <div className="flex items-center gap-1.5 text-cyan-400 font-bold">
@@ -364,7 +364,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
             } animate-in fade-in slide-in-from-bottom-2 duration-300`}
           >
             {m.role === "system" ? (
-              <div className="w-full text-center py-1.5 px-3 rounded-lg bg-white/[0.03] border border-white/5 text-[9px] font-mono text-[var(--vscode-text-secondary)] uppercase tracking-widest flex items-center justify-center gap-2">
+              <div className="w-full text-center py-1.5 px-3 rounded-lg bg-[var(--vscode-card-bg)] border border-[var(--vscode-border)] text-[9px] font-mono text-[var(--vscode-text-secondary)] uppercase tracking-widest flex items-center justify-center gap-2">
                 <LuTerminal size={11} className="text-[var(--vscode-accent)]" />
                 <span>{m.content}</span>
               </div>
@@ -377,7 +377,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 <div className="whitespace-pre-wrap leading-relaxed">{m.content}</div>
               </div>
             ) : (
-              <div className="max-w-[90%] p-4 rounded-2xl rounded-tl-none bg-white/[0.03] border border-[var(--vscode-border)] text-gray-200 text-vscode-sm shadow-xl relative group/card">
+              <div className="max-w-[90%] p-4 rounded-2xl rounded-tl-none bg-[var(--vscode-card-bg)] border border-[var(--vscode-border)] text-[var(--vscode-text-primary)] text-vscode-sm shadow-xl relative group/card">
                 {/* Agent Header Tag */}
                 <div className="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-[var(--vscode-border)] font-mono text-[9px]">
                   <div className="flex items-center gap-2">
@@ -390,7 +390,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                     {m.timestamp && <span className="text-[var(--vscode-text-muted)]">{m.timestamp}</span>}
                     <button
                       onClick={() => handleCopy(m.content, m.id)}
-                      className="text-[var(--vscode-text-muted)] hover:text-white transition-colors p-1"
+                      className="text-[var(--vscode-text-muted)] hover:text-[var(--vscode-text-primary)] transition-colors p-1"
                       title="Copy Response"
                     >
                       {copiedId === m.id ? (
@@ -404,10 +404,10 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
 
                 {/* Antigravity Thought Trace Box */}
                 {m.thoughts && m.thoughts.length > 0 && (
-                  <div className="mb-3 rounded-xl bg-black/40 border border-white/5 overflow-hidden">
+                  <div className="mb-3 rounded-xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] overflow-hidden">
                     <button
                       onClick={() => toggleThoughts(m.id)}
-                      className="w-full flex items-center justify-between px-3 py-1.5 text-[9px] font-mono text-[var(--vscode-text-secondary)] hover:text-white bg-white/[0.02] transition-colors"
+                      className="w-full flex items-center justify-between px-3 py-1.5 text-[9px] font-mono text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-text-primary)] bg-[var(--vscode-card-bg)] transition-colors"
                     >
                       <span className="flex items-center gap-1.5 text-[var(--vscode-accent)] font-bold">
                         <LuActivity size={10} className="animate-pulse" />
@@ -416,7 +416,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                       {expandedThoughts[m.id] ? <LuChevronUp size={10} /> : <LuChevronDown size={10} />}
                     </button>
                     {expandedThoughts[m.id] && (
-                      <div className="p-3 border-t border-white/5 space-y-1.5 font-mono text-[9px] text-[var(--vscode-text-secondary)] bg-black/50">
+                      <div className="p-3 border-t border-[var(--vscode-border)] space-y-1.5 font-mono text-[9px] text-[var(--vscode-text-secondary)] bg-[var(--vscode-editor-background)]">
                         {m.thoughts.map((step, idx) => (
                           <div key={idx} className="flex items-start gap-2">
                             <span className="text-[var(--vscode-accent)] font-bold">›</span>
@@ -438,7 +438,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         {/* Antigravity Thinking State */}
         {isTyping && (
           <div className="flex justify-start animate-in fade-in duration-300">
-            <div className="p-3.5 rounded-2xl rounded-tl-none bg-white/[0.03] border border-[var(--vscode-accent)]/30 text-vscode-sm font-mono text-gray-300 space-y-2 max-w-[85%]">
+            <div className="p-3.5 rounded-2xl rounded-tl-none bg-[var(--vscode-card-bg)] border border-[var(--vscode-accent)]/30 text-vscode-sm font-mono text-[var(--vscode-text-primary)] space-y-2 max-w-[85%]">
               <div className="flex items-center gap-2 text-[10px] text-[var(--vscode-accent)] font-bold uppercase tracking-wider">
                 <LuCpu size={12} className="animate-spin text-[var(--vscode-accent)]" />
                 <span>Antigravity Agent Reasoning...</span>
@@ -448,7 +448,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce [animation-delay:-0.15s]" />
                 <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce" />
                 <span className="text-[9px] text-[var(--vscode-text-secondary)] italic ml-2">
-                  Scanning portfolio embeddings...
+                  Querying vector embeddings & code syntax...
                 </span>
               </div>
             </div>
@@ -458,14 +458,14 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
 
       {/* Quick Prompts Bar */}
       {!isTyping && messages.length < 6 && (
-        <div className="px-4 py-2 border-t border-[var(--vscode-border)] bg-black/20 overflow-x-auto whitespace-nowrap scrollbar-none flex gap-1.5 relative z-10">
+        <div className="px-4 py-2 border-t border-[var(--vscode-border)] bg-[var(--vscode-sideBar-background)]/80 overflow-x-auto whitespace-nowrap scrollbar-none flex gap-1.5 relative z-10">
           {quickPrompts.map((s) => (
             <button
               key={s.label}
               onClick={() => {
                 setInput(s.prompt);
               }}
-              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[var(--vscode-accent)]/15 border border-white/10 hover:border-[var(--vscode-accent)]/30 text-vscode-xs font-mono text-[var(--vscode-accent)] font-semibold transition-all flex-shrink-0"
+              className="px-2.5 py-1 rounded-lg bg-[var(--vscode-card-bg)] hover:bg-[var(--vscode-accent)]/15 border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/30 text-vscode-xs font-mono text-[var(--vscode-accent)] font-semibold transition-all flex-shrink-0"
             >
               {s.label}
             </button>
@@ -474,22 +474,22 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       )}
 
       {/* Input Section */}
-      <div className="p-4 border-t border-[var(--vscode-border)] bg-black/40 relative z-10">
+      <div className="p-4 border-t border-[var(--vscode-border)] bg-[var(--vscode-sideBar-background)] relative z-10">
         <form onSubmit={handleSend} className="relative">
-          <div className="flex items-center gap-2 bg-black/50 border border-[var(--vscode-border)] rounded-2xl p-1.5 focus-within:border-[var(--vscode-accent)]/50 hover:border-white/20 transition-all shadow-inner">
+          <div className="flex items-center gap-2 bg-[var(--vscode-input-background)] border border-[var(--vscode-border)] rounded-2xl p-1.5 focus-within:border-[var(--vscode-accent)]/50 transition-all shadow-inner">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={isTyping}
               placeholder={isTyping ? "Agent synthesizing answer..." : "Ask Antigravity Agent anything about Sajid..."}
-              className="flex-1 bg-transparent border-none px-3 py-2 text-white outline-none placeholder:text-[var(--vscode-text-muted)] disabled:opacity-50 text-[12px] font-sans"
+              className="flex-1 bg-transparent border-none px-3 py-2 text-[var(--vscode-text-primary)] outline-none placeholder:text-[var(--vscode-text-muted)] disabled:opacity-50 text-[12px] font-sans"
               aria-label="Agent input query"
             />
             <button
               type="submit"
               disabled={!input.trim() || isTyping}
-              className="w-9 h-9 flex items-center justify-center bg-[var(--vscode-accent)] hover:opacity-90 text-black font-bold disabled:bg-white/5 disabled:text-gray-600 rounded-xl transition-all active:scale-95 shadow-md flex-shrink-0"
+              className="w-9 h-9 flex items-center justify-center bg-[var(--vscode-accent)] hover:opacity-90 text-black font-bold disabled:opacity-30 rounded-xl transition-all active:scale-95 shadow-md flex-shrink-0"
               title="Send to Agent"
             >
               <LuSend size={15} />

@@ -17,11 +17,11 @@ type SettingsData = {
 };
 
 const THEMES = [
+  { id: "vscode-dark", name: "Standard (VS Code Dark+)", bg: "bg-[#1e1e1e]", border: "border-blue-500/20", color: "#007acc" },
   { id: "tactical-dark", name: "Tactical Dark", bg: "bg-[#111612]", border: "border-emerald-500/20", color: "#10b981" },
-  { id: "vscode-dark", name: "VS Code Dark", bg: "bg-[#1e1e1e]", border: "border-blue-500/20", color: "#007acc" },
+  { id: "vscode-light", name: "VS Code Light+", bg: "bg-[#f3f3f3]", border: "border-gray-300", color: "#007acc" },
   { id: "dracula", name: "Dracula", bg: "bg-[#282a36]", border: "border-pink-500/20", color: "#ff79c6" },
   { id: "monokai", name: "Monokai", bg: "bg-[#272822]", border: "border-yellow-500/20", color: "#f92672" },
-  { id: "vscode-light", name: "VS Code Light", bg: "bg-[#f3f3f3]", border: "border-gray-300", color: "#007acc" },
 ];
 
 export default function SettingsJsonPage() {
@@ -63,12 +63,19 @@ export default function SettingsJsonPage() {
     } catch (e) {}
   }, [theme]);
 
-  // Sync GUI fields to JS Module text
+  // Sync GUI fields to JS Module text & live DOM updates
   const updateGuiSettings = (key: keyof SettingsData, value: any) => {
     const updated = { ...guiSettings, [key]: value };
     setGuiSettings(updated);
     setJsonText(`export default ${JSON.stringify(updated, null, 2)};`);
     setError(null);
+
+    // Apply live updates for font size
+    if (key === "editor.fontSize" && typeof document !== "undefined") {
+      document.documentElement.style.setProperty("--editor-font-size", `${value}px`);
+      document.documentElement.style.setProperty("--vscode-font-size", `${value}px`);
+      document.documentElement.style.fontSize = `${value}px`;
+    }
   };
 
   const handleSave = () => {
@@ -81,28 +88,44 @@ export default function SettingsJsonPage() {
       const newTheme = parsed["workbench.colorTheme"];
       const validThemes = THEMES.map(t => t.id);
       
-      if (newTheme) {
-        if (validThemes.includes(newTheme)) {
-          setTheme(newTheme);
-          setGuiSettings(parsed);
-          localStorage.setItem("vscode-settings", JSON.stringify(parsed));
-          window.dispatchEvent(new Event("vscode-settings-changed"));
-          setError(null);
-          setIsSaved(true);
-          setTimeout(() => setIsSaved(false), 2000);
-        } else {
-          setError(`Invalid theme: "${newTheme}". Valid options: ${validThemes.join(", ")}`);
-        }
-      } else {
-        setGuiSettings(parsed);
-        localStorage.setItem("vscode-settings", JSON.stringify(parsed));
-        window.dispatchEvent(new Event("vscode-settings-changed"));
-        setIsSaved(true);
-        setTimeout(() => setIsSaved(false), 2000);
+      if (newTheme && validThemes.includes(newTheme)) {
+        setTheme(newTheme);
       }
+      
+      setGuiSettings(parsed);
+      localStorage.setItem("vscode-settings", JSON.stringify(parsed));
+      window.dispatchEvent(new Event("vscode-settings-changed"));
+      setError(null);
+      setIsSaved(true);
+      setTimeout(() => setIsSaved(false), 2000);
     } catch (e) {
       setError("Invalid Javascript Module. Make sure it matches 'export default { ... };' enclosing valid JSON.");
     }
+  };
+
+  const handleStandardDefault = () => {
+    const standardSettings: SettingsData = {
+      "workbench.colorTheme": "vscode-dark",
+      "editor.fontSize": 13,
+      "editor.fontFamily": "var(--font-sans), system-ui, sans-serif",
+      "terminal.integrated.fontSize": 11,
+      "window.zoomLevel": 0,
+      "telemetry.telemetryLevel": "off"
+    };
+    setTheme("vscode-dark");
+    setAccent(ACCENT_PRESETS[0]); // Standard Blue
+    setGuiSettings(standardSettings);
+    setJsonText(`export default ${JSON.stringify(standardSettings, null, 2)};`);
+    localStorage.setItem("vscode-settings", JSON.stringify(standardSettings));
+    if (typeof document !== "undefined") {
+      document.documentElement.style.setProperty("--editor-font-size", "13px");
+      document.documentElement.style.setProperty("--vscode-font-size", "13px");
+      document.documentElement.style.fontSize = "13px";
+    }
+    window.dispatchEvent(new Event("vscode-settings-changed"));
+    setError(null);
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 2000);
   };
 
   const handleReset = () => {
@@ -118,6 +141,11 @@ export default function SettingsJsonPage() {
     setGuiSettings(defaultSettings);
     setJsonText(`export default ${JSON.stringify(defaultSettings, null, 2)};`);
     localStorage.setItem("vscode-settings", JSON.stringify(defaultSettings));
+    if (typeof document !== "undefined") {
+      document.documentElement.style.setProperty("--editor-font-size", "13px");
+      document.documentElement.style.setProperty("--vscode-font-size", "13px");
+      document.documentElement.style.fontSize = "13px";
+    }
     window.dispatchEvent(new Event("vscode-settings-changed"));
     setError(null);
     setIsSaved(true);
@@ -143,9 +171,13 @@ export default function SettingsJsonPage() {
           {isSaved && <span className="text-emerald-400 text-vscode-xs font-mono mr-2 bg-emerald-400/10 px-2.5 py-1 rounded border border-emerald-400/20 animate-pulse font-bold flex items-center gap-1">
             <LuCheck size={12} /> Saved
           </span>}
+          <Button variant="secondary" className="px-3.5 py-1.5 h-auto text-vscode-xs gap-1.5 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10" onClick={handleStandardDefault}>
+            <LuSliders size={12} />
+            Standard Default
+          </Button>
           <Button variant="secondary" className="px-3.5 py-1.5 h-auto text-vscode-xs gap-1.5 rounded-lg border border-white/5 bg-white/5 hover:bg-white/10" onClick={handleReset}>
             <LuRefreshCw size={12} />
-            Reset Defaults
+            Reset
           </Button>
           <Button className="px-3.5 py-1.5 h-auto text-vscode-xs gap-1.5 rounded-lg shadow-md shadow-[var(--vscode-accent)]/20 bg-[var(--vscode-accent)] text-white" onClick={handleSave}>
             <LuSave size={12} />

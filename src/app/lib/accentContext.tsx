@@ -41,6 +41,21 @@ export function AccentProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+    const applyFontFromStorage = () => {
+      try {
+        const settingsStr = localStorage.getItem("vscode-settings");
+        if (settingsStr) {
+          const settings = JSON.parse(settingsStr);
+          if (settings["editor.fontSize"]) {
+            const size = settings["editor.fontSize"];
+            document.documentElement.style.setProperty("--editor-font-size", `${size}px`);
+            document.documentElement.style.setProperty("--vscode-font-size", `${size}px`);
+            document.documentElement.style.fontSize = `${size}px`;
+          }
+        }
+      } catch {}
+    };
+
     try {
       const stored = localStorage.getItem("vscode-accent");
       if (stored) {
@@ -48,7 +63,11 @@ export function AccentProvider({ children }: { children: React.ReactNode }) {
         setAccentState(parsed);
         applyAccent(parsed.value, parsed.shadow);
       }
+      applyFontFromStorage();
     } catch {}
+
+    window.addEventListener("vscode-settings-changed", applyFontFromStorage);
+    return () => window.removeEventListener("vscode-settings-changed", applyFontFromStorage);
   }, []);
 
   const applyAccent = (value: string, shadow: string) => {
