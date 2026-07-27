@@ -56,7 +56,7 @@
   --vscode-text-linkHover: #58a6ff;
 
   /* Accent Color Token */
-  --vscode-accent: #007acc;
+  --vscode-accent: #a3e635;
 
   /* Badge Tokens */
   --vscode-badge-background: #4d4d4d;
@@ -379,4 +379,45 @@ code {
 
 .accordion-content > div {
   overflow: hidden;
+}
+
+/* ─── Theme Overrides ─── */
+:root[data-theme="vscode-dark"] {
+  --vscode-editor-background: #1e1e1e;
+  --vscode-sideBar-background: #252526;
+  --vscode-activityBar-background: #333333;
+  --vscode-border: #444444;
+  --vscode-titleBar-activeBackground: #323233;
+  --vscode-tab-inactiveBackground: #2d2d2d;
+  --vscode-tab-activeBackground: #1e1e1e;
+}
+:root[data-theme="vscode-light"] {
+  --vscode-editor-background: #ffffff;
+  --vscode-sideBar-background: #f3f3f3;
+  --vscode-activityBar-background: #2c2c2c;
+  --vscode-border: #e4e4e4;
+  --vscode-titleBar-activeBackground: #dddddd;
+  --vscode-titleBar-activeForeground: #333333;
+  --vscode-tab-inactiveBackground: #ececec;
+  --vscode-tab-activeBackground: #ffffff;
+  --vscode-text-primary: #333333;
+  --vscode-text-secondary: #666666;
+}
+:root[data-theme="dracula"] {
+  --vscode-editor-background: #282a36;
+  --vscode-sideBar-background: #21222c;
+  --vscode-activityBar-background: #191a21;
+  --vscode-border: #191a21;
+  --vscode-titleBar-activeBackground: #21222c;
+  --vscode-tab-inactiveBackground: #21222c;
+  --vscode-tab-activeBackground: #282a36;
+}
+:root[data-theme="monokai"] {
+  --vscode-editor-background: #272822;
+  --vscode-sideBar-background: #1e1f1c;
+  --vscode-activityBar-background: #272822;
+  --vscode-border: #1e1f1c;
+  --vscode-titleBar-activeBackground: #1e1f1c;
+  --vscode-tab-inactiveBackground: #1e1f1c;
+  --vscode-tab-activeBackground: #272822;
 }

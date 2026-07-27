@@ -192,12 +192,106 @@ async def handle_desco_query(message):
     ],
   },
   {
+    id: "woocom-telegram-bot",
+    title: "WooCommerce Telegram E-Commerce Bot",
+    description:
+      "An automated Telegram chatbot integrated with WooCommerce REST API — providing real-time product searches, catalog browsing, order placement, and live order status tracking via Telegram (@DEEN_Commerce_bot).",
+    longDescription:
+      "WooCommerce Telegram E-Commerce Bot (@DEEN_Commerce_bot) bridges WordPress/WooCommerce storefronts with a seamless Telegram conversational interface. Customers can browse products by category, check real-time stock levels, place instant orders, and receive automated fulfillment notifications directly inside Telegram.",
+    image: "/img/projects/automation.png",
+    liveUrl: "https://t.me/DEEN_Commerce_bot",
+    githubUrl: "https://github.com/Sajid-ul-Islam/woocom_telegram_bot",
+    gitDiff: {
+      filename: "woocom_bot.py",
+      oldCode: `# Manual web store lookup
+def search_products(query):
+    return requests.get("https://mystore.com/wp-json/wc/v3/products?search=" + query)`,
+      newCode: `# Async Telegram Commerce handler with WooCommerce REST API
+@bot.message_handler(commands=['shop', 'orders', 'catalog'])
+async def handle_woocom_shop(message):
+    products = await woocom_client.get_active_products()
+    await bot.send_media_group(message.chat.id, format_catalog_cards(products))`,
+    },
+    featured: true,
+    technologies: ["Python", "Telegram API", "WooCommerce API", "REST API", "Chatbot", "E-commerce"],
+    caseStudy: {
+      role: "Lead Developer & Architect",
+      timeline: "2026",
+      problem:
+        "E-commerce customers on mobile often experience friction using web browsers to browse inventory, track order updates, or check stock availability.",
+      solution:
+        "Built @DEEN_Commerce_bot — an automated Telegram shopping bot connected directly to WooCommerce REST APIs for instant catalog lookups, cart checkout, and automated order tracking.",
+      impact: [
+        "Enabled seamless e-commerce ordering directly inside Telegram chat.",
+        "Automated real-time WooCommerce order status lookups and stock availability alerts.",
+        "Reduced web store drop-off rates with rapid conversational checkout.",
+      ],
+      metrics: [
+        { label: "Platform", value: "Telegram (@DEEN_Commerce_bot)" },
+        { label: "Integration", value: "WooCommerce REST API v3" },
+        { label: "Response Latency", value: "<400ms" },
+      ],
+    },
+    missionLogs: [
+      ">> Initializing @DEEN_Commerce_bot node...",
+      ">> Authenticating WooCommerce REST API OAuth keys...",
+      ">> Registering webhooks for product sync & order status triggers...",
+      ">> Telegram Commerce engine ONLINE at t.me/DEEN_Commerce_bot.",
+    ],
+  },
+  {
+    id: "woocom-whatsapp-bot",
+    title: "WooCommerce WhatsApp Business Assistant",
+    description:
+      "An automated WhatsApp Business assistant integrated with WooCommerce REST API — delivering real-time order notifications, automated customer support, and instant product availability queries.",
+    longDescription:
+      "WooCommerce WhatsApp Business Assistant is a Python & Flask webhook application that connects WooCommerce e-commerce stores with Twilio WhatsApp API. It provides automated customer service, instant order status alerts, stock level queries, and customer re-engagement.",
+    image: "/img/projects/whatsapp.png",
+    githubUrl: "https://github.com/Sajid-ul-Islam/WooCom_WhatsApp_Bot",
+    gitDiff: {
+      filename: "woocom_whatsapp.py",
+      oldCode: `# Manual customer messaging
+def send_update(phone, order_id):
+    sms.send(phone, "Order " + order_id + " shipped")`,
+      newCode: `# Async WhatsApp webhook with WooCommerce order event listener
+@app.route('/whatsapp/webhook', methods=['POST'])
+def handle_whatsapp_webhook():
+    incoming = request.values.get('Body', '')
+    response_msg = woocom_bot.process_inquiry(incoming)
+    return twilio_client.send_whatsapp(response_msg)`,
+    },
+    featured: true,
+    technologies: ["Python", "Twilio API", "WhatsApp API", "WooCommerce API", "Flask", "Automation"],
+    caseStudy: {
+      role: "Lead Developer & Automation Specialist",
+      timeline: "2026",
+      problem:
+        "WooCommerce store owners needed an automated WhatsApp messaging channel to handle customer support inquiries, send order dispatch receipts, and respond to availability queries 24/7.",
+      solution:
+        "Engineered a Python Flask service linking WooCommerce webhooks to Twilio WhatsApp API, automatically resolving order queries and sending interactive product links via WhatsApp.",
+      impact: [
+        "Automated WhatsApp customer support for WooCommerce stores.",
+        "Delivered instant WhatsApp order status & tracking alerts.",
+        "Increased customer engagement and reduced support ticket turnaround times.",
+      ],
+      metrics: [
+        { label: "Channel", value: "WhatsApp Business API" },
+        { label: "Backend Framework", value: "Python / Flask" },
+        { label: "Integration", value: "WooCommerce Webhooks" },
+      ],
+    },
+    missionLogs: [
+      ">> Initializing WooCommerce WhatsApp Service Node...",
+      ">> Linking Twilio WhatsApp Messaging Gateway...",
+      ">> Active WooCommerce Webhook Handlers Operational.",
+    ],
+  },
+  {
     id: "agentic-rag",
     title: "Agentic RAG Pipeline",
     description:
       "An intelligent search and retrieval-augmented generation agent utilizing semantic search, hierarchical chunking, and multi-step reasoning models.",
     image: "/img/projects/ai_assistant.png",
-    githubUrl: "https://github.com/Sajid-ul-Islam/Agentic-RAG",
     gitDiff: {
       filename: "agent.py",
       oldCode: `# Basic text completion
@@ -228,7 +322,6 @@ response = model.generate(reasoning_path)`,
     description:
       "A production-ready Retrieval-Augmented Generation pipeline integrated with custom data ingestion and embedding models.",
     image: "/img/projects/automation.png",
-    githubUrl: "https://github.com/Sajid-ul-Islam/RAG-System",
     gitDiff: {
       filename: "rag_pipeline.py",
       oldCode: `# Static query retrieval
@@ -258,7 +351,6 @@ context = reranker.rank(chunks)`,
     description:
       "An interactive assistant bot hosted on Telegram providing server health statistics, remote command executions, and notification integrations.",
     image: "/img/projects/scraping.png",
-    githubUrl: "https://github.com/Sajid-ul-Islam/Telegram-Chatbot",
     gitDiff: {
       filename: "bot.py",
       oldCode: `# Simple command receiver
@@ -293,7 +385,6 @@ async def chat_handler(message):
     description:
       "An automated WhatsApp Business assistant integrated with natural language processing models to resolve customer service queries.",
     image: "/img/projects/scraping.png",
-    githubUrl: "https://github.com/Sajid-ul-Islam/WhatsApp-Chatbot",
     gitDiff: {
       filename: "app.py",
       oldCode: `# Simple auto-responder
@@ -330,7 +421,6 @@ def webhook_listener(request):
     description:
       "Designed and built an operational command center that unified daily business metrics and CRM workflows — replacing fragmented spreadsheets with a single source of truth for the team.",
     image: "/img/projects/automation.png",
-    liveUrl: "https://deen-ops.streamlit.app/",
     githubUrl: "https://github.com/Sajid-ul-Islam/Deen-Ops",
     gitDiff: {
       filename: "data_pipeline.py",
@@ -375,7 +465,6 @@ def process_data(file_path):
     description:
       "Created a product analytics dashboard supporting churn, engagement, and revenue analysis — enabling stakeholders to make data-driven strategic decisions without waiting on ad-hoc reports.",
     image: "/img/projects/ecommerce.png",
-    liveUrl: "https://deen-business-intel.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Business Intelligence", "Analytics"],
     caseStudy: {
@@ -402,7 +491,6 @@ def process_data(file_path):
     description:
       "Designed an interactive product for exploring global economic indicators — enabling researchers and analysts to compare country-level trends in one unified experience instead of juggling scattered data sources.",
     image: "/img/projects/economic.png",
-    liveUrl: "https://global-economics.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Economics", "Data Visualization"],
     caseStudy: {
@@ -487,7 +575,6 @@ def process_data(file_path):
     description:
       "Designed a security intelligence product that transforms raw incident data into spatial insights — enabling faster pattern discovery and clearer communication of threat density across regions.",
     image: "/img/projects/sentinel.png",
-    liveUrl: "https://sentinelbangladesh.streamlit.app/",
     featured: true,
     technologies: ["Streamlit", "Python", "Data Visualization", "Security Analysis"],
     caseStudy: {
@@ -514,7 +601,6 @@ def process_data(file_path):
     description:
       "Created a spatial-temporal analysis product for security events — combining interactive maps with temporal sliders to reveal how incidents evolve over time and space.",
     image: "/img/projects/security_map.png",
-    liveUrl: "https://trr-bd.vercel.app",
     featured: true,
     technologies: ["R", "Folium", "Leaflet", "Data Viz"],
     caseStudy: {
@@ -570,7 +656,6 @@ def process_data(file_path):
     description:
       "Identified a pain point in outreach workflows and built an internal tool that automates WhatsApp link generation from spreadsheets — eliminating manual copy/paste for the team.",
     image: "/img/projects/whatsapp.png",
-    liveUrl: "https://sheet2whatsapp.streamlit.app/",
     featured: false,
     technologies: ["Streamlit", "Python", "Pandas", "Vercel"],
     caseStudy: {
@@ -596,7 +681,6 @@ def process_data(file_path):
     description:
       "Built an automation product that transformed the order processing workflow — consolidating, cleaning, and categorizing Excel-based orders into consistent, ready-to-ship formats.",
     image: "/img/projects/automation.png",
-    liveUrl: "https://order-process-automation.streamlit.app/",
     featured: false,
     technologies: ["Streamlit", "Python", "Automation", "Data Processing"],
     caseStudy: {
@@ -764,7 +848,6 @@ def process_data(file_path):
     description:
       "Built an internal tool for efficient image collection from Pinterest — designed with multiple interfaces (web UI + CLI) to fit different user workflows.",
     image: "/img/projects/scraper.png",
-    liveUrl: "https://img-scraper.streamlit.app/",
     featured: false,
     technologies: ["Python", "Scraping", "Automation"],
     caseStudy: {
@@ -858,6 +941,22 @@ export const fileTree: FileTreeSection[] = [
         id: "desco-bot",
         label: "desco_bot",
         href: "/projects/desco-telegram-bot",
+        icon: "bot",
+        extension: "py",
+        indent: true,
+      },
+      {
+        id: "woocom-bot",
+        label: "woocom_bot",
+        href: "/projects/woocom-telegram-bot",
+        icon: "bot",
+        extension: "py",
+        indent: true,
+      },
+      {
+        id: "woocom-whatsapp",
+        label: "woocom_whatsapp",
+        href: "/projects/woocom-whatsapp-bot",
         icon: "bot",
         extension: "py",
         indent: true,

@@ -8,36 +8,41 @@ An elegant, high-fidelity developer workspace-themed portfolio built with **Next
 
 ---
 
+## Featured Products & Automation Chatbots
+
+- ⚡ **DESCO Electricity Usage Assistant** ([Telegram Bot @descoTGbot](https://t.me/descoTGbot) | [GitHub Repo](https://github.com/Sajid-ul-Islam/descoiunfobot))
+  - Real-time electricity consumption monitoring, prepaid/postpaid bill queries, and automated utility assistance via Telegram.
+- 🛍️ **WooCommerce Telegram E-Commerce Bot** ([Telegram Bot @DEEN_Commerce_bot](https://t.me/DEEN_Commerce_bot) | [GitHub Repo](https://github.com/Sajid-ul-Islam/woocom_telegram_bot))
+  - Automated e-commerce shopping chatbot allowing customers to browse catalog products, place orders, check stock levels, and track status live in Telegram.
+- 💬 **WooCommerce WhatsApp Business Assistant** ([GitHub Repo](https://github.com/Sajid-ul-Islam/WooCom_WhatsApp_Bot))
+  - Python Flask webhook application linking WooCommerce stores with Twilio WhatsApp API for 24/7 automated support & order dispatch alerts.
+
+---
+
 ## Features
 
 ### VS Code IDE Interface
-- **Activity Bar & Sidebar**: Clean navigation for files, search, and settings.
-- **Editor Tab System**: Multi-tab interface supporting pinning, closing, and tab history.
-- **Theme System**: 5 built-in themes (Tactical Dark, VS Code Dark+, Light+, Dracula, Monokai) with live switching via Command Palette (`Ctrl+P`).
-- **Accent Color Picker**: 10 preset accent colors plus custom color picker in Settings.
-- **Interactive File Tree**: Standard workspace explorer listing portfolio sections as files.
-- **Simulated Terminal**: Interactive bash shell terminal supporting system utilities.
-- **Embedded Browser**: View `sajid-ul-islam.github.io` directly inside the app.
+- **Material Icon Theme & Codicons**: High-fidelity file icons and VS Code activity bar icons.
+- **Activity Bar & Sidebar**: Clean navigation for files, search, source control, and settings.
+- **Editor Tab System**: Multi-tab interface supporting pinning, closing, and tab history without render side-effects.
+- **Theme System**: 5 built-in themes (Tactical Dark, VS Code Dark+, Light+, Dracula, Monokai) with live switching.
+- **Interactive File Tree**: Standard workspace explorer featuring nested project scripts (`desco_bot.py`, `woocom_bot.py`, `woocom_whatsapp.py`) beneath `Projects.py`.
+- **VS Code Web Browser (`/github-pages`)**: Interactive live browser preview with address bar, viewport switcher (desktop, tablet, mobile), and SSL status.
 
 ### Portfolio Core Sections
 - **Welcome**: Main workspace landing page with personal summary and metrics.
 - **Experience**: Clean timeline of professional corporate roles.
 - **Skills**: Technical capabilities categorized by domain (Data Analytics, BI, AI, Product).
-- **Projects**: Grid of featured work with case studies, git diffs, and live links.
+- **Projects**: Grid of featured work with case studies, git diffs, live demos, and verified GitHub repositories.
 - **Education**: Academic accomplishments.
 - **Contact**: Contact form with Turnstile Captcha and email integration.
 
-### AI Copilot Chat
-- **GitHub Copilot Style Panel**: Chat panel with model selector.
-- **Models**: Gemini 1.5 Flash, Gemini 1.5 Pro, Claude 3.5 Sonnet.
-- **RAG Integration**: Vercel AI SDK + Pinecone Vector Database for grounded responses.
-- **Source Toggles**: Switch between Portfolio Data, Live Website Scraping, or Combined.
-- **Quick Connect**: WhatsApp and Telegram links inside the chatbot for direct messaging.
-
-### Live GitHub Feed
-- Real-time commit activity from the GitHub Events API.
-- Fallback data when the API is unavailable.
-- Auto-refreshes every 60 seconds.
+### Antigravity AI Agent Chatbox (v3.6)
+- **High-Tech Agent Interface**: Futuristic glassmorphism card with glowing cybernetic accents.
+- **Step-by-Step Thought Trace**: Collapsible multi-step reasoning trace box for agent lookups.
+- **Model Selector**: Switch between Gemini 3.6 Flash, Gemini 1.5 Pro, and Claude 3.5 Sonnet.
+- **RAG Integration**: Vector embedding search grounded with portfolio data and live web scraping.
+- **Quick Action Chips**: One-click quick prompts for instant background & project inquiries.
 
 ---
 
@@ -45,9 +50,9 @@ An elegant, high-fidelity developer workspace-themed portfolio built with **Next
 
 - **Framework**: Next.js 16 (App Router, Turbopack)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS + Custom CSS Variables
+- **Styling**: Tailwind CSS + Synchronized CSS Theme Variables
 - **Animation**: Framer Motion
-- **Icons**: Lucide React + React Icons
+- **Icons**: Simple Icons + React Icons (Lu & Vsc Codicons)
 - **AI**: Vercel AI SDK, Google Gemini, Anthropic Claude, Pinecone
 - **Deployment**: Vercel
 
@@ -94,14 +99,14 @@ src/
 │   ├── layout.tsx          # Root layout with ThemeProvider + AccentProvider
 │   ├── page.tsx            # Home page
 │   ├── api/
-│   │   ├── chat/route.ts   # AI chat endpoint
+│   │   ├── chat/route.ts   # Antigravity AI chat endpoint
 │   │   ├── github/route.ts # GitHub feed API
 │   │   ├── sendEmail/      # Contact form email
 │   │   └── site/           # Website content scraper
-│   ├── components/vscode/  # All VS Code UI components
-│   ├── data/portfolio.ts   # All portfolio content data
+│   ├── components/vscode/  # All VS Code UI components & Antigravity Agent
+│   ├── data/portfolio.ts   # All portfolio content data & project catalog
 │   ├── lib/                # Contexts, hooks, utilities
-│   ├── github-pages/       # Embedded browser for GitHub Pages
+│   ├── github-pages/       # Interactive VS Code Live Browser
 │   └── [sections]/         # experience, skills, projects, education, contact
 ```
 
@@ -115,3 +120,4 @@ src/
 - GitHub: [Sajid-ul-Islam](https://github.com/Sajid-ul-Islam)
 - WhatsApp: [Chat on WhatsApp](https://wa.me/+8801824526054)
 - Telegram: [Chat on Telegram](https://t.me/SajidIslam)
+

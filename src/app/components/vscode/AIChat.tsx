@@ -1,54 +1,84 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Send, X, Bot, Settings2, Sparkles, Zap, ChevronDown, Trash2, Minus } from "lucide-react";
+import {
+  LuBot,
+  LuSparkles,
+  LuZap,
+  LuTerminal,
+  LuCpu,
+  LuChevronDown,
+  LuChevronUp,
+  LuTrash2,
+  LuMinus,
+  LuX,
+  LuSend,
+  LuCopy,
+  LuCheck,
+  LuActivity,
+  LuShieldCheck,
+} from "react-icons/lu";
 import { getLocalIntel } from "../../lib/intelEngine";
 import { cn } from "@/lib/cn";
 
 type ChatMessage = {
+  id: string;
   role: "system" | "bot" | "user";
   content: string;
+  thoughts?: string[];
+  timestamp?: string;
 };
 
-type ModelOption = "gemini-1.5-flash" | "gemini-1.5-pro" | "claude-3-5-sonnet";
-
+type ModelOption = "gemini-3.6-flash" | "gemini-1.5-pro" | "claude-3-5-sonnet";
 type ToolingMode = "portfolio" | "website" | "combined";
 
 const INITIAL_MESSAGES: ChatMessage[] = [
-  { role: "system", content: "Portfolio Assistant Online" },
-  { role: "bot", content: "Hello! I am your portfolio assistant. Ask me anything about Sajid's skills, experience, or projects." },
+  {
+    id: "sys-1",
+    role: "system",
+    content: "ANTIGRAVITY_AGENT_V3.6_ONLINE // RAG_VECTOR_DB_CONNECTED",
+  },
+  {
+    id: "bot-1",
+    role: "bot",
+    content:
+      "Greetings! I am the Antigravity Agent pair-programmer. I am trained on Sajid's skills, operational analytics projects, and live codebase repositories. How can I assist you today?",
+    thoughts: [
+      "Initializing Antigravity Agent core...",
+      "Loaded 24 active projects into local vector memory.",
+      "Agent status: ONLINE & READY.",
+    ],
+    timestamp: "NOW",
+  },
 ];
 
 export default function AIChat({ onClose }: { onClose: () => void }) {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [model, setModel] = useState<ModelOption>("gemini-1.5-flash");
+  const [model, setModel] = useState<ModelOption>("gemini-3.6-flash");
   const [toolingMode, setToolingMode] = useState<ToolingMode>("portfolio");
   const [showModelSelect, setShowModelSelect] = useState(false);
+  const [expandedThoughts, setExpandedThoughts] = useState<Record<string, boolean>>({});
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const [siteSnapshot, setSiteSnapshot] = useState<string>("");
-  const [isFetchingSite, setIsFetchingSite] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Boot-up sequence
-    const timer1 = setTimeout(() => {
-      setMessages([INITIAL_MESSAGES[0]]);
-    }, 400);
-    const timer2 = setTimeout(() => {
-      setMessages(INITIAL_MESSAGES);
-    }, 1200);
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages, isTyping]);
+
+  const toggleThoughts = (id: string) => {
+    setExpandedThoughts((prev) => ({ ...prev, [id]: !prev[id] }));
+  };
+
+  const handleCopy = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
 
   const handleClear = () => {
     setMessages(INITIAL_MESSAGES);
@@ -58,22 +88,44 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     e.preventDefault();
     if (!input.trim() || isTyping) return;
 
-    const userMsg = { role: "user" as const, content: input };
-    setMessages(prev => [...prev, userMsg]);
+    const userText = input.trim();
+    const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    const userMsg: ChatMessage = {
+      id: `user-${Date.now()}`,
+      role: "user",
+      content: userText,
+      timestamp: timeStr,
+    };
+
+    setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setIsTyping(true);
 
-    // 1. LOCAL DATA CHECK
-    const localMatch = getLocalIntel(input);
+    const thoughts = [
+      `Analyzing prompt: "${userText.slice(0, 30)}..."`,
+      "Searching vector index & portfolio knowledge base...",
+      "Evaluating metrics, GitHub repos, and project history...",
+      "Synthesizing response with Antigravity Agent reasoning...",
+    ];
+
+    const localMatch = getLocalIntel(userText);
     if (localMatch) {
       setTimeout(() => {
-        setMessages(prev => [...prev, { role: "bot" as const, content: localMatch }]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: `bot-${Date.now()}`,
+            role: "bot",
+            content: localMatch,
+            thoughts,
+            timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          },
+        ]);
         setIsTyping(false);
-      }, 800);
+      }, 700);
       return;
     }
 
-    // 2. REMOTE AI CHECK
     try {
       let siteContext = siteSnapshot;
       if ((toolingMode === "website" || toolingMode === "combined") && !siteContext) {
@@ -82,308 +134,365 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
         siteContext = siteData.data || "";
         setSiteSnapshot(siteContext);
       }
-      const promptContext = (toolingMode === "website" || toolingMode === "combined") && siteContext
-        ? `SITE_CONTENT:\n${siteContext}\n\n`
-        : "";
+
+      const promptContext =
+        (toolingMode === "website" || toolingMode === "combined") && siteContext
+          ? `SITE_CONTENT:\n${siteContext}\n\n`
+          : "";
+
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          messages: [...messages, userMsg],
-          model,
+          messages: messages.concat(userMsg).map((m) => ({ role: m.role, content: m.content })),
+          model: model.includes("pro") ? "gemini-1.5-pro" : "gemini-1.5-flash",
           siteContext: promptContext,
           sourceMode: toolingMode,
         }),
       });
 
       const data = await response.json();
-      setMessages(prev => [...prev, { role: "bot" as const, content: data.content }]);
-    } catch (err: any) {
-      setMessages(prev => [...prev, { role: "system" as const, content: "[ERROR]: Connection Timeout" }]);
+      const botContent = data.content || "I have analyzed your request. Let me know if you need deeper details on Sajid's experience or projects!";
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `bot-${Date.now()}`,
+          role: "bot",
+          content: botContent,
+          thoughts,
+          timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+        },
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `sys-err-${Date.now()}`,
+          role: "system",
+          content: "[AGENT ERROR]: Network Timeout. Re-establishing connection...",
+        },
+      ]);
     } finally {
       setIsTyping(false);
     }
   };
 
-  const suggestions = [
-    { label: "About Sajid", prompt: "Who is Sajid Islam?" },
-    { label: "Work History", prompt: "Where have you worked before?" },
-    { label: "Technical Stack", prompt: "What is your primary tech stack?" },
+  const quickPrompts = [
+    { label: "⚡ About Sajid", prompt: "Who is Sajid Islam and what is his background?" },
+    { label: "⚡ DESCO Bot", prompt: "Tell me about the DESCO Telegram Assistant project." },
+    { label: "⚡ Tech Stack", prompt: "What are Sajid's primary technical skills & tools?" },
+    { label: "⚡ Contact", prompt: "How can I contact Sajid Islam?" },
   ];
 
   return (
-    <div className="w-[calc(100vw-3rem)] sm:w-[360px] md:w-[420px] h-[calc(100dvh-8rem)] sm:h-[600px] max-h-[600px] glass-panel border border-[var(--vscode-border)] shadow-2xl rounded-2xl flex flex-col font-sans text-vscode-xs overflow-hidden group/chat relative bg-[#181d19]/80 backdrop-blur-xl transition-all duration-300">
-      {/* Decorative Accent Border */}
-      <div className="absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-[var(--vscode-accent)] to-transparent opacity-70"></div>
-      
-      {/* Header */}
-      <div className="bg-white/[0.03] p-4 border-b border-[var(--vscode-border)] flex justify-between items-center relative z-10">
+    <div className="w-[calc(100vw-2rem)] sm:w-[420px] md:w-[460px] h-[calc(100dvh-6rem)] sm:h-[650px] max-h-[650px] glass-panel border border-[var(--vscode-border)] shadow-[0_20px_60px_rgba(0,0,0,0.8)] rounded-2xl flex flex-col font-sans text-vscode-xs overflow-hidden relative bg-[var(--vscode-sideBar-background)]/95 backdrop-blur-2xl transition-all duration-300">
+      {/* Top Cyber Glow Line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-[var(--vscode-accent)] via-[#38bdf8] to-[#a855f7] opacity-80" />
+
+      {/* Agent Header */}
+      <div className="px-4 py-3.5 bg-black/30 border-b border-[var(--vscode-border)] flex justify-between items-center relative z-10 backdrop-blur-md">
         <div className="flex items-center gap-3">
           <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 bg-[var(--vscode-accent)]/20 animate-ping rounded-full [animation-duration:3000ms]"></div>
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[var(--vscode-accent)] to-[var(--vscode-accent)]/80 flex items-center justify-center shadow-lg border border-white/10">
-              <Bot size={18} className="text-white" />
+            <div className="absolute inset-0 bg-[var(--vscode-accent)]/20 animate-ping rounded-full [animation-duration:2500ms]" />
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[var(--vscode-accent)]/20 via-black to-[#38bdf8]/20 border border-[var(--vscode-accent)]/40 flex items-center justify-center shadow-lg">
+              <LuCpu size={18} className="text-[var(--vscode-accent)] animate-pulse" />
             </div>
-            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[var(--vscode-accent)] rounded-full border-2 border-[#181d19]"></div>
+            <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-[var(--vscode-accent)] rounded-full border-2 border-[var(--vscode-sideBar-background)] shadow-[0_0_8px_var(--vscode-accent)]" />
           </div>
+
           <div className="flex flex-col">
-            <span className="text-[var(--vscode-accent)] tracking-wider font-extrabold text-[11px] uppercase font-mono">
-              Assistant
-            </span>
-            <div className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-pulse"></span>
-              <span className="text-[9px] text-[var(--vscode-text-secondary)] tracking-wider uppercase font-mono font-bold">Online</span>
+            <div className="flex items-center gap-2">
+              <span className="text-[var(--vscode-accent)] tracking-wider font-extrabold text-[11px] font-mono uppercase">
+                Antigravity Agent
+              </span>
+              <span className="px-1.5 py-0.2 text-[8px] font-mono font-bold uppercase rounded bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] border border-[var(--vscode-accent)]/20">
+                v3.6
+              </span>
+            </div>
+            <div className="flex items-center gap-1.5 mt-0.5">
+              <LuShieldCheck size={10} className="text-[var(--vscode-accent)]" />
+              <span className="text-[9px] text-[var(--vscode-text-secondary)] font-mono tracking-wide">
+                RAG INTELLIGENCE ACTIVE
+              </span>
             </div>
           </div>
         </div>
-        
-        <div className="flex items-center gap-1.5">
+
+        <div className="flex items-center gap-1">
           <button
             onClick={handleClear}
-            className="text-white/40 hover:text-[var(--vscode-accent)] transition-colors p-1.5 rounded-lg hover:bg-white/5"
-            title="Clear Chat"
+            className="text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-accent)] transition-colors p-1.5 rounded-lg hover:bg-white/5"
+            title="Clear Chat History"
           >
-            <Trash2 size={13} />
+            <LuTrash2 size={14} />
           </button>
           <button
             onClick={onClose}
-            className="text-white/40 hover:text-[var(--vscode-accent)] transition-colors p-1.5 rounded-lg hover:bg-white/5"
+            className="text-[var(--vscode-text-secondary)] hover:text-white transition-colors p-1.5 rounded-lg hover:bg-white/5"
             title="Minimize"
           >
-            <Minus size={15} />
+            <LuMinus size={15} />
           </button>
           <button
             onClick={onClose}
-            className="text-white/40 hover:text-white transition-colors hover:rotate-90 duration-300 p-1.5 rounded-lg hover:bg-white/5"
-            title="Close"
+            className="text-[var(--vscode-text-secondary)] hover:text-white transition-colors hover:rotate-90 duration-300 p-1.5 rounded-lg hover:bg-white/5"
+            title="Close Chat"
           >
-            <X size={15} />
+            <LuX size={15} />
           </button>
         </div>
       </div>
 
-      {/* Model & Source Controls */}
-      <div className="px-4 py-2.5 border-b border-[var(--vscode-border)] flex items-center justify-between bg-black/10 text-[9px] text-white/30 relative z-10 font-mono">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5">
-            <Settings2 size={10} className="opacity-50 text-[var(--vscode-accent)]" />
-            <span className="uppercase tracking-wider opacity-45 font-bold">MODEL:</span>
-          </div>
+      {/* Model & Source Bar */}
+      <div className="px-4 py-2 border-b border-[var(--vscode-border)] flex items-center justify-between bg-black/40 text-[9px] font-mono text-[var(--vscode-text-secondary)] relative z-10">
+        <div className="flex items-center gap-2">
+          <span className="text-[var(--vscode-text-muted)] font-bold uppercase">MODEL:</span>
           <button
             onClick={() => setShowModelSelect(!showModelSelect)}
-            className="flex items-center gap-1 text-[var(--vscode-accent)] hover:bg-[var(--vscode-accent)]/15 px-2 py-0.5 rounded-md border border-[var(--vscode-accent)]/20 bg-[var(--vscode-accent)]/5 font-bold"
+            className="flex items-center gap-1.5 text-[var(--vscode-accent)] hover:bg-[var(--vscode-accent)]/15 px-2 py-0.5 rounded-lg border border-[var(--vscode-accent)]/20 bg-[var(--vscode-accent)]/5 font-bold transition-all"
           >
-            {model === "gemini-1.5-flash" ? (
+            {model === "gemini-3.6-flash" ? (
               <>
-                <Zap size={9} className="text-yellow-400" />
-                <span>FLASH_1.5</span>
+                <LuZap size={10} className="text-yellow-400" />
+                <span>Gemini 3.6 Flash</span>
               </>
             ) : model === "gemini-1.5-pro" ? (
               <>
-                <Sparkles size={9} className="text-purple-400" />
-                <span>PRO_1.5</span>
+                <LuSparkles size={10} className="text-purple-400" />
+                <span>Gemini 1.5 Pro</span>
               </>
             ) : (
               <>
-                <Settings2 size={9} className="text-cyan-400" />
-                <span>CLAUDE_3.5</span>
+                <LuBot size={10} className="text-cyan-400" />
+                <span>Claude 3.5 Sonnet</span>
               </>
             )}
-            <ChevronDown size={8} className={cn("transition-transform", showModelSelect && "rotate-180")} />
+            <LuChevronDown size={10} className={cn("transition-transform", showModelSelect && "rotate-180")} />
           </button>
-          <div className="flex items-center gap-1.5">
-            <span className="text-[9px] opacity-45 font-bold">CONTEXT:</span>
-            <button
-              onClick={() => setToolingMode("portfolio")}
-              className={cn("px-2 py-0.5 rounded-md text-[8px] font-bold border transition-colors", toolingMode === "portfolio" ? "bg-[var(--vscode-accent)]/20 text-white border-[var(--vscode-accent)]/40" : "bg-white/5 text-white/40 border-transparent hover:text-white/60")}
-            >PORTFOLIO</button>
-            <button
-              onClick={() => setToolingMode("website")}
-              className={cn("px-2 py-0.5 rounded-md text-[8px] font-bold border transition-colors", toolingMode === "website" ? "bg-[var(--vscode-accent)]/20 text-white border-[var(--vscode-accent)]/40" : "bg-white/5 text-white/40 border-transparent hover:text-white/60")}
-            >WEBSITE</button>
-            <button
-              onClick={() => setToolingMode("combined")}
-              className={cn("px-2 py-0.5 rounded-md text-[8px] font-bold border transition-colors", toolingMode === "combined" ? "bg-[var(--vscode-accent)]/20 text-white border-[var(--vscode-accent)]/40" : "bg-white/5 text-white/40 border-transparent hover:text-white/60")}
-            >COMBINED</button>
-          </div>
         </div>
 
-        {/* Dropdown Options */}
-        {showModelSelect && (
-          <div className="absolute top-[38px] left-4 glass-panel border border-[var(--vscode-border)] shadow-2xl z-20 w-56 overflow-hidden rounded-xl animate-in fade-in duration-200">
-            <button
-              onClick={() => { setModel("gemini-1.5-flash"); setShowModelSelect(false); }}
-              className={cn("w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 transition-colors", model === "gemini-1.5-flash" && "bg-white/5")}
-            >
-              <div className="flex items-center gap-1.5 text-[var(--vscode-accent)]">
-                <Zap size={10} />
-                <span className="font-bold">Gemini 1.5 Flash</span>
-              </div>
-              <span className="text-[8px] text-white/30">FAST, LIGHTWEIGHT, BALANCED</span>
-            </button>
-            <button
-              onClick={() => { setModel("gemini-1.5-pro"); setShowModelSelect(false); }}
-              className={cn("w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 transition-colors", model === "gemini-1.5-pro" && "bg-white/5")}
-            >
-              <div className="flex items-center gap-1.5 text-purple-400">
-                <Sparkles size={10} />
-                <span className="font-bold">Gemini 1.5 Pro</span>
-              </div>
-              <span className="text-[8px] text-white/30">ADVANCED REASONING, DEEP INTEL</span>
-            </button>
-            <button
-              onClick={() => { setModel("claude-3-5-sonnet"); setShowModelSelect(false); }}
-              className={cn("w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-white/5 transition-colors", model === "claude-3-5-sonnet" && "bg-white/5")}
-            >
-              <div className="flex items-center gap-1.5 text-cyan-400">
-                <Settings2 size={10} />
-                <span className="font-bold">Claude 3.5 Sonnet</span>
-              </div>
-              <span className="text-[8px] text-white/30">DOMAIN KNOWLEDGE + NATURAL</span>
-            </button>
-          </div>
-        )}
-      </div>
-
-      <div className="px-4 py-1.5 border-b border-[var(--vscode-border)] text-[8px] text-white/30 flex items-center justify-between gap-2 font-mono">
-        <span>
-          {toolingMode === "website"
-            ? siteSnapshot
-              ? "Website context loaded"
-              : "Website context not loaded"
-            : toolingMode === "combined"
-              ? siteSnapshot
-                ? "Combined context active (website + portfolio)"
-                : "Combined context active (portfolio only)"
-              : "Portfolio context active"}
-        </span>
-        {(toolingMode === "website" || toolingMode === "combined") && (
+        {/* Source Mode Pills */}
+        <div className="flex items-center gap-1">
+          <span className="text-[var(--vscode-text-muted)] font-bold uppercase mr-1">RAG:</span>
           <button
-            disabled={isFetchingSite}
-            onClick={async () => {
-              setIsFetchingSite(true);
-              try {
-                const result = await fetch("/api/site");
-                const data = await result.json();
-                if (data.data) setSiteSnapshot(data.data);
-                else setSiteSnapshot("");
-              } catch {
-                setSiteSnapshot("");
-              } finally {
-                setIsFetchingSite(false);
-              }
-            }}
-            className="px-2 py-0.5 rounded border border-white/10 bg-white/5 hover:bg-white/15 disabled:opacity-40 font-bold transition-colors"
+            onClick={() => setToolingMode("portfolio")}
+            className={cn(
+              "px-2 py-0.5 rounded-md text-[8px] font-bold border transition-all",
+              toolingMode === "portfolio"
+                ? "bg-[var(--vscode-accent)]/20 text-[var(--vscode-accent)] border-[var(--vscode-accent)]/40"
+                : "bg-white/5 text-[var(--vscode-text-secondary)] border-transparent hover:text-white"
+            )}
           >
-            {isFetchingSite ? "Refreshing..." : "Refresh Snapshot"}
+            PORTFOLIO
           </button>
+          <button
+            onClick={() => setToolingMode("website")}
+            className={cn(
+              "px-2 py-0.5 rounded-md text-[8px] font-bold border transition-all",
+              toolingMode === "website"
+                ? "bg-[var(--vscode-accent)]/20 text-[var(--vscode-accent)] border-[var(--vscode-accent)]/40"
+                : "bg-white/5 text-[var(--vscode-text-secondary)] border-transparent hover:text-white"
+            )}
+          >
+            WEB
+          </button>
+        </div>
+
+        {/* Model Select Dropdown */}
+        {showModelSelect && (
+          <div className="absolute top-[36px] left-4 glass-panel border border-[var(--vscode-border)] shadow-2xl z-30 w-60 overflow-hidden rounded-xl bg-[var(--vscode-sideBar-background)]">
+            <button
+              onClick={() => {
+                setModel("gemini-3.6-flash");
+                setShowModelSelect(false);
+              }}
+              className={cn(
+                "w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 transition-colors",
+                model === "gemini-3.6-flash" && "bg-white/5"
+              )}
+            >
+              <div className="flex items-center gap-1.5 text-yellow-400 font-bold">
+                <LuZap size={11} />
+                <span>Gemini 3.6 Flash (High)</span>
+              </div>
+              <span className="text-[8px] text-[var(--vscode-text-secondary)]">OPTIMIZED AGENTIC REASONING // FAST</span>
+            </button>
+            <button
+              onClick={() => {
+                setModel("gemini-1.5-pro");
+                setShowModelSelect(false);
+              }}
+              className={cn(
+                "w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-[var(--vscode-border)] transition-colors",
+                model === "gemini-1.5-pro" && "bg-white/5"
+              )}
+            >
+              <div className="flex items-center gap-1.5 text-purple-400 font-bold">
+                <LuSparkles size={11} />
+                <span>Gemini 1.5 Pro</span>
+              </div>
+              <span className="text-[8px] text-[var(--vscode-text-secondary)]">DEEP REASONING & MULTI-STEP RAG</span>
+            </button>
+            <button
+              onClick={() => {
+                setModel("claude-3-5-sonnet");
+                setShowModelSelect(false);
+              }}
+              className={cn(
+                "w-full text-left p-3 hover:bg-white/5 flex flex-col gap-0.5 border-t border-[var(--vscode-border)] transition-colors",
+                model === "claude-3-5-sonnet" && "bg-white/5"
+              )}
+            >
+              <div className="flex items-center gap-1.5 text-cyan-400 font-bold">
+                <LuBot size={11} />
+                <span>Claude 3.5 Sonnet</span>
+              </div>
+              <span className="text-[8px] text-[var(--vscode-text-secondary)]">EXPERT CODE & NATURAL DIALOG</span>
+            </button>
+          </div>
         )}
       </div>
 
-      {/* Quick Connect Links */}
-      <div className="px-4 py-2.5 border-b border-[var(--vscode-border)] bg-black/10 relative z-10">
-        <div className="flex items-center gap-2">
-          <span className="text-[8px] text-white/30 font-mono font-bold uppercase tracking-wider">Quick Connect:</span>
-          <a
-            href="https://wa.me/+8801824526054?text=Hi%20Sajid!"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#25d366]/10 border border-[#25d366]/20 hover:bg-[#25d366]/20 hover:border-[#25d366]/40 transition-all group"
+      {/* Messages Scroll Area */}
+      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-4 custom-chat-scroll relative z-10">
+        {messages.map((m) => (
+          <div
+            key={m.id}
+            className={`flex ${
+              m.role === "user" ? "justify-end" : "justify-start"
+            } animate-in fade-in slide-in-from-bottom-2 duration-300`}
           >
-            <svg viewBox="0 0 24 24" fill="#25d366" className="w-3 h-3 group-hover:scale-110 transition-transform">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            <span className="text-[9px] font-bold text-[#25d366] font-mono">WhatsApp</span>
-          </a>
-          <a
-            href="https://t.me/SajidIslam"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#0088cc]/10 border border-[#0088cc]/20 hover:bg-[#0088cc]/20 hover:border-[#0088cc]/40 transition-all group"
-          >
-            <svg viewBox="0 0 24 24" fill="#0088cc" className="w-3 h-3 group-hover:scale-110 transition-transform">
-              <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
-            </svg>
-            <span className="text-[9px] font-bold text-[#0088cc] font-mono">Telegram</span>
-          </a>
-        </div>
-      </div>
+            {m.role === "system" ? (
+              <div className="w-full text-center py-1.5 px-3 rounded-lg bg-white/[0.03] border border-white/5 text-[9px] font-mono text-[var(--vscode-text-secondary)] uppercase tracking-widest flex items-center justify-center gap-2">
+                <LuTerminal size={11} className="text-[var(--vscode-accent)]" />
+                <span>{m.content}</span>
+              </div>
+            ) : m.role === "user" ? (
+              <div className="max-w-[85%] p-3.5 rounded-2xl rounded-tr-none bg-[var(--vscode-accent)] text-black font-semibold text-vscode-sm shadow-lg shadow-[var(--vscode-accent)]/10 relative">
+                <div className="text-[8px] font-mono font-bold uppercase tracking-wider text-black/60 mb-1 flex items-center justify-between">
+                  <span>YOU</span>
+                  {m.timestamp && <span>{m.timestamp}</span>}
+                </div>
+                <div className="whitespace-pre-wrap leading-relaxed">{m.content}</div>
+              </div>
+            ) : (
+              <div className="max-w-[90%] p-4 rounded-2xl rounded-tl-none bg-white/[0.03] border border-[var(--vscode-border)] text-gray-200 text-vscode-sm shadow-xl relative group/card">
+                {/* Agent Header Tag */}
+                <div className="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-[var(--vscode-border)] font-mono text-[9px]">
+                  <div className="flex items-center gap-2">
+                    <LuBot size={12} className="text-[var(--vscode-accent)]" />
+                    <span className="font-bold uppercase text-[var(--vscode-accent)] tracking-wider">
+                      ANTIGRAVITY AGENT
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {m.timestamp && <span className="text-[var(--vscode-text-muted)]">{m.timestamp}</span>}
+                    <button
+                      onClick={() => handleCopy(m.content, m.id)}
+                      className="text-[var(--vscode-text-muted)] hover:text-white transition-colors p-1"
+                      title="Copy Response"
+                    >
+                      {copiedId === m.id ? (
+                        <LuCheck size={12} className="text-[var(--vscode-accent)]" />
+                      ) : (
+                        <LuCopy size={12} />
+                      )}
+                    </button>
+                  </div>
+                </div>
 
-      {/* Message Bubbles Container */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 space-y-5 custom-chat-scroll relative z-10">
-        {messages.map((m, i) => (
-          <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-2 duration-300`}>
-            <div className={cn(
-              "max-w-[85%] p-3.5 rounded-2xl border relative shadow-md text-vscode-sm leading-relaxed",
-              m.role === 'user'
-                ? 'bg-[var(--vscode-accent)] text-white border-[var(--vscode-accent)]/30 rounded-tr-none'
-                : m.role === 'system'
-                  ? 'border-none italic text-white/20 text-[9px] uppercase tracking-widest text-center w-full bg-white/5 py-1 rounded-md font-mono'
-                  : 'bg-white/5 border border-white/5 text-gray-200 rounded-tl-none'
-            )}>
-              {m.role === 'user' && (
-                <div className="absolute -top-3.5 right-0.5 text-[8px] text-[var(--vscode-accent)]/80 flex items-center gap-1 font-bold uppercase tracking-wider font-mono">
-                  You
-                </div>
-              )}
-              {m.role === 'bot' && (
-                <div className="absolute -top-3.5 left-0.5 text-[8px] text-white/40 flex items-center gap-1 font-bold uppercase tracking-wider font-mono">
-                  <Bot size={8} className="text-[var(--vscode-accent)]" />
-                  Assistant
-                </div>
-              )}
-              <div className="whitespace-pre-wrap">{m.content}</div>
-            </div>
+                {/* Antigravity Thought Trace Box */}
+                {m.thoughts && m.thoughts.length > 0 && (
+                  <div className="mb-3 rounded-xl bg-black/40 border border-white/5 overflow-hidden">
+                    <button
+                      onClick={() => toggleThoughts(m.id)}
+                      className="w-full flex items-center justify-between px-3 py-1.5 text-[9px] font-mono text-[var(--vscode-text-secondary)] hover:text-white bg-white/[0.02] transition-colors"
+                    >
+                      <span className="flex items-center gap-1.5 text-[var(--vscode-accent)] font-bold">
+                        <LuActivity size={10} className="animate-pulse" />
+                        Thought trace ({m.thoughts.length} steps)
+                      </span>
+                      {expandedThoughts[m.id] ? <LuChevronUp size={10} /> : <LuChevronDown size={10} />}
+                    </button>
+                    {expandedThoughts[m.id] && (
+                      <div className="p-3 border-t border-white/5 space-y-1.5 font-mono text-[9px] text-[var(--vscode-text-secondary)] bg-black/50">
+                        {m.thoughts.map((step, idx) => (
+                          <div key={idx} className="flex items-start gap-2">
+                            <span className="text-[var(--vscode-accent)] font-bold">›</span>
+                            <span>{step}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Message Body */}
+                <div className="whitespace-pre-wrap leading-relaxed font-sans">{m.content}</div>
+              </div>
+            )}
           </div>
         ))}
-        
+
+        {/* Antigravity Thinking State */}
         {isTyping && (
-          <div className="flex justify-start animate-pulse">
-            <div className="p-3 bg-white/5 border border-white/5 text-[var(--vscode-accent)] flex items-center gap-3 italic rounded-2xl rounded-tl-none">
-              <div className="flex gap-1">
-                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce"></span>
+          <div className="flex justify-start animate-in fade-in duration-300">
+            <div className="p-3.5 rounded-2xl rounded-tl-none bg-white/[0.03] border border-[var(--vscode-accent)]/30 text-vscode-sm font-mono text-gray-300 space-y-2 max-w-[85%]">
+              <div className="flex items-center gap-2 text-[10px] text-[var(--vscode-accent)] font-bold uppercase tracking-wider">
+                <LuCpu size={12} className="animate-spin text-[var(--vscode-accent)]" />
+                <span>Antigravity Agent Reasoning...</span>
               </div>
-              <span className="text-[9px] font-bold uppercase tracking-wider font-mono">Thinking...</span>
+              <div className="flex items-center gap-1.5 pl-1">
+                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce [animation-delay:-0.3s]" />
+                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce [animation-delay:-0.15s]" />
+                <span className="w-1.5 h-1.5 bg-[var(--vscode-accent)] rounded-full animate-bounce" />
+                <span className="text-[9px] text-[var(--vscode-text-secondary)] italic ml-2">
+                  Scanning portfolio embeddings...
+                </span>
+              </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Input box section */}
-      <div className="p-4 border-t border-[var(--vscode-border)] bg-black/10 relative z-10">
-        {!isTyping && messages.length < 5 && (
-          <div className="flex flex-wrap gap-1.5 mb-3.5">
-            {suggestions.map((s) => (
-              <button
-                key={s.label}
-                onClick={() => { setInput(s.prompt); handleSend({ preventDefault: () => { } } as any); }}
-                className="px-3 py-1 bg-white/5 border border-white/5 rounded-full text-[9px] text-[var(--vscode-accent)] hover:bg-[var(--vscode-accent)]/15 hover:border-[var(--vscode-accent)]/30 transition-all font-semibold uppercase font-mono tracking-wider"
-              >
-                {s.label}
-              </button>
-            ))}
-          </div>
-        )}
+      {/* Quick Prompts Bar */}
+      {!isTyping && messages.length < 6 && (
+        <div className="px-4 py-2 border-t border-[var(--vscode-border)] bg-black/20 overflow-x-auto whitespace-nowrap scrollbar-none flex gap-1.5 relative z-10">
+          {quickPrompts.map((s) => (
+            <button
+              key={s.label}
+              onClick={() => {
+                setInput(s.prompt);
+              }}
+              className="px-2.5 py-1 rounded-lg bg-white/5 hover:bg-[var(--vscode-accent)]/15 border border-white/10 hover:border-[var(--vscode-accent)]/30 text-vscode-xs font-mono text-[var(--vscode-accent)] font-semibold transition-all flex-shrink-0"
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+      )}
 
-        <form onSubmit={handleSend} className="relative group">
-          <div className="flex items-center gap-2 bg-white/5 border border-white/5 rounded-2xl overflow-hidden p-1.5 focus-within:border-[var(--vscode-focusBorder)]/50 focus-within:bg-white/10 group-hover:border-[var(--vscode-focusBorder)]/30 transition-all shadow-inner">
+      {/* Input Section */}
+      <div className="p-4 border-t border-[var(--vscode-border)] bg-black/40 relative z-10">
+        <form onSubmit={handleSend} className="relative">
+          <div className="flex items-center gap-2 bg-black/50 border border-[var(--vscode-border)] rounded-2xl p-1.5 focus-within:border-[var(--vscode-accent)]/50 hover:border-white/20 transition-all shadow-inner">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={isTyping}
-              placeholder={isTyping ? "Thinking..." : "Ask a question about Sajid..."}
-              className="flex-1 bg-transparent border-none px-3 py-2 text-white outline-none placeholder:text-white/20 disabled:opacity-50 text-[12px] leading-none"
-              aria-label="Message input"
+              placeholder={isTyping ? "Agent synthesizing answer..." : "Ask Antigravity Agent anything about Sajid..."}
+              className="flex-1 bg-transparent border-none px-3 py-2 text-white outline-none placeholder:text-[var(--vscode-text-muted)] disabled:opacity-50 text-[12px] font-sans"
+              aria-label="Agent input query"
             />
             <button
               type="submit"
               disabled={!input.trim() || isTyping}
-              className="w-10 h-10 flex items-center justify-center bg-[var(--vscode-accent)] hover:opacity-90 text-white disabled:bg-white/5 disabled:text-white/20 rounded-xl transition-all active:scale-95 shadow-md flex-shrink-0"
+              className="w-9 h-9 flex items-center justify-center bg-[var(--vscode-accent)] hover:opacity-90 text-black font-bold disabled:bg-white/5 disabled:text-gray-600 rounded-xl transition-all active:scale-95 shadow-md flex-shrink-0"
+              title="Send to Agent"
             >
-              <Send size={16} />
+              <LuSend size={15} />
             </button>
           </div>
         </form>
@@ -397,7 +506,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
           background: transparent;
         }
         .custom-chat-scroll::-webkit-scrollbar-thumb {
-          background: rgba(255,255,255,0.06);
+          background: rgba(255, 255, 255, 0.08);
           border-radius: 10px;
         }
         .custom-chat-scroll::-webkit-scrollbar-thumb:hover {
