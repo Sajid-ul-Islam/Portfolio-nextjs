@@ -382,6 +382,19 @@ code {
 }
 
 /* ─── Theme Overrides ─── */
+:root[data-theme="tactical-dark"] {
+  --vscode-editor-background: #0b0f0c;
+  --vscode-editor-foreground: #e6edf3;
+  --vscode-sideBar-background: #111613;
+  --vscode-sideBar-foreground: #cccccc;
+  --vscode-activityBar-background: #181d19;
+  --vscode-border: #1f2621;
+  --vscode-titleBar-activeBackground: #181d19;
+  --vscode-tab-inactiveBackground: #111613;
+  --vscode-tab-activeBackground: #0b0f0c;
+  --vscode-text-primary: #e6edf3;
+  --vscode-text-secondary: #85988a;
+}
 :root[data-theme="vscode-dark"] {
   --vscode-editor-background: #1e1e1e;
   --vscode-sideBar-background: #252526;

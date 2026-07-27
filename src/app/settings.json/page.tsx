@@ -172,7 +172,10 @@ export default function SettingsJsonPage() {
                 return (
                   <button
                     key={t.id}
-                    onClick={() => updateGuiSettings("workbench.colorTheme", t.id)}
+                    onClick={() => {
+                      updateGuiSettings("workbench.colorTheme", t.id);
+                      setTheme(t.id as any);
+                    }}
                     className={cn(
                       "group text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden",
                       t.bg,

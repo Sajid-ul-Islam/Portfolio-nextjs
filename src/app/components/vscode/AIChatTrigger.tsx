@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { MessageSquare, Sparkles, X } from "lucide-react";
+import { useAccent } from "../../lib/accentContext";
 import { cn } from "../../lib/cn";
 
 type AIChatTriggerProps = {
@@ -11,6 +12,7 @@ type AIChatTriggerProps = {
 
 export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
   const [showGreeting, setShowGreeting] = useState(false);
+  const { accent } = useAccent();
 
   useEffect(() => {
     // Show greeting after 3 seconds on first load
@@ -25,6 +27,9 @@ export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
 
   if (isOpen) return null;
 
+  const accentColor = accent?.value || "var(--vscode-accent)";
+  const accentShadow = accent?.shadow || "rgba(163,230,53,0.4)";
+
   return (
     <div className="fixed bottom-20 md:bottom-12 right-6 z-[2500] flex flex-col items-end gap-3 group">
       {/* Greeting Bubble */}
@@ -38,10 +43,10 @@ export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
               <X size={10} />
             </button>
             <div className="flex items-center gap-2 mb-1">
-              <Sparkles size={12} className="text-[#a3e635] animate-pulse" />
-              <span className="text-[#a3e635] font-bold uppercase tracking-wider text-[9px]">Assistant</span>
+              <Sparkles size={12} className="text-[var(--vscode-accent)] animate-pulse" />
+              <span className="text-[var(--vscode-accent)] font-bold uppercase tracking-wider text-[9px]">Assistant</span>
             </div>
-            Hi! Ask me anything about Sajid&apos;s skills, experience, or projects. <span className="text-[#a3e635] font-bold underline cursor-pointer" onClick={onClick}>Chat now!</span>
+            Hi! Ask me anything about Sajid&apos;s skills, experience, or projects. <span className="text-[var(--vscode-accent)] font-bold underline cursor-pointer" onClick={onClick}>Chat now!</span>
           </div>
           {/* Arrow */}
           <div className="absolute -bottom-1.5 right-6 w-3 h-3 bg-[var(--vscode-sideBar-background)] border-r border-b border-[var(--vscode-accent)]/30 rotate-45"></div>
@@ -53,17 +58,20 @@ export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
         onClick={onClick}
         className={cn(
           "relative flex items-center justify-center w-14 h-14 rounded-full transition-all duration-500",
-          "bg-gradient-to-br from-[#a3e635] to-[#65a30d] shadow-[0_0_20px_rgba(163,230,53,0.4)]",
           "hover:scale-110 active:scale-95 group",
-          "before:absolute before:inset-0 before:rounded-full before:bg-[#a3e635] before:animate-ping before:opacity-20 before:[animation-duration:2000ms]"
+          "before:absolute before:inset-0 before:rounded-full before:bg-[var(--vscode-accent)] before:animate-ping before:opacity-20 before:[animation-duration:2000ms]"
         )}
+        style={{
+          backgroundColor: accentColor,
+          boxShadow: `0 0 25px ${accentShadow}`,
+        }}
       >
         <div className="absolute inset-0.5 rounded-full bg-black/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <MessageSquare size={24} className="text-black group-hover:rotate-12 transition-transform" strokeWidth={2.5} />
+        <MessageSquare size={24} className="text-white group-hover:rotate-12 transition-transform drop-shadow-md" strokeWidth={2.5} />
         
         {/* Orbits / HUD Decorative */}
-        <div className="absolute inset-0 rounded-full border border-black/5 animate-[spin_4s_linear_infinite]"></div>
-        <div className="absolute -inset-1 rounded-full border border-[#a3e635]/20 scale-105 group-hover:scale-115 transition-transform duration-700"></div>
+        <div className="absolute inset-0 rounded-full border border-white/20 animate-[spin_4s_linear_infinite]"></div>
+        <div className="absolute -inset-1 rounded-full border border-[var(--vscode-accent)]/30 scale-105 group-hover:scale-115 transition-transform duration-700"></div>
       </button>
     </div>
   );
