@@ -8,6 +8,12 @@ This document details the specific projects and technical modules described in t
 - **Role in AI Agent**: Primary "Local Data" source for RAG context.
 - **Key Technologies**: Next.js 16, TypeScript, Tailwind CSS, Framer Motion.
 
+## 1b. Deakho — Live TV & Movie Streaming Platform
+- **Description**: Web application and Telegram Mini App (@deakhoBot) for live TV channels and movie streaming.
+- **URL**: [deakho.vercel.app](https://deakho.vercel.app/) | Telegram: [t.me/deakhoBot](https://t.me/deakhoBot) | GitHub: [github.com/Sajid-ul-Islam/Deakho](https://github.com/Sajid-ul-Islam/Deakho)
+- **Key Features**: Live HLS video player, Plex-style hero banner, Telegram deep-linking, 1-click watch buttons, chat menu button integration.
+- **Technologies**: React, Vite, Tailwind CSS, HLS.js, Telegram Bot API (Node.js).
+
 ## 2. AI Chat Agent (RAG Implementation)
 - **Description**: Conversational interface integrated into the portfolio.
 - **Capabilities**: Grounded responses via Pinecone, streaming text, model switching.

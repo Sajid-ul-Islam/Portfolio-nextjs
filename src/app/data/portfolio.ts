@@ -141,6 +141,57 @@ export const testimonials: Testimonial[] = [
 
 export const projects: Project[] = [
   {
+    id: "deakho-tv",
+    title: "Deakho — Live TV & Movie Streaming Platform",
+    description:
+      "A modern TV channels & movie streaming web application and interactive Telegram Mini App (@deakhoBot) featuring live HLS streaming, Plex-style hero UI, and 1-click watch integration.",
+    longDescription:
+      "Deakho is a high-performance TV channel and movie streaming platform available as both a responsive web application (deakho.vercel.app) and an interactive Telegram Mini App (@deakhoBot). Built with React, Vite, Tailwind CSS, HLS.js, and a Node.js Telegram Bot server, Deakho delivers live streaming channels, movie streaming, deep linking support (?startapp=channel_id), direct 1-click watch buttons, and persistent chat menu integration.",
+    image: "/img/projects/platform.png",
+    liveUrl: "https://deakho.vercel.app/",
+    githubUrl: "https://github.com/Sajid-ul-Islam/Deakho",
+    gitDiff: {
+      filename: "bot.js",
+      oldCode: `// Basic bot listener
+bot.on('message', (msg) => {
+    bot.sendMessage(msg.chat.id, 'Welcome to Deakho');
+});`,
+      newCode: `// Async Telegram Mini App launcher & bot server (v3.0 Ultra)
+async function registerBotCommandsAndMenu() {
+    await apiRequest('setMyCommands', { commands: BOT_COMMANDS });
+    await apiRequest('setChatMenuButton', {
+        menu_button: { type: 'web_app', text: '📺 Open Deakho', web_app: { url: WEBAPP_URL } }
+    });
+}`,
+    },
+    featured: true,
+    technologies: ["React", "Vite", "Tailwind CSS", "HLS.js", "Telegram API", "Node.js", "Vercel"],
+    caseStudy: {
+      role: "Lead Developer & Creator",
+      timeline: "2026",
+      problem:
+        "Users needed a seamless, cross-platform media streaming experience that unifies live TV channels and movie playback with a mobile Telegram Mini App interface.",
+      solution:
+        "Engineered Deakho — a responsive web streaming application using React 19, Vite, and HLS.js paired with a Node.js Telegram Bot server supporting deep linking, persistent chat menus, and direct playback.",
+      impact: [
+        "Delivered zero-friction live TV & movie streaming via web and Telegram Mini App (@deakhoBot).",
+        "Integrated high-performance HLS video playback with custom controls and Plex-style hero banner showcase.",
+        "Implemented Telegram deep-linking support for 1-click channel and movie streaming.",
+      ],
+      metrics: [
+        { label: "Web App", value: "deakho.vercel.app" },
+        { label: "Telegram Bot", value: "t.me/deakhoBot" },
+        { label: "Streaming Engine", value: "HLS.js + Live Video" },
+      ],
+    },
+    missionLogs: [
+      ">> Initializing DeakhoTV streaming service node...",
+      ">> Registering Telegram Mini App webhooks & persistent chat menu...",
+      ">> Mounting HLS video player engine & Plex-style UI components...",
+      ">> Deakho system operational at deakho.vercel.app & t.me/deakhoBot.",
+    ],
+  },
+  {
     id: "desco-telegram-bot",
     title: "DESCO Electricity Usage Assistant",
     description:
@@ -959,6 +1010,14 @@ export const fileTree: FileTreeSection[] = [
         href: "/projects/woocom-whatsapp-bot",
         icon: "bot",
         extension: "py",
+        indent: true,
+      },
+      {
+        id: "deakho-tv",
+        label: "deakho_tv",
+        href: "/projects/deakho-tv",
+        icon: "bot",
+        extension: "js",
         indent: true,
       },
       {

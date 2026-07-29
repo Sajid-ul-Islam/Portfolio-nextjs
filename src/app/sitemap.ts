@@ -16,7 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const projectPages = [
+    "deakho-tv",
     "desco-telegram-bot",
+    "woocom-telegram-bot",
+    "woocom-whatsapp-bot",
     "agentic-rag",
     "rag-system",
     "telegram-chatbot",
