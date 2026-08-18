@@ -38,10 +38,10 @@ type VSCodeShellProps = {
 const mobileItems = [
   { id: "explorer", icon: "files", label: "Explorer" },
   { id: "search", icon: "search", label: "Search" },
-  { id: "git", icon: "git-branch", label: "Source Control" },
+  { id: "git", icon: "git", label: "Source Control" },
   { id: "chat", icon: "chat", label: "AI Chat" },
   { id: "terminal", icon: "terminal", label: "Terminal" },
-  { id: "account", icon: "user", label: "Account" },
+  { id: "account", icon: "account", label: "Account" },
   { id: "settings", icon: "settings", label: "Settings" },
 ] as const;
 

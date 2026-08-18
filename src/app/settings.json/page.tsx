@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useTheme } from "../lib/themeContext";
 import { useAccent, ACCENT_PRESETS } from "../lib/accentContext";
-import { LuSave, LuRefreshCw, LuSliders, LuCode, LuCheck, LuPalette } from "react-icons/lu";
+import { useIconTheme, ICON_THEMES } from "../lib/iconContext";
+import { LuSave, LuRefreshCw, LuSliders, LuCode, LuCheck, LuPalette, LuLayoutGrid } from "react-icons/lu";
 import Button from "../components/vscode/Button";
 import { cn } from "@/lib/cn";
 
@@ -27,6 +28,7 @@ const THEMES = [
 export default function SettingsJsonPage() {
   const { theme, setTheme } = useTheme();
   const { accent, setAccent, setCustomAccent } = useAccent();
+  const { iconThemeId, setIconTheme } = useIconTheme();
   const [jsonText, setJsonText] = useState("");
   const [guiSettings, setGuiSettings] = useState<SettingsData>({
     "workbench.colorTheme": "tactical-dark",
@@ -275,6 +277,50 @@ export default function SettingsJsonPage() {
                 className="w-8 h-8 rounded cursor-pointer border-0 bg-transparent"
               />
               <span className="text-vscode-xs font-mono text-[var(--vscode-text-secondary)]">{accent.value}</span>
+            </div>
+          </div>
+
+          {/* Icon Theme Picker */}
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <LuLayoutGrid className="text-[var(--vscode-accent)]" size={14} />
+              <label className="text-vscode-sm font-bold text-[var(--vscode-text-secondary)]">Activity Bar Icon Theme</label>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {ICON_THEMES.map((it) => {
+                const isActive = iconThemeId === it.id;
+                const PreviewIcon = it.icons.files;
+                return (
+                  <button
+                    key={it.id}
+                    onClick={() => setIconTheme(it.id)}
+                    className={cn(
+                      "group text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden flex items-center gap-3",
+                      isActive
+                        ? "border-[var(--vscode-accent)] shadow-lg shadow-[var(--vscode-accent)]/10 bg-white/[0.06]"
+                        : "border-white/5 hover:border-white/20 bg-white/[0.02]"
+                    )}
+                  >
+                    <div className={cn(
+                      "w-10 h-10 rounded-lg flex items-center justify-center border transition-colors",
+                      isActive ? "bg-[var(--vscode-accent)]/15 border-[var(--vscode-accent)]/30 text-[var(--vscode-accent)]" : "bg-white/5 border-white/10 text-[var(--vscode-text-secondary)]"
+                    )}>
+                      <PreviewIcon size={20} strokeWidth={1.5} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className={cn("text-vscode-xs font-bold font-mono", isActive ? "text-[var(--vscode-accent)]" : "text-[var(--vscode-text-primary)]")}>
+                        {it.name}
+                      </div>
+                      <div className="text-[10px] text-[var(--vscode-text-muted)] truncate">{it.description}</div>
+                    </div>
+                    {isActive && (
+                      <div className="w-5 h-5 rounded-full bg-[var(--vscode-accent)] flex items-center justify-center text-white shadow-sm animate-in scale-in flex-shrink-0">
+                        <LuCheck size={12} />
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
 

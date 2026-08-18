@@ -4,25 +4,15 @@ import {
   VscFiles,
   VscSearch,
   VscSourceControl,
-  VscCommentDiscussion,
-  VscTerminal,
+  VscExtensions,
   VscAccount,
   VscSettingsGear,
-  VscExtensions,
+  VscCommentDiscussion,
+  VscTerminal,
 } from "react-icons/vsc";
 
 import { cn } from "@/lib/cn";
-
-const iconMap = {
-  files: VscFiles,
-  search: VscSearch,
-  "git-branch": VscSourceControl,
-  blocks: VscExtensions,
-  user: VscAccount,
-  settings: VscSettingsGear,
-  chat: VscCommentDiscussion,
-  terminal: VscTerminal,
-};
+import { useIconTheme, type IconName } from "@/lib/iconContext";
 
 const mainItems = [
   { id: "explorer", icon: "files", label: "Explorer" },
@@ -41,7 +31,7 @@ type ActivityBarProps<T extends string = string> = {
   activeItem?: T;
   onItemClick?: (id: T) => void;
   orientation?: "vertical" | "horizontal";
-  items?: { id: T; icon: keyof typeof iconMap; label: string }[];
+  items?: { id: T; icon: IconName; label: string }[];
   unreadChat?: number;
 };
 
@@ -54,6 +44,7 @@ export default function ActivityBar<T extends string = string>({
 }: ActivityBarProps<T>) {
   const isHorizontal = orientation === "horizontal";
   const topItems = items ?? mainItems;
+  const { iconTheme } = useIconTheme();
   return (
     <aside
       className={cn(
@@ -65,7 +56,7 @@ export default function ActivityBar<T extends string = string>({
     >
       <div className={cn(isHorizontal ? "flex items-center gap-1 w-full" : "flex flex-col")}>
         {topItems.map((item) => {
-          const Icon = iconMap[item.icon as keyof typeof iconMap] || VscFiles;
+          const Icon = iconTheme.icons[item.icon as IconName] || VscFiles;
           const isActive = activeItem === item.id;
           return (
             <button
@@ -105,7 +96,7 @@ export default function ActivityBar<T extends string = string>({
       {!isHorizontal ? (
         <div className="flex flex-col">
           {bottomItems.map((item) => {
-            const Icon = iconMap[item.icon as keyof typeof iconMap] || VscAccount;
+            const Icon = iconTheme.icons[item.icon as IconName] || VscAccount;
             return (
               <button
                 key={item.id}

@@ -6,6 +6,7 @@ import TitleStatus from "./components/TitleStatus";
 import { siteMeta } from "./data/portfolio";
 import { ThemeProvider } from "./lib/themeContext";
 import { AccentProvider } from "./lib/accentContext";
+import { IconProvider } from "./lib/iconContext";
 
 const tiroBangla = Tiro_Bangla({
   weight: "400",
@@ -53,8 +54,10 @@ export default function RootLayout({
       <body className="antialiased font-sans" suppressHydrationWarning>
         <ThemeProvider>
           <AccentProvider>
-              <TitleStatus />
-              <VSCodeShell>{children}</VSCodeShell>
+              <IconProvider>
+                <TitleStatus />
+                <VSCodeShell>{children}</VSCodeShell>
+              </IconProvider>
             </AccentProvider>
         </ThemeProvider>
       </body>
