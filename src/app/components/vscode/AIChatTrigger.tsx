@@ -1,8 +1,10 @@
 "use client";
 
+import React from "react";
 import { useState, useEffect } from "react";
-import { MessageSquare, Sparkles, X } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
 import { useAccent } from "../../lib/accentContext";
+import { useIconTheme } from "../../lib/iconContext";
 import { cn } from "../../lib/cn";
 
 type AIChatTriggerProps = {
@@ -13,6 +15,7 @@ type AIChatTriggerProps = {
 export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
   const [showGreeting, setShowGreeting] = useState(false);
   const { accent } = useAccent();
+  const { iconTheme } = useIconTheme();
 
   useEffect(() => {
     // Show greeting after 3 seconds on first load
@@ -67,7 +70,7 @@ export default function AIChatTrigger({ isOpen, onClick }: AIChatTriggerProps) {
         }}
       >
         <div className="absolute inset-0.5 rounded-full bg-black/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
-        <MessageSquare size={24} className="text-white group-hover:rotate-12 transition-transform drop-shadow-md" strokeWidth={2.5} />
+        {React.createElement(iconTheme.icons.chat, { size: 24, className: "text-white group-hover:rotate-12 transition-transform drop-shadow-md", strokeWidth: 2.5 })}
         
         {/* Orbits / HUD Decorative */}
         <div className="absolute inset-0 rounded-full border border-white/20 animate-[spin_4s_linear_infinite]"></div>

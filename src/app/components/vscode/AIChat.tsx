@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import React from "react";
 import {
   LuBot,
   LuSparkles,
@@ -19,6 +20,7 @@ import {
   LuShieldCheck,
 } from "react-icons/lu";
 import { getLocalIntel } from "../../lib/intelEngine";
+import { useIconTheme } from "../../lib/iconContext";
 import { cn } from "@/lib/cn";
 
 type ChatMessage = {
@@ -53,6 +55,7 @@ const INITIAL_MESSAGES: ChatMessage[] = [
 ];
 
 export default function AIChat({ onClose }: { onClose: () => void }) {
+  const { iconTheme } = useIconTheme();
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -354,7 +357,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
               )}
             >
               <div className="flex items-center gap-1.5 text-cyan-400 font-bold">
-                <LuBot size={11} />
+                {React.createElement(iconTheme.icons.chat, { size: 11, className: "text-cyan-400" })}
                 <span>Claude 3.5 Sonnet</span>
               </div>
               <span className="text-[8px] text-[var(--vscode-text-secondary)]">EXPERT CODE & NATURAL DIALOG</span>
@@ -390,7 +393,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
                 {/* Agent Header Tag */}
                 <div className="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-[var(--vscode-border)] font-mono text-[9px]">
                   <div className="flex items-center gap-2">
-                    <LuBot size={12} className="text-[var(--vscode-accent)]" />
+                    {React.createElement(iconTheme.icons.chat, { size: 12, className: "text-[var(--vscode-accent)]" })}
                     <span className="font-bold uppercase text-[var(--vscode-accent)] tracking-wider">
                       ANTIGRAVITY AGENT
                     </span>

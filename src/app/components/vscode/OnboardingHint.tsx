@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, Terminal as TerminalIcon, Bot, Command } from "lucide-react";
+import React from "react";
+import { X } from "lucide-react";
+import { useIconTheme, type IconName } from "@/lib/iconContext";
 import { cn } from "@/lib/cn";
 
 const STORAGE_KEY = "vscode-onboarded";
@@ -12,6 +14,7 @@ const STORAGE_KEY = "vscode-onboarded";
  */
 export default function OnboardingHint() {
   const [visible, setVisible] = useState(false);
+  const { iconTheme } = useIconTheme();
 
   useEffect(() => {
     try {
@@ -35,10 +38,10 @@ export default function OnboardingHint() {
 
   if (!visible) return null;
 
-  const tips = [
-    { icon: TerminalIcon, label: "Toggle Terminal", keys: "Ctrl+`" },
-    { icon: Bot, label: "Ask the AI Assistant", keys: "Click ●" },
-    { icon: Command, label: "Open Command Palette", keys: "Ctrl+K" },
+  const tips: { iconKey: IconName; label: string; keys: string }[] = [
+    { iconKey: "terminal", label: "Toggle Terminal", keys: "Ctrl+`" },
+    { iconKey: "chat", label: "Ask the AI Assistant", keys: "Click ●" },
+    { iconKey: "search", label: "Open Command Palette", keys: "Ctrl+K" },
   ];
 
   return (
@@ -62,7 +65,7 @@ export default function OnboardingHint() {
               key={tip.label}
               className="flex items-center gap-2.5 text-vscode-xs text-[var(--vscode-text-primary)]"
             >
-              <tip.icon size={14} className="text-[var(--vscode-accent)] flex-shrink-0" />
+              {React.createElement(iconTheme.icons[tip.iconKey], { size: 14, className: "text-[var(--vscode-accent)] flex-shrink-0" })}
               <span className="flex-1">{tip.label}</span>
               <kbd className="px-1.5 py-0.5 rounded bg-black/30 border border-white/10 text-[8px] font-mono leading-none text-[var(--vscode-text-secondary)]">
                 {tip.keys}

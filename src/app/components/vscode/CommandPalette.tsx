@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
-import { LuCornerDownLeft, LuSearch } from "react-icons/lu";
+import { LuCornerDownLeft } from "react-icons/lu";
 import { Command } from "cmdk";
 import * as Dialog from "@radix-ui/react-dialog";
 
@@ -11,6 +12,7 @@ import { filterSearchItems, getSearchItems } from "../../lib/search";
 import { useRecentPagesContext } from "../../lib/recentPagesContext";
 import { useTabs } from "../../lib/tabsContext";
 import { useTheme } from "../../lib/themeContext";
+import { useIconTheme } from "../../lib/iconContext";
 import { fileTree } from "../../data/portfolio";
 
 type PaletteItem = {
@@ -28,6 +30,7 @@ export default function CommandPalette() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const { theme, setTheme } = useTheme();
+  const { iconTheme } = useIconTheme();
 
   const baseItems = useMemo(() => getSearchItems(), []);
 
@@ -166,7 +169,7 @@ export default function CommandPalette() {
         className="w-full max-w-2xl bg-[var(--vscode-sideBar-background)] border border-[var(--vscode-border)] rounded-[var(--vscode-border-radius-md)] shadow-2xl overflow-hidden flex flex-col"
       >
         <div className="flex items-center gap-2 px-4 py-3 border-b border-[var(--vscode-border)]">
-          <LuSearch size={16} className="text-[var(--vscode-text-secondary)]" />
+          {React.createElement(iconTheme.icons.search, { size: 16, className: "text-[var(--vscode-text-secondary)]" })}
           <Command.Input
             value={query}
             onValueChange={setQuery}
