@@ -23,10 +23,25 @@ import {
 import { motion } from "framer-motion";
 
 import SocialLinks from "./SocialLinks";
-import GitHubFeed from "./GitHubFeed";
 import { useRecentPagesContext } from "@/lib/recentPagesContext";
 import { personalInfo, metrics, projects, testimonials, type Project, type Testimonial } from "../../data/portfolio";
 import { useLayout } from "../../lib/layoutContext";
+import dynamic from "next/dynamic";
+
+// Lazy-load the GitHub feed (network-bound) so it doesn't block first paint.
+const GitHubFeed = dynamic(() => import("./GitHubFeed"), {
+  ssr: false,
+  loading: () => (
+    <div className="glass-panel border border-[var(--vscode-border)] p-6 rounded-2xl animate-pulse h-96">
+      <div className="h-4 bg-white/5 rounded w-1/4 mb-4" />
+      <div className="space-y-3">
+        <div className="h-10 bg-white/5 rounded w-full" />
+        <div className="h-10 bg-white/5 rounded w-full" />
+        <div className="h-10 bg-white/5 rounded w-full" />
+      </div>
+    </div>
+  ),
+});
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Subcomponents
@@ -140,7 +155,7 @@ const itemVariants = {
 
 export default function HomeClient() {
   const { recentPages } = useRecentPagesContext();
-  const { setShowTerminal, setShowAIChat } = useLayout();
+  const { setShowTerminal, setShowAIChat, setUnreadAIChat } = useLayout();
 
   const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
@@ -160,6 +175,8 @@ export default function HomeClient() {
         {/* Header Section */}
         <motion.header variants={itemVariants} className="relative z-10">
           <div className="flex flex-col gap-6 p-6 sm:p-8 glass-panel border border-[var(--vscode-border)] rounded-2xl relative overflow-hidden group shadow-xl">
+            {/* Animated hero aurora background */}
+            <div className="hero-aurora" />
             {/* Hover overlay glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
@@ -346,6 +363,8 @@ export default function HomeClient() {
                   src={project.image}
                   alt={project.title}
                   fill
+                  placeholder="blur"
+                  blurDataURL="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSI2Ij48cmVjdCB3aWR0aD0iMTAiIGhlaWdodD0iNiIgZmlsbD0iIzFhMWExYSIvPjwvc3ZnPg=="
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
@@ -425,7 +444,7 @@ export default function HomeClient() {
 
           {/* AI control card */}
           <motion.button
-            onClick={() => setShowAIChat(true)}
+            onClick={() => { setShowAIChat(true); setUnreadAIChat(0); }}
             variants={itemVariants}
             className="md:col-span-7 glass-panel border border-[var(--vscode-border)] p-6 transition-all duration-300 text-left cursor-pointer group hover:border-[var(--vscode-accent)]/30 rounded-2xl relative overflow-hidden"
           >

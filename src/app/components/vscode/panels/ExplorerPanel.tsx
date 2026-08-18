@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LuChevronDown, LuChevronRight } from "react-icons/lu";
 
 import { fileTree } from "../../../data/portfolio";
@@ -22,10 +22,31 @@ export default function ExplorerPanel({ onClose }: ExplorerPanelProps) {
     });
     return initial;
   });
+  const activeLinkRef = useRef<HTMLAnchorElement>(null);
 
   const toggleSection = (id: string) => {
     setSections((prev) => ({ ...prev, [id]: !prev[id] }));
   };
+
+  // Keep the active file's section open and scrolled into view on navigation
+  useEffect(() => {
+    let activeSection: string | null = null;
+    for (const section of fileTree) {
+      if (section.items.some((i) => pathname === i.href || (i.href !== "/" && pathname.startsWith(i.href)))) {
+        activeSection = section.id;
+        break;
+      }
+    }
+    if (activeSection) {
+      setSections((prev) => ({ ...prev, [activeSection as string]: true }));
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (activeLinkRef.current) {
+      activeLinkRef.current.scrollIntoView({ block: "nearest" });
+    }
+  }, [pathname]);
 
   return (
     <div className="flex-1 overflow-y-auto overflow-x-hidden">
@@ -55,6 +76,7 @@ export default function ExplorerPanel({ onClose }: ExplorerPanelProps) {
                   return (
                     <Link
                       key={item.id}
+                      ref={isActive ? activeLinkRef : undefined}
                       href={item.href}
                       onClick={onClose}
                       className={cn(

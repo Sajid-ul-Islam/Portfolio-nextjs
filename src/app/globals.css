@@ -241,6 +241,63 @@ code {
   display: none;
 }
 
+/* ─── Hero Aurora Background ─── */
+/* Subtle animated gradient + dot grid behind the profile header. */
+.hero-aurora {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.hero-aurora::before {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background:
+    radial-gradient(40% 40% at 20% 30%, rgba(163, 230, 53, 0.10), transparent 60%),
+    radial-gradient(35% 35% at 80% 20%, rgba(56, 189, 248, 0.10), transparent 60%),
+    radial-gradient(45% 45% at 60% 80%, rgba(168, 85, 247, 0.08), transparent 60%);
+  filter: blur(20px);
+  animation: auroraDrift 14s ease-in-out infinite alternate;
+}
+.hero-aurora::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+}
+@keyframes auroraDrift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  100% { transform: translate3d(-4%, 3%, 0) scale(1.08); }
+}
+
+/* ─── Accessibility: Reduced Motion ─── */
+/* Respect users who request reduced motion: kill infinite/entrance animations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── Smooth Theme Crossfade (View Transitions API) ─── */
+/* The setTheme wrapper in themeContext triggers document.startViewTransition;
+   this gives the theme swap a brief crossfade. Disabled under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 350ms;
+  }
+}
+
 /* Terminal Cursor */
 @keyframes blink {
   0%, 100% { opacity: 1; }

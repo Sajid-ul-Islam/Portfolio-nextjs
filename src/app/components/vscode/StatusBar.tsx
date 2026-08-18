@@ -96,6 +96,7 @@ export default function StatusBar() {
           className="text-[var(--vscode-accent)] font-semibold border border-[var(--vscode-accent)]/20 hover:bg-[var(--vscode-accent)] hover:text-white transition-all"
         >
           <span>Command Palette</span>
+          <kbd className="ml-1.5 px-1 py-0.5 rounded bg-black/30 border border-white/10 text-[8px] font-mono leading-none opacity-80 hidden lg:inline-block">⌘K</kbd>
         </StatusItem>
         {memory && (
           <StatusItem className="text-white/80 hidden sm:flex">

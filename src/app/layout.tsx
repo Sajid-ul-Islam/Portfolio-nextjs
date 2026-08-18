@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Tiro_Bangla, Inter } from "next/font/google"; // For Bengali and modern sans-serif excellence
 import "./globals.css";
 import VSCodeShell from "./components/vscode/VSCodeShell";
+import TitleStatus from "./components/TitleStatus";
 import { siteMeta } from "./data/portfolio";
 import { ThemeProvider } from "./lib/themeContext";
 import { AccentProvider } from "./lib/accentContext";
@@ -52,8 +53,9 @@ export default function RootLayout({
       <body className="antialiased font-sans" suppressHydrationWarning>
         <ThemeProvider>
           <AccentProvider>
-            <VSCodeShell>{children}</VSCodeShell>
-          </AccentProvider>
+              <TitleStatus />
+              <VSCodeShell>{children}</VSCodeShell>
+            </AccentProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -70,6 +70,15 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     }
   }, [messages, isTyping]);
 
+  // Close on Escape for keyboard accessibility (the floating chat has no dialog trap)
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
   const toggleThoughts = (id: string) => {
     setExpandedThoughts((prev) => ({ ...prev, [id]: !prev[id] }));
   };

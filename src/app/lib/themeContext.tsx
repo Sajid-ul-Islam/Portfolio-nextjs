@@ -18,10 +18,25 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useTheme() {
-    const { theme, setTheme } = useNextTheme();
+    const { theme, setTheme: setNextTheme } = useNextTheme();
+
+    const setTheme = (newTheme: Theme) => {
+        // Smooth crossfade between themes using the View Transitions API (progressive enhancement)
+        if (
+            typeof document !== "undefined" &&
+            // @ts-expect-error - startViewTransition is not yet in all lib.dom versions
+            typeof document.startViewTransition === "function" &&
+            !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+            // @ts-expect-error - startViewTransition is not yet in all lib.dom versions
+            document.startViewTransition(() => setNextTheme(newTheme));
+        } else {
+            setNextTheme(newTheme);
+        }
+    };
 
     return {
         theme: (theme || "tactical-dark") as Theme,
-        setTheme: (newTheme: Theme) => setTheme(newTheme),
+        setTheme,
     };
 }

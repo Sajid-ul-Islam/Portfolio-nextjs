@@ -16,6 +16,8 @@ type LayoutContextType = {
   setShowTerminal: React.Dispatch<React.SetStateAction<boolean>>;
   showAIChat: boolean;
   setShowAIChat: React.Dispatch<React.SetStateAction<boolean>>;
+  unreadAIChat: number;
+  setUnreadAIChat: React.Dispatch<React.SetStateAction<number>>;
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   workspaceState: "active" | "minimized" | "closed";
@@ -29,6 +31,7 @@ const LayoutContext = createContext<LayoutContextType | null>(null);
 export function LayoutProvider({ children }: { children: React.ReactNode }) {
   const [showTerminal, setShowTerminal] = useState(false);
   const [showAIChat, setShowAIChat] = useState(false);
+  const [unreadAIChat, setUnreadAIChat] = useState(0);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [workspaceState, setWorkspaceState] = useState<"active" | "minimized" | "closed">("active");
   const [activeActivity, setActiveActivity] = useState<ActivityId>("explorer");
@@ -40,6 +43,8 @@ export function LayoutProvider({ children }: { children: React.ReactNode }) {
         setShowTerminal,
         showAIChat,
         setShowAIChat,
+        unreadAIChat,
+        setUnreadAIChat,
         sidebarOpen,
         setSidebarOpen,
         workspaceState,

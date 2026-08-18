@@ -121,6 +121,10 @@ export default function CommandPalette() {
         event.preventDefault();
         setOpen(true);
       }
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        setOpen(true);
+      }
       if (event.key === "Escape") {
         setOpen(false);
       }

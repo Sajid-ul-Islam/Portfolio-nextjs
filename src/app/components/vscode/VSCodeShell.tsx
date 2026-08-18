@@ -16,7 +16,6 @@ import Sidebar from "./Sidebar";
 import StatusBar from "./StatusBar";
 import TitleBar from "./TitleBar";
 import Terminal from "./Terminal";
-import AIChat from "./AIChat";
 import AIChatTrigger from "./AIChatTrigger";
 import IntroAnimation from "./IntroAnimation";
 import CommandPalette from "./CommandPalette";
@@ -25,6 +24,11 @@ import { useTerminalResize } from "./useTerminalResize";
 import { useVSCodeShortcuts } from "./useVSCodeShortcuts";
 import ErrorBoundary from "./ErrorBoundary";
 import { LayoutProvider, useLayout, type ActivityId } from "../../lib/layoutContext";
+import dynamic from "next/dynamic";
+import OnboardingHint from "./OnboardingHint";
+
+// Lazy-load the AI chat (heavy: RAG/API client) so it isn't in the initial bundle.
+const AIChat = dynamic(() => import("./AIChat"), { ssr: false });
 
 
 type VSCodeShellProps = {
@@ -35,6 +39,9 @@ const mobileItems = [
   { id: "explorer", icon: "files", label: "Explorer" },
   { id: "search", icon: "search", label: "Search" },
   { id: "git", icon: "git-branch", label: "Source Control" },
+  { id: "chat", icon: "chat", label: "AI Chat" },
+  { id: "terminal", icon: "terminal", label: "Terminal" },
+  { id: "account", icon: "user", label: "Account" },
   { id: "settings", icon: "settings", label: "Settings" },
 ] as const;
 
@@ -50,12 +57,25 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
     setShowTerminal,
     showAIChat,
     setShowAIChat,
+    unreadAIChat,
+    setUnreadAIChat,
     workspaceState,
     setWorkspaceState,
     activeActivity,
     setActiveActivity,
   } = useLayout();
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const seededRef = useRef(false);
+
+  // Simulate an inbound assistant message shortly after first visit (once per mount)
+  useEffect(() => {
+    if (seededRef.current) return;
+    seededRef.current = true;
+    const t = setTimeout(() => {
+      setUnreadAIChat((n) => (showAIChat ? n : n + 1));
+    }, 4500);
+    return () => clearTimeout(t);
+  }, [setUnreadAIChat, showAIChat]);
   const { sidebarWidth, isResizing, startResizing } = useSidebarResize("vscodeSidebarWidth", 256);
   const { terminalHeight, isResizing: isTerminalResizing, startResizing: startTerminalResizing } = useTerminalResize("vscodeTerminalHeight", 256);
 
@@ -102,6 +122,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
     }
     if (id === 'chat') {
       setShowAIChat(!showAIChat);
+      setUnreadAIChat(0);
       return;
     }
 
@@ -288,6 +309,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
           items={[...mobileItems]}
           activeItem={activeActivity}
           onItemClick={handleActivityClick}
+          unreadChat={unreadAIChat}
         />
         <StatusBar />
 
@@ -296,12 +318,13 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
           <div className="fixed inset-0 z-[2000] bg-black/60 flex items-end justify-center p-2 animate-in fade-in duration-200">
             <div className="w-full max-w-md max-h-[85vh] relative">
               <ErrorBoundary fallbackMessage="AI Neural Link disconnected. Verify environment API keys.">
-                <AIChat onClose={() => setShowAIChat(false)} />
+                <AIChat onClose={() => { setShowAIChat(false); setUnreadAIChat(0); }} />
               </ErrorBoundary>
             </div>
           </div>
         )}
-        <AIChatTrigger isOpen={showAIChat} onClick={() => setShowAIChat(true)} />
+        <AIChatTrigger isOpen={showAIChat} onClick={() => { setShowAIChat(true); setUnreadAIChat(0); }} />
+        <OnboardingHint />
       </div>
     );
   }
@@ -325,6 +348,7 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
         <ActivityBar
           activeItem={activeActivity}
           onItemClick={handleActivityClick}
+          unreadChat={unreadAIChat}
         />
       </div>
 
@@ -386,14 +410,15 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
                 {/* Floating Shadow Glow */}
                 <div className="absolute inset-0 bg-[#a3e635]/10 rounded-2xl blur-3xl opacity-30 group-hover/float:opacity-50 transition-opacity duration-1000"></div>
                 <ErrorBoundary fallbackMessage="AI Neural Link disconnected. Verify environment API keys.">
-                  <AIChat onClose={() => setShowAIChat(false)} />
-                </ErrorBoundary>
+                    <AIChat onClose={() => { setShowAIChat(false); setUnreadAIChat(0); }} />
+                  </ErrorBoundary>
               </div>
           </div>
       )}
-      <AIChatTrigger isOpen={showAIChat} onClick={() => setShowAIChat(true)} />
+      <AIChatTrigger isOpen={showAIChat} onClick={() => { setShowAIChat(true); setUnreadAIChat(0); }} />
       <IntroAnimation />
       <CommandPalette />
+      <OnboardingHint />
     </div>
   );
 }
