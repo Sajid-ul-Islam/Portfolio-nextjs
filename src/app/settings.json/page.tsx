@@ -289,7 +289,7 @@ export default function SettingsJsonPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {ICON_THEMES.map((it) => {
                 const isActive = iconThemeId === it.id;
-                const PreviewIcon = it.icons.files;
+                const previewIcons = [it.icons.files, it.icons.search, it.icons.git, it.icons.chat, it.icons.settings];
                 return (
                   <button
                     key={it.id}
@@ -302,10 +302,12 @@ export default function SettingsJsonPage() {
                     )}
                   >
                     <div className={cn(
-                      "w-10 h-10 rounded-lg flex items-center justify-center border transition-colors",
+                      "w-16 shrink-0 rounded-lg flex items-center justify-center gap-1 border p-1.5 transition-colors",
                       isActive ? "bg-[var(--vscode-accent)]/15 border-[var(--vscode-accent)]/30 text-[var(--vscode-accent)]" : "bg-white/5 border-white/10 text-[var(--vscode-text-secondary)]"
                     )}>
-                      <PreviewIcon size={20} strokeWidth={1.5} />
+                      {previewIcons.map((Icon, i) => (
+                        <Icon key={i} size={13} strokeWidth={1.5} />
+                      ))}
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className={cn("text-vscode-xs font-bold font-mono", isActive ? "text-[var(--vscode-accent)]" : "text-[var(--vscode-text-primary)]")}>

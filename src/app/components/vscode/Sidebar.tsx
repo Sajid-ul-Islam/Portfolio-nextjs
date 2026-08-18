@@ -1,8 +1,10 @@
 "use client";
 
+import React from "react";
 import { LuX } from "react-icons/lu";
 
 import { cn } from "../../lib/cn";
+import { useIconTheme, type IconName } from "../../lib/iconContext";
 import AccountPanel from "./panels/AccountPanel";
 import ExplorerPanel from "./panels/ExplorerPanel";
 import SearchPanel from "./panels/SearchPanel";
@@ -28,12 +30,24 @@ const panelLabels: Record<
   chat: "AI Chat",
 };
 
+// Panel -> icon theme vocabulary so the activity-bar icon choice flows through here too.
+const panelIcons: Record<NonNullable<SidebarProps["activePanel"]>, IconName> = {
+  explorer: "files",
+  search: "search",
+  git: "git",
+  account: "account",
+  settings: "settings",
+  terminal: "terminal",
+  chat: "chat",
+};
+
 export default function Sidebar({
   isOpen = true,
   onClose,
   activePanel = "explorer",
   variant = "default",
 }: SidebarProps) {
+  const { iconTheme } = useIconTheme();
   if (!isOpen) return null;
 
   const panelContent = (() => {
@@ -60,7 +74,10 @@ export default function Sidebar({
       )}
     >
       <div className="flex items-center justify-between px-4 py-2 text-vscode-xs font-semibold uppercase tracking-wider text-[var(--vscode-text-secondary)] border-b border-[var(--vscode-border)]">
-        <span>{panelLabels[activePanel]}</span>
+        <span className="flex items-center gap-2">
+          {React.createElement(iconTheme.icons[panelIcons[activePanel]], { size: 14, className: "text-[var(--vscode-accent)]" })}
+          {panelLabels[activePanel]}
+        </span>
         {onClose ? (
           <button
             onClick={onClose}

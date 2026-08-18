@@ -19,6 +19,15 @@ import {
   VscAccount,
   VscSettingsGear,
 } from "react-icons/vsc";
+import {
+  BiFolder,
+  BiSearch,
+  BiGitBranch,
+  BiChat,
+  BiTerminal,
+  BiUser,
+  BiCog,
+} from "react-icons/bi";
 
 export type IconName =
   | "files"
@@ -29,17 +38,19 @@ export type IconName =
   | "account"
   | "settings";
 
-export type IconThemeId = "lucide" | "vscode";
+export type IconComponent = React.ComponentType<any>;
+
+export type IconThemeId = "lucide" | "vscode" | "boxicons";
 
 export type IconTheme = {
   id: IconThemeId;
   name: string;
   description: string;
-  icons: Record<IconName, React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>>;
+  icons: Record<IconName, IconComponent>;
 };
 
-// Modernized set (lucide-react): clean, consistent 24px stroke icons
-const lucideIcons: Record<IconName, React.ComponentType<any>> = {
+// Modern set (lucide-react): clean, consistent 24px stroke icons
+const lucideIcons: Record<IconName, IconComponent> = {
   files: Files,
   search: Search,
   git: GitBranch,
@@ -49,8 +60,8 @@ const lucideIcons: Record<IconName, React.ComponentType<any>> = {
   settings: Settings,
 };
 
-// Classic VS Code set (react-icons/vsc) — the original look
-const vscodeIcons: Record<IconName, React.ComponentType<any>> = {
+// Classic VS Code set (react-icons/vsc) — the original product icons
+const vscodeIcons: Record<IconName, IconComponent> = {
   files: VscFiles,
   search: VscSearch,
   git: VscSourceControl,
@@ -58,6 +69,17 @@ const vscodeIcons: Record<IconName, React.ComponentType<any>> = {
   terminal: VscTerminal,
   account: VscAccount,
   settings: VscSettingsGear,
+};
+
+// Boxicons set (react-icons/bi) — rounded, friendly glyphs
+const boxiconsIcons: Record<IconName, IconComponent> = {
+  files: BiFolder,
+  search: BiSearch,
+  git: BiGitBranch,
+  chat: BiChat,
+  terminal: BiTerminal,
+  account: BiUser,
+  settings: BiCog,
 };
 
 export const ICON_THEMES: IconTheme[] = [
@@ -73,12 +95,19 @@ export const ICON_THEMES: IconTheme[] = [
     description: "The original product icons",
     icons: vscodeIcons,
   },
+  {
+    id: "boxicons",
+    name: "Boxicons",
+    description: "Rounded, friendly glyph style",
+    icons: boxiconsIcons,
+  },
 ];
 
 type IconContextType = {
   iconTheme: IconTheme;
   iconThemeId: IconThemeId;
   setIconTheme: (id: IconThemeId) => void;
+  getIcon: (name: IconName) => IconComponent;
 };
 
 const IconContext = createContext<IconContextType | null>(null);
@@ -86,6 +115,8 @@ const IconContext = createContext<IconContextType | null>(null);
 function getTheme(id: IconThemeId): IconTheme {
   return ICON_THEMES.find((t) => t.id === id) ?? ICON_THEMES[0];
 }
+
+const FALLBACK = ICON_THEMES[0].icons.files;
 
 export function IconProvider({ children }: { children: React.ReactNode }) {
   const [iconThemeId, setIconThemeId] = useState<IconThemeId>("lucide");
@@ -111,8 +142,16 @@ export function IconProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const theme = getTheme(iconThemeId);
+  const getIcon = useCallback(
+    (name: IconName) => theme.icons[name] ?? FALLBACK,
+    [theme]
+  );
+
   return (
-    <IconContext.Provider value={{ iconTheme: getTheme(iconThemeId), iconThemeId, setIconTheme }}>
+    <IconContext.Provider
+      value={{ iconTheme: theme, iconThemeId, setIconTheme, getIcon }}
+    >
       {children}
     </IconContext.Provider>
   );
