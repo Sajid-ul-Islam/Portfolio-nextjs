@@ -52,6 +52,8 @@
   --vscode-text-primary: #d4d4d4;
   --vscode-text-secondary: #858585;
   --vscode-text-muted: #6e6e6e;
+  /* Higher-contrast body text for paragraphs/labels (WCAG AA on #1e1e1e ≈ 6.5:1) */
+  --vscode-text-body: #c2c2c2;
   --vscode-text-link: #3794ff;
   --vscode-text-linkHover: #58a6ff;
 

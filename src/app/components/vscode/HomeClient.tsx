@@ -93,7 +93,7 @@ function StatCard({ label, value, sub, icon, delay }: StatCardProps) {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[var(--vscode-accent)]/20 transition-all group"
+      className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[var(--vscode-accent)]/20 hover:bg-white/[0.04] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 transition-all duration-300 group"
     >
       <div className="p-3 rounded-lg bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] group-hover:bg-[var(--vscode-accent)]/20 transition-colors flex-shrink-0">
         {icon}
@@ -102,8 +102,8 @@ function StatCard({ label, value, sub, icon, delay }: StatCardProps) {
         <span className="text-xl md:text-2xl font-extrabold text-[var(--vscode-text-primary)] leading-none mb-1">
           {value}
         </span>
-        <span className="text-[10px] text-[var(--vscode-text-secondary)] uppercase tracking-wider font-mono truncate">
-          {label}
+        <span className="text-[10px] text-[var(--vscode-text-body)] uppercase tracking-wider font-mono truncate">
+        {label}
         </span>
       </div>
     </motion.div>
@@ -182,7 +182,11 @@ export default function HomeClient() {
               {/* Bio & Details */}
               <div className="min-w-0 flex-1 space-y-3">
                 <div className="flex items-center gap-2">
-                  <span className="px-2.5 py-0.5 rounded-full bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] text-[9px] font-bold tracking-wider border border-[var(--vscode-accent)]/20 uppercase font-mono">
+                  <span className="px-2.5 py-0.5 rounded-full bg-[var(--vscode-accent)]/10 text-[var(--vscode-accent)] text-[9px] font-bold tracking-wider border border-[var(--vscode-accent)]/20 uppercase font-mono flex items-center gap-1.5">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--vscode-accent)] opacity-75 animate-ping" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--vscode-accent)]" />
+                    </span>
                     Workspace Active
                   </span>
                 </div>
@@ -195,7 +199,7 @@ export default function HomeClient() {
                   </p>
                 </div>
                 {/* Properly structured paragraph blocks - full width */}
-                <div className="space-y-3 text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed w-full">
+                <div className="space-y-3 text-vscode-sm text-[var(--vscode-text-body)] leading-relaxed w-full">
                   {bioParagraphs.map((para, idx) => (
                     <p key={idx}>{para}</p>
                   ))}
@@ -372,9 +376,9 @@ export default function HomeClient() {
               {testimonials.map((t, i) => (
                 <div
                   key={i}
-                  className="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[var(--vscode-accent)]/20 transition-all"
+                  className="p-4 rounded-xl bg-white/[0.02] border border-white/5 hover:border-[var(--vscode-accent)]/20 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-black/20 transition-all duration-300"
                 >
-                  <p className="text-vscode-sm text-[var(--vscode-text-secondary)] leading-relaxed italic mb-3">
+                  <p className="text-vscode-sm text-[var(--vscode-text-body)] leading-relaxed italic mb-3">
                     &ldquo;{t.quote}&rdquo;
                   </p>
                   <div className="flex items-center gap-2">
