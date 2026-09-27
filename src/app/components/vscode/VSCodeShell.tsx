@@ -26,7 +26,6 @@ import ErrorBoundary from "./ErrorBoundary";
 import { LayoutProvider, useLayout, type ActivityId } from "../../lib/layoutContext";
 import dynamic from "next/dynamic";
 import OnboardingHint from "./OnboardingHint";
-import MobileNavBar from "./MobileNavBar";
 import MobileQuickContact from "./MobileQuickContact";
 
 // Lazy-load the AI chat (heavy: RAG/API client) so it isn't in the initial bundle.
@@ -314,7 +313,6 @@ function VSCodeShellContent({ children }: VSCodeShellProps) {
           unreadChat={unreadAIChat}
         />
         <StatusBar />
-        <MobileNavBar />
         <MobileQuickContact />
 
         {/* Mobile AI Chat */}
