@@ -1103,6 +1103,13 @@ export const fileTree: FileTreeSection[] = [
         extension: "jsx",
       },
       {
+        id: "estimator",
+        label: "estimator",
+        href: "/estimator",
+        icon: "zap",
+        extension: "tsx",
+      },
+      {
         id: "settings",
         label: "settings",
         href: "/settings.json",
@@ -1111,7 +1118,7 @@ export const fileTree: FileTreeSection[] = [
       },
       {
         id: "github-pages",
-        label: "GitHub Pages",
+        label: "Live Browser",
         href: "/github-pages",
         icon: "globe",
         extension: "html",

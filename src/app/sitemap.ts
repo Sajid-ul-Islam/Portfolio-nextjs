@@ -10,12 +10,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/experience",
     "/skills",
     "/projects",
+    "/estimator",
     "/education",
     "/contact",
     "/settings.json",
   ];
 
   const projectPages = [
+    "cybrcraft",
     "deakho-tv",
     "desco-telegram-bot",
     "woocom-telegram-bot",

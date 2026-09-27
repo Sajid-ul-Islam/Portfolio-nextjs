@@ -39,6 +39,47 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://sajid-ul-islam.vercel.app/#person",
+      "name": "Sajid Islam",
+      "jobTitle": "Co-Founder @ CybrCraft | Product-Minded Business & Data Analyst",
+      "url": "https://sajid-ul-islam.vercel.app",
+      "sameAs": [
+        "https://www.linkedin.com/in/sajidislamchowdhury/",
+        "https://github.com/Sajid-ul-Islam",
+        "https://cybrcraft.com/",
+        "https://huggingface.co/Sajid-ul-Islam"
+      ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "CybrCraft",
+        "url": "https://cybrcraft.com/"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://cybrcraft.com/#organization",
+      "name": "CybrCraft",
+      "url": "https://cybrcraft.com/",
+      "logo": "https://cybrcraft.com/favicon.ico",
+      "description": "Software Solutions, Custom Web Apps, E-Commerce, LMS, and Business Automation Engineering."
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sajid-ul-islam.vercel.app/#website",
+      "url": "https://sajid-ul-islam.vercel.app",
+      "name": "Sajid Islam — Interactive VS Code Portfolio",
+      "publisher": {
+        "@id": "https://sajid-ul-islam.vercel.app/#person"
+      }
+    }
+  ]
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -50,18 +91,21 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://img.icons8.com" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
       </head>
       <body className="antialiased font-sans" suppressHydrationWarning>
         <ThemeProvider>
           <AccentProvider>
-              <IconProvider>
-                <TitleStatus />
-                <VSCodeShell>{children}</VSCodeShell>
-              </IconProvider>
-            </AccentProvider>
+            <IconProvider>
+              <TitleStatus />
+              <VSCodeShell>{children}</VSCodeShell>
+            </IconProvider>
+          </AccentProvider>
         </ThemeProvider>
       </body>
     </html>
   );
-
 }

@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { Trash2, X, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/cn";
+import { experiences, projects, metrics, skillGroups, personalInfo } from "../../data/portfolio";
 
 type TerminalTab = "TERMINAL" | "DEBUG CONSOLE" | "OUTPUT" | "PROBLEMS";
 
@@ -36,6 +37,14 @@ const FILE_CONTENT: Record<string, string> = {
   "work_history.md": "### Work History\n- Co-Founder @ CybrCraft (https://cybrcraft.com)\n- Business Analyst @ Deen Commerce\n- IT Executive @ NZ TEX GROUP\n- Associate @ Thriving Skills\n- Jr. Executive @ Daraz Bangladesh",
 };
 
+function formatSqlTable(headers: string[], rows: (string | number)[][]): string {
+  const colWidths = headers.map((h, i) => Math.max(h.length, ...rows.map(r => String(r[i] ?? "").length)));
+  const separator = "+-" + colWidths.map(w => "-".repeat(w)).join("-+-") + "-+";
+  const headerRow = "| " + headers.map((h, i) => h.padEnd(colWidths[i])).join(" | ") + " |";
+  const dataRows = rows.map(r => "| " + r.map((c, i) => String(c ?? "").padEnd(colWidths[i])).join(" | ") + " |");
+  return [separator, headerRow, separator, ...dataRows, separator, `(${rows.length} rows in set)`].join("\n");
+}
+
 type TerminalProps = {
   onClose: () => void;
 };
@@ -48,7 +57,7 @@ export default function Terminal({ onClose }: TerminalProps) {
     "(c) 2026 Sajid Islam. All rights reserved.",
     "",
     "Welcome to Sajid's interactive portfolio terminal.",
-    "Type 'help' to view available commands.",
+    "Type 'help' to view available commands or try 'cybrcraft' / 'sql'.",
     "",
   ]);
   const [input, setInput] = useState("");
@@ -66,7 +75,7 @@ export default function Terminal({ onClose }: TerminalProps) {
   }, [output, activeTab]);
 
   const availableCommands = useMemo(() => [
-    "help", "ls", "cd", "pwd", "cat", "neofetch", "whoami", "projects", "status", "clear", "exit", "mkdir", "touch", "date", "hire", "sudo", "npm"
+    "help", "ls", "cd", "pwd", "cat", "cybrcraft", "sql", "curl", "estimate", "skills", "projects", "experience", "contact", "neofetch", "whoami", "status", "clear", "exit", "date", "hire", "npm"
   ], []);
 
   const executeCommand = (cmdStr: string) => {
@@ -84,18 +93,21 @@ export default function Terminal({ onClose }: TerminalProps) {
     switch (baseCmd) {
       case "help":
         response = `AVAILABLE COMMANDS:
-  help              Display help information
+  cybrcraft         Display CybrCraft software company info & services
+  sql [query]       Query live portfolio datasets (e.g. sql SELECT * FROM metrics)
+  curl [url]        Simulate HTTP GET requests (e.g. curl https://cybrcraft.com)
+  estimate          Generate project scope & timeline estimate
+  skills            Display categorized technical skill stacks
+  experience        Display professional operational history
+  projects          List summary of featured projects
+  contact           Show direct contact coordinates & WhatsApp
   ls                List directory contents
   cd [dir]          Change directory
   pwd               Print working directory
   cat [file]        Display file content
-  neofetch          Display system configurations
-  whoami            Print current user name
-  projects          List summary of projects
-  status            Print system status
-  mkdir [name]      Create a new directory
-  touch [name]      Create a new file
-  date              Display current system date
+  neofetch          Display system specifications
+  whoami            Print current identity
+  status            Print system memory & uptime status
   clear             Clear the terminal screen
   exit              Close the terminal`;
         break;
@@ -163,8 +175,133 @@ export default function Terminal({ onClose }: TerminalProps) {
       case "date":
         response = new Date().toLocaleString();
         break;
+      case "cybrcraft":
+        response = `\u001b[35m=== CybrCraft Software Solutions ===\u001b[0m
+Official Website: https://cybrcraft.com/
+Co-Founder: Sajid Islam
+Nature: Software Solutions & Digital Engineering
+
+CORE SERVICES:
+1. Custom Web Development (Next.js, React, TypeScript, Tailwind)
+2. E-Commerce Solutions & Sync Mobile Apps (WooCommerce, REST API)
+3. LMS Platforms (Course management, Video streaming, Payments)
+4. AI Bots & Business Automation (Telegram Bot API, WhatsApp, RAG)
+5. Ongoing Maintenance & 24/7 Support Mindset
+
+DELIVERED CLIENTS:
+- Epscy (E-Commerce)
+- Normal Delivery BD (Healthcare & Doctor Directory)
+- Rihab Typing (Typing & PRO Services)
+- Solevia Shop (E-Commerce)
+- Shotomul (Business & Legal Services)
+- Hygienic (Corporate Web)
+
+Direct Consultation: Type 'estimate' or visit /estimator`;
+        break;
+      case "sql":
+        {
+          const sqlQuery = cmd.slice(3).trim();
+          if (!sqlQuery) {
+            response = "Usage: sql SELECT * FROM [experiences | projects | metrics | skills]";
+            break;
+          }
+          const lower = sqlQuery.toLowerCase();
+          if (lower.includes("from experiences") || lower.includes("from experience")) {
+            const headers = ["ID", "Role", "Company", "Period", "Status"];
+            const rows = experiences.map(e => [
+              e.id,
+              e.title.slice(0, 24),
+              e.company.slice(0, 20),
+              e.startDate,
+              e.current ? "Active" : "Completed"
+            ]);
+            response = formatSqlTable(headers, rows);
+          } else if (lower.includes("from projects") || lower.includes("from project")) {
+            const headers = ["ID", "Title", "Tech Stack", "Featured"];
+            const rows = projects.slice(0, 8).map(p => [
+              p.id,
+              p.title.slice(0, 28),
+              p.technologies.slice(0, 3).join(", "),
+              p.featured ? "YES" : "NO"
+            ]);
+            response = formatSqlTable(headers, rows);
+          } else if (lower.includes("from metrics") || lower.includes("from stats")) {
+            const headers = ["Metric", "Value", "Scope"];
+            const rows = metrics.map(m => [m.label, m.value, m.sub]);
+            response = formatSqlTable(headers, rows);
+          } else if (lower.includes("from skills") || lower.includes("from skill")) {
+            const headers = ["Domain", "Total Skills", "Key Technologies"];
+            const rows = skillGroups.map(g => [
+              g.name,
+              g.skills.length,
+              g.skills.slice(0, 3).map(s => s.name).join(", ")
+            ]);
+            response = formatSqlTable(headers, rows);
+          } else {
+            response = `MySQL Error: Table not recognized. Available tables: 'experiences', 'projects', 'metrics', 'skills'.`;
+          }
+        }
+        break;
+      case "curl":
+        {
+          const url = args[0] || "https://cybrcraft.com/api/status";
+          if (url.includes("cybrcraft")) {
+            response = `HTTP/2 200 OK
+content-type: application/json; charset=utf-8
+server: cybrcraft-edge-gateway
+
+{
+  "status": "ONLINE",
+  "company": "CybrCraft",
+  "url": "https://cybrcraft.com/",
+  "services": ["Web Development", "E-Commerce", "LMS", "AI Automation"],
+  "coFounder": "Sajid Islam",
+  "rating": "5.0 ★★★★★"
+}`;
+          } else if (url.includes("metrics")) {
+            response = `HTTP/2 200 OK
+content-type: application/json
+
+${JSON.stringify(metrics, null, 2)}`;
+          } else {
+            response = `HTTP/2 200 OK
+date: ${new Date().toUTCString()}
+content-type: application/json
+
+{
+  "name": "${personalInfo.name}",
+  "title": "${personalInfo.title}",
+  "email": "${personalInfo.email}",
+  "github": "${personalInfo.github}"
+}`;
+          }
+        }
+        break;
+      case "estimate":
+        response = `\u001b[36m=== CybrCraft Project Scope Estimator ===\u001b[0m
+- Web Apps: ~14 days (Next.js, React, Tailwind)
+- E-Commerce: ~20 days (WooCommerce, Multi-channel Sync)
+- LMS Platforms: ~25 days (Video Streaming, Portals)
+- AI & Chatbots: ~10 days (Telegram Bot, WhatsApp, RAG)
+
+Interactive Calculator available at route: /estimator
+Or initiate inquiry directly: https://wa.me/+8801824526054`;
+        break;
+      case "skills":
+        response = skillGroups.map(g => `\u001b[33m[${g.name}]\u001b[0m\n  ${g.skills.map(s => s.name).join(" · ")}`).join("\n\n");
+        break;
+      case "experience":
+        response = experiences.map(e => `• \u001b[32m${e.title}\u001b[0m @ ${e.company} (${e.startDate}${e.endDate ? ` - ${e.endDate}` : " - Present"})\n  ${e.description}`).join("\n\n");
+        break;
+      case "contact":
+        response = `Contact Sajid Islam:
+- Email:    ${personalInfo.email}
+- WhatsApp: ${personalInfo.whatsapp}
+- GitHub:   ${personalInfo.github}
+- Website:  https://cybrcraft.com/`;
+        break;
       case "projects":
-        response = "Sajid's Featured Projects:\n- Deen Ops Dashboard (Python/Streamlit)\n- Deen Business Intel (Python/Streamlit)\n- ECommerce Dashboard (React/Analytics)\n- Sheet2WhatsApp (Python/Streamlit)\n- Sentinel Bangladesh (Python/Map Visualization)";
+        response = projects.slice(0, 6).map(p => `• \u001b[34m${p.title}\u001b[0m (${p.technologies.slice(0, 3).join(", ")})\n  ${p.description}`).join("\n\n");
         break;
       case "status":
         const mem = (performance as any).memory ? `${Math.round((performance as any).memory.usedJSHeapSize / 1048576)}MB` : "24MB";

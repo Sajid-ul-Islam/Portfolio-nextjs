@@ -52,6 +52,14 @@ const baseItems: SearchItem[] = [
     href: "/projects",
     type: "page",
   },
+  {
+    id: "project-estimator",
+    title: "Project Scope & Architecture Estimator",
+    subtitle: "Tool · CybrCraft",
+    href: "/estimator",
+    type: "page",
+    keywords: ["estimate", "calculator", "quote", "cybrcraft", "pricing", "scope", "timeline"],
+  },
 ];
 
 export function getSearchItems() {

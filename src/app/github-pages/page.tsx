@@ -19,12 +19,19 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/cn";
 
-const EMBED_URL = "https://sajid-ul-islam.github.io/";
-const REPO_URL = "https://github.com/Sajid-ul-Islam/sajid-ul-islam.github.io";
+const PRESET_SITES = [
+  { id: "cybrcraft", name: "CybrCraft", url: "https://cybrcraft.com/", desc: "Official Software Company" },
+  { id: "deakho", name: "Deakho TV", url: "https://deakho.vercel.app/", desc: "Live TV & Streaming" },
+  { id: "github-pages", name: "GitHub Portfolio", url: "https://sajid-ul-islam.github.io/", desc: "Static Showcase" },
+];
+
+const REPO_URL = "https://github.com/Sajid-ul-Islam/Portfolio-nextjs";
 
 type ViewportMode = "desktop" | "tablet" | "mobile";
 
 export default function GitHubPagesPage() {
+  const [currentUrl, setCurrentUrl] = useState("https://cybrcraft.com/");
+  const [inputUrl, setInputUrl] = useState("https://cybrcraft.com/");
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -37,17 +44,27 @@ export default function GitHubPagesPage() {
     setMounted(true);
   }, []);
 
+  const handleNavigate = (url: string) => {
+    let formatted = url.trim();
+    if (!formatted.startsWith("http://") && !formatted.startsWith("https://")) {
+      formatted = `https://${formatted}`;
+    }
+    setCurrentUrl(formatted);
+    setInputUrl(formatted);
+    setIsLoading(true);
+  };
+
   const handleRefresh = () => {
     setIsRefreshing(true);
     setIsLoading(true);
     if (iframeRef.current) {
-      iframeRef.current.src = `${EMBED_URL}?t=${Date.now()}`;
+      iframeRef.current.src = currentUrl;
     }
     setTimeout(() => setIsRefreshing(false), 800);
   };
 
   const handleCopyUrl = () => {
-    navigator.clipboard.writeText(EMBED_URL);
+    navigator.clipboard.writeText(currentUrl);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -72,27 +89,47 @@ export default function GitHubPagesPage() {
     >
       {/* Top Browser Bar */}
       <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 bg-black/20 border-b border-[var(--vscode-border)] backdrop-blur-md">
-        {/* Left: Brand Badge & Status */}
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 px-2.5 py-1 rounded-full bg-[var(--vscode-accent)]/10 border border-[var(--vscode-accent)]/20">
-            <span className="w-2 h-2 rounded-full bg-[#a3e635] shadow-[0_0_8px_#a3e635] animate-pulse" />
-            <span className="text-[10px] font-mono font-extrabold uppercase tracking-wider text-[var(--vscode-accent)]">
-              GitHub Pages Live
-            </span>
-          </div>
-          <span className="hidden sm:inline text-vscode-xs font-mono text-[var(--vscode-text-secondary)] truncate">
-            HTML / Static Site Preview
-          </span>
+        {/* Left: Preset Tabs */}
+        <div className="flex items-center gap-1.5 overflow-x-auto scrollbar-none">
+          {PRESET_SITES.map((site) => {
+            const isActive = currentUrl === site.url;
+            return (
+              <button
+                key={site.id}
+                onClick={() => handleNavigate(site.url)}
+                className={cn(
+                  "px-3 py-1.5 rounded-xl font-mono text-[11px] font-bold transition-all flex items-center gap-1.5 flex-shrink-0",
+                  isActive
+                    ? "bg-[var(--vscode-accent)] text-white shadow-md shadow-[var(--vscode-accent)]/20"
+                    : "bg-white/5 text-[var(--vscode-text-secondary)] hover:text-[var(--vscode-text-primary)] hover:bg-white/10"
+                )}
+              >
+                <LuGlobe size={11} className={isActive ? "text-white" : "text-[var(--vscode-accent)]"} />
+                <span>{site.name}</span>
+              </button>
+            );
+          })}
         </div>
 
         {/* Center: Address Bar */}
         <div className="flex-1 max-w-xl mx-2">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/30 border border-white/10 hover:border-white/20 transition-all focus-within:border-[var(--vscode-accent)] group">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleNavigate(inputUrl);
+            }}
+            className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-black/30 border border-white/10 hover:border-white/20 transition-all focus-within:border-[var(--vscode-accent)] group"
+          >
             <LuLock size={12} className="text-[#a3e635] flex-shrink-0" />
-            <span className="text-vscode-xs font-mono text-[var(--vscode-text-secondary)] select-all truncate flex-1">
-              {EMBED_URL}
-            </span>
+            <input
+              type="text"
+              value={inputUrl}
+              onChange={(e) => setInputUrl(e.target.value)}
+              className="text-vscode-xs font-mono text-[var(--vscode-text-primary)] bg-transparent border-none outline-none flex-1 truncate"
+              placeholder="Enter URL to preview..."
+            />
             <button
+              type="button"
               onClick={handleCopyUrl}
               className="p-1 text-[var(--vscode-text-secondary)] hover:text-white transition-colors"
               title="Copy URL"
@@ -100,6 +137,7 @@ export default function GitHubPagesPage() {
               {copied ? <LuCheck size={12} className="text-[#a3e635]" /> : <LuCopy size={12} />}
             </button>
             <button
+              type="button"
               onClick={handleRefresh}
               className={cn(
                 "p-1 text-[var(--vscode-text-secondary)] hover:text-white transition-all",
@@ -109,7 +147,7 @@ export default function GitHubPagesPage() {
             >
               <LuRefreshCw size={12} />
             </button>
-          </div>
+          </form>
         </div>
 
         {/* Right: Viewport Controls & Actions */}
@@ -166,7 +204,7 @@ export default function GitHubPagesPage() {
           </a>
 
           <a
-            href={EMBED_URL}
+            href={currentUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 text-vscode-xs font-mono font-bold text-[var(--vscode-accent)] bg-[var(--vscode-accent)]/10 border border-[var(--vscode-accent)]/20 rounded-xl hover:bg-[var(--vscode-accent)]/20 transition-all"
@@ -202,8 +240,8 @@ export default function GitHubPagesPage() {
                   INITIALIZING LIVE PREVIEW...
                 </span>
               </div>
-              <p className="text-vscode-xs font-mono text-[var(--vscode-text-secondary)]">
-                Fetching static bundle from sajid-ul-islam.github.io
+              <p className="text-vscode-xs font-mono text-[var(--vscode-text-secondary)] truncate max-w-md px-4">
+                Loading live environment: {currentUrl}
               </p>
             </motion.div>
           )}
@@ -227,10 +265,10 @@ export default function GitHubPagesPage() {
 
           <iframe
             ref={iframeRef}
-            src={EMBED_URL}
+            src={currentUrl}
             className="w-full h-full border-0 bg-white"
             onLoad={() => setIsLoading(false)}
-            title="GitHub Pages Live Portfolio"
+            title="Live Web Browser Preview"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
             referrerPolicy="no-referrer"
           />
@@ -240,9 +278,9 @@ export default function GitHubPagesPage() {
       {/* Footer Info Bar */}
       <div className="flex items-center justify-between px-4 py-1.5 bg-black/40 border-t border-[var(--vscode-border)] text-vscode-xs font-mono text-[var(--vscode-text-secondary)]">
         <div className="flex items-center gap-4">
-          <span className="flex items-center gap-1.5">
-            <LuGlobe size={12} className="text-[var(--vscode-accent)]" />
-            <span>Target: sajid-ul-islam.github.io</span>
+          <span className="flex items-center gap-1.5 truncate max-w-sm">
+            <LuGlobe size={12} className="text-[var(--vscode-accent)] flex-shrink-0" />
+            <span className="truncate">Target: {currentUrl}</span>
           </span>
           <span className="hidden sm:inline text-white/40">|</span>
           <span className="hidden sm:inline uppercase">Viewport: {viewport}</span>

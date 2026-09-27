@@ -54,6 +54,14 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   },
 ];
 
+const QUICK_PROMPTS = [
+  { label: "🌐 CybrCraft Solutions", prompt: "Tell me about CybrCraft and what software solutions it provides." },
+  { label: "⚡ Project Estimator", prompt: "How can I estimate or hire Sajid for a software development project?" },
+  { label: "🤖 AI & Chatbots", prompt: "What automated bots and AI RAG systems has Sajid built?" },
+  { label: "📊 BI Experience", prompt: "Summarize Sajid's business analytics experience at Deen Commerce & Daraz." },
+  { label: "📬 Direct Contact", prompt: "How can I contact Sajid for a project consultation or quote?" },
+];
+
 export default function AIChat({ onClose }: { onClose: () => void }) {
   const { iconTheme } = useIconTheme();
   const [messages, setMessages] = useState<ChatMessage[]>(INITIAL_MESSAGES);
@@ -471,7 +479,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       {/* Quick Prompts Bar */}
       {!isTyping && messages.length < 6 && (
         <div className="px-4 py-2 border-t border-[var(--vscode-border)] bg-[var(--vscode-sideBar-background)]/80 overflow-x-auto whitespace-nowrap scrollbar-none flex gap-1.5 relative z-10">
-          {quickPrompts.map((s) => (
+          {QUICK_PROMPTS.map((s) => (
             <button
               key={s.label}
               onClick={() => {

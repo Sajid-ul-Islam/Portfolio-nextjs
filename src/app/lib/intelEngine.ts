@@ -28,7 +28,12 @@ export function getLocalIntel(query: string): string | null {
 
   // CybrCraft intent
   if (q.includes("cybrcraft") || q.includes("craft") || q.includes("software company") || q.includes("co-founder")) {
-    return `[LOCAL_INTEL]: CybrCraft (https://cybrcraft.com/) is a digital software solution & engineering company co-founded by Sajid. It specializes in custom web development, scalable e-commerce stores with synchronized mobile apps, LMS platforms, and business automation workflows.`;
+    return `[LOCAL_INTEL]: CybrCraft (https://cybrcraft.com/) is a digital software solution & engineering company co-founded by Sajid. It specializes in custom web development, scalable e-commerce stores with synchronized mobile apps, LMS platforms, and business automation workflows. Direct consultation: ${personalInfo.whatsapp}`;
+  }
+
+  // Estimator / Quote / Pricing intent
+  if (q.includes("estimate") || q.includes("quote") || q.includes("pricing") || q.includes("cost") || q.includes("scope")) {
+    return `[LOCAL_INTEL]: You can calculate project scope, timeline, and recommended architectures using the interactive Project Scope & Architecture Estimator at /estimator. You can also message Sajid directly via WhatsApp: ${personalInfo.whatsapp}`;
   }
 
   // Projects intent

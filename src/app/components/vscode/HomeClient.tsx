@@ -256,6 +256,67 @@ export default function HomeClient() {
           ))}
         </motion.div>
 
+        {/* CybrCraft Venture Showcase Banner */}
+        <motion.div
+          variants={itemVariants}
+          className="glass-panel border border-[var(--vscode-accent)]/30 p-6 sm:p-8 rounded-2xl relative overflow-hidden shadow-2xl bg-gradient-to-br from-[var(--vscode-accent)]/10 via-transparent to-purple-900/10 group"
+        >
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[var(--vscode-accent)]/15 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20 group-hover:scale-110 transition-transform duration-700" />
+          
+          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="space-y-3 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-full bg-[var(--vscode-accent)]/20 text-[var(--vscode-accent)] text-[10px] font-extrabold uppercase font-mono tracking-wider border border-[var(--vscode-accent)]/30 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Featured Co-Founded Venture
+                </span>
+                <span className="text-[10px] font-mono text-[var(--vscode-text-secondary)]">
+                  Software Solutions & Digital Engineering
+                </span>
+              </div>
+
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--vscode-text-primary)] tracking-tight">
+                  CybrCraft <span className="text-[var(--vscode-accent)]">—</span> High-Performance Software Solutions
+                </h2>
+                <p className="text-vscode-sm text-[var(--vscode-text-secondary)] mt-1.5 leading-relaxed">
+                  Co-founded to engineer custom web applications, headless WooCommerce ecosystems, LMS learning platforms, and multi-channel customer automation bots for modern businesses.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2 pt-1">
+                {["Next.js Web Apps", "WooCommerce & Mobile Sync", "LMS Academies", "Telegram / WhatsApp Bots", "24/7 Support"].map((pill) => (
+                  <span
+                    key={pill}
+                    className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-[11px] font-mono text-[var(--vscode-text-primary)]"
+                  >
+                    {pill}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row lg:flex-col gap-3 w-full lg:w-auto flex-shrink-0">
+              <Link
+                href="/estimator"
+                className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[var(--vscode-accent)] hover:opacity-90 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-[var(--vscode-accent)]/20 active:scale-95 text-center"
+              >
+                <Zap size={15} />
+                Calculate Project Scope
+              </Link>
+              <a
+                href="https://cybrcraft.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-[var(--vscode-text-primary)] font-mono text-xs font-bold transition-all text-center group/btn"
+              >
+                Visit cybrcraft.com
+                <ChevronRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
+              </a>
+            </div>
+          </div>
+        </motion.div>
+
         {/* Navigation & Recent Files Bento Box */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Quick actions panel */}
