@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import { skillGroups } from "../../data/portfolio";
 import { cn } from "../../lib/cn";
 import SectionHeader from "./SectionHeader";
+import SkillIcon from "./SkillIcon";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Framer Motion Animation Settings
@@ -35,9 +36,7 @@ type SkillCardProps = {
   category?: string;
 };
 
-function SkillCard({ name, icon, category }: SkillCardProps) {
-  const isCore = category === "Core";
-
+function SkillCard({ name, category }: SkillCardProps) {
   return (
     <motion.div
       variants={itemVariants}
@@ -50,19 +49,9 @@ function SkillCard({ name, icon, category }: SkillCardProps) {
         "transition-all duration-300 group shadow-sm"
       )}
     >
-      {icon ? (
-        <div className="relative w-8 h-8 flex-shrink-0 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors">
-          <Image src={icon} alt={name} width={20} height={20} className="w-5 h-5 object-contain" />
-        </div>
-      ) : (
-        <div className="w-8 h-8 flex-shrink-0 rounded-lg bg-[var(--vscode-accent)]/10 flex items-center justify-center group-hover:bg-[var(--vscode-accent)]/20 transition-colors">
-          {isCore ? (
-            <LuSparkles size={14} className="text-[var(--vscode-accent)]" />
-          ) : (
-            <LuCode2 size={14} className="text-[var(--vscode-accent)]" />
-          )}
-        </div>
-      )}
+      <div className="w-8 h-8 flex-shrink-0 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white/10 transition-colors border border-white/5">
+        <SkillIcon name={name} size={18} />
+      </div>
       <div className="flex flex-col min-w-0 flex-1">
         <span className="text-vscode-sm text-[var(--vscode-text-primary)] font-sans font-medium truncate group-hover:text-white transition-colors">
           {name}
@@ -130,10 +119,10 @@ function AccordionSection({
           </span>
         </div>
         <div className="flex items-center gap-3 flex-shrink-0">
-          <div className="hidden sm:flex items-center gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-            {group.skills.filter(s => s.icon).slice(0, 4).map((s) => (
-              <div key={s.name} className="w-4 h-4 rounded-sm overflow-hidden relative">
-                <Image src={s.icon!} alt="" fill className="object-contain" />
+          <div className="hidden sm:flex items-center gap-1.5 opacity-75 group-hover:opacity-100 transition-opacity">
+            {group.skills.slice(0, 4).map((s) => (
+              <div key={s.name} className="w-5 h-5 rounded-md bg-white/5 flex items-center justify-center border border-white/5">
+                <SkillIcon name={s.name} size={12} />
               </div>
             ))}
           </div>

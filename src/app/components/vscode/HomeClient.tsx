@@ -18,6 +18,9 @@ import {
   Globe,
   Download,
   Quote,
+  Target,
+  Cpu,
+  Workflow,
   type LucideIcon,
 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -313,6 +316,86 @@ export default function HomeClient() {
                 Visit cybrcraft.com
                 <ChevronRight size={14} className="group-hover/btn:translate-x-0.5 transition-transform" />
               </a>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Forward Deployed Engineering (FDE) Execution Model */}
+        <motion.div
+          variants={itemVariants}
+          className="glass-panel border border-[var(--vscode-border)] p-6 sm:p-8 rounded-2xl relative overflow-hidden"
+        >
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/5">
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-400 text-[10px] font-extrabold uppercase font-mono tracking-wider border border-sky-500/20 flex items-center gap-1.5">
+                  <Workflow size={12} />
+                  Operational Mindset
+                </span>
+                <span className="text-[10px] font-mono text-[var(--vscode-text-secondary)]">FDE Core Playbook</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-[var(--vscode-text-primary)] mt-1.5 tracking-tight">
+                Forward Deployed Engineering: From Friction to Production
+              </h2>
+            </div>
+            <span className="text-vscode-xs font-mono text-[var(--vscode-accent)] bg-[var(--vscode-accent)]/10 px-3 py-1.5 rounded-xl border border-[var(--vscode-accent)]/20 font-semibold self-start sm:self-auto">
+              Domain Immersion ➔ Rapid Code ➔ Real ROI
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-6">
+            {/* Pillar 1 */}
+            <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                  <Target size={18} />
+                </div>
+                <h3 className="text-vscode-sm font-bold text-[var(--vscode-text-primary)] font-mono">
+                  1. Domain Immersion
+                </h3>
+                <p className="text-vscode-xs text-[var(--vscode-text-body)] leading-relaxed">
+                  Embedding directly on the ground with cross-functional stakeholders to audit live operational data, diagnose root bottlenecks, and translate business friction into strict technical architecture.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-emerald-400 font-semibold uppercase tracking-wider">
+                Root-Cause Scoping
+              </span>
+            </div>
+
+            {/* Pillar 2 */}
+            <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center border border-sky-500/20">
+                  <Cpu size={18} />
+                </div>
+                <h3 className="text-vscode-sm font-bold text-[var(--vscode-text-primary)] font-mono">
+                  2. Rapid Production Code
+                </h3>
+                <p className="text-vscode-xs text-[var(--vscode-text-body)] leading-relaxed">
+                  Shipping full-stack Next.js applications, automated SQL pipelines, and Agentic AI workflows (Telegram/WhatsApp bots & RAG) rapidly — testing against production data in real time.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-sky-400 font-semibold uppercase tracking-wider">
+                Working Software in Days
+              </span>
+            </div>
+
+            {/* Pillar 3 */}
+            <div className="glass-card p-5 rounded-xl border border-white/5 flex flex-col justify-between space-y-3">
+              <div className="space-y-2">
+                <div className="w-9 h-9 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center border border-purple-500/20">
+                  <BarChart3 size={18} />
+                </div>
+                <h3 className="text-vscode-sm font-bold text-[var(--vscode-text-primary)] font-mono">
+                  3. Quantifiable ROI & Handoff
+                </h3>
+                <p className="text-vscode-xs text-[var(--vscode-text-body)] leading-relaxed">
+                  Instrumenting real-time telemetry dashboards (Power BI/Tableau) and automated pipelines that empower non-technical teams, yielding sustained operational efficiency and revenue expansion.
+                </p>
+              </div>
+              <span className="text-[10px] font-mono text-purple-400 font-semibold uppercase tracking-wider">
+                Measurable Enterprise Value
+              </span>
             </div>
           </div>
         </motion.div>

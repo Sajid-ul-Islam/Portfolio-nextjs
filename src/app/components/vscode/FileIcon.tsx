@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   SiCss3,
   SiHtml5,
@@ -15,14 +16,25 @@ import {
   SiGo,
   SiTableau,
   SiTelegram,
+  SiWhatsapp,
   SiTailwindcss,
   SiSass,
   SiDocker,
   SiYaml,
   SiStreamlit,
+  SiNodedotjs,
+  SiGit,
 } from "react-icons/si";
-import { LuFile, LuFileText, LuGlobe } from "react-icons/lu";
-import { VscTerminal, VscJson } from "react-icons/vsc";
+import {
+  LuFile,
+  LuFileText,
+  LuGlobe,
+  LuCalculator,
+  LuSettings,
+  LuLock,
+  LuTerminal,
+} from "react-icons/lu";
+import { VscJson } from "react-icons/vsc";
 
 import { cn } from "@/lib/cn";
 
@@ -47,11 +59,13 @@ const extensionColors: Record<string, string> = {
   web: "text-[#38BDF8]",
   bot: "text-[#26A5E4]",
   telegram: "text-[#26A5E4]",
+  whatsapp: "text-[#25D366]",
   sh: "text-[#4EAA25]",
   bash: "text-[#4EAA25]",
   yml: "text-[#CB171E]",
   yaml: "text-[#CB171E]",
   docker: "text-[#2496ED]",
+  dockerfile: "text-[#2496ED]",
   streamlit: "text-[#FF4B4B]",
 };
 
@@ -62,13 +76,43 @@ type FileIconProps = {
 };
 
 export default function FileIcon({ filename, size = 16, className }: FileIconProps) {
-  const extension = filename.split(".").pop()?.toLowerCase() ?? "";
+  const lower = filename.toLowerCase();
+  const extension = lower.split(".").pop() ?? "";
   const colorClass = extensionColors[extension] ?? "text-gray-400";
   const iconProps = { size, className: cn(colorClass, className) };
 
+  // Special named file checks
+  if (lower.includes("whatsapp")) {
+    return <SiWhatsapp {...iconProps} className={cn("text-[#25D366]", className)} />;
+  }
+  if (lower.includes("estimator")) {
+    return <LuCalculator {...iconProps} className={cn("text-[#A855F7]", className)} />;
+  }
+  if (lower.includes("setting")) {
+    return <LuSettings {...iconProps} className={cn("text-[#F7DF1E]", className)} />;
+  }
+  if (lower.includes("cybrcraft")) {
+    return <SiNextdotjs {...iconProps} className={cn("text-white", className)} />;
+  }
+  if (lower.includes("docker") || lower === "dockerfile") {
+    return <SiDocker {...iconProps} className={cn("text-[#2496ED]", className)} />;
+  }
+  if (lower.includes("package.json")) {
+    return <SiNodedotjs {...iconProps} className={cn("text-[#68A063]", className)} />;
+  }
+  if (lower.includes("tailwind")) {
+    return <SiTailwindcss {...iconProps} className={cn("text-[#06B6D4]", className)} />;
+  }
+  if (lower.includes(".env")) {
+    return <LuLock {...iconProps} className={cn("text-[#F59E0B]", className)} />;
+  }
+  if (lower.includes("git")) {
+    return <SiGit {...iconProps} className={cn("text-[#F05032]", className)} />;
+  }
+
   switch (extension) {
     case "tsx":
-      if (filename.toLowerCase().includes("page") || filename.toLowerCase().includes("layout")) {
+      if (lower.includes("page") || lower.includes("layout")) {
         return <SiNextdotjs {...iconProps} />;
       }
       return <SiReact {...iconProps} />;
@@ -80,8 +124,8 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
     case "mjs":
       return <SiJavascript {...iconProps} />;
     case "py":
-      if (filename.toLowerCase().includes("bot") || filename.toLowerCase().includes("desco")) {
-        return <SiTelegram {...iconProps} />;
+      if (lower.includes("bot") || lower.includes("desco") || lower.includes("telegram")) {
+        return <SiTelegram {...iconProps} className={cn("text-[#26A5E4]", className)} />;
       }
       return <SiPython {...iconProps} />;
     case "json":
@@ -109,10 +153,10 @@ export default function FileIcon({ filename, size = 16, className }: FileIconPro
       return <SiStreamlit {...iconProps} />;
     case "bot":
     case "telegram":
-      return <SiTelegram {...iconProps} />;
+      return <SiTelegram {...iconProps} className={cn("text-[#26A5E4]", className)} />;
     case "sh":
     case "bash":
-      return <VscTerminal {...iconProps} />;
+      return <LuTerminal {...iconProps} className={cn("text-[#4EAA25]", className)} />;
     case "yml":
     case "yaml":
       return <SiYaml {...iconProps} />;

@@ -46,7 +46,7 @@ const jsonLd = {
       "@type": "Person",
       "@id": "https://sajid-ul-islam.vercel.app/#person",
       "name": "Sajid Islam",
-      "jobTitle": "Co-Founder @ CybrCraft | Product-Minded Business & Data Analyst",
+      "jobTitle": "Co-Founder @ CybrCraft | Forward Deployed Engineer & Solutions Architect",
       "url": "https://sajid-ul-islam.vercel.app",
       "sameAs": [
         "https://www.linkedin.com/in/sajidislamchowdhury/",
@@ -92,7 +92,6 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://img.icons8.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

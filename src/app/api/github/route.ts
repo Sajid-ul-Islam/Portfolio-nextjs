@@ -1,67 +1,68 @@
 import { NextResponse } from "next/server";
 
 export const runtime = "nodejs";
-export const dynamic = 'force-static';
+export const dynamic = "force-dynamic";
 
 const GH_USER = "Sajid-ul-Islam";
 
-const FALLBACK_DATA = {
-  ok: true,
-  user: {
-    username: GH_USER,
-    name: "Sajid Islam",
-    avatarUrl: `https://avatars.githubusercontent.com/${GH_USER}`,
-    profileUrl: `https://github.com/${GH_USER}`,
-    followers: 5,
-    publicRepos: 18,
+const FALLBACK_COMMITS = [
+  {
+    repo: "Cross_Ecom_Apps",
+    message: "Merge pull request #41 from Sajid-ul-Islam/master",
+    author: "Sajid Islam",
+    time: new Date(Date.now() - 1000 * 60 * 30).toISOString(),
+    sha: "22a66cf",
+    url: `https://github.com/${GH_USER}/Cross_Ecom_Apps/commit/22a66cf`,
   },
-  stats: {
-    totalStars: 12,
-    lastUpdated: new Date().toISOString(),
+  {
+    repo: "Portfolio-nextjs",
+    message: "feat: add VS Code themed portfolio layout, components, and pages",
+    author: "saajiidi",
+    time: new Date(Date.now() - 1000 * 60 * 60).toISOString(),
+    sha: "579e4ae",
+    url: `https://github.com/${GH_USER}/Portfolio-nextjs/commit/579e4ae`,
   },
-  topRepos: [],
-  recentCommits: [
-    {
-      repo: `${GH_USER}/Portfolio-nextjs`,
-      message: "feat: Add WooCommerce Telegram & WhatsApp bots, redesign Antigravity Agent",
-      url: `https://github.com/${GH_USER}/Portfolio-nextjs`,
-      time: new Date(Date.now() - 1800000).toISOString(),
-    },
-    {
-      repo: `${GH_USER}/descoiunfobot`,
-      message: "Async Telegram handler with real-time DESCO API integration",
-      url: `https://github.com/${GH_USER}/descoiunfobot`,
-      time: new Date(Date.now() - 7200000).toISOString(),
-    },
-    {
-      repo: `${GH_USER}/woocom_telegram_bot`,
-      message: "WooCommerce Telegram E-Commerce Bot catalog & checkout engine",
-      url: `https://github.com/${GH_USER}/woocom_telegram_bot`,
-      time: new Date(Date.now() - 14400000).toISOString(),
-    },
-    {
-      repo: `${GH_USER}/WooCom_WhatsApp_Bot`,
-      message: "WooCommerce WhatsApp Business Assistant Flask webhook service",
-      url: `https://github.com/${GH_USER}/WooCom_WhatsApp_Bot`,
-      time: new Date(Date.now() - 21600000).toISOString(),
-    },
-  ],
-};
+  {
+    repo: "deen-cap-app",
+    message: "feat: implement native pull-to-refresh, deep links, haptics & luxury brand icon",
+    author: "Bearded",
+    time: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2).toISOString(),
+    sha: "b88bd8c",
+    url: `https://github.com/${GH_USER}/deen-cap-app/commit/b88bd8c`,
+  },
+  {
+    repo: "brow-ext-rep-auto",
+    message: "docs: update roadmap, testing log, decisions, and readme for full project completion",
+    author: "Bearded",
+    time: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2.5).toISOString(),
+    sha: "4e12c12",
+    url: `https://github.com/${GH_USER}/brow-ext-rep-auto/commit/4e12c12`,
+  },
+  {
+    repo: "DEEN-OPS",
+    message: "feat: operational intelligence pipeline and inventory stockout tracker",
+    author: "Sajid Islam",
+    time: new Date(Date.now() - 1000 * 60 * 60 * 24 * 4).toISOString(),
+    sha: "91a82bf",
+    url: `https://github.com/${GH_USER}/DEEN-OPS`,
+  },
+];
 
 async function fetchGitHub<T>(url: string, token?: string): Promise<T | null> {
   try {
     const headers: HeadersInit = {
       Accept: "application/vnd.github+json",
-      "User-Agent": "Portfolio-NextJS-App",
+      "User-Agent": "Sajid-Portfolio-App-FDE",
     };
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 8000);
+    const timeout = setTimeout(() => controller.abort(), 6000);
     const response = await fetch(url, {
       headers,
       signal: controller.signal,
+      next: { revalidate: 30 },
     });
     clearTimeout(timeout);
     if (!response.ok) return null;
@@ -75,100 +76,130 @@ export async function GET() {
   const username = process.env.GITHUB_USERNAME ?? GH_USER;
   const token = process.env.GITHUB_TOKEN;
 
-  // Fetch events first — this is the most important part for the feed
-  const events = await fetchGitHub<any[]>(
-    `https://api.github.com/users/${username}/events/public?per_page=30`,
-    token
-  );
+  try {
+    // 1. Fetch user profile and recently pushed repos
+    const [user, repos] = await Promise.all([
+      fetchGitHub<any>(`https://api.github.com/users/${username}`, token),
+      fetchGitHub<any[]>(
+        `https://api.github.com/users/${username}/repos?sort=pushed&per_page=12`,
+        token
+      ),
+    ]);
 
-  if (!events || !Array.isArray(events) || events.length === 0) {
-    // Events API failed or returned empty — use fallback commits
-    return NextResponse.json(FALLBACK_DATA, {
-      headers: { "Cache-Control": "public, s-maxage=600" },
+    const publicReposCount = user?.public_repos ?? 92;
+    const followers = user?.followers ?? 0;
+    const safeRepos = Array.isArray(repos) ? repos : [];
+
+    // Calculate language frequencies and total stars
+    const languageCounts: Record<string, number> = {};
+    let totalStars = 0;
+    safeRepos.forEach((r) => {
+      if (r.language) {
+        languageCounts[r.language] = (languageCounts[r.language] || 0) + 1;
+      }
+      totalStars += r.stargazers_count || 0;
     });
-  }
 
-  // Extract recent commits from PushEvents
-  const recentCommits = events
-    .filter((e: any) => e.type === "PushEvent" && e.payload?.commits?.length)
-    .flatMap((e: any) =>
-      e.payload.commits.map((c: any) => ({
-        repo: e.repo?.name || "",
-        message: (c.message || "").split("\n")[0],
-        url: `https://github.com/${e.repo?.name || ""}/commit/${c.sha}`,
-        time: e.created_at,
-      }))
-    )
-    .slice(0, 6);
+    const topLanguages = Object.entries(languageCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 4)
+      .map(([lang]) => lang);
 
-  // If no PushEvents found, include other event types as activity
-  const otherEvents = events
-    .filter((e: any) => e.type !== "PushEvent" && e.type !== "DeleteEvent")
-    .slice(0, 4)
-    .map((e: any) => ({
-      repo: e.repo?.name || "",
-      message: getEventMessage(e),
-      url: `https://github.com/${e.repo?.name || ""}`,
-      time: e.created_at,
-    }));
+    // 2. Fetch recent commits from the most active top 5 repos
+    const activeRepoNames = safeRepos.slice(0, 5).map((r) => r.name);
+    let recentCommits: any[] = [];
 
-  const allCommits = recentCommits.length > 0 ? recentCommits : [...otherEvents, ...FALLBACK_DATA.recentCommits].slice(0, 6);
+    if (activeRepoNames.length > 0) {
+      const commitsResults = await Promise.all(
+        activeRepoNames.map((repoName) =>
+          fetchGitHub<any[]>(
+            `https://api.github.com/repos/${username}/${repoName}/commits?per_page=3`,
+            token
+          ).then((commits) => {
+            if (!Array.isArray(commits)) return [];
+            return commits.map((c) => ({
+              repo: repoName,
+              message: (c.commit?.message || "").split("\n")[0],
+              author: c.commit?.author?.name || c.author?.login || username,
+              time: c.commit?.author?.date || c.commit?.committer?.date || new Date().toISOString(),
+              sha: (c.sha || "").slice(0, 7),
+              url: `https://github.com/${username}/${repoName}/commit/${c.sha}`,
+            }));
+          })
+        )
+      );
 
-  // Fetch user and repos in parallel (non-blocking for the feed)
-  const [user, repos] = await Promise.all([
-    fetchGitHub<any>(`https://api.github.com/users/${username}`, token),
-    fetchGitHub<any[]>(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`, token),
-  ]);
+      recentCommits = commitsResults
+        .flat()
+        .sort((a, b) => new Date(b.time).getTime() - new Date(a.time).getTime())
+        .slice(0, 6);
+    }
 
-  const totalStars = repos?.reduce((sum: number, r: any) => sum + (r.stargazers_count || 0), 0) ?? 0;
-  const topRepos = (repos || [])
-    .filter((r: any) => !r.fork)
-    .sort((a: any, b: any) => b.stargazers_count - a.stargazers_count)
-    .slice(0, 6)
-    .map((r: any) => ({
+    // Fallback if GitHub rate limit triggers
+    if (recentCommits.length === 0) {
+      recentCommits = FALLBACK_COMMITS;
+    }
+
+    const topRepos = safeRepos.slice(0, 6).map((r) => ({
       name: r.name,
       url: r.html_url,
       description: r.description,
       stars: r.stargazers_count,
       language: r.language,
+      pushedAt: r.pushed_at,
     }));
 
-  return NextResponse.json({
-    ok: true,
-    user: {
-      username: user?.login ?? username,
-      name: user?.name ?? username,
-      avatarUrl: user?.avatar_url ?? `https://avatars.githubusercontent.com/${username}`,
-      profileUrl: user?.html_url ?? `https://github.com/${username}`,
-      followers: user?.followers ?? 0,
-      publicRepos: user?.public_repos ?? 0,
-    },
-    stats: {
-      totalStars,
-      lastUpdated: new Date().toISOString(),
-    },
-    topRepos,
-    recentCommits: allCommits,
-  }, {
-    headers: { "Cache-Control": "public, s-maxage=600" },
-  });
-}
-
-function getEventMessage(event: any): string {
-  switch (event.type) {
-    case "CreateEvent":
-      return `Created ${event.payload?.ref_type || "repository"}`;
-    case "ForkEvent":
-      return "Forked repository";
-    case "WatchEvent":
-      return "Starred repository";
-    case "PullRequestEvent":
-      return `${event.payload?.action || "opened"} pull request`;
-    case "IssuesEvent":
-      return `${event.payload?.action || "opened"} issue`;
-    case "ReleaseEvent":
-      return `Released ${event.payload?.release?.tag_name || ""}`;
-    default:
-      return event.type?.replace("Event", "") || "Activity";
+    return NextResponse.json(
+      {
+        ok: true,
+        user: {
+          username: user?.login ?? username,
+          name: user?.name ?? "Sajid Islam",
+          avatarUrl: user?.avatar_url ?? `https://avatars.githubusercontent.com/${username}`,
+          profileUrl: user?.html_url ?? `https://github.com/${username}`,
+          followers,
+          publicRepos: publicReposCount,
+        },
+        stats: {
+          totalRepos: publicReposCount,
+          totalStars,
+          topLanguages,
+          lastUpdated: new Date().toISOString(),
+        },
+        topRepos,
+        recentCommits,
+      },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=30, stale-while-revalidate=60",
+        },
+      }
+    );
+  } catch (error: any) {
+    return NextResponse.json(
+      {
+        ok: true,
+        user: {
+          username: GH_USER,
+          name: "Sajid Islam",
+          avatarUrl: `https://avatars.githubusercontent.com/${GH_USER}`,
+          profileUrl: `https://github.com/${GH_USER}`,
+          followers: 0,
+          publicRepos: 92,
+        },
+        stats: {
+          totalRepos: 92,
+          totalStars: 5,
+          topLanguages: ["TypeScript", "Python", "JavaScript", "Java"],
+          lastUpdated: new Date().toISOString(),
+        },
+        recentCommits: FALLBACK_COMMITS,
+      },
+      {
+        headers: {
+          "Cache-Control": "public, s-maxage=30",
+        },
+      }
+    );
   }
 }

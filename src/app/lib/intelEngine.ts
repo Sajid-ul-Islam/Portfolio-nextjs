@@ -26,9 +26,19 @@ export function getLocalIntel(query: string): string | null {
 - AI Systems & Source Control: ${ai}`;
   }
 
+  // Forward Deployed Engineering (FDE) intent
+  if (q.includes("forward deployed") || q.includes("fde") || q.includes("solutions engineer") || q.includes("deployment")) {
+    return `[LOCAL_INTEL]: Sajid operates as a Forward Deployed Engineer (FDE) & Solutions Architect. He embeds directly with enterprise operations to diagnose root friction, rapidly prototype full-stack software & AI workflows, and deploy measurable production systems. His core pillars: Domain Immersion, Rapid Production Code (Next.js/SQL/RAG), and Quantifiable ROI.`;
+  }
+
   // CybrCraft intent
   if (q.includes("cybrcraft") || q.includes("craft") || q.includes("software company") || q.includes("co-founder")) {
     return `[LOCAL_INTEL]: CybrCraft (https://cybrcraft.com/) is a digital software solution & engineering company co-founded by Sajid. It specializes in custom web development, scalable e-commerce stores with synchronized mobile apps, LMS platforms, and business automation workflows. Direct consultation: ${personalInfo.whatsapp}`;
+  }
+
+  // Deen Commerce & Mobile App intent
+  if (q.includes("deen commerce") || q.includes("deencommerce") || q.includes("cross_ecom") || q.includes("expo") || q.includes("android app")) {
+    return `[LOCAL_INTEL]: Deen Commerce is a full-stack omnichannel commerce suite featuring a high-performance Next.js web storefront (https://deencommerce.vercel.app/) and an Android/iOS cross-platform mobile app (https://github.com/Sajid-ul-Islam/Cross_Ecom_Apps) built with React Native & Expo. It unifies real-time WooCommerce catalog sync, push notifications, and offline caching.`;
   }
 
   // Estimator / Quote / Pricing intent

@@ -73,14 +73,14 @@ export default function ActivityBar<T extends string = string>({
               title={item.label}
             >
               {isActive && !isHorizontal ? (
-                <span className="absolute left-0 top-0 w-[2px] h-full bg-[#a3e635]" />
+                <span className="absolute left-0 top-0 w-[2.5px] h-full bg-[var(--vscode-accent)] shadow-[0_0_8px_var(--vscode-accent)]" />
               ) : null}
               {isActive && isHorizontal ? (
-                <span className="absolute bottom-0 left-4 right-4 h-[2.5px] bg-[#a3e635] shadow-[0_0_8px_#a3e635]" />
+                <span className="absolute bottom-0 left-4 right-4 h-[2.5px] bg-[var(--vscode-accent)] shadow-[0_0_8px_var(--vscode-accent)]" />
               ) : null}
               <Icon size={20} strokeWidth={isActive ? 2 : 1.5} />
               {item.id === "chat" && unreadChat > 0 ? (
-                <span className="absolute top-1.5 right-2 min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full bg-[#a3e635] text-black text-[9px] font-bold leading-none shadow-[0_0_8px_rgba(163,230,53,0.6)]">
+                <span className="absolute top-1.5 right-2 min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full bg-[var(--vscode-accent)] text-black text-[9px] font-bold leading-none shadow-[0_0_8px_var(--vscode-accent)]">
                   {unreadChat > 9 ? "9+" : unreadChat}
                 </span>
               ) : null}

@@ -118,9 +118,9 @@ export type Testimonial = {
 
 export const siteMeta = {
   name: "Sajid Islam",
-  title: "Sajid Islam | Product-Minded Business & Data Analyst",
+  title: "Sajid Islam | Forward Deployed Engineer & Solutions Architect",
   description:
-    "Product-minded Business & Data Analyst portfolio — showcasing end-to-end ownership of analytics products, operational dashboards, and data-driven decision tools.",
+    "Forward Deployed Engineer & Co-Founder @ CybrCraft — embedding directly with enterprise operations to architect, prototype, and ship custom AI workflows, data pipelines, and production software solutions.",
   url: "https://sajid-ul-islam.vercel.app",
   ogImage: "/img/profile.jpg",
 };
@@ -198,6 +198,72 @@ export async function bootstrapCybrCraftService(clientSpec: SolutionSpec) {
       ">> Deploying web development & e-commerce solution engines...",
       ">> Syncing LMS & omnichannel bot integrations...",
       ">> CybrCraft operational and live at https://cybrcraft.com/.",
+    ],
+  },
+  {
+    id: "deen-commerce",
+    title: "Deen Commerce — Modern Storefront & Cross-Platform Android/iOS App",
+    description:
+      "Full-stack omnichannel e-commerce platform featuring a high-performance Next.js web storefront (deencommerce.vercel.app) and a native Expo React Native Android/iOS mobile application (Cross_Ecom_Apps).",
+    longDescription:
+      "Deen Commerce is an enterprise-grade multi-channel commerce ecosystem designed for luxury retail. It unifies a responsive, instant-loading Next.js web storefront (deencommerce.vercel.app) with a production-ready cross-platform mobile app built using React Native & Expo (Cross_Ecom_Apps). Features real-time catalog & inventory sync via WooCommerce REST APIs, push notifications, offline product caching, native biometric checkout, and deep-linked product browsing.",
+    image: "/img/projects/platform.png",
+    liveUrl: "https://deencommerce.vercel.app/",
+    githubUrl: "https://github.com/Sajid-ul-Islam/Cross_Ecom_Apps",
+    gitDiff: {
+      filename: "CrossEcomBridge.tsx",
+      oldCode: `// Legacy web-only checkout redirect
+export function redirectToCheckout(cart) {
+    window.location.href = '/checkout?items=' + cart.length;
+}`,
+      newCode: `// Unified Next.js + React Native Expo sync engine
+export async function syncCrossPlatformOrder(cart: CartItem[], device: DeviceContext) {
+    const order = await api.createWooCommerceOrder(cart);
+    if (device.isNative) {
+        await Notifications.schedulePushNotificationAsync({ title: 'Order Confirmed', body: '#' + order.id });
+        await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+    }
+    return { orderId: order.id, status: 'CONFIRMED', trackingUrl: 'https://deencommerce.vercel.app/track/' + order.id };
+}`,
+    },
+    featured: true,
+    technologies: [
+      "Next.js",
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Android",
+      "iOS",
+      "WooCommerce",
+      "Tailwind CSS",
+      "REST API",
+      "Mobile Architecture",
+    ],
+    caseStudy: {
+      role: "Lead Forward Deployed Engineer & Solutions Architect",
+      timeline: "2026",
+      problem:
+        "Traditional e-commerce storefronts suffer from mobile browser latency, high abandoned cart rates, and zero push notification engagement on mobile devices.",
+      solution:
+        "Engineered a unified multi-platform commerce suite: an instant-loading Next.js web storefront deployed on Vercel paired with a production-grade React Native & Expo mobile app (Cross_Ecom_Apps) featuring offline caching, deep links, and real-time WooCommerce API integration.",
+      impact: [
+        "Shipped modern Next.js live web storefront at deencommerce.vercel.app with sub-second page transitions.",
+        "Built cross-platform Android & iOS mobile app in Cross_Ecom_Apps with native push notification workflows.",
+        "Created unified inventory and checkout bridge syncing live stock across web and mobile touchpoints.",
+      ],
+      metrics: [
+        { label: "Live Web App", value: "deencommerce.vercel.app" },
+        { label: "Mobile Engine", value: "Expo / React Native" },
+        { label: "Target Platforms", value: "Web, Android, iOS" },
+        { label: "Architecture", value: "Full-Stack Sync" },
+      ],
+    },
+    missionLogs: [
+      ">> Initializing Deen Commerce cross-platform architecture...",
+      ">> Deploying Next.js luxury storefront to deencommerce.vercel.app...",
+      ">> Compiling React Native Expo mobile build (Cross_Ecom_Apps)...",
+      ">> Synchronizing WooCommerce REST APIs, carts, and notification engines...",
+      ">> Deen Commerce live & operational across Web and Mobile.",
     ],
   },
   {
@@ -1057,6 +1123,14 @@ export const fileTree: FileTreeSection[] = [
         indent: true,
       },
       {
+        id: "deen-commerce-link",
+        label: "deen_commerce",
+        href: "/projects/deen-commerce",
+        icon: "globe",
+        extension: "tsx",
+        indent: true,
+      },
+      {
         id: "desco-bot",
         label: "desco_bot",
         href: "/projects/desco-telegram-bot",
@@ -1191,27 +1265,39 @@ export const menuItems: MenuItem[] = [
 
 export const skillGroups: SkillGroup[] = [
   {
+    name: "Forward Deployed Engineering (FDE)",
+    skills: [
+      { name: "Enterprise Solutions Architecture", category: "Core" },
+      { name: "Client-Facing Engineering & Discovery", category: "Core" },
+      { name: "Agentic AI & Custom RAG Deployment", category: "AI" },
+      { name: "Rapid Prototyping & PoC Delivery", category: "Core" },
+      { name: "Data Pipeline Integration (SQL, BigQuery)", category: "Data" },
+      { name: "Business Value & ROI Engineering", category: "Core" },
+      { name: "Domain Immersion & Technical Scoping", category: "Core" },
+    ],
+  },
+  {
     name: "Forecasting & Machine Learning",
     skills: [
-      { name: "Python", category: "Data", icon: "https://img.icons8.com/color/48/null/python--v1.png" },
-      { name: "Pandas", category: "Data", icon: "https://img.icons8.com/color/48/000000/pandas.png" },
-      { name: "NumPy", category: "Data", icon: "https://img.icons8.com/color/48/000000/numpy.png" },
-      { name: "Scikit-learn", category: "Data", icon: "https://img.icons8.com/color/48/000000/python.png" },
+      { name: "Python", category: "Data" },
+      { name: "Pandas", category: "Data" },
+      { name: "NumPy", category: "Data" },
+      { name: "Scikit-learn", category: "Data" },
     ],
   },
   {
     name: "BI & Dashboards",
     skills: [
-      { name: "Power BI (DAX, Modeling)", category: "BI", icon: "https://img.icons8.com/color/48/000000/power-bi.png" },
-      { name: "Tableau", category: "BI", icon: "https://img.icons8.com/color/48/000000/tableau-software.png" },
-      { name: "Google Analytics", category: "Data", icon: "https://img.icons8.com/color/48/000000/google-analytics.png" },
+      { name: "Power BI (DAX, Modeling)", category: "BI" },
+      { name: "Tableau", category: "BI" },
+      { name: "Google Analytics", category: "Data" },
     ],
   },
   {
     name: "Data Engineering & Core Operations",
     skills: [
-      { name: "SQL (MySQL, PostgreSQL, BigQuery)", category: "Data", icon: "https://img.icons8.com/ios-filled/100/000000/sql.png" },
-      { name: "Analytics (R, Excel)", category: "Data", icon: "https://img.icons8.com/color/48/000000/microsoft-excel-2019--v1.png" },
+      { name: "SQL (MySQL, PostgreSQL, BigQuery)", category: "Data" },
+      { name: "Analytics (R, Excel)", category: "Data" },
       { name: "End-to-End Analytics Pipelines", category: "Core" },
       { name: "Data-Driven Decision Making", category: "Core" },
       { name: "Business Intelligence", category: "Core" },
@@ -1236,11 +1322,11 @@ export const skillGroups: SkillGroup[] = [
   {
     name: "AI Systems & Source Control",
     skills: [
-      { name: "Agentic RAG", category: "AI", icon: "https://img.icons8.com/color/48/null/bot.png" },
-      { name: "RAG Pipelines", category: "AI", icon: "https://img.icons8.com/color/48/null/data-configuration.png" },
-      { name: "Telegram Chatbots", category: "AI", icon: "https://img.icons8.com/color/48/null/telegram-app.png" },
-      { name: "WhatsApp Chatbots", category: "AI", icon: "https://img.icons8.com/color/48/null/whatsapp.png" },
-      { name: "Source Control (Git & GitHub)", category: "Core", icon: "https://img.icons8.com/color/48/null/git.png" },
+      { name: "Agentic RAG", category: "AI" },
+      { name: "RAG Pipelines", category: "AI" },
+      { name: "Telegram Chatbots", category: "AI" },
+      { name: "WhatsApp Chatbots", category: "AI" },
+      { name: "Source Control (Git & GitHub)", category: "Core" },
     ],
   },
 ];
@@ -1403,14 +1489,14 @@ export const education: Education[] = [
 
 export const personalInfo = {
   name: "Sajid Islam",
-  title: "Co-Founder @ CybrCraft | Product-Minded Business & Data Analyst",
+  title: "Co-Founder @ CybrCraft | Forward Deployed Engineer & Solutions Architect",
   email: "sajid.islam.chowdhury@gmail.com",
   whatsapp: "https://wa.me/+8801824526054?text=",
   github: "https://github.com/Sajid-ul-Islam",
   huggingface: "https://huggingface.co/Sajid-ul-Islam",
   resumeUrl:
     "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
-  bio: "Co-Founder of CybrCraft (cybrcraft.com) and Product-minded Business & Data Analyst with deep expertise owning software solutions and analytics products end-to-end — from problem definition and architecture to stakeholder alignment and delivery. Proven track record of designing custom digital products, operational dashboards, and data-driven decision tools for enterprises and e-commerce platforms like Daraz (Alibaba Group) and Deen Commerce. Specialized in Modern Web Stacks, Python, SQL, and Advanced Analytics.",
+  bio: "Co-Founder of CybrCraft (cybrcraft.com) and Forward Deployed Engineer with deep expertise bridging cutting-edge AI / software architecture and real enterprise operations. Proven track record of embedding directly with business domains, converting complex stakeholder problems into robust technical architectures, and shipping production-grade digital products, Agentic AI workflows, and analytics intelligence platforms for enterprises and e-commerce leaders like Daraz (Alibaba Group) and Deen Commerce. Specialized in Full-Stack Web Stacks (Next.js/React), Python, SQL Pipelines, and Enterprise AI Systems.",
 };
 
 

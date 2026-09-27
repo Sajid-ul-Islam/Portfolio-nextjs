@@ -93,6 +93,7 @@ export default function Terminal({ onClose }: TerminalProps) {
     switch (baseCmd) {
       case "help":
         response = `AVAILABLE COMMANDS:
+  fde               Forward Deployed Engineering methodology & philosophy
   cybrcraft         Display CybrCraft software company info & services
   sql [query]       Query live portfolio datasets (e.g. sql SELECT * FROM metrics)
   curl [url]        Simulate HTTP GET requests (e.g. curl https://cybrcraft.com)
@@ -194,9 +195,33 @@ DELIVERED CLIENTS:
 - Rihab Typing (Typing & PRO Services)
 - Solevia Shop (E-Commerce)
 - Shotomul (Business & Legal Services)
-- Hygienic (Corporate Web)
-
 Direct Consultation: Type 'estimate' or visit /estimator`;
+        break;
+      case "fde":
+      case "forward-deployed":
+      case "forwarddeployed":
+        response = `FORWARD DEPLOYED ENGINEERING (FDE) BLUEPRINT:
+
+Definition:
+Forward Deployed Engineers (FDEs) sit at the direct intersection of customer operations, systems architecture, and production software engineering. Rather than building in an ivory tower, an FDE embeds directly with stakeholders on the ground to convert ambiguous business friction into battle-tested software and AI pipelines.
+
+CORE FDE PILLARS:
+1. DOMAIN IMMERSION & ROOT-CAUSE SCOPING
+   - Deep on-the-ground analysis of operational workflows and data silos.
+   - Translating executive objectives into strict technical specifications.
+
+2. RAPID PRODUCTION PROTOTYPING (PoC to Production)
+   - Delivering working Next.js web applications, SQL pipelines, and Agentic RAG workflows in days, not quarters.
+   - Eliminating bloat: building high-leverage software that directly addresses high-friction bottlenecks.
+
+3. QUANTIFIABLE ENTERPRISE ROI & SUSTAINABILITY
+   - Designing self-healing data pipelines and automated bot integrations (Telegram/WhatsApp).
+   - Training internal teams and instrumenting telemetry dashboards for sustained adoption.
+
+TRACK RECORD:
+- CybrCraft (cybrcraft.com): Forward-deployed digital engineering for e-commerce, LMS & businesses.
+- Deen Commerce: Real-time inventory intelligence, reducing stockout latency.
+- Daraz (Alibaba Group): Automated partner acquisition pipeline yielding 50% vendor network growth.`;
         break;
       case "sql":
         {
