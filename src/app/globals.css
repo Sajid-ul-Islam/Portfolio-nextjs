@@ -581,3 +581,162 @@ code {
   --vscode-glass-border: rgba(255, 255, 255, 0.12);
   --vscode-chat-bg: #1e1f1c;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ─── Aesthetic Modes: Claymorphism, Tactical Cyber, Classic IDE ───
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── 1. Claymorphism: Soft 3D Tactile Inflated Surfaces ─── */
+[data-aesthetic="claymorphism"] .glass-panel {
+  background: rgba(35, 41, 52, 0.75) !important;
+  border-radius: 28px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 
+    10px 10px 24px -4px rgba(0, 0, 0, 0.6),
+    -6px -6px 16px 0px rgba(255, 255, 255, 0.04),
+    inset 2px 2px 4px 0px rgba(255, 255, 255, 0.15),
+    inset -3px -3px 6px 0px rgba(0, 0, 0, 0.4) !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease !important;
+}
+
+[data-aesthetic="claymorphism"] .glass-card,
+[data-aesthetic="claymorphism"] .clay-card {
+  background: rgba(30, 35, 45, 0.85) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 
+    6px 6px 14px 0px rgba(0, 0, 0, 0.45),
+    -3px -3px 10px 0px rgba(255, 255, 255, 0.03),
+    inset 2px 2px 3px 0px rgba(255, 255, 255, 0.12),
+    inset -2px -2px 4px 0px rgba(0, 0, 0, 0.35) !important;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease !important;
+}
+
+[data-aesthetic="claymorphism"] .glass-card:hover,
+[data-aesthetic="claymorphism"] .glass-panel:hover {
+  transform: translateY(-3px) scale(1.005);
+  box-shadow: 
+    14px 14px 28px -4px rgba(0, 0, 0, 0.65),
+    -8px -8px 20px 0px rgba(255, 255, 255, 0.06),
+    inset 2px 2px 4px 0px rgba(255, 255, 255, 0.2),
+    inset -3px -3px 6px 0px rgba(0, 0, 0, 0.4) !important;
+}
+
+[data-aesthetic="claymorphism"] button,
+[data-aesthetic="claymorphism"] .btn-clay {
+  border-radius: 9999px !important;
+  box-shadow: 
+    3px 3px 8px rgba(0, 0, 0, 0.4),
+    inset 1px 1px 2px rgba(255, 255, 255, 0.2),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-aesthetic="claymorphism"] button:active,
+[data-aesthetic="claymorphism"] .btn-clay:active {
+  transform: translateY(2px) scale(0.97) !important;
+  box-shadow: 
+    1px 1px 4px rgba(0, 0, 0, 0.4),
+    inset 2px 2px 5px rgba(0, 0, 0, 0.5),
+    inset -1px -1px 2px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* ─── 2. Tactical Cyber / Sci-Fi HUD ─── */
+[data-aesthetic="tactical-cyber"] .glass-panel {
+  background: rgba(10, 16, 13, 0.85) !important;
+  border-radius: 8px !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.15), inset 0 0 15px -5px rgba(16, 185, 129, 0.1) !important;
+  position: relative;
+}
+
+[data-aesthetic="tactical-cyber"] .glass-panel::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  border-radius: inherit;
+  opacity: 0.6;
+}
+
+[data-aesthetic="tactical-cyber"] .glass-card {
+  background: rgba(12, 20, 16, 0.7) !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  box-shadow: inset 0 1px 0 rgba(16, 185, 129, 0.2) !important;
+}
+
+[data-aesthetic="tactical-cyber"] .glass-card:hover {
+  border-color: rgba(52, 211, 153, 0.6) !important;
+  box-shadow: 0 0 15px 2px rgba(16, 185, 129, 0.2), inset 0 0 10px rgba(16, 185, 129, 0.15) !important;
+}
+
+[data-aesthetic="tactical-cyber"] button {
+  border-radius: 4px !important;
+  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ─── 3. Classic IDE: Flat Authentic VS Code ─── */
+[data-aesthetic="classic-ide"] .glass-panel {
+  background: var(--vscode-editor-background) !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--vscode-border) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+[data-aesthetic="classic-ide"] .glass-card {
+  background: var(--vscode-sideBar-background) !important;
+  border-radius: 2px !important;
+  border: 1px solid var(--vscode-border) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+[data-aesthetic="classic-ide"] .glass-card:hover {
+  background: var(--vscode-list-hoverBackground) !important;
+  border-color: var(--vscode-focusBorder) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+[data-aesthetic="classic-ide"] button {
+  border-radius: 2px !important;
+}
+
+/* ─── 4. Luminous Glassmorphism (Default) ─── */
+[data-aesthetic="glassmorphism"] .glass-panel {
+  background: rgba(26, 30, 36, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* ─── Mobile Ergonomics & Safe Areas ─── */
+@media (max-width: 768px) {
+  .mobile-safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 70px);
+  }
+  
+  /* Tap highlight prevention for clean mobile feel */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Smooth touch scrolling momentum */
+  .mobile-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+}

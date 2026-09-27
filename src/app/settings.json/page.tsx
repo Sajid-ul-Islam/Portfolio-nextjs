@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import { useTheme } from "../lib/themeContext";
 import { useAccent, ACCENT_PRESETS } from "../lib/accentContext";
 import { useIconTheme, ICON_THEMES } from "../lib/iconContext";
-import { LuSave, LuRefreshCw, LuSliders, LuCode, LuCheck, LuPalette, LuLayoutGrid } from "react-icons/lu";
+import { useAesthetic, AESTHETIC_PRESETS } from "../lib/aestheticContext";
+import { LuSave, LuRefreshCw, LuSliders, LuCode, LuCheck, LuPalette, LuLayoutGrid, LuSparkles } from "react-icons/lu";
 import Button from "../components/vscode/Button";
 import { cn } from "@/lib/cn";
 
 type SettingsData = {
   "workbench.colorTheme": string;
+  "workbench.aestheticMode"?: string;
   "editor.fontSize": number;
   "editor.fontFamily": string;
   "terminal.integrated.fontSize": number;
@@ -29,9 +31,11 @@ export default function SettingsJsonPage() {
   const { theme, setTheme } = useTheme();
   const { accent, setAccent, setCustomAccent } = useAccent();
   const { iconThemeId, setIconTheme } = useIconTheme();
+  const { aesthetic, setAesthetic } = useAesthetic();
   const [jsonText, setJsonText] = useState("");
   const [guiSettings, setGuiSettings] = useState<SettingsData>({
     "workbench.colorTheme": "tactical-dark",
+    "workbench.aestheticMode": "glassmorphism",
     "editor.fontSize": 13,
     "editor.fontFamily": "var(--font-sans), system-ui, sans-serif",
     "terminal.integrated.fontSize": 11,
@@ -234,6 +238,67 @@ export default function SettingsJsonPage() {
                       <div className="w-10 h-2 rounded bg-white/10"></div>
                       <div className="w-6 h-2 rounded bg-white/5"></div>
                     </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* UI Aesthetics & Visual Texture Mode Picker */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <LuSparkles className="text-[var(--vscode-accent)]" size={15} />
+                <label className="text-vscode-sm font-bold text-[var(--vscode-text-secondary)]">
+                  UI Aesthetic & Material Mode
+                </label>
+              </div>
+              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[var(--vscode-accent)]/15 text-[var(--vscode-accent)] font-bold">
+                {aesthetic}
+              </span>
+            </div>
+            <p className="text-vscode-xs text-[var(--vscode-text-muted)]">
+              Transform the physical surface feel, elevation depth, corner curves, and lighting physics across the portfolio.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {AESTHETIC_PRESETS.map((p) => {
+                const isActive = aesthetic === p.id;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => {
+                      setAesthetic(p.id);
+                      updateGuiSettings("workbench.aestheticMode" as any, p.id);
+                    }}
+                    className={cn(
+                      "group text-left p-4 rounded-2xl border transition-all duration-300 relative overflow-hidden flex flex-col justify-between min-h-[110px]",
+                      p.previewClass,
+                      isActive
+                        ? "border-[var(--vscode-accent)] ring-2 ring-[var(--vscode-accent)]/30 bg-opacity-90"
+                        : "border-white/10 hover:border-white/25 bg-opacity-50"
+                    )}
+                  >
+                    <div className="flex items-start justify-between w-full relative z-10 gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-lg">{p.icon}</span>
+                        <div>
+                          <div className={cn("text-vscode-xs font-bold font-mono tracking-tight", isActive ? "text-[var(--vscode-accent)]" : "text-white/90 group-hover:text-white")}>
+                            {p.name}
+                          </div>
+                          <span className="text-[9px] px-1.5 py-0.5 rounded bg-white/10 text-white/70 font-mono">
+                            {p.badge}
+                          </span>
+                        </div>
+                      </div>
+                      {isActive && (
+                        <div className="w-5 h-5 rounded-full bg-[var(--vscode-accent)] flex items-center justify-center text-white shadow-sm flex-shrink-0 animate-in scale-in">
+                          <LuCheck size={12} />
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-[11px] text-[var(--vscode-text-muted)] group-hover:text-[var(--vscode-text-secondary)] mt-2 line-clamp-2 relative z-10 leading-snug">
+                      {p.desc}
+                    </p>
                   </button>
                 );
               })}

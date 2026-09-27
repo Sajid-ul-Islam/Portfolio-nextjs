@@ -240,7 +240,7 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 font-sans">
+    <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 pb-24 md:pb-8 mobile-safe-bottom font-sans">
       <motion.div
         variants={containerVariants}
         initial="hidden"

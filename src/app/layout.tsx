@@ -80,6 +80,8 @@ const jsonLd = {
   ]
 };
 
+import { AestheticProvider } from "./lib/aestheticContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -100,8 +102,10 @@ export default function RootLayout({
         <ThemeProvider>
           <AccentProvider>
             <IconProvider>
-              <TitleStatus />
-              <VSCodeShell>{children}</VSCodeShell>
+              <AestheticProvider>
+                <TitleStatus />
+                <VSCodeShell>{children}</VSCodeShell>
+              </AestheticProvider>
             </IconProvider>
           </AccentProvider>
         </ThemeProvider>
