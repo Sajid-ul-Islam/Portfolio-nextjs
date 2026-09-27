@@ -75,6 +75,7 @@ export type Experience = {
   startDate: string;
   endDate?: string;
   current?: boolean;
+  website?: string;
   description: string;
   technologies?: string[];
   logo?: string;
@@ -140,6 +141,65 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const projects: Project[] = [
+  {
+    id: "cybrcraft",
+    title: "CybrCraft — Software Solution Company",
+    description:
+      "A software solution & digital engineering company co-founded to build modern custom web applications, e-commerce stores, LMS platforms, and business automation workflows.",
+    longDescription:
+      "CybrCraft (cybrcraft.com) is a full-service software solution and digital engineering company co-founded to deliver high-performance, conversion-driven digital products. Specializing in bespoke web development, scalable WooCommerce platforms with synchronized mobile apps, robust LMS learning management systems, and automated customer communication integrations.",
+    image: "/img/projects/platform.png",
+    liveUrl: "https://cybrcraft.com/",
+    gitDiff: {
+      filename: "cybrcraft_core.ts",
+      oldCode: `// Traditional static website architecture
+export function renderWebsite(clientReq) {
+    return generateStaticHtml(clientReq);
+}`,
+      newCode: `// Modern full-service digital solution stack
+export async function bootstrapCybrCraftService(clientSpec: SolutionSpec) {
+    const webApp = await initHighPerformanceEngine(clientSpec.web);
+    const commerce = await syncOmnichannelCommerce(clientSpec.store);
+    const automation = await configureBotIntegrations(clientSpec.workflows);
+    return { webApp, commerce, automation, status: 'ONLINE' };
+}`,
+    },
+    featured: true,
+    technologies: [
+      "Next.js",
+      "React",
+      "WordPress",
+      "WooCommerce",
+      "LMS",
+      "Tailwind CSS",
+      "Python",
+      "Software Solutions",
+    ],
+    caseStudy: {
+      role: "Co-Founder & Solution Architect",
+      timeline: "2026",
+      problem:
+        "Organizations frequently struggle with fragmented software development, slow web performance, disjointed e-commerce architectures, and disconnected customer communication channels.",
+      solution:
+        "Co-founded CybrCraft to deliver complete, enterprise-grade digital software solutions — from responsive custom web applications to headless e-commerce, LMS platforms, and multi-channel automation bots.",
+      impact: [
+        "Architected and shipped modern software solutions across multiple industries (E-commerce, Healthcare, Professional Services, LMS).",
+        "Built synchronized omnichannel workflows integrating web stores with automated customer messaging.",
+        "Delivered responsive, high-performance web benchmarks and 24/7 reliability for deployed client systems.",
+      ],
+      metrics: [
+        { label: "Company", value: "cybrcraft.com" },
+        { label: "Portfolio", value: "E-Commerce, Web, LMS" },
+        { label: "Solutions", value: "Web, App & Automation" },
+      ],
+    },
+    missionLogs: [
+      ">> Initializing CybrCraft core architecture...",
+      ">> Deploying web development & e-commerce solution engines...",
+      ">> Syncing LMS & omnichannel bot integrations...",
+      ">> CybrCraft operational and live at https://cybrcraft.com/.",
+    ],
+  },
   {
     id: "deakho-tv",
     title: "Deakho — Live TV & Movie Streaming Platform",
@@ -989,6 +1049,14 @@ export const fileTree: FileTreeSection[] = [
         extension: "py",
       },
       {
+        id: "cybrcraft-link",
+        label: "cybrcraft",
+        href: "/projects/cybrcraft",
+        icon: "globe",
+        extension: "tsx",
+        indent: true,
+      },
+      {
         id: "desco-bot",
         label: "desco_bot",
         href: "/projects/desco-telegram-bot",
@@ -1053,6 +1121,13 @@ export const fileTree: FileTreeSection[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
+  {
+    id: "cybrcraft",
+    name: "CybrCraft",
+    url: "https://cybrcraft.com/",
+    icon: "globe",
+    color: "#762cff",
+  },
   {
     id: "linkedin",
     name: "LinkedIn",
@@ -1165,12 +1240,31 @@ export const skillGroups: SkillGroup[] = [
 
 export const experiences: Experience[] = [
   {
+    id: "cybrcraft",
+    title: "Co-Founder",
+    company: "CybrCraft",
+    location: "Dhaka, Bangladesh",
+    startDate: "2026",
+    current: true,
+    website: "https://cybrcraft.com/",
+    description:
+      "Co-founded CybrCraft, a digital software solutions and engineering company delivering high-performance custom web applications, modern e-commerce stores, LMS platforms, and custom business automation workflows.",
+    highlights: [
+      "Co-founded and scaled CybrCraft to deliver high-performance custom web applications, e-commerce stores, and enterprise LMS platforms",
+      "Leading technical architecture, product strategy, and digital solutions for local and international clients",
+      "Spearheading end-to-end client solution delivery across modern web stacks, WooCommerce synchronization, and growth automation",
+    ],
+    technologies: ["Next.js", "React", "WordPress", "WooCommerce", "LMS", "Python", "Product Strategy", "Software Architecture"],
+    logo: "https://www.google.com/s2/favicons?domain=cybrcraft.com&sz=128",
+  },
+  {
     id: "deencommerce",
     title: "Business Analyst",
     company: "Deen Commerce",
     location: "Mirpur, Dhaka",
     startDate: "June 2025",
     current: true,
+    website: "https://deencommerce.com/",
     description:
       "Leading end-to-end product ownership for business analytics — from problem definition and stakeholder alignment to dashboard design and implementation. Architecting the weekly performance reporting product used by the leadership team.",
     highlights: [
@@ -1302,14 +1396,14 @@ export const education: Education[] = [
 
 export const personalInfo = {
   name: "Sajid Islam",
-  title: "Product-Minded Business & Data Analyst",
+  title: "Co-Founder @ CybrCraft | Product-Minded Business & Data Analyst",
   email: "sajid.islam.chowdhury@gmail.com",
   whatsapp: "https://wa.me/+8801824526054?text=",
   github: "https://github.com/Sajid-ul-Islam",
   huggingface: "https://huggingface.co/Sajid-ul-Islam",
   resumeUrl:
     "https://drive.google.com/file/d/1V5hGl1LIDtOWRn8hgcAtzNwxDfWwI1L_/view?usp=drive_link",
-  bio: "Product-minded Business & Data Analyst with 2+ years of experience owning analytics products end-to-end — from problem definition and stakeholder alignment to implementation and iteration. Proven track record of designing operational dashboards, BI tools, and data-driven decision products for e-commerce platforms like Daraz (Alibaba Group) and Deen Commerce. Specialized in Python, SQL, and Advanced Analytics with a focus on translating business problems into measurable product outcomes.",
+  bio: "Co-Founder of CybrCraft (cybrcraft.com) and Product-minded Business & Data Analyst with deep expertise owning software solutions and analytics products end-to-end — from problem definition and architecture to stakeholder alignment and delivery. Proven track record of designing custom digital products, operational dashboards, and data-driven decision tools for enterprises and e-commerce platforms like Daraz (Alibaba Group) and Deen Commerce. Specialized in Modern Web Stacks, Python, SQL, and Advanced Analytics.",
 };
 
 

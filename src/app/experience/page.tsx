@@ -1,6 +1,6 @@
 "use client";
 
-import { LuBriefcase, LuCalendar, LuMapPin, LuTrendingUp } from "react-icons/lu";
+import { LuBriefcase, LuCalendar, LuExternalLink, LuMapPin, LuTrendingUp } from "react-icons/lu";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -61,22 +61,51 @@ function ExperienceItem({ experience, index }: { experience: (typeof experiences
         <div className="relative z-10 flex flex-wrap items-start justify-between gap-4 mb-4">
           <div className="flex gap-4 items-start">
             {experience.logo && (
-              <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white p-1.5 border border-[var(--vscode-border)] overflow-hidden relative shadow-sm">
-                <Image
-                  src={experience.logo}
-                  alt={experience.company}
-                  fill
-                  className="object-contain p-1"
-                />
-              </div>
+              experience.website ? (
+                <a
+                  href={experience.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 w-12 h-12 rounded-xl bg-white p-1.5 border border-[var(--vscode-border)] overflow-hidden relative shadow-sm hover:border-[var(--vscode-accent)] transition-all group/logo"
+                  title={`Visit ${experience.company}`}
+                >
+                  <Image
+                    src={experience.logo}
+                    alt={experience.company}
+                    fill
+                    className="object-contain p-1 group-hover/logo:scale-105 transition-transform"
+                  />
+                </a>
+              ) : (
+                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-white p-1.5 border border-[var(--vscode-border)] overflow-hidden relative shadow-sm">
+                  <Image
+                    src={experience.logo}
+                    alt={experience.company}
+                    fill
+                    className="object-contain p-1"
+                  />
+                </div>
+              )
             )}
             <div>
               <h3 className="text-vscode-base font-bold text-[var(--vscode-text-primary)]">
                 {experience.title}
               </h3>
-              <p className="text-vscode-sm text-[var(--vscode-accent)] font-semibold font-mono mt-0.5">
-                {experience.company}
-              </p>
+              {experience.website ? (
+                <a
+                  href={experience.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-vscode-sm text-[var(--vscode-accent)] hover:underline font-semibold font-mono mt-0.5 inline-flex items-center gap-1.5 transition-colors hover:text-white"
+                >
+                  {experience.company}
+                  <LuExternalLink size={12} className="inline opacity-80" />
+                </a>
+              ) : (
+                <p className="text-vscode-sm text-[var(--vscode-accent)] font-semibold font-mono mt-0.5">
+                  {experience.company}
+                </p>
+              )}
             </div>
           </div>
           {experience.current ? (

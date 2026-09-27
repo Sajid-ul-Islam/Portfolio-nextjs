@@ -2,6 +2,7 @@
 
 import {
   LuGithub,
+  LuGlobe,
   LuLinkedin,
   LuRocket,
   LuTwitter,
@@ -27,6 +28,7 @@ const iconMap: Record<string, React.ComponentType<{ size?: number; className?: s
   "product-hunt": LuRocket,
   users: LuUsers,
   huggingface: HuggingFaceIcon,
+  globe: LuGlobe,
 };
 
 type SocialLinksProps = {

@@ -1,6 +1,6 @@
 # VS Code Themed Portfolio
 
-An elegant, high-fidelity developer workspace-themed portfolio built with **Next.js 16 (App Router)**, **TypeScript**, and **Tailwind CSS**. Designed for **Sajid Islam (Product-Minded Business & Data Analyst)**.
+An elegant, high-fidelity developer workspace-themed portfolio built with **Next.js 16 (App Router)**, **TypeScript**, and **Tailwind CSS**. Designed for **Sajid Islam (Co-Founder @ CybrCraft | Product-Minded Business & Data Analyst)**.
 
 [![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
@@ -8,8 +8,21 @@ An elegant, high-fidelity developer workspace-themed portfolio built with **Next
 
 ---
 
-## Featured Products & Automation Chatbots
+## 📚 Project Documentation
 
+- 🤖 **[AGENTS.md](file:///h:/Repo/Portfolio-nextjs/AGENTS.md)**: Master AI agent operational guidelines, coding rules, and constraints.
+- 📋 **[PRD.md](file:///h:/Repo/Portfolio-nextjs/PRD.md)**: Product Requirements Document with personas, feature specs, and success metrics.
+- 🏗️ **[ARCHITECTURE.md](file:///h:/Repo/Portfolio-nextjs/ARCHITECTURE.md)**: System architecture, component hierarchy, data flow, and Mermaid diagrams.
+- 🎨 **[DESIGN_SYSTEM.md](file:///h:/Repo/Portfolio-nextjs/DESIGN_SYSTEM.md)**: Design tokens, VS Code CSS variables, typography, and motion guidelines.
+- 🎯 **[INTENT.md](file:///h:/Repo/Portfolio-nextjs/INTENT.md)**: Strategic vision, core pillars, and evolutionary roadmap.
+- 🤝 **[CONTRIBUTING.md](file:///h:/Repo/Portfolio-nextjs/CONTRIBUTING.md)**: Local setup, branching workflow, standards, and PR checklist.
+
+---
+
+## 🚀 Featured Ventures & Products
+
+- 🌐 **[CybrCraft](https://cybrcraft.com/)** (Co-Founder & Solution Architect)
+  - Full-suite digital solutions and software company delivering custom web applications, modern e-commerce architectures, LMS platforms, and business automation workflows.
 - ⚡ **DESCO Electricity Usage Assistant** ([Telegram Bot @descoTGbot](https://t.me/descoTGbot) | [GitHub Repo](https://github.com/Sajid-ul-Islam/descoiunfobot))
   - Real-time electricity consumption monitoring, prepaid/postpaid bill queries, and automated utility assistance via Telegram.
 - 🛍️ **WooCommerce Telegram E-Commerce Bot** ([Telegram Bot @DEEN_Commerce_bot](https://t.me/DEEN_Commerce_bot) | [GitHub Repo](https://github.com/Sajid-ul-Islam/woocom_telegram_bot))

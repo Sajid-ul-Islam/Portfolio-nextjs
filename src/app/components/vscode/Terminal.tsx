@@ -21,18 +21,19 @@ const INITIAL_FS = {
   "/": ["home", "etc", "bin", "var"],
   "/home": ["sajid"],
   "/home/sajid": ["projects", "skills", "experience", "README.md", "identity.json"],
-  "/home/sajid/projects": ["deen-ops.py", "deen-bi.py", "ecommerce.tsx", "sentinel.py", "ramadan.tsx"],
+  "/home/sajid/projects": ["cybrcraft.tsx", "deen-ops.py", "deen-bi.py", "ecommerce.tsx", "sentinel.py", "ramadan.tsx"],
   "/home/sajid/skills": ["tech_stack.json"],
   "/home/sajid/experience": ["work_history.md"],
 };
 
 const FILE_CONTENT: Record<string, string> = {
   "readme.md": "# Sajid Islam Portfolio\nWelcome to Sajid's interactive portfolio terminal. Type 'help' to view available commands.",
-  "identity.json": '{\n  "name": "Sajid Islam",\n  "role": "Business & Data Analyst",\n  "status": "Available"\n}',
+  "identity.json": '{\n  "name": "Sajid Islam",\n  "role": "Co-Founder @ CybrCraft | Business & Data Analyst",\n  "status": "Available"\n}',
+  "cybrcraft.tsx": "// CybrCraft - Software Solutions & Digital Engineering\nexport default function CybrCraft() {\n  return <a href='https://cybrcraft.com'>Visit CybrCraft</a>;\n}",
   "ecommerce.tsx": "export default function EcomDashboard() {\n  return <div>E-Commerce Dashboard analytics</div>;\n}",
   "sentinel.py": "def analyze_security():\n    return 'Security Incident Mapping'",
-  "tech_stack.json": '{\n  "skills": ["Python", "SQL", "Power BI", "Tableau", "React", "Next.js"]\n}',
-  "work_history.md": "### Work History\n- Business Analyst @ Deen Commerce\n- IT Executive @ NZ TEX GROUP\n- Associate @ Thriving Skills\n- Jr. Executive @ Daraz Bangladesh",
+  "tech_stack.json": '{\n  "skills": ["Next.js", "React", "Python", "SQL", "WordPress", "WooCommerce", "Power BI"]\n}',
+  "work_history.md": "### Work History\n- Co-Founder @ CybrCraft (https://cybrcraft.com)\n- Business Analyst @ Deen Commerce\n- IT Executive @ NZ TEX GROUP\n- Associate @ Thriving Skills\n- Jr. Executive @ Daraz Bangladesh",
 };
 
 type TerminalProps = {
