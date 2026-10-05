@@ -22,6 +22,7 @@ import { cn } from "@/lib/cn";
 const PRESET_SITES = [
   { id: "cybrcraft", name: "CybrCraft", url: "https://cybrcraft.com/", desc: "Official Software Company" },
   { id: "deakho", name: "Deakho TV", url: "https://deakho.vercel.app/", desc: "Live TV & Streaming" },
+  { id: "deencommerce", name: "Deen Commerce", url: "https://deencommerce.vercel.app/", desc: "Omnichannel E-Commerce" },
   { id: "github-pages", name: "GitHub Portfolio", url: "https://sajid-ul-islam.github.io/", desc: "Static Showcase" },
 ];
 
@@ -44,10 +45,24 @@ export default function GitHubPagesPage() {
     setMounted(true);
   }, []);
 
+  // Safeguard: auto-clear loading spinner if iframe onLoad does not fire
+  useEffect(() => {
+    if (isLoading) {
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading]);
+
   const handleNavigate = (url: string) => {
     let formatted = url.trim();
     if (!formatted.startsWith("http://") && !formatted.startsWith("https://")) {
       formatted = `https://${formatted}`;
+    }
+    // Google Forms requires embedded=true query param to render in an iframe
+    if (formatted.includes("docs.google.com/forms") && !formatted.includes("embedded=true")) {
+      formatted += formatted.includes("?") ? "&embedded=true" : "?embedded=true";
     }
     setCurrentUrl(formatted);
     setInputUrl(formatted);
@@ -223,6 +238,27 @@ export default function GitHubPagesPage() {
           </button>
         </div>
       </div>
+
+      {/* Security Advisory for X-Frame-Options SAMEORIGIN sites */}
+      {currentUrl.includes("deencommerce.vercel.app") && (
+        <div className="flex items-center justify-between px-4 py-2 bg-amber-500/10 border-b border-amber-500/20 text-vscode-xs font-mono text-amber-300">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+            <span>
+              <strong>Frame Policy Notice:</strong> Deen Commerce enforces <code>X-Frame-Options: SAMEORIGIN</code> to protect checkout sessions. If the embedded frame is restricted by your browser, click <strong>Open Live Tab</strong>.
+            </span>
+          </div>
+          <a
+            href={currentUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 transition-colors flex-shrink-0 ml-3 font-bold"
+          >
+            <span>Open Live Tab</span>
+            <LuExternalLink size={12} />
+          </a>
+        </div>
+      )}
 
       {/* Main Preview Container */}
       <div className="flex-1 relative w-full h-full bg-[var(--vscode-editor-background)] flex items-center justify-center p-2 sm:p-4 overflow-auto">
