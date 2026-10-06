@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { LuArrowLeft, LuExternalLink, LuGithub, LuLayoutGrid, LuFilter } from "react-icons/lu";
+import { LuArrowLeft, LuExternalLink, LuGithub, LuLayoutGrid, LuFilter, LuGlobe } from "react-icons/lu";
 import { motion, AnimatePresence } from "framer-motion";
 
 import Badge from "../components/vscode/Badge";
@@ -168,15 +168,25 @@ function ProjectCard({ project, index }: { project: (typeof projects)[number]; i
 
         <div className="flex items-center gap-4 mt-auto pt-4 border-t border-white/5 font-mono mt-5">
           {project.liveUrl ? (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 text-vscode-sm font-semibold text-[var(--vscode-accent)] hover:text-[var(--vscode-text-linkHover)] transition-colors group/link"
-            >
-              <LuExternalLink size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-              Live Demo
-            </a>
+            <>
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-vscode-sm font-semibold text-[var(--vscode-accent)] hover:text-[var(--vscode-text-linkHover)] transition-colors group/link"
+              >
+                <LuExternalLink size={14} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                Live Demo
+              </a>
+              <Link
+                href={`/github-pages?site=${project.id === "deen-commerce" ? "deencommerce" : project.id}&url=${encodeURIComponent(project.liveUrl)}`}
+                className="flex items-center gap-1.5 text-vscode-sm font-semibold text-[var(--vscode-text-secondary)] hover:text-white transition-colors"
+                title="Open in VS Code Live Browser"
+              >
+                <LuGlobe size={14} className="text-[var(--vscode-accent)]" />
+                Live Browser
+              </Link>
+            </>
           ) : null}
           {project.githubUrl ? (
             <a

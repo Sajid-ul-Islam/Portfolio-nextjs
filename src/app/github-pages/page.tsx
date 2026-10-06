@@ -19,11 +19,31 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/cn";
 
-const PRESET_SITES = [
-  { id: "cybrcraft", name: "CybrCraft", url: "https://cybrcraft.com/", desc: "Official Software Company" },
-  { id: "deakho", name: "Deakho TV", url: "https://deakho.vercel.app/", desc: "Live TV & Streaming" },
-  { id: "deencommerce", name: "Deen Commerce", url: "https://deencommerce.vercel.app/", desc: "Omnichannel E-Commerce" },
-  { id: "github-pages", name: "GitHub Portfolio", url: "https://sajid-ul-islam.github.io/", desc: "Static Showcase" },
+export const PRESET_SITES = [
+  {
+    id: "deencommerce",
+    name: "Deen Commerce",
+    url: "https://deencommerce.vercel.app/",
+    desc: "Omnichannel E-Commerce",
+  },
+  {
+    id: "cybrcraft",
+    name: "CybrCraft",
+    url: "https://cybrcraft.com/",
+    desc: "Official Software Company",
+  },
+  {
+    id: "deakho",
+    name: "Deakho TV",
+    url: "https://deakho.vercel.app/",
+    desc: "Live TV & Streaming",
+  },
+  {
+    id: "github-pages",
+    name: "GitHub Portfolio",
+    url: "https://sajid-ul-islam.github.io/",
+    desc: "Static Showcase",
+  },
 ];
 
 const REPO_URL = "https://github.com/Sajid-ul-Islam/Portfolio-nextjs";
@@ -31,8 +51,8 @@ const REPO_URL = "https://github.com/Sajid-ul-Islam/Portfolio-nextjs";
 type ViewportMode = "desktop" | "tablet" | "mobile";
 
 export default function GitHubPagesPage() {
-  const [currentUrl, setCurrentUrl] = useState("https://cybrcraft.com/");
-  const [inputUrl, setInputUrl] = useState("https://cybrcraft.com/");
+  const [currentUrl, setCurrentUrl] = useState("https://deencommerce.vercel.app/");
+  const [inputUrl, setInputUrl] = useState("https://deencommerce.vercel.app/");
   const [isLoading, setIsLoading] = useState(true);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -43,6 +63,19 @@ export default function GitHubPagesPage() {
 
   useEffect(() => {
     setMounted(true);
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const urlParam = params.get("url");
+      const siteParam = params.get("site");
+      if (urlParam) {
+        handleNavigate(urlParam);
+      } else if (siteParam) {
+        const found = PRESET_SITES.find((s) => s.id === siteParam);
+        if (found) handleNavigate(found.url);
+      } else {
+        handleNavigate("https://deencommerce.vercel.app/");
+      }
+    }
   }, []);
 
   // Safeguard: auto-clear loading spinner if iframe onLoad does not fire
@@ -50,7 +83,7 @@ export default function GitHubPagesPage() {
     if (isLoading) {
       const timer = setTimeout(() => {
         setIsLoading(false);
-      }, 5000);
+      }, 4000);
       return () => clearTimeout(timer);
     }
   }, [isLoading]);
@@ -60,7 +93,6 @@ export default function GitHubPagesPage() {
     if (!formatted.startsWith("http://") && !formatted.startsWith("https://")) {
       formatted = `https://${formatted}`;
     }
-    // Google Forms requires embedded=true query param to render in an iframe
     if (formatted.includes("docs.google.com/forms") && !formatted.includes("embedded=true")) {
       formatted += formatted.includes("?") ? "&embedded=true" : "?embedded=true";
     }
@@ -75,7 +107,10 @@ export default function GitHubPagesPage() {
     if (iframeRef.current) {
       iframeRef.current.src = currentUrl;
     }
-    setTimeout(() => setIsRefreshing(false), 800);
+    setTimeout(() => {
+      setIsRefreshing(false);
+      setIsLoading(false);
+    }, 700);
   };
 
   const handleCopyUrl = () => {
@@ -239,27 +274,6 @@ export default function GitHubPagesPage() {
         </div>
       </div>
 
-      {/* Security Advisory for X-Frame-Options SAMEORIGIN sites */}
-      {currentUrl.includes("deencommerce.vercel.app") && (
-        <div className="flex items-center justify-between px-4 py-2 bg-amber-500/10 border-b border-amber-500/20 text-vscode-xs font-mono text-amber-300">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-            <span>
-              <strong>Frame Policy Notice:</strong> Deen Commerce enforces <code>X-Frame-Options: SAMEORIGIN</code> to protect checkout sessions. If the embedded frame is restricted by your browser, click <strong>Open Live Tab</strong>.
-            </span>
-          </div>
-          <a
-            href={currentUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 transition-colors flex-shrink-0 ml-3 font-bold"
-          >
-            <span>Open Live Tab</span>
-            <LuExternalLink size={12} />
-          </a>
-        </div>
-      )}
-
       {/* Main Preview Container */}
       <div className="flex-1 relative w-full h-full bg-[var(--vscode-editor-background)] flex items-center justify-center p-2 sm:p-4 overflow-auto">
         <AnimatePresence>
@@ -273,7 +287,7 @@ export default function GitHubPagesPage() {
               <div className="flex items-center gap-2 mb-3">
                 <span className="w-3 h-3 bg-[var(--vscode-accent)] rounded-full animate-ping" />
                 <span className="text-vscode-sm font-mono font-bold text-white tracking-wider">
-                  INITIALIZING LIVE PREVIEW...
+                  INITIALIZING LIVE BROWSER PREVIEW...
                 </span>
               </div>
               <p className="text-vscode-xs font-mono text-[var(--vscode-text-secondary)] truncate max-w-md px-4">
@@ -299,6 +313,7 @@ export default function GitHubPagesPage() {
             </div>
           )}
 
+          {/* Actual Site Rendered in Iframe */}
           <iframe
             ref={iframeRef}
             src={currentUrl}

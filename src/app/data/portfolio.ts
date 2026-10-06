@@ -207,7 +207,8 @@ export async function bootstrapCybrCraftService(clientSpec: SolutionSpec) {
       "Full-stack omnichannel e-commerce platform featuring a high-performance Next.js web storefront (deencommerce.vercel.app) and a native Expo React Native Android/iOS mobile application (Cross_Ecom_Apps).",
     longDescription:
       "Deen Commerce is an enterprise-grade multi-channel commerce ecosystem designed for luxury retail. It unifies a responsive, instant-loading Next.js web storefront (deencommerce.vercel.app) with a production-ready cross-platform mobile app built using React Native & Expo (Cross_Ecom_Apps). Features real-time catalog & inventory sync via WooCommerce REST APIs, push notifications, offline product caching, native biometric checkout, and deep-linked product browsing.",
-    image: "/img/projects/platform.png",
+    image: "/img/projects/deen_commerce.png",
+    images: ["/img/projects/deen_commerce.png", "/img/projects/platform.png"],
     liveUrl: "https://deencommerce.vercel.app/",
     githubUrl: "https://github.com/Sajid-ul-Islam/Cross_Ecom_Apps",
     gitDiff: {
@@ -1128,6 +1129,14 @@ export const fileTree: FileTreeSection[] = [
         href: "/projects/deen-commerce",
         icon: "globe",
         extension: "tsx",
+        indent: true,
+      },
+      {
+        id: "deen-commerce-live",
+        label: "deen_commerce_live",
+        href: "/github-pages?site=deencommerce",
+        icon: "globe",
+        extension: "html",
         indent: true,
       },
       {

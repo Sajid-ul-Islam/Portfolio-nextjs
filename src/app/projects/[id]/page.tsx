@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Code, Calendar, User, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ExternalLink, Code, Calendar, User, ChevronLeft, ChevronRight, Globe } from "lucide-react";
 
 import Badge from "../../components/vscode/Badge";
 import Button from "../../components/vscode/Button";
@@ -120,12 +120,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         />
 
         {project.liveUrl ? (
-          <Button asChild className="bg-[#a3e635] text-black hover:bg-[#bef264] border-none px-6 py-3.5 h-auto text-xs font-mono font-extrabold uppercase tracking-wide rounded-xl shadow-lg shadow-[#a3e635]/20">
-            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              <ExternalLink size={16} />
-              {isTelegramBot ? "OPEN TELEGRAM BOT (@descoTGbot)" : "LAUNCH LIVE DEMO"}
-            </a>
-          </Button>
+          <>
+            <Button asChild className="bg-[#a3e635] text-black hover:bg-[#bef264] border-none px-6 py-3.5 h-auto text-xs font-mono font-extrabold uppercase tracking-wide rounded-xl shadow-lg shadow-[#a3e635]/20">
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                <ExternalLink size={16} />
+                {isTelegramBot ? "OPEN TELEGRAM BOT (@descoTGbot)" : "LAUNCH LIVE DEMO"}
+              </a>
+            </Button>
+            {!isTelegramBot && (
+              <Button asChild variant="secondary" className="px-5 py-3.5 h-auto text-xs font-mono font-bold border-white/10 hover:bg-white/10 uppercase tracking-wide rounded-xl text-white">
+                <Link href={`/github-pages?site=${project.id === "deen-commerce" ? "deencommerce" : project.id}&url=${encodeURIComponent(project.liveUrl)}`}>
+                  <Globe size={16} className="text-[var(--vscode-accent)] mr-1.5" />
+                  OPEN IN LIVE BROWSER
+                </Link>
+              </Button>
+            )}
+          </>
         ) : null}
 
         {project.githubUrl ? (
@@ -176,6 +186,47 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               ]} 
             />
           </section>
+
+          {project.liveUrl && !isTelegramBot && (
+            <section className="p-6 rounded-2xl glass-panel border border-[var(--vscode-accent)]/30 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+                <div className="flex items-center gap-2.5">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div>
+                    <h3 className="text-vscode-sm font-bold text-white font-mono uppercase tracking-wide">
+                      Interactive Live Browser View
+                    </h3>
+                    <p className="text-vscode-xs text-[var(--vscode-text-secondary)] font-mono">
+                      Target: {project.liveUrl} · Simulated &amp; Live in VS Code Shell
+                    </p>
+                  </div>
+                </div>
+                <Button asChild size="sm" className="bg-[var(--vscode-accent)] text-white hover:opacity-90 font-mono text-xs font-bold uppercase rounded-xl">
+                  <Link href={`/github-pages?site=${project.id === "deen-commerce" ? "deencommerce" : project.id}&url=${encodeURIComponent(project.liveUrl)}`}>
+                    <Globe size={14} className="mr-1.5" />
+                    Open in Live Browser
+                  </Link>
+                </Button>
+              </div>
+              <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10 group">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-102"
+                />
+                <div className="absolute inset-0 bg-black/50 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                  <Link
+                    href={`/github-pages?site=${project.id === "deen-commerce" ? "deencommerce" : project.id}&url=${encodeURIComponent(project.liveUrl)}`}
+                    className="px-5 py-2.5 rounded-xl bg-[var(--vscode-accent)] text-white font-mono text-xs font-bold uppercase shadow-lg flex items-center gap-2 hover:scale-105 transition-transform"
+                  >
+                    <Globe size={15} />
+                    Launch in VS Code Live Browser
+                  </Link>
+                </div>
+              </div>
+            </section>
+          )}
 
           {project.gitDiff && (
             <section>
