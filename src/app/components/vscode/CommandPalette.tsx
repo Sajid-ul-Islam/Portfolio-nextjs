@@ -15,6 +15,8 @@ import { useTheme } from "../../lib/themeContext";
 import { useIconTheme } from "../../lib/iconContext";
 import { fileTree } from "../../data/portfolio";
 
+import { soundFx } from "@/app/lib/soundFx";
+
 type PaletteItem = {
   id: string;
   title: string;
@@ -83,6 +85,43 @@ export default function CommandPalette() {
 
     const actionItems: PaletteItem[] = [
       {
+        id: "action-overclock",
+        title: "⚡ Cyberpunk: Toggle Turbo Overclock Mode",
+        subtitle: "Futuristic 2099",
+        typeLabel: "CYBER",
+        onSelect: () => {
+          soundFx.playGlitch();
+          document.documentElement.classList.toggle("overclock-active");
+        },
+      },
+      {
+        id: "action-sfx-toggle",
+        title: "🔊 Audio: Toggle Futuristic Web Audio SFX",
+        subtitle: "Sound Engine",
+        typeLabel: "AUDIO",
+        onSelect: () => {
+          soundFx.toggle();
+        },
+      },
+      {
+        id: "action-matrix-rain",
+        title: "🧬 Matrix: Run Neural Digital Glyph Stream",
+        subtitle: "Futuristic 2099",
+        typeLabel: "CYBER",
+        onSelect: () => {
+          window.dispatchEvent(new CustomEvent("terminal-run", { detail: "matrix" }));
+        },
+      },
+      {
+        id: "action-cyber-specs",
+        title: "🤖 CybrCraft: Inspect Quantum Architecture & RAG Specs",
+        subtitle: "Solutions",
+        typeLabel: "CYBER",
+        onSelect: () => {
+          window.dispatchEvent(new CustomEvent("terminal-run", { detail: "cyber" }));
+        },
+      },
+      {
         id: "action-clear-recent",
         title: "Clear Recent Pages",
         subtitle: "Workspace",
@@ -115,17 +154,19 @@ export default function CommandPalette() {
       return item.title.toLowerCase().includes(normalized);
     });
 
-    return [...themeItems, ...actionItems, ...recentItems, ...navItems];
+    return [...actionItems, ...themeItems, ...recentItems, ...navItems];
   }, [baseItems, clearPages, closeAllTabs, query, recentPages, router, setTheme]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "p") {
         event.preventDefault();
+        soundFx.playCommandPing();
         setOpen(true);
       }
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
+        soundFx.playCommandPing();
         setOpen(true);
       }
       if (event.key === "Escape") {
@@ -136,6 +177,7 @@ export default function CommandPalette() {
 
     const handleCustomEvent = (event: Event) => {
       const customEvent = event as CustomEvent<string>;
+      soundFx.playCommandPing();
       setOpen(true);
       if (customEvent.detail) setQuery(customEvent.detail);
     };

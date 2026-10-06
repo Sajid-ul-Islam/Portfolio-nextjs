@@ -10,16 +10,17 @@ import Badge from "../components/vscode/Badge";
 import SectionHeader from "../components/vscode/SectionHeader";
 import { projects } from "../data/portfolio";
 import { cn } from "../lib/cn";
+import { soundFx } from "@/app/lib/soundFx";
 
 // Top-tier project IDs matching the strategic reordering
 const TOP_PROJECT_IDS = [
   "cybrcraft",
   "deen-commerce",
   "deakho-tv",
+  "agentic-rag",
   "desco-telegram-bot",
   "woocom-telegram-bot",
   "woocom-whatsapp-bot",
-  "agentic-rag",
   "rag-system",
   "telegram-chatbot",
   "whatsapp-chatbot",
@@ -31,10 +32,51 @@ const TOP_PROJECT_IDS = [
   "3",
 ];
 
-type CategoryFilter = "all" | "dashboards" | "ml" | "web" | "tools";
+type CategoryFilter = "all" | "ai" | "web" | "dashboards" | "ml" | "tools";
 
 const CATEGORIES: { id: CategoryFilter; label: string; match: (techs: string[]) => boolean }[] = [
   { id: "all", label: "All Projects", match: () => true },
+  {
+    id: "ai",
+    label: "AI & Agents",
+    match: (techs) =>
+      techs.some((t) =>
+        [
+          "RAG",
+          "LLM",
+          "Vector DB",
+          "Agentic AI",
+          "LangGraph",
+          "Embeddings",
+          "Chatbot",
+          "AI Assistant",
+          "NLP",
+          "FastAPI",
+        ].includes(t)
+      ),
+  },
+  {
+    id: "web",
+    label: "Web & Mobile",
+    match: (techs) =>
+      techs.some((t) =>
+        [
+          "React",
+          "Next.js",
+          "Frontend",
+          "E-commerce",
+          "HTML/CSS",
+          "JavaScript",
+          "PWA",
+          "React Native",
+          "Expo",
+          "Android",
+          "iOS",
+          "Software Solutions",
+          "Vite",
+        ].includes(t)
+      ),
+  },
   {
     id: "dashboards",
     label: "Dashboards & BI",
@@ -52,16 +94,12 @@ const CATEGORIES: { id: CategoryFilter; label: string; match: (techs: string[]) 
       ),
   },
   {
-    id: "web",
-    label: "Web Apps",
-    match: (techs) =>
-      techs.some((t) => ["React", "Next.js", "Frontend", "E-commerce", "HTML/CSS", "JavaScript", "PWA"].includes(t)),
-  },
-  {
     id: "tools",
-    label: "Automation",
+    label: "Automation & Bots",
     match: (techs) =>
-      techs.some((t) => ["Automation", "Scraping", "Productivity", "Data Processing", "Utility"].includes(t)),
+      techs.some((t) =>
+        ["Automation", "Scraping", "Productivity", "Data Processing", "Utility", "Telegram API", "WhatsApp API", "Webhooks"].includes(t)
+      ),
   },
 ];
 
@@ -108,7 +146,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[number]; i
       layout
       whileHover={{ scale: 1.01 }}
       className={cn(
-        "group flex flex-col overflow-hidden",
+        "group flex flex-col overflow-hidden future-hud-card",
         "glass-panel border border-[var(--vscode-border)] bg-white/[0.01]",
         "hover:border-[var(--vscode-accent)]/30 hover:bg-white/[0.03]",
         "transition-all duration-300 rounded-2xl shadow-sm relative"
@@ -117,7 +155,11 @@ function ProjectCard({ project, index }: { project: (typeof projects)[number]; i
       {/* Glow accent */}
       <div className="absolute inset-0 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
-      <Link href={`/projects/${project.id}`} className="relative aspect-video overflow-hidden border-b border-[var(--vscode-border)]">
+      <Link
+        href={`/projects/${project.id}`}
+        onClick={() => soundFx.playTabSwitch()}
+        className="relative aspect-video overflow-hidden border-b border-[var(--vscode-border)]"
+      >
         {project.image ? (
           <Image
             src={project.image}
@@ -274,7 +316,10 @@ export default function ProjectsPage() {
             return (
               <button
                 key={cat.id}
-                onClick={() => setActiveFilter(cat.id)}
+                onClick={() => {
+                  soundFx.playTabSwitch();
+                  setActiveFilter(cat.id);
+                }}
                 className={cn(
                   "flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-vscode-xs font-semibold font-mono uppercase tracking-wide transition-all duration-300",
                   isActive

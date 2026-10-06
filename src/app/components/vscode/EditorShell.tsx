@@ -48,7 +48,9 @@ export default function EditorShell({ children }: EditorShellProps) {
       <Tabs />
       <Breadcrumbs />
       <main ref={scrollRef} className="flex flex-col flex-1 overflow-auto min-h-0 custom-editor-scroll border-t border-white/5 bg-[var(--vscode-editor-background)] relative">
-        <div className="flex flex-col flex-1 w-full min-h-full animate-fade-in duration-500">
+        {/* Ambient Cyber Perspective Grid */}
+        <div className="future-cyber-grid" />
+        <div className="flex flex-col flex-1 w-full min-h-full animate-fade-in duration-500 relative z-10">
           {children}
         </div>
       </main>

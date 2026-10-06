@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-export type AestheticMode = "glassmorphism" | "claymorphism" | "tactical-cyber" | "classic-ide";
+export type AestheticMode = "glassmorphism" | "claymorphism" | "tactical-cyber" | "quantum-future" | "classic-ide";
 
 export type AestheticPreset = {
   id: AestheticMode;
@@ -23,12 +23,12 @@ export const AESTHETIC_PRESETS: AestheticPreset[] = [
     icon: "✨",
   },
   {
-    id: "claymorphism",
-    name: "Tactile Claymorphism",
-    badge: "Soft 3D Depth",
-    desc: "Inflated pillowy cards, double inner & drop shadows with satisfying physical press states",
-    previewClass: "bg-[#1f242d] rounded-2xl shadow-[6px_6px_14px_rgba(0,0,0,0.5),inset_2px_2px_4px_rgba(255,255,255,0.1),inset_-2px_-2px_4px_rgba(0,0,0,0.5)]",
-    icon: "🫧",
+    id: "quantum-future",
+    name: "Quantum Cyber 2099",
+    badge: "Holographic HUD",
+    desc: "Futuristic neon telemetry, holographic scanlines, cyber grid depth & illuminated HUD corner targets",
+    previewClass: "bg-[#050811] border border-cyan-500/50 rounded-xl font-mono shadow-[0_0_15px_rgba(6,182,212,0.3)]",
+    icon: "🛸",
   },
   {
     id: "tactical-cyber",
@@ -37,6 +37,14 @@ export const AESTHETIC_PRESETS: AestheticPreset[] = [
     desc: "Sharp technical borders, monospace telemetry, matrix grid lines & technical accents",
     previewClass: "bg-[#0c120e] border border-emerald-500/40 rounded-md font-mono",
     icon: "⚡",
+  },
+  {
+    id: "claymorphism",
+    name: "Tactile Claymorphism",
+    badge: "Soft 3D Depth",
+    desc: "Inflated pillowy cards, double inner & drop shadows with satisfying physical press states",
+    previewClass: "bg-[#1f242d] rounded-2xl shadow-[6px_6px_14px_rgba(0,0,0,0.5),inset_2px_2px_4px_rgba(255,255,255,0.1),inset_-2px_-2px_4px_rgba(0,0,0,0.5)]",
+    icon: "🫧",
   },
   {
     id: "classic-ide",

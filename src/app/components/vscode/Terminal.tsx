@@ -5,6 +5,8 @@ import { Trash2, X, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { experiences, projects, metrics, skillGroups, personalInfo } from "../../data/portfolio";
 
+import { soundFx } from "@/app/lib/soundFx";
+
 type TerminalTab = "TERMINAL" | "DEBUG CONSOLE" | "OUTPUT" | "PROBLEMS";
 
 const NEO_ASCII = `
@@ -40,7 +42,7 @@ const FILE_CONTENT: Record<string, string> = {
 function formatSqlTable(headers: string[], rows: (string | number)[][]): string {
   const colWidths = headers.map((h, i) => Math.max(h.length, ...rows.map(r => String(r[i] ?? "").length)));
   const separator = "+-" + colWidths.map(w => "-".repeat(w)).join("-+-") + "-+";
-  const headerRow = "| " + headers.map((h, i) => h.padEnd(colWidths[i])).join(" | ") + " |";
+  const headerRow = "| " + headers.map((h, i) => h.padEnd(colWidths[i])) + " |";
   const dataRows = rows.map(r => "| " + r.map((c, i) => String(c ?? "").padEnd(colWidths[i])).join(" | ") + " |");
   return [separator, headerRow, separator, ...dataRows, separator, `(${rows.length} rows in set)`].join("\n");
 }
@@ -53,11 +55,11 @@ export default function Terminal({ onClose }: TerminalProps) {
   const [activeTab, setActiveTab] = useState<TerminalTab>("TERMINAL");
   const [currentDir, setCurrentDir] = useState("/home/sajid");
   const [output, setOutput] = useState<string[]>([
-    "Developer Shell [Version 1.0.0]",
-    "(c) 2026 Sajid Islam. All rights reserved.",
+    "Developer Shell [Version 2099.4.0-CYBER]",
+    "(c) 2026-2099 Sajid Islam. All rights reserved.",
     "",
-    "Welcome to Sajid's interactive portfolio terminal.",
-    "Type 'help' to view available commands or try 'cybrcraft' / 'sql'.",
+    "Welcome to Sajid's Neural Portfolio Shell.",
+    "Type 'help' for commands or try 'cyber', 'matrix', 'overclock', 'hack'.",
     "",
   ]);
   const [input, setInput] = useState("");
@@ -75,7 +77,7 @@ export default function Terminal({ onClose }: TerminalProps) {
   }, [output, activeTab]);
 
   const availableCommands = useMemo(() => [
-    "help", "ls", "cd", "pwd", "cat", "cybrcraft", "sql", "curl", "estimate", "skills", "projects", "experience", "contact", "neofetch", "whoami", "status", "clear", "exit", "date", "hire", "npm"
+    "help", "cyber", "matrix", "overclock", "hack", "sfx", "fde", "cybrcraft", "sql", "curl", "estimate", "skills", "projects", "experience", "contact", "neofetch", "whoami", "status", "clear", "exit", "date", "hire", "npm", "ls", "cd", "pwd", "cat"
   ], []);
 
   const executeCommand = (cmdStr: string) => {
@@ -92,7 +94,12 @@ export default function Terminal({ onClose }: TerminalProps) {
 
     switch (baseCmd) {
       case "help":
-        response = `AVAILABLE COMMANDS:
+        response = `AVAILABLE 2099 FUTURISTIC COMMANDS:
+  cyber             Display CybrCraft Quantum Architecture & AI Specifications
+  matrix            Initiate neural holographic digital stream
+  overclock         Simulate CPU turbo boost & trigger cyber graphics
+  hack              Simulate automated penetration & system bypass
+  sfx               Toggle futuristic Web Audio UI sound effects
   fde               Forward Deployed Engineering methodology & philosophy
   cybrcraft         Display CybrCraft software company info & services
   sql [query]       Query live portfolio datasets (e.g. sql SELECT * FROM metrics)
@@ -111,6 +118,60 @@ export default function Terminal({ onClose }: TerminalProps) {
   status            Print system memory & uptime status
   clear             Clear the terminal screen
   exit              Close the terminal`;
+        break;
+      case "cyber":
+        soundFx.playCommandPing();
+        response = `\u001b[36m========================================================
+[CYBRCRAFT QUANTUM ARCHITECTURE // CO-FOUNDER SAJID ISLAM]
+========================================================\u001b[0m
+- CORE CO-FOUNDER : Sajid Islam (Product Mindset & Solutions Architect)
+- AGENCY LINK     : https://cybrcraft.com/
+- NEURAL ENGINE   : Multi-Agent RAG with LangGraph & Pinecone Dense Index
+- REASONING DEPTH : Multi-Hop Decomposition + BM25 Hybrid Lexical Search
+- AUTONOMOUS BOTS : High-concurrency Webhook Daemons (Telegram & WhatsApp API)
+- E-COMMERCE CORE : Deen Commerce Real-Time Telemetry & Inventory Sync
+- STREAMING MEDIA : Deakho TV Live TV Aggregation & Telemetry Platform
+- ZERO-TRUST SEC  : TLS 1.3 / Quantum-Resistant Strict Content Security
+- LATENCY BENCH   : <85ms Vector Lookups | 94.2% Domain Retrieval Precision
+\u001b[32m>> ALL NEURAL & BUSINESS ANALYTICS SYSTEMS NOMINAL.\u001b[0m`;
+        break;
+      case "matrix":
+        soundFx.playGlitch();
+        response = `\u001b[32m01001001 01001110 01001001 01010100 01001001 01000001 01010100 01001001
+ア イ ウ エ オ カ キ ク ケ コ サ シ ス セ ソ タ チ ツ テ ト ナ ニ ヌ ネ ノ
+ハ ヒ フ ヘ ホ マ ミ ム メ モ ヤ ユ ヨ ラ リ ル レ ロ ワ ヲ ン
+0 1 0 1 1 0 1 0 1 1 0 0 1 0 1 1 0 1 0 1 0 1 1 1 0 1 0 0 1 0 1 0
+>> WAKE UP, VISITOR...
+>> THE MATRIX HAS YOU.
+>> FOLLOW THE WHITE RABBIT TO: https://cybrcraft.com/
+>> NEURAL HOLOGRAPHIC CONNECTION STABLE.\u001b[0m`;
+        break;
+      case "overclock":
+        soundFx.playGlitch();
+        if (typeof document !== "undefined") {
+          document.documentElement.classList.toggle("overclock-active");
+        }
+        response = `\u001b[33m⚡ TURBO OVERCLOCK PROTOCOL ENGAGED!
+>> CLOCK FREQUENCY BOOSTED: 5.8 GHz -> 8.2 GHz (QUANTUM HARMONIC)
+>> VOLTAGE RAILS: 1.35V LOCKED
+>> THERMAL SENSORS: 48°C [LIQUID NITROGEN ACTIVE]
+>> UI NEON GLOW CHROMA ACCELERATION: ACTIVE (Toggle with 'overclock' again)\u001b[0m`;
+        break;
+      case "hack":
+        soundFx.playCommandPing();
+        response = `\u001b[31m[!] INITIATING SECURE PENETRATION SEQUENCE...\u001b[0m
+>> PROBING GATEWAY: 192.168.0.1:443 [SYN SENT]
+>> BYPASSING FIREWALL RULES... [████████████████████] 100%
+>> EXPLOITING BUFFER IN /api/auth... [OVERFLOW CONFIRMED]
+>> EXTRACTING ROOT CERTIFICATE: 0x9AF8310E... [SUCCESS]
+\u001b[32m[+] ROOT ACCESS GRANTED: WELCOME TO SAJID ISLAM MAINFRAME.
+[+] RECRUITMENT HANDSHAKE ESTABLISHED: Contact sajid.islam.9977@gmail.com\u001b[0m`;
+        break;
+      case "sfx":
+        {
+          const nowOn = soundFx.toggle();
+          response = `Futuristic Web Audio Sound Effects: ${nowOn ? "\u001b[32mENABLED (Active)\u001b[0m" : "\u001b[31mMUTED\u001b[0m"}`;
+        }
         break;
       case "cd":
         {
@@ -410,6 +471,13 @@ Data successfully processed and output generated.`;
   }, [currentDir, fs]); // Dependencies needed for executeCommand closures
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      soundFx.playClick();
+      executeCommand(input);
+      setInput("");
+      return;
+    }
     if (e.key === "ArrowUp") {
       e.preventDefault();
       if (historyIdx < history.length - 1) {
@@ -473,13 +541,41 @@ Data successfully processed and output generated.`;
           ))}
         </div>
         
-        <div className="flex items-center gap-3 text-gray-500">
-           <div className="flex items-center gap-2 px-2 py-0.5 bg-[var(--vscode-accent)]/10 rounded text-[9px] text-[var(--vscode-accent)] font-bold border border-[var(--vscode-border)]">
-              <ChevronRight size={10} />
-              <span>bash --vscode</span>
+        <div className="flex items-center gap-2 text-gray-400">
+           <div className="flex items-center gap-1.5 px-2 py-0.5 bg-black/30 rounded text-[10px] text-gray-300 font-mono border border-white/10 hover:border-white/20 cursor-pointer">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>1: bash</span>
            </div>
-           <Trash2 size={13} className="hover:text-white cursor-pointer" onClick={() => setOutput([])} />
-           <X size={14} className="hover:text-[#a3e635] cursor-pointer" onClick={onClose} />
+           <button
+             onClick={() => {
+               soundFx.playClick();
+               setOutput(prev => [...prev, "", "[SPLIT TERMINAL CREATED // 2: node]"]);
+             }}
+             className="p-1 rounded hover:bg-white/10 hover:text-white transition-colors"
+             title="Split Terminal (Ctrl+Shift+5)"
+           >
+             <span className="text-[12px] font-bold">＋</span>
+           </button>
+           <button
+             onClick={() => {
+               soundFx.playClick();
+               setOutput([]);
+             }}
+             className="p-1 rounded hover:bg-white/10 hover:text-white transition-colors"
+             title="Clear Terminal (Ctrl+K)"
+           >
+             <Trash2 size={13} />
+           </button>
+           <button
+             onClick={() => {
+               soundFx.playClick();
+               onClose();
+             }}
+             className="p-1 rounded hover:bg-white/10 hover:text-white transition-colors"
+             title="Close Panel"
+           >
+             <X size={14} />
+           </button>
         </div>
       </div>
 
@@ -506,7 +602,10 @@ Data successfully processed and output generated.`;
                         type="text"
                         value={input}
                         onKeyDown={handleKeyDown}
-                        onChange={(e) => setInput(e.target.value)}
+                        onChange={(e) => {
+                          soundFx.playTerminalKey();
+                          setInput(e.target.value);
+                        }}
                         className="bg-transparent border-none outline-none w-full text-white caret-transparent"
                         spellCheck={false}
                     />

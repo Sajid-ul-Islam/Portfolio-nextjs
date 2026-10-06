@@ -78,6 +78,17 @@ export default function GitHubPagesPage() {
     }
   }, []);
 
+  // Escape key listener to exit fullscreen smoothly
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isFullscreen) {
+        setIsFullscreen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isFullscreen]);
+
   // Safeguard: auto-clear loading spinner if iframe onLoad does not fire
   useEffect(() => {
     if (isLoading) {
@@ -320,14 +331,14 @@ export default function GitHubPagesPage() {
             className="w-full h-full border-0 bg-white"
             onLoad={() => setIsLoading(false)}
             title="Live Web Browser Preview"
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals allow-presentation"
             referrerPolicy="no-referrer"
           />
         </div>
       </div>
 
       {/* Footer Info Bar */}
-      <div className="flex items-center justify-between px-4 py-1.5 bg-black/40 border-t border-[var(--vscode-border)] text-vscode-xs font-mono text-[var(--vscode-text-secondary)]">
+      <div className="flex items-center justify-between px-4 py-2 bg-black/40 border-t border-[var(--vscode-border)] text-vscode-xs font-mono text-[var(--vscode-text-secondary)]">
         <div className="flex items-center gap-4">
           <span className="flex items-center gap-1.5 truncate max-w-sm">
             <LuGlobe size={12} className="text-[var(--vscode-accent)] flex-shrink-0" />
@@ -335,9 +346,18 @@ export default function GitHubPagesPage() {
           </span>
           <span className="hidden sm:inline text-white/40">|</span>
           <span className="hidden sm:inline uppercase">Viewport: {viewport}</span>
+          <span className="hidden md:inline text-emerald-400 font-bold">● SSL &amp; CSP Online</span>
         </div>
-        <div>
-          <span>Press ESC or toggle icon to exit full view</span>
+        <div className="flex items-center gap-3">
+          <span className="hidden lg:inline text-white/50">If an external site restricts embedding, use</span>
+          <a
+            href={currentUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--vscode-accent)] hover:underline flex items-center gap-1 font-bold"
+          >
+            Open in Tab &rarr;
+          </a>
         </div>
       </div>
     </div>

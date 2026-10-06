@@ -51,6 +51,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   const isTelegramBot = project.liveUrl?.includes("t.me");
 
+  const getLiveButtonLabel = () => {
+    if (isTelegramBot) {
+      if (project.id === "desco-telegram-bot") return "OPEN TELEGRAM BOT (@descoTGbot)";
+      if (project.id === "woocom-telegram-bot") return "OPEN TELEGRAM BOT (@DEEN_Commerce_bot)";
+      if (project.id === "deakho-tv") return "OPEN TELEGRAM BOT (@deakhoBot)";
+      const match = project.liveUrl?.match(/t\.me\/([^/?]+)/);
+      return match ? `OPEN TELEGRAM BOT (@${match[1]})` : "OPEN TELEGRAM BOT";
+    }
+    return "LAUNCH LIVE DEMO";
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-6 md:p-10 animate-in fade-in duration-700 font-sans">
       <nav className="mb-8 flex items-center justify-between border-b border-white/5 pb-4">
@@ -124,7 +135,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             <Button asChild className="bg-[#a3e635] text-black hover:bg-[#bef264] border-none px-6 py-3.5 h-auto text-xs font-mono font-extrabold uppercase tracking-wide rounded-xl shadow-lg shadow-[#a3e635]/20">
               <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                 <ExternalLink size={16} />
-                {isTelegramBot ? "OPEN TELEGRAM BOT (@descoTGbot)" : "LAUNCH LIVE DEMO"}
+                {getLiveButtonLabel()}
               </a>
             </Button>
             {!isTelegramBot && (

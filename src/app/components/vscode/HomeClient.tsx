@@ -30,6 +30,8 @@ import { useRecentPagesContext } from "@/lib/recentPagesContext";
 import { personalInfo, metrics, projects, testimonials, type Project, type Testimonial } from "../../data/portfolio";
 import { useLayout } from "../../lib/layoutContext";
 import dynamic from "next/dynamic";
+import CyberGlitchText from "./CyberGlitchText";
+import { soundFx } from "@/app/lib/soundFx";
 
 // Lazy-load the GitHub feed (network-bound) so it doesn't block first paint.
 const GitHubFeed = dynamic(() => import("./GitHubFeed"), {
@@ -60,11 +62,11 @@ interface StartLinkProps {
 
 function StartLink({ href, icon, label, desc, shortcut }: StartLinkProps) {
   return (
-    <Link href={href} className="block w-full">
+    <Link href={href} className="block w-full" onClick={() => soundFx.playTabSwitch()}>
       <motion.div
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
-        className="group flex flex-col gap-2 p-4 rounded-xl bg-white/[0.02] hover:bg-white/[0.05] transition-all border border-white/5 hover:border-[var(--vscode-accent)]/30"
+        className="group flex flex-col gap-2 p-4 rounded-xl future-hud-card bg-white/[0.02] hover:bg-white/[0.05] transition-all border border-white/5 hover:border-[var(--vscode-accent)]/30"
       >
         <div className="flex items-center justify-between text-[var(--vscode-accent)]">
           <div className="p-2 rounded-lg bg-[var(--vscode-accent)]/10 group-hover:bg-[var(--vscode-accent)]/20 transition-colors">
@@ -177,12 +179,25 @@ export default function HomeClient() {
       >
         {/* Header Section */}
         <motion.header variants={itemVariants} className="relative z-10">
-          <div className="flex flex-col gap-6 p-6 sm:p-8 glass-panel border border-[var(--vscode-border)] rounded-2xl relative overflow-hidden group shadow-xl">
+          <div className="flex flex-col gap-6 p-6 sm:p-8 glass-panel future-hud-card border border-[var(--vscode-border)] rounded-2xl relative overflow-hidden group shadow-xl">
             {/* Animated hero aurora background */}
             <div className="hero-aurora" />
             {/* Hover overlay glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-[var(--vscode-accent)]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
+            {/* Futuristic Telemetry HUD Strip */}
+            <div className="flex items-center justify-between text-[9px] font-mono text-white/50 pb-3 border-b border-white/10 uppercase tracking-widest flex-wrap gap-2 relative z-10">
+              <div className="flex items-center gap-2 text-emerald-400 font-bold">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+                <span>SYS_STATUS: ONLINE // 2099.4</span>
+              </div>
+              <div className="flex items-center gap-4 text-white/40">
+                <span>LOC: 23.8103° N, 90.4125° E</span>
+                <span className="hidden md:inline">QUANTUM CORE: STABLE</span>
+                <span className="text-[var(--vscode-accent)] font-semibold">CO-FOUNDER @ CYBRCRAFT</span>
+              </div>
+            </div>
+
             <div className="z-10 flex flex-col sm:flex-row items-start gap-5 sm:gap-6 w-full min-w-0">
               {/* Profile Avatar */}
               <div className="relative flex-shrink-0">
@@ -207,13 +222,15 @@ export default function HomeClient() {
                       <span className="absolute inline-flex h-full w-full rounded-full bg-[var(--vscode-accent)] opacity-75 animate-ping" />
                       <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-[var(--vscode-accent)]" />
                     </span>
-                    Workspace Active
+                    Workspace Active // 2099
                   </span>
                 </div>
                 <div>
-                  <h1 className="text-3xl sm:text-4xl font-extrabold text-[var(--vscode-text-primary)] tracking-tight leading-tight">
-                    {personalInfo.name}
-                  </h1>
+                  <CyberGlitchText
+                    text={personalInfo.name}
+                    as="h1"
+                    className="text-3xl sm:text-4xl font-extrabold text-[var(--vscode-text-primary)] tracking-tight leading-tight block"
+                  />
                   <p className="text-vscode-sm sm:text-vscode-base text-[var(--vscode-accent)] font-semibold font-mono mt-1">
                     {personalInfo.title}
                   </p>
@@ -501,7 +518,8 @@ export default function HomeClient() {
               <Link
                 key={project.id}
                 href={`/projects/${project.id}`}
-                className="group relative aspect-video rounded-xl overflow-hidden border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/40 transition-all shadow-sm"
+                onClick={() => soundFx.playTabSwitch()}
+                className="group relative aspect-video rounded-xl overflow-hidden future-hud-card border border-[var(--vscode-border)] hover:border-[var(--vscode-accent)]/40 transition-all shadow-sm"
               >
                 <Image
                   src={project.image}

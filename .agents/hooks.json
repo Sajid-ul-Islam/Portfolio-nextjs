@@ -1,0 +1,27 @@
+{
+  "typescript-typecheck": {
+    "enabled": true,
+    "PostToolUse": [
+      {
+        "matcher": "replace_file_content|multi_replace_file_content|write_to_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .agents/scripts/typecheck-hook.js",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "quality-reminder": {
+    "enabled": true,
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "node .agents/scripts/reminder.js",
+        "timeout": 10
+      }
+    ]
+  }
+}

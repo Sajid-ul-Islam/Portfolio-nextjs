@@ -8,7 +8,7 @@ const nextConfig = {
   // basePath: "/example-app-nextjs",
   // reactStrictMode: true,
   allowedDevOrigins: ['192.168.0.109', '192.168.*.*'],
-  output: 'export',
+  ...(process.env.NEXT_EXPORT === 'true' ? { output: 'export' } : {}),
   images: {
     unoptimized: true,
     remotePatterns: [

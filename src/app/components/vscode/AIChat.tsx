@@ -22,6 +22,7 @@ import {
 import { getLocalIntel } from "../../lib/intelEngine";
 import { useIconTheme } from "../../lib/iconContext";
 import { cn } from "@/lib/cn";
+import { soundFx } from "@/app/lib/soundFx";
 
 type ChatMessage = {
   id: string;
@@ -38,28 +39,29 @@ const INITIAL_MESSAGES: ChatMessage[] = [
   {
     id: "sys-1",
     role: "system",
-    content: "ANTIGRAVITY_AGENT_V3.6_ONLINE // RAG_VECTOR_DB_CONNECTED",
+    content: "CYBR_NEURAL_COMMAND_CORE_v2099 // RAG_VECTOR_DB_CONNECTED",
   },
   {
     id: "bot-1",
     role: "bot",
     content:
-      "Greetings! I am the Antigravity Agent pair-programmer. I am trained on Sajid's skills, operational analytics projects, and live codebase repositories. How can I assist you today?",
+      "Greetings! I am the CybrCraft Neural Co-Pilot. I am trained on Sajid's operational systems, full-stack architecture, e-commerce engines, and AI agent pipelines. How may I assist your mission today?",
     thoughts: [
-      "Initializing Antigravity Agent core...",
-      "Loaded 24 active projects into local vector memory.",
-      "Agent status: ONLINE & READY.",
+      "Initializing CybrCraft Quantum Agent Core...",
+      "Loaded 24 production projects into Pinecone vector memory.",
+      "Synthesizing LangGraph multi-agent reasoning threads...",
+      "Agent status: OPTIMAL // ALL CIRCUITS NOMINAL.",
     ],
     timestamp: "NOW",
   },
 ];
 
 const QUICK_PROMPTS = [
-  { label: "🌐 CybrCraft Solutions", prompt: "Tell me about CybrCraft and what software solutions it provides." },
-  { label: "⚡ Project Estimator", prompt: "How can I estimate or hire Sajid for a software development project?" },
-  { label: "🤖 AI & Chatbots", prompt: "What automated bots and AI RAG systems has Sajid built?" },
-  { label: "📊 BI Experience", prompt: "Summarize Sajid's business analytics experience at Deen Commerce & Daraz." },
-  { label: "📬 Direct Contact", prompt: "How can I contact Sajid for a project consultation or quote?" },
+  { label: "🧬 CybrCraft Architecture", prompt: "Explain CybrCraft software company architecture, services, and live production deliveries." },
+  { label: "⚡ Quantum Estimator", prompt: "How can I estimate and hire Sajid for a full-stack Next.js or AI engineering project?" },
+  { label: "🤖 Agentic RAG Pipeline", prompt: "Detail the Agentic RAG Pipeline, multi-hop reasoning, and self-correction mechanics built by Sajid." },
+  { label: "📊 Deen Commerce Telemetry", prompt: "Summarize Sajid's operational analytics and telemetry achievements at Deen Commerce & Daraz." },
+  { label: "📬 Direct Comm Channel", prompt: "Provide Sajid's direct communication coordinates, email, and WhatsApp." },
 ];
 
 export default function AIChat({ onClose }: { onClose: () => void }) {
@@ -91,16 +93,19 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
   }, [onClose]);
 
   const toggleThoughts = (id: string) => {
+    soundFx.playClick();
     setExpandedThoughts((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
   const handleCopy = (text: string, id: string) => {
+    soundFx.playClick();
     navigator.clipboard.writeText(text);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
   const handleClear = () => {
+    soundFx.playClick();
     setMessages(INITIAL_MESSAGES);
   };
 
@@ -108,6 +113,7 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
     e.preventDefault();
     if (!input.trim() || isTyping) return;
 
+    soundFx.playCommandPing();
     const userText = input.trim();
     const timeStr = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
     const userMsg: ChatMessage = {
@@ -125,12 +131,13 @@ export default function AIChat({ onClose }: { onClose: () => void }) {
       `Analyzing prompt: "${userText.slice(0, 30)}..."`,
       "Searching vector index & portfolio knowledge base...",
       "Evaluating metrics, GitHub repos, and project history...",
-      "Synthesizing response with Antigravity Agent reasoning...",
+      "Synthesizing response with CybrCraft Neural Reasoning...",
     ];
 
     const localMatch = getLocalIntel(userText);
     if (localMatch) {
       setTimeout(() => {
+        soundFx.playTabSwitch();
         setMessages((prev) => [
           ...prev,
           {
